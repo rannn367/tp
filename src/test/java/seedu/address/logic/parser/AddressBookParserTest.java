@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -90,8 +91,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_remark() throws Exception {
-        assertTrue(parser.parseCommand(RemarkCommand.COMMAND_WORD) instanceof RemarkCommand);
+
+        final String remark = "Some remark.";
+        RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark);
+        assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, remark), command);
     }
+
+
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {

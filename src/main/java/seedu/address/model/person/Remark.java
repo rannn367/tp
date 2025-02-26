@@ -38,10 +38,12 @@ public class Remark {
         return test.matches(VALIDATION_REGEX);
     }
 
+
     @Override
     public String toString() {
         return value;
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -58,9 +60,11 @@ public class Remark {
         return value.equals(otherRemark.value);
     }
 
+
     @Override
     public int hashCode() {
         return value.hashCode();
     }
 
 }
+
