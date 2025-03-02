@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -13,10 +12,10 @@ public class Remark {
     public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values, and it should not be blank";
 
     /*
-     * The first character of the Remark must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * No validation for remarks as it can take any value,
+     * including empty string.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = ".*";
 
     public final String value;
 

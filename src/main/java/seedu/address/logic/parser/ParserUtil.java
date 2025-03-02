@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collection;
 import java.util.HashSet;
-import static java.util.Objects.requireNonNull;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -80,6 +81,12 @@ public class ParserUtil {
         return new Address(trimmedAddress);
     }
 
+    /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
     public static Remark parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
