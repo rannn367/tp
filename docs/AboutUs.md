@@ -11,12 +11,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Darren Lim
+### Yi Fei Yang
 
-<img src="images/loyaltypollution.png" width="200px">
+<img src="images/findingfaey.png" width="200px">
 
-[[github](https://github.com/loyaltypollution)]
-[[portfolio](team/loyaltypollution.md)]
+[[github](https://github.com/findingfaey)]
+[[portfolio](team/findingfaey.md)]
+
+* Role: Developer
+* Responsibilities: Software Developer
+
 
 ### Alicia Chang
 
@@ -32,7 +36,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 ### Justin Soon
 
 <img src="images/jsjk112344.png" width="200px">
-
 
 [[github](https://github.com/jsjk112344)]
 [[portfolio](team/jsjk112344.md)]
@@ -51,3 +54,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Software Developer
 
+
+### Darren Lim
+
+<img src="images/loyaltypollution.png" width="200px">
+
+[[github](https://github.com/loyaltypollution)]
+[[portfolio](team/loyaltypollution.md)]
+
+* Role: Developer
+* Responsibilities: Software Developer
