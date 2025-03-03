@@ -28,35 +28,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Software Developer
 
-### Jane Doe
 
-<img src="images/johndoe.png" width="200px">
+### Justin Soon
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+<img src="images/jsjk112344.png" width="200px">
 
-* Role: Team Lead
-* Responsibilities: UI
 
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/jsjk112344)]
+[[portfolio](team/jsjk112344.md)]
 
 * Role: Developer
-* Responsibilities: Data
-<<<<<<< HEAD
+* Responsibilities: Software Developer
 
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
 
 ### Victor Poh Hong Rong
 
@@ -67,5 +50,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Software Developer
-=======
->>>>>>> upstream/master
+
