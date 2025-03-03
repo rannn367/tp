@@ -1002,16 +1002,60 @@ Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Performance & Scalability
 
-*{More to be added}*
+   * The application should be able to handle up to 1000 persons without noticeable sluggishness in performance for typical usage. 
+   
+   * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for contacts. 
+   
+   * The startup time should be no more than 2 seconds on a modern consumer-grade computer. 
+   
+   * The application should consume no more than 200MB of RAM during normal operation with 1000 persons stored.
+
+3. Compatibility & Portability
+   
+   * The application should be compatible with Java 17 or above and run on any mainstream OS (Windows, Linux, macOS, Unix).
+   
+   * The application should be usable on both 32-bit and 64-bit architectures.
+   
+   * The system should be self-contained and should not require an internet connection for core functionalities.
+   
+3. Usability & Accessibility
+
+   * A user with above-average typing speed for regular English text should be able to accomplish most tasks faster using commands than using the mouse.
+   
+   * The user interface should be intuitive enough for users who are not IT-savvy.
+   
+   * The application should provide clear and actionable error messages when a user makes an incorrect input.
+   
+4. Reliability & Robustness
+
+   * The system should not crash or freeze when an invalid command is entered.
+   
+   * User data should be persisted safely to prevent accidental loss due to application crashes.
+   
+   * The system should be able to recover gracefully from unexpected failures (e.g., power loss, abrupt shutdowns).
+   
+5. Security & Privacy
+
+   * The system should not expose private contact details unless explicitly permitted by the user.
+   
+   * The application should ensure that only authorized users can access certain functionalities if applicable.
+
+6. Maintainability & Extensibility
+
+   * The codebase should be modular and well-structured, allowing easy addition of new features without affecting existing ones.
+   
+   * The system should be easily maintainable, with clear documentation for developers.
+
+7. Compliance & Constraints
+
+   * The application should follow standard software development best practices, ensuring reliability and efficiency. 
+   
+   * The application should not exceed a total package size of 100MB to ensure ease of distribution and comply with Constraint-File-Size.
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
