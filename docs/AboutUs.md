@@ -11,15 +11,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Alicia Chang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/rannn367.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/rannn367)]
+[[portfolio](team/rannn367.md)]
 
-* Role: Project Advisor
+* Role: Developer
+* Responsibilities: Software Developer
 
 ### Jane Doe
 
