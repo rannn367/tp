@@ -350,32 +350,655 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the System is the Café Management System and the Actor is the café owner, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Add a Staff Member**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-
-    Use case ends.
+1. Café owner requests to add a new staff member. 
+2. System prompts for staff details: name, phone number, and role. 
+3. Café owner provides the required details. 
+4. System validates the input. 
+5. System adds the new staff member. 
+6. System confirms the addition.
+Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 4a. Provided name format is invalid. 
 
+  * 4a1. System shows an error message. 
+  
+  * 4a2. Use case resumes at step 2.
+
+* 4b. Provided phone number is invalid.
+
+  * 4b1. System shows an error message. 
+  
+  * 4b2. Use case resumes at step 2.
+
+* 4c. Role description exceeds character limit.
+
+  * 4c1. System shows an error message.
+  
+  * 4c2. Use case resumes at step 2.
+
+* 4d. Staff member with the same name and phone number already exists. 
+
+  * 4d1. System shows a duplication error message.
+
+    Use case ends.
+
+* 4e. Staff member with the same name but different phone number exists.
+
+  * 4e1. System prompts to confirm if phone number should be updated.
+  
+  * 4e2. Café owner chooses not to update.
+  
+  Use case ends. 
+  
+  * 4e3. Café owner chooses to update.
+  
+    * System updates phone number.
+    
+    * System confirms update.
+    
   Use case ends.
 
-* 3a. The given index is invalid.
+**Use case: Delete a Staff Member**
 
-    * 3a1. AddressBook shows an error message.
+**MSS**
 
-      Use case resumes at step 2.
+1. Café owner requests to delete a staff member.
 
-*{More to be added}*
+2. System prompts for the staff member's name.
+
+3. Café owner provides the staff member’s name.
+
+4. System checks if the staff member exists.
+
+5. System deletes the staff member.
+
+6. System confirms the deletion.
+
+7. Use case ends.
+
+**Extensions**
+* 4a. No staff member with the given name is found.
+
+  * 4a1. System shows an error message.
+
+    Use case ends.
+
+* 4b. Multiple staff members with the same name are found.
+
+  * 4b1. System prompts for the phone number.
+
+  * 4b2. Café owner provides the phone number.
+
+  * 4b3. System validates and deletes the correct entry.
+
+  * 4b4. System confirms the deletion.
+
+    Use case ends.
+
+**Use case: View Staff List**
+
+**MSS**
+
+1. Café owner requests to view the staff list.
+
+2. System retrieves and displays the list of staff members.
+
+Use case ends.
+
+**Extensions**
+* 2a. The staff list is empty.
+
+  * 2a1. System shows a message indicating no staff members are found.
+
+    Use case ends.
+
+**Use case: Search Staff by Name**
+
+**MSS**
+
+1. Café owner requests to search for a staff member by name.
+
+2. System prompts for the staff member’s name.
+
+3. Café owner provides the staff member’s name.
+
+4. System searches for matching staff members.
+
+5. System displays matching staff members.
+
+Use case ends.
+
+**Extensions**
+* 4a. No staff members with the given name are found.
+
+  * 4a1. System shows a message indicating no matches.
+
+    Use case ends.
+
+* 4b. Multiple staff members with the same name are found.
+
+  * 4b1. System displays all matching entries.
+
+    Use case ends.
+
+**Use case: Define a Reward**
+
+**MSS**
+
+1. Café owner requests to define a new reward.
+
+2. System prompts for reward details: reward name and points required.
+
+3. Café owner provides the required details.
+
+4. System validates the input.
+
+5. System adds the new reward.
+
+6. System confirms the addition.
+
+Use case ends.
+
+**Extensions**
+* 4a. Provided reward name format is invalid. 
+
+  * 4a1. System shows an error message. 
+
+  * 4a2. Use case resumes at step 2.
+
+* 4b. Provided points value is invalid.
+
+  * 4b1. System shows an error message.
+  
+  * 4b2. Use case resumes at step 2.
+
+* 4c. Reward with the same name already exists.
+
+  * 4c1. System shows a duplication error message.
+
+    Use case ends
+
+**Use case: Edit a Reward**
+
+**MSS**
+
+1. Café owner requests to edit an existing reward.
+
+2. System prompts for reward name and new points required.
+
+3. Café owner provides the reward name and updated points.
+
+4. System checks if the reward exists.
+
+5. System updates the reward.
+
+6. System confirms the update.
+
+Use case ends.
+
+**Extensions**
+* 4a. Reward not found.
+
+  * 4a1. System shows an error message.
+  
+    Use case ends.
+
+* 4b. Provided points value is invalid.
+
+  * 4b1. System shows an error message.
+  
+  * 4b2. Use case resumes at step 2.
+
+**Use case: Track Customer Points**
+
+**MSS**
+
+1. Café owner requests to update customer points.
+
+2. System prompts for customer name and points to add or deduct.
+
+3. Café owner provides the customer name and points.
+
+4. System validates the input.
+
+5. System updates the customer’s points balance.
+
+6. System confirms the update.
+
+Use case ends.
+
+**Extensions**
+* 4a. Provided customer name format is invalid. 
+
+  * 4a1. System shows an error message.
+    
+  * 4a2. Use case resumes at step 2.
+
+* 4b. Provided points value is invalid.
+
+  * 4b1. System shows an error message.
+
+  * 4b2. Use case resumes at step 2.
+
+* 4c. Customer not found.
+
+  * 4c1. System shows an error message.
+  
+    Use case ends.
+
+* 4d. Multiple customers with the same name are found.
+
+  * 4d1. System prompts for a unique identifier (e.g., phone number).
+  
+  * 4d2. Café owner provides the identifier.
+  
+  * 4d3. System validates and updates the correct entry.
+  
+  * 4d4. System confirms the update.
+
+    Use case ends.
+
+**Use case: Redeem a Reward**
+
+**MSS**
+
+1. Café owner requests to redeem a reward for a customer.
+
+2. System prompts for customer name and reward name.
+
+3. Café owner provides the required details.
+
+4. System checks if the customer and reward exist.
+
+5. System verifies if the customer has enough points.
+
+6. System deducts the required points and confirms the redemption.
+
+Use case ends.
+
+**Extensions**
+* 4a. Customer not found.
+
+  * 4a1. System shows an error message.
+
+    Use case ends.
+
+* 4b. Reward not found.
+
+  * 4b1. System shows an error message.
+  
+    Use case ends.
+
+* 5a. Customer does not have enough points.
+
+  * 5a1. System shows an insufficient points message.
+  
+    Use case ends.
+
+**Use case: View Customer Visit History**
+
+**MSS**
+
+1. Café owner requests to view a customer’s visit history.
+
+2. System prompts for the customer’s name.
+
+3. Café owner provides the customer’s name.
+
+4. System retrieves and displays the customer’s visit history.
+
+Use case ends.
+
+**Extensions**
+* 4a. Customer not found.
+
+  * 4a1. System shows an error message.
+  
+    Use case ends.
+
+* 4b. Customer has no recorded visits.
+
+  * 4b1. System shows a message indicating no visit history.
+
+    Use case ends.
+
+**Use case: Generate Daily Sales Summary**
+
+**MSS**
+
+1. Café owner requests a daily sales summary for a specific date.
+
+2. System validates the date format.
+
+3. System retrieves sales data for the given date.
+
+4. System compiles the sales summary, including total revenue, transaction count, and most popular item.
+
+5. System displays the daily sales summary.
+
+Use case ends.
+
+**Extensions**
+* 2a. Provided date format is invalid.
+
+  * 2a1. System shows an error message.
+  
+    Use case ends.
+
+* 3a. No sales data found for the given date.
+
+  * 3a1. System shows a message indicating no recorded transactions.
+  
+    Use case ends.
+
+**Use case: Generate Customer Insights Report**
+
+**MSS**
+
+1. Café owner requests customer insights by providing a customer name or choosing a predefined report type (e.g., top spenders, popular items).
+
+2. System validates the input.
+
+3. System retrieves and compiles the requested insights.
+
+4. System displays the customer insights report.
+
+Use case ends.
+
+**Extensions**
+* 2a. Provided customer name format is invalid.
+
+  * 2a1. System shows an error message.
+  
+    Use case ends.
+
+* 2b. No data available for the requested report.
+
+  * 2b1. System shows a message indicating lack of data.
+  
+    Use case ends.
+
+* 3a. Customer not found.
+
+  * 3a1. System shows an error message.
+  
+    Use case ends.
+
+**Use case: Monitor Stock Levels**
+
+**MSS**
+
+1. Café owner requests to check stock levels for a specific item or set a low-stock threshold alert.
+
+2. System validates the input.
+
+3. System retrieves current stock data.
+
+4. System displays the stock levels or sets the threshold alert.
+
+Use case ends.
+
+**Extensions**
+* 2a. Provided item name format is invalid.
+
+  * 2a1. System shows an error message.
+  
+    Use case ends.
+
+* 2b. Item not found in inventory.
+
+  * 2b1. System shows an error message.
+  
+    Use case ends.
+
+* 2c. Provided threshold value is invalid.
+
+  * 2c1. System shows an error message.
+  
+    Use case ends.
+
+* 3a. Stock level is below the threshold.
+
+  * 3a1. System shows a low-stock alert message.
+
+    Use case ends.
+
+**Use case: View Customer Rewards**
+
+**MSS**
+
+1. Café owner requests to view a customer’s reward points.
+
+2. System validates the customer name.
+
+3. System retrieves and displays the customer’s reward points and eligible rewards.
+
+Use case ends.
+
+**Extensions**
+* 2a. Provided customer name format is invalid.
+
+  * 2a1. System shows an error message.
+  
+    Use case ends.
+
+* 3a. Customer not found.
+
+  * 3a1. System shows an error message.
+  
+    Use case ends.
+
+**Use case: View Customer Order History**
+
+**MSS**
+
+1. Café owner requests to view a customer’s order history.
+
+2. System validates the customer name.
+
+3. System retrieves and displays the customer’s past orders.
+
+Use case ends.
+
+**Extensions**
+* 2a. Provided customer name format is invalid.
+
+  * 2a1. System shows an error message.
+  
+    Use case ends.
+
+* 3a. Customer not found.
+
+  * 3a1. System shows an error message.
+  
+    Use case ends.
+
+* 3b. No past orders found for the customer.
+
+  * 3b1. System shows a message indicating no recorded orders.
+
+    Use case ends.
+
+**Use case: Record Customer Feedback**
+
+**MSS**
+
+1. Café owner requests to add feedback for a customer.
+
+2. System prompts for customer name, rating, and feedback message.
+
+3. Café owner provides the required details.
+
+4. System validates the input.
+
+5. System records the feedback.
+
+6. System confirms the feedback addition.
+
+Use case ends.
+
+**Extensions**
+* 4a. Provided customer name format is invalid.
+
+  * 4a1. System shows an error message.
+  
+  * 4a2. Use case resumes at step 2.
+
+* 4b. Provided rating is out of the accepted range.
+
+  * 4b1. System shows an error message.
+  
+  * 4b2. Use case resumes at step 2.
+
+* 4c. Feedback message exceeds character limit.
+
+  * 4c1. System shows an error message.
+  
+  * 4c2. Use case resumes at step 2.
+
+* 4d. Customer not found.
+
+  * 4d1. System shows an error message.
+  
+    Use case ends.
+
+**Use case: Add a Supplier Email**
+
+**MSS**
+1. Café owner requests to add a new supplier email.
+
+2. System prompts for the supplier's name and email.
+
+3. Café owner provides the required details.
+
+4. System validates the input.
+
+5. System adds the new supplier.
+
+6. System confirms the addition.
+
+Use case ends.
+
+**Extensions**
+* 4a. Provided name format is invalid.
+
+  * 4a1. System shows an error message.
+  
+  * 4a2. Use case resumes at step 2.
+  
+* 4b. Provided email format is invalid.
+
+  * 4b1. System shows an error message.
+
+  * 4b2. Use case resumes at step 2.
+
+* 4c. Supplier with the same name and email already exists.
+
+  * 4c1. System shows a duplication error message.
+
+    Use case ends.
+    
+* 4d. Supplier with the same name but a different email exists.
+  
+  * 4d1. System prompts to confirm if email should be updated.
+    
+  * 4d2. Café owner chooses not to update.
+    
+    Use case ends.
+    
+  * 4d3. Café owner chooses to update.
+    
+    * System updates the email.
+      
+    * System confirms the update.
+      
+    Use case ends.
+
+* 4e. Required fields are missing.
+    
+  * 4e1. System shows an error message.
+      
+  * 4e2. Use case resumes at step 2.
+
+**Use case: Delete a Supplier Email**
+
+**MSS**
+
+1. Café owner requests to delete a supplier email.
+
+2. System prompts for the supplier's name.
+
+3. Café owner provides the supplier's name.
+
+4. System checks if the supplier exists.
+
+5. System deletes the supplier.
+
+6. System confirms the deletion.
+
+Use case ends. 
+
+**Extensions**
+
+* 4a. No supplier with the given name is found.
+
+  * 4a1. System shows an error message.
+
+    Use case ends.
+  
+* 4b. Multiple suppliers with the same name are found.
+
+  * 4b1. System prompts for the email.
+  
+  * 4b2. Café owner provides the email.
+  
+  * 4b3. System validates and deletes the correct entry.
+  
+  * 4b4. System confirms the deletion.
+  
+    Use case ends.
+
+**Use case: View Supplier Email List**
+**MSS**
+
+1. Café owner requests to view the supplier email list.
+
+2. System retrieves and displays the list of suppliers.
+
+Use case ends.
+
+**Extensions**
+
+* 2a. The supplier list is empty.
+
+  * 2a1. System shows a message indicating no suppliers are found.
+  
+    Use case ends.
+
+**Use case: View Supplier Email List**
+
+**MSS**
+
+1. Café owner requests to view the supplier email list.
+
+2. System retrieves and displays the list of suppliers.
+
+Use case ends.
+
+**Extensions**
+* 2a. The supplier list is empty.
+
+  * 2a1. System shows a message indicating no suppliers are found.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
