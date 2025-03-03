@@ -11,51 +11,56 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Yi Fei Yang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/findingfaey.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/findingfaey)]
+[[portfolio](team/findingfaey.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Software Developer
 
-### Jean Doe
 
-<img src="images/johndoe.png" width="200px">
+### Alicia Chang
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+<img src="images/rannn367.png" width="200px">
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/rannn367)]
+[[portfolio](team/rannn367.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Software Developer
+
+
+### Justin Soon
+
+<img src="images/jsjk112344.png" width="200px">
+
+[[github](https://github.com/jsjk112344)]
+[[portfolio](team/jsjk112344.md)]
+
+* Role: Developer
+* Responsibilities: Software Developer
+
+
+### Victor Poh Hong Rong
+
+<img src="images/whitebear82.png" width="200px">
+
+[[github](http://github.com/whitebear82)]
+[[portfolio](team/whitebear82.md)]
+
+* Role: Developer
+* Responsibilities: Software Developer
+
+
+### Darren Lim
+
+<img src="images/loyaltypollution.png" width="200px">
+
+[[github](https://github.com/loyaltypollution)]
+[[portfolio](team/loyaltypollution.md)]
+
+* Role: Developer
+* Responsibilities: Software Developer
