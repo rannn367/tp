@@ -1056,6 +1056,37 @@ Use case ends.
 
 ### Glossary
 
+* Mainstream OS: Operating systems commonly used by the majority of users, including Windows, Linux, Unix, and macOS.
+
+* Private contact detail: A contact detail that is not meant to be shared with others, such as a personal phone number, home address, or private email.
+
+* Typical usage: Standard operations performed within the application, including adding, editing, deleting, and searching for contacts, assuming a user base of up to 1000 persons.
+
+* Command-based interaction: A method of input where users type textual commands to execute actions instead of using a graphical user interface (GUI).
+
+* Graphical User Interface (GUI): A visual interface that allows users to interact with the system through elements like buttons, forms, and icons instead of typing commands.
+
+* Error message: A message displayed by the system when a user enters an invalid input or an operation cannot be completed, providing clear guidance on how to correct the issue.
+
+* Modern consumer-grade computer: A personal computer with at least a quad-core processor and 8GB of RAM, manufactured within the last five years.
+
+* Modular codebase: A structured code design where different components can be modified, replaced, or extended independently without affecting the overall system.
+
+* Persisted data: Information that is stored and retained across application restarts, ensuring that user data is not lost when the application is closed.
+
+* Startup time: The time taken from launching the application to when it is fully ready for user interaction.
+
+* Authorized user: A user who has been granted specific permissions to access certain functionalities within the system.
+
+* Self-contained application: An application that does not require external dependencies or an internet connection for its core features to function.
+
+* Scalability: The system’s ability to maintain performance and responsiveness even as the user base or data size increases.
+
+* Undo/Redo functionality: A feature that allows users to reverse or reapply their last action, improving usability and error recovery.
+
+* Extensibility: The ability to add new features or enhance existing ones without major rework of the system.
+
+* Logging and audit trail: A system feature that records user actions and system events for security, debugging, or compliance purposes.
 
 --------------------------------------------------------------------------------------------------------------------
 
