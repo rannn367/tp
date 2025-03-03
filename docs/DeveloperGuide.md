@@ -287,14 +287,42 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​     | I want to …​                                                     | So that I can…​                                                     |
+|----------|-------------|------------------------------------------------------------------|---------------------------------------------------------------------|
+| `* * *`  | café owner  | add a staff member's phone number                                | contact them when needed.                                           |
+| `* * *`  | café owner  | delete a staff member's phone number                             | keep my contact list updated.                                       |
+| `* * *`  | café owner  | view a list of all staff phone numbers                           | quickly find and reach them.                                        |
+| `* * *`  | café owner  | search for a staff member by name to retrieve their phone number | quickly find the right contact.                                     |
+| `* * *`  | café owner  | view a list of supplier emails                                   | map stock requests to specific emails.                              |
+| `* * *`  | café owner  | view a list of current stock                                     | know when to reorder stock.                                         |
+| `* * *`  | café owner  | add a repair technician's phone number                           | contact them quickly when needed.                                   |
+| `* * *`  | café owner  | delete a repair technician's phone number                        | keep my contact list updated.                                       |
+| `* * *`  | café owner  | add a repair technician's email address                          | reach them via email if required.                                   |
+| `* * *`  | café owner  | delete a repair technician's email address                       | remove outdated contact information.                                |
+| `* * *`  | café owner  | view a list of all repair technician's contact details           | find and contact them easily.                                       |
+| `* * *`  | café owner  | search for a repair technician by name                           | retrieve their contact information efficiently.                     |
+| `* * *`  | café owner  | tag repair technicians based on their expertise                  | easily identify the right person for a specific issue.              |
+| `* * *`  | café owner  | store notes on past repair services for each technician          | track maintenance history and avoid repeated issues.                |
+| `* * *`  | café owner  | set reminders for regular maintenance appointments               | proactively prevent equipment failures.                             |
+| `* *`    | café owner  | set up autofill fields for frequently entered data               | avoid repetitive typing.                                            |
+| `* *`    | café owner  | enable autofill for supplier names                               | avoid having to type them repeatedly when creating orders.          |
+| `* *`    | café owner  | enable autofill for supplier email addresses                     | quickly send stock requests without re-entering details.            |
+| `* *`    | café owner  | enable autofill for supplier phone numbers                       | contact them without needing to look up their details every time.   |
+| `* *`    | café owner  | enable autofill for commonly ordered stock items                 | quickly add them to an order form.                                  |
+| `* *`    | café owner  | enable autofill for standard pricing of stock items              | avoid manually entering expected costs.                             |
+| `* *`    | café owner  | enable autofill for my café's business details                   | avoid having to repeatedly enter them when placing orders.          |
+| `* *`    | café owner  | edit or update saved autofill fields                             | ensure information remains accurate.                                |
+| `*`      | café owner  | disable autofill fields                                          | enter information manually when necessary.                          |
+| `* *`    | café owner  | view a list of all autofill fields I have set up                 | manage them easily.                                                 |
+| `* *`    | café owner  | delete autofill entries for outdated suppliers or items          | prevent storing unnecessary data.                                   |
+| `*`      | café owner  | categorize autofill fields                                       | organize frequently entered data more efficiently.                  |
+| `* *`    | café owner  | enable autofill suggestions when entering data                   | choose from previously used values instead of typing them manually. |
+| `* * *`  | café owner  | add new customers                                                | track their purchase history.                                       |
+| `* * *`  | café owner  | record a drink ordered by a customer in their account            | record the history the customer has with us.                        |
+| `* * *`  | café owner  | track the data on the types of drinks the customer orders        | tell when a customer has a favourite drink.                         |
+| `* * *`  | café owner  | add to a list of supplier emails                                 | keep track of each supplier contact.                                |
+| `* * *`  | café owner  | delete from list of supplier emails                              | keep the list updated.                                              |
+
 
 *{More to be added}*
 
