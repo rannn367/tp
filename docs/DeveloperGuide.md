@@ -274,13 +274,35 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+![github](images/Persona.png)
+* Name: Amelia Tan
+* Age: 34 years
+* Gender: Female
+* Business Type: Independent café owner of a single-location café "Brew Haven"
+* Team Size: Small team (5–20 staff members)
+* Customer Base: 100–300 regular customers
+* Pain Points:
+  * Struggles with scattered information (handwritten notes, spreadsheets, physical loyalty cards)
+  * Finds it hard to keep track of customer preferences, allergies, birthdays, and visit history 
+  * Needs a better way to manage staff shifts, roles, and contact details
+  * Deals with frequent equipment breakdowns without a proper maintenance log
+  * Wants to streamline supplier management and order frequency tracking
+* Technical Comfort:
+  * Prefers desktop apps over web or mobile solutions for stability and performance
+  * Comfortable with a Command Line Interface (CLI) for fast data entry and retrieval
+  * Types fast and prefers keyboard shortcuts over mouse interactions
+  * Reasonably tech-savvy but values an intuitive and easy-to-learn system
+* Work Style:
+  * Juggles multiple roles — customer service, staff management, inventory, and maintenance
+  * Values efficiency and quick access to information to avoid disruptions during peak hours
+  * Wants to delegate responsibilities without losing oversight
+* Goals:
+  * Build strong customer loyalty by remembering personal preferences and rewarding regulars
+  * Minimize downtime caused by equipment failures through proper maintenance tracking
+  * Streamline supplier coordination and avoid last-minute shortages
+  * Maintain a well-organized staff schedule with clear roles and availability
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage customers, staff, suppliers, and maintenance faster and more efficiently than a typical mouse/GUI-driven app, all in one centralized system tailored for a fast-paced café environment.
 
 
 ### User stories
