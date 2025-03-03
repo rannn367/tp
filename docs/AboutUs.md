@@ -46,3 +46,26 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Data
+<<<<<<< HEAD
+
+### Jean Doe
+
+<img src="images/johndoe.png" width="200px">
+
+[[github](http://github.com/johndoe)]
+[[portfolio](team/johndoe.md)]
+
+* Role: Developer
+* Responsibilities: Dev Ops + Threading
+
+### Victor Poh Hong Rong
+
+<img src="images/whitebear82.png" width="200px">
+
+[[github](http://github.com/whitebear82)]
+[[portfolio](team/whitebear82.md)]
+
+* Role: Developer
+* Responsibilities: Software Developer
+=======
+>>>>>>> upstream/master
