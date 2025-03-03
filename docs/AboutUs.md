@@ -11,6 +11,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Darren Lim
+
+<img src="images/loyaltypollution.png" width="200px">
+
+[[github](https://github.com/loyaltypollution)]
+[[portfolio](team/loyaltypollution.md)]
+
 ### Alicia Chang
 
 <img src="images/rannn367.png" width="200px">
@@ -39,6 +46,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Data
+<<<<<<< HEAD
 
 ### Jean Doe
 
@@ -50,12 +58,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Victor Poh Hong Rong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/whitebear82.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/whitebear82)]
+[[portfolio](team/whitebear82.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Software Developer
+=======
+>>>>>>> upstream/master
