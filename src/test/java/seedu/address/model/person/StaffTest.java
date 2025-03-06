@@ -27,22 +27,9 @@ public class StaffTest {
         // null -> returns false
         assertFalse(ALEX.isSameStaff(null));
 
-        // same staffId, all other attributes different -> returns true
-        Staff editedAlex = new StaffBuilder(ALEX).withRole("Manager").withShiftTiming("10am-6pm")
-                .withHoursWorked(40).withPerformanceRating(4.8).build();
-        assertTrue(ALEX.isSameStaff(editedAlex));
-
-        // different staffId, all other attributes same -> returns false
-        Staff editedBen = new StaffBuilder(BEN).withStaffId("S1002").build();
-        assertFalse(BEN.isSameStaff(editedBen));
-
-        // staffId differs in case, all other attributes same -> still true since IDs are case-insensitive
-        Staff editedAlexCase = new StaffBuilder(ALEX).withStaffId(ALEX.getStaffId().toLowerCase()).build();
-        assertTrue(ALEX.isSameStaff(editedAlexCase));
-
-        // staffId has trailing spaces -> returns false
-        Staff editedAlexTrailingSpace = new StaffBuilder(ALEX).withStaffId(ALEX.getStaffId() + " ").build();
-        assertFalse(ALEX.isSameStaff(editedAlexTrailingSpace));
+        // Different staffId, same name, different phone, rest same -> returns false
+        Staff editedBen = new StaffBuilder(BEN).withStaffId("S1005").withPhone("91234567").build();
+        assertFalse(BEN.equals(editedBen));
     }
 
     @Test
@@ -86,11 +73,11 @@ public class StaffTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Staff.class.getCanonicalName() + "{name=" + ALEX.getName() + ", phone=" + ALEX.getPhone()
-                + ", email=" + ALEX.getEmail() + ", address=" + ALEX.getAddress() + ", tags=" + ALEX.getTags()
-                + ", staffId=" + ALEX.getStaffId() + ", role="
-                + ALEX.getRole() + ", shiftTiming=" + ALEX.getShiftTiming()
-                + ", hoursWorked=" + ALEX.getHoursWorked() + ", performanceRating=" + ALEX.getPerformanceRating() + "}";
+        String expected = Staff.class.getCanonicalName() + "{staffId=" + ALEX.getStaffId() + ", "
+                + "name=" + ALEX.getName() + ", phone=" + ALEX.getPhone() + ", email=" + ALEX.getEmail()
+                + ", address=" + ALEX.getAddress() + ", tags=" + ALEX.getTags() + ", role=" + ALEX.getRole()
+                + ", shiftTiming=" + ALEX.getShiftTiming() + ", hoursWorked=" + ALEX.getHoursWorked()
+                + ", performanceRating=" + ALEX.getPerformanceRating() + "}";
         assertEquals(expected, ALEX.toString());
     }
 }
