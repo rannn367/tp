@@ -1,9 +1,10 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import seedu.address.model.tag.Tag;
 
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Staff member in the café management system.
@@ -12,10 +13,10 @@ import java.util.Set;
 public class Staff extends Person {
 
     // Staff-specific fields
-    private final String staffId;          // Unique identifier for staff
-    private final String role;             // Job role (e.g., "Barista", "Manager")
-    private final String shiftTiming;      // Work schedule (e.g., "9am-5pm")
-    private final int hoursWorked;         // Total hours worked in a period
+    private final String staffId; // Unique identifier for staff
+    private final String role; // Job role (e.g., "Barista", "Manager")
+    private final String shiftTiming; // Work schedule (e.g., "9am-5pm")
+    private final int hoursWorked; // Total hours worked in a period
     private final double performanceRating; // Performance rating out of 5.0
 
     /**
