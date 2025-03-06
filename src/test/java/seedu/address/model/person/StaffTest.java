@@ -88,7 +88,8 @@ public class StaffTest {
     public void toStringMethod() {
         String expected = Staff.class.getCanonicalName() + "{name=" + ALEX.getName() + ", phone=" + ALEX.getPhone()
                 + ", email=" + ALEX.getEmail() + ", address=" + ALEX.getAddress() + ", tags=" + ALEX.getTags()
-                + ", staffId=" + ALEX.getStaffId() + ", role=" + ALEX.getRole() + ", shiftTiming=" + ALEX.getShiftTiming()
+                + ", staffId=" + ALEX.getStaffId() + ", role="
+                + ALEX.getRole() + ", shiftTiming=" + ALEX.getShiftTiming()
                 + ", hoursWorked=" + ALEX.getHoursWorked() + ", performanceRating=" + ALEX.getPerformanceRating() + "}";
         assertEquals(expected, ALEX.toString());
     }

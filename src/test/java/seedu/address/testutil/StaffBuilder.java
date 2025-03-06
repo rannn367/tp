@@ -3,12 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Staff;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Staff;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -74,62 +74,99 @@ public class StaffBuilder {
         performanceRating = staffToCopy.getPerformanceRating();
     }
 
+    /**
+     * Sets the {@code Name} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
+    /**
+     * Sets the {@code Phone} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
     public StaffBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
+    /**
+     * Sets the {@code Address} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
+    /**
+     * Sets the {@code Remark} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withRemark(String remark) {
         this.remark = new Remark(remark);
         return this;
     }
 
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     */
     public StaffBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
+    /**
+     * Sets the {@code Address} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withStaffId(String staffId) {
         this.staffId = staffId;
         return this;
     }
 
+    /**
+     * Sets the {@code Role} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withRole(String role) {
         this.role = role;
         return this;
     }
 
+    /**
+     * Sets the {@code ShiftTiming} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withShiftTiming(String shiftTiming) {
         this.shiftTiming = shiftTiming;
         return this;
     }
 
+    /**
+     * Sets the {@code HoursWorked} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;
         return this;
     }
 
+    /**
+     * Sets the {@code PerformanceRating} of the {@code Staff} that we are building.
+     */
     public StaffBuilder withPerformanceRating(double performanceRating) {
         this.performanceRating = performanceRating;
         return this;
     }
 
+    /**
+     * Builds the staff with the information altogether.
+     */
     public Staff build() {
-        return new Staff(name, phone, email, address, remark, tags, staffId, role, shiftTiming, hoursWorked, performanceRating);
+        return new Staff(name, phone, email, address, remark, tags,
+                staffId, role, shiftTiming, hoursWorked, performanceRating);
     }
 }
