@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStaff.ALEX;
@@ -24,13 +25,28 @@ public class StaffTest {
         // same object -> returns true
         assertTrue(ALEX.isSameStaff(ALEX));
 
-        // null -> returns false
-        assertFalse(ALEX.isSameStaff(null));
-
         // Different staffId, same name, different phone, rest same -> returns false
         Staff editedBen = new StaffBuilder(BEN).withStaffId("S1005").withPhone("91234567").build();
-        assertFalse(BEN.equals(editedBen));
+        assertFalse(BEN.isSameStaff(editedBen));
     }
+
+    @Test
+    public void hashCode_sameStaff_returnsSameHashCode() {
+        Staff benCopy = new StaffBuilder(BEN).build();
+        assertEquals(BEN.hashCode(), benCopy.hashCode()); // Same fields -> same hashcode
+    }
+
+    @Test
+    public void hashCode_differentStaff_returnsDifferentHashCode() {
+        Staff editedBen = new StaffBuilder(BEN).withStaffId("S9999").build();
+        assertNotEquals(BEN.hashCode(), editedBen.hashCode()); // Different staffId -> different hashcode
+    }
+
+    @Test
+    public void isSameStaff_nullStaff_returnsFalse() {
+        assertFalse(BEN.isSameStaff(null)); // null -> should return false
+    }
+
 
     @Test
     public void equals() {
