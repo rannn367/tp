@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Staff;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Staff> filteredStaffs;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredStaffs = new FilteredList<>(this.addressBook.getStaffList()); // Add this
     }
 
     public ModelManager() {
@@ -94,6 +97,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasStaff(Staff staffMember) {
+        requireAllNonNull(staffMember);
+        return addressBook.hasStaff(staffMember);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -102,6 +111,17 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+        requireNonNull(predicate);
+        filteredStaffs.setPredicate(predicate);
+    }
+
+    @Override
+    public void addStaff(Staff staffMember) {
+        addressBook.addStaff(staffMember);
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS); // Change this line
     }
 
     @Override
@@ -120,6 +140,10 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    public ObservableList<Staff> getFilteredStaffList() {
+        return filteredStaffs;
     }
 
     @Override
