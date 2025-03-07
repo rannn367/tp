@@ -26,10 +26,14 @@ import static seedu.address.logic.commands.CommandTestUtil.SHIFT_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_ID_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_ID_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MANAGER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURS_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_ALEX;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SHIFT_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STAFF_ID_ALEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -41,6 +45,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,10 +57,35 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.person.Staff;
 import seedu.address.model.tag.Tag;
 
 public class AddStaffCommandParserTest {
     private AddStaffCommandParser parser = new AddStaffCommandParser();
+
+    @Test
+    public void parse_allFieldsPresent_success() {
+        String userInput = NAME_DESC_ALEX + PHONE_DESC_ALEX + EMAIL_DESC_ALEX + ADDRESS_DESC_ALEX
+                + STAFF_ID_DESC_ALEX + ROLE_DESC_ALEX + SHIFT_DESC_ALEX + HOURS_DESC_ALEX + RATING_DESC_ALEX
+                + TAG_DESC_MANAGER;
+
+        AddStaffCommand expectedCommand = new AddStaffCommand(
+                new Staff(new Name(VALID_NAME_ALEX),
+                        new Phone(VALID_PHONE_ALEX),
+                        new Email(VALID_EMAIL_ALEX),
+                        new Address(VALID_ADDRESS_ALEX),
+                        new Remark(""),
+                        Set.of(new Tag("manager")),
+                        VALID_STAFF_ID_ALEX,
+                        VALID_ROLE_ALEX,
+                        VALID_SHIFT_ALEX,
+                        VALID_HOURS_ALEX,
+                        VALID_RATING_ALEX));
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
