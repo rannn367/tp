@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private StaffListPanel staffListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane staffListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -112,6 +116,20 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        staffListPanel = new StaffListPanel(logic.getFilteredStaffList()); // <- this might be null
+        staffListPanelPlaceholder.getChildren().add(staffListPanel.getRoot());
+
+//        try {
+//            logger.info("Attempting to load staff list...");
+//            System.out.println(logic.getFilteredStaffList());
+//            staffListPanel = new StaffListPanel(logic.getFilteredStaffList()); // <- this might be null
+//            staffListPanelPlaceholder.getChildren().add(staffListPanel.getRoot());
+//            logger.info("Staff list loaded successfully!");
+//        } catch (Exception e) {
+//            logger.severe("Failed to load staff list: " + e.getMessage());
+//            e.printStackTrace();
+//        }
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
