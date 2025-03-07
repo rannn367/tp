@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Staff;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -124,6 +125,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addStaff(Staff staffMember) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -135,6 +141,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStaff(Staff staffMember) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,7 +165,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Staff> getFilteredStaffList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredStaffList(Predicate<Staff> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -182,6 +203,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Staff> staffAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -193,6 +215,18 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public boolean hasStaff(Staff staffMember) {
+            requireNonNull(staffMember);
+            return staffAdded.contains(staffMember);
+        }
+
+        @Override
+        public void addStaff(Staff staffMember) {
+            requireNonNull(staffMember);
+            staffAdded.add(staffMember);
         }
 
         @Override
