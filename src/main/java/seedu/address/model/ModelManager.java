@@ -36,7 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredStaffs = new FilteredList<>(this.addressBook.getStaffList()); // Add this
+        filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
     }
 
     public ModelManager() {
@@ -113,6 +113,7 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    @Override
     public void updateFilteredStaffList(Predicate<Staff> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
