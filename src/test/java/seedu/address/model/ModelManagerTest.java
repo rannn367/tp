@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalStaff.ALEX;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -91,6 +92,27 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void hasStaff_nullStaff_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasStaff(null));
+    }
+
+    @Test
+    public void hasStaff_staffNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasStaff(ALEX));
+    }
+
+    @Test
+    public void hasStaff_staffInAddressBook_returnsTrue() {
+        modelManager.addStaff(ALEX);
+        assertTrue(modelManager.hasStaff(ALEX));
+    }
+
+    @Test
+    public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredStaffList().remove(0));
     }
 
     @Test
