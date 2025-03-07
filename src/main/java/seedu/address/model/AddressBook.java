@@ -67,6 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setStaffs(newData.getStaffList());
     }
 
     //// person-level operations
@@ -150,7 +151,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Staff> getStaffList() {
+        System.out.println(staffs.asUnmodifiableObservableList());
         return staffs.asUnmodifiableObservableList();
     }
 

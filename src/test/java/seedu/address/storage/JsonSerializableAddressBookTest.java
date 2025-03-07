@@ -5,12 +5,15 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Staff;
 import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {
@@ -42,6 +45,22 @@ public class JsonSerializableAddressBookTest {
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
                 dataFromFile::toModelType);
+    }
+
+    @Test
+    void toModelType_duplicateStaff_throwsIllegalValueException() {
+        JsonAdaptedStaff staff = new JsonAdaptedStaff(new Staff(
+                new seedu.address.model.person.Name("Alice Tan"),
+                new seedu.address.model.person.Phone("81234567"),
+                new seedu.address.model.person.Email("alice.tan@cafeexample.com"),
+                new seedu.address.model.person.Address("123 Café Street"),
+                new seedu.address.model.person.Remark("Punctual and friendly"),
+                Collections.emptySet(), "S001", "Barista", "Morning Shift", 40, 4.8
+        ));
+        List<JsonAdaptedStaff> staffList = List.of(staff, staff);
+        JsonSerializableAddressBook jsonAddressBook =
+                new JsonSerializableAddressBook(Collections.emptyList(), staffList);
+        assertThrows(IllegalValueException.class, jsonAddressBook::toModelType);
     }
 
 }

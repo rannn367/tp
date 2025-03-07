@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalStaff.ALEX;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -24,70 +24,68 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.StaffBuilder;
 
-public class AddCommandTest {
+public class AddStaffCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullStaff_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddStaffCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_staffAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingStaffAdded modelStub = new ModelStubAcceptingStaffAdded();
+        Staff validStaff = new StaffBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddStaffCommand(validStaff).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(AddStaffCommand.MESSAGE_SUCCESS, Messages.format(validStaff)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validStaff), modelStub.staffAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateStaff_throwsCommandException() {
+        Staff validStaff = new StaffBuilder().build();
+        AddStaffCommand addStaffCommand = new AddStaffCommand(validStaff);
+        ModelStub modelStub = new ModelStubWithStaff(validStaff);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddStaffCommand.MESSAGE_DUPLICATE_STAFF, () -> addStaffCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Staff alex = new StaffBuilder().withName("Alex").build();
+        Staff bob = new StaffBuilder().withName("Bob").build();
+        AddStaffCommand addAlexCommand = new AddStaffCommand(alex);
+        AddStaffCommand addBobCommand = new AddStaffCommand(bob);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAlexCommand.equals(addAlexCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddStaffCommand addAlexCommandCopy = new AddStaffCommand(alex);
+        assertTrue(addAlexCommand.equals(addAlexCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAlexCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAlexCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different staff -> returns false
+        assertFalse(addAlexCommand.equals(addBobCommand));
     }
 
     @Test
     public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        AddStaffCommand addStaffCommand = new AddStaffCommand(ALEX);
+        String expected = AddStaffCommand.class.getCanonicalName() + "{toAdd=" + ALEX + "}";
+        assertEquals(expected, addStaffCommand.toString());
     }
 
-    /**
-     * A default model stub that have all of the methods failing.
-     */
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -120,17 +118,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addStaff(Staff staffMember) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyAddressBook addressBook) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -145,12 +133,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasStaff(Staff staffMember) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
+        public void addStaff(Staff staffMember) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,49 +161,45 @@ public class AddCommandTest {
         public void updateFilteredStaffList(Predicate<Staff> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-    }
 
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        @Override
+        public boolean hasStaff(Staff staffMember) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-        final ArrayList<Staff> staffAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    private class ModelStubWithStaff extends ModelStub {
+        private final Staff staff;
+
+        ModelStubWithStaff(Staff staff) {
+            requireNonNull(staff);
+            this.staff = staff;
         }
 
         @Override
         public boolean hasStaff(Staff staffMember) {
             requireNonNull(staffMember);
-            return staffAdded.contains(staffMember);
+            return this.staff.isSameStaff(staffMember);
+        }
+    }
+
+    private class ModelStubAcceptingStaffAdded extends ModelStub {
+        final ArrayList<Staff> staffAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasStaff(Staff staffMember) {
+            requireNonNull(staffMember);
+            return staffAdded.stream().anyMatch(staffMember::isSameStaff);
         }
 
         @Override
@@ -234,5 +213,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
