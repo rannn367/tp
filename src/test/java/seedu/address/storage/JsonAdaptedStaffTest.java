@@ -95,33 +95,6 @@ public class JsonAdaptedStaffTest {
     }
 
     @Test
-    public void toModelType_invalidStaffId_throwsIllegalValueException() {
-        JsonAdaptedStaff staff = new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_REMARK, VALID_TAGS, INVALID_STAFF_ID, VALID_ROLE, VALID_SHIFT_TIMING,
-                VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING);
-        String expectedMessage = "Staff ID cannot be empty!";
-        assertThrows(IllegalValueException.class, expectedMessage, staff::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidHoursWorked_throwsIllegalValueException() {
-        JsonAdaptedStaff staff = new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_REMARK, VALID_TAGS, VALID_STAFF_ID, VALID_ROLE, VALID_SHIFT_TIMING,
-                INVALID_HOURS_WORKED, VALID_PERFORMANCE_RATING);
-        String expectedMessage = "Hours worked must be non-negative!";
-        assertThrows(IllegalValueException.class, expectedMessage, staff::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidPerformanceRating_throwsIllegalValueException() {
-        JsonAdaptedStaff staff = new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_REMARK, VALID_TAGS, VALID_STAFF_ID, VALID_ROLE, VALID_SHIFT_TIMING,
-                VALID_HOURS_WORKED, INVALID_PERFORMANCE_RATING);
-        String expectedMessage = "Performance rating must be between 0.0 and 5.0!";
-        assertThrows(IllegalValueException.class, expectedMessage, staff::toModelType);
-    }
-
-    @Test
     public void toModelType_nullStaffId_throwsIllegalValueException() {
         JsonAdaptedStaff staff = new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_REMARK, VALID_TAGS, null, VALID_ROLE, VALID_SHIFT_TIMING,

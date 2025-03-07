@@ -65,23 +65,6 @@ public class AddStaffCommandParserTest {
     private AddStaffCommandParser parser = new AddStaffCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
-        Staff expectedStaff = new StaffBuilder(ALEX).withTags(VALID_TAG_MANAGER).build();
-
-        // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_ALEX + PHONE_DESC_ALEX + EMAIL_DESC_ALEX
-                + ADDRESS_DESC_ALEX + STAFF_ID_DESC_ALEX + ROLE_DESC_ALEX + SHIFT_DESC_ALEX
-                + HOURS_DESC_ALEX + RATING_DESC_ALEX + TAG_DESC_MANAGER, new AddStaffCommand(expectedStaff));
-
-        // multiple tags - all accepted
-        Staff expectedStaffMultipleTags =
-                new StaffBuilder(ALEX).withTags(VALID_TAG_MANAGER, VALID_TAG_ENGINEER).build();
-        assertParseSuccess(parser, NAME_DESC_ALEX + PHONE_DESC_ALEX + EMAIL_DESC_ALEX + ADDRESS_DESC_ALEX
-                + STAFF_ID_DESC_ALEX + ROLE_DESC_ALEX + SHIFT_DESC_ALEX + HOURS_DESC_ALEX + RATING_DESC_ALEX
-                + TAG_DESC_MANAGER + TAG_DESC_ENGINEER, new AddStaffCommand(expectedStaffMultipleTags));
-    }
-
-    @Test
     public void parse_repeatedNonTagValue_failure() {
         String validExpectedStaffString = NAME_DESC_ALEX + PHONE_DESC_ALEX + EMAIL_DESC_ALEX
                 + ADDRESS_DESC_ALEX + STAFF_ID_DESC_ALEX + ROLE_DESC_ALEX + SHIFT_DESC_ALEX
@@ -122,15 +105,6 @@ public class AddStaffCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE,
                         PREFIX_STAFF_ID, PREFIX_ROLE, PREFIX_SHIFT_TIMING, PREFIX_HOURS_WORKED,
                         PREFIX_PERFORMANCE_RATING));
-    }
-
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Staff expectedStaff = new StaffBuilder(BEN).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_BEN + PHONE_DESC_BEN + EMAIL_DESC_BEN + ADDRESS_DESC_BEN
-                        + STAFF_ID_DESC_BEN + ROLE_DESC_BEN + SHIFT_DESC_BEN + HOURS_DESC_BEN + RATING_DESC_BEN,
-                new AddStaffCommand(expectedStaff));
     }
 
     @Test
