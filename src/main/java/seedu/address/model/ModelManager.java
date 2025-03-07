@@ -121,7 +121,7 @@ public class ModelManager implements Model {
     @Override
     public void addStaff(Staff staffMember) {
         addressBook.addStaff(staffMember);
-        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS); // Change this line
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
     }
 
     @Override
