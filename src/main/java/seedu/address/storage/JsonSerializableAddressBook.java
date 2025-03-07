@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Staff;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -20,15 +20,23 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_STAFF = "Staff list contains duplicate staff member(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedStaff> staff = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and staff.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("staff") List<JsonAdaptedStaff> staff) {
+        if (persons != null) {
+            this.persons.addAll(persons);
+        }
+        if (staff != null) {
+            this.staff.addAll(staff);
+        }
     }
 
     /**
@@ -37,8 +45,15 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        for (Person person : source.getPersonList()) {
+            persons.add(new JsonAdaptedPerson(person));
+        }
+
+        for (Staff staffMember : source.getStaffList()) {
+            staff.add(new JsonAdaptedStaff(staffMember));
+        }
     }
+
 
     /**
      * Converts this address book into the model's {@code AddressBook} object.
@@ -47,6 +62,7 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -54,7 +70,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (JsonAdaptedStaff jsonAdaptedStaff : staff) {
+            Staff staffMember = jsonAdaptedStaff.toModelType();
+            if (addressBook.hasStaff(staffMember)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
+            }
+            addressBook.addStaff(staffMember);
+        }
+
         return addressBook;
     }
-
 }
