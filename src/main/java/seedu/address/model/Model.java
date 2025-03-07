@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Staff;
 
 /**
  * The API of the Model component.
@@ -13,6 +14,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -58,6 +60,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a staff with the same identity as {@code staff} exists in the address book.
+     */
+    boolean hasStaff(Staff staffMember);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -68,6 +75,12 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given staff.
+     * {@code staff} must not already exist in the address book.
+     */
+    void addStaff(Staff staffMember);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
