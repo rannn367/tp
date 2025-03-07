@@ -26,7 +26,7 @@ public class Customer extends Person {
                    int rewardPoints, int visitCount, String favoriteItem, double totalSpent, int rating) {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(rewardPoints, visitCount, favoriteItem, totalSpent, rating);
-        
+
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
         this.favoriteItem = favoriteItem;
