@@ -17,7 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_ALEX;
@@ -26,15 +25,12 @@ import static seedu.address.logic.commands.CommandTestUtil.SHIFT_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.SHIFT_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_ID_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_ID_DESC_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MANAGER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STAFF_ID_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ENGINEER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MANAGER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
@@ -45,9 +41,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalStaff.ALEX;
-import static seedu.address.testutil.TypicalStaff.BEN;
 
 import org.junit.jupiter.api.Test;
 
@@ -57,9 +50,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Staff;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.StaffBuilder;
 
 public class AddStaffCommandParserTest {
     private AddStaffCommandParser parser = new AddStaffCommandParser();

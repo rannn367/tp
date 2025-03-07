@@ -23,11 +23,6 @@ public class JsonAdaptedStaffTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#chef";
-    private static final String INVALID_STAFF_ID = " "; // Staff ID cannot be empty
-    private static final String INVALID_ROLE = "  "; // Role cannot be empty
-    private static final String INVALID_SHIFT_TIMING = ""; // Shift cannot be empty
-    private static final int INVALID_HOURS_WORKED = -10; // Negative hours not allowed
-    private static final double INVALID_PERFORMANCE_RATING = 6.0; // Exceeds 5.0 max
 
     private static final String VALID_NAME = ALEX.getName().toString();
     private static final String VALID_PHONE = ALEX.getPhone().toString();
