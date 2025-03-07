@@ -117,19 +117,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        staffListPanel = new StaffListPanel(logic.getFilteredStaffList()); // <- this might be null
+        staffListPanel = new StaffListPanel(logic.getFilteredStaffList());
         staffListPanelPlaceholder.getChildren().add(staffListPanel.getRoot());
-
-//        try {
-//            logger.info("Attempting to load staff list...");
-//            System.out.println(logic.getFilteredStaffList());
-//            staffListPanel = new StaffListPanel(logic.getFilteredStaffList()); // <- this might be null
-//            staffListPanelPlaceholder.getChildren().add(staffListPanel.getRoot());
-//            logger.info("Staff list loaded successfully!");
-//        } catch (Exception e) {
-//            logger.severe("Failed to load staff list: " + e.getMessage());
-//            e.printStackTrace();
-//        }
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

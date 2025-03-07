@@ -73,7 +73,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Staff> getFilteredStaffList() { return model.getFilteredStaffList(); }
+    public ObservableList<Staff> getFilteredStaffList() {
+        return model.getFilteredStaffList();
+    }
 
     @Override
     public Path getAddressBookFilePath() {
