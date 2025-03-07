@@ -39,6 +39,47 @@ public class JsonAdaptedStaffTest {
     private static final double VALID_PERFORMANCE_RATING = ALEX.getPerformanceRating();
 
     @Test
+    void constructor_nullEmail_throwsIllegalValueException() {
+        assertThrows(IllegalValueException.class, () -> new JsonAdaptedStaff(
+                VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK, VALID_TAGS,
+                VALID_STAFF_ID, VALID_ROLE, VALID_SHIFT_TIMING, VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING
+        ).toModelType());
+
+    }
+
+    @Test
+    void constructor_nullAddress_throwsIllegalValueException() {
+        assertThrows(IllegalValueException.class, () ->
+                new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_REMARK,
+                        VALID_TAGS, VALID_STAFF_ID, VALID_ROLE, VALID_SHIFT_TIMING,
+                        VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING).toModelType());
+    }
+
+    @Test
+    void constructor_nullRemark_throwsIllegalValueException() {
+        assertThrows(IllegalValueException.class, () ->
+                new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, null,
+                        VALID_TAGS, VALID_STAFF_ID, VALID_ROLE, VALID_SHIFT_TIMING,
+                        VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING).toModelType());
+    }
+
+    @Test
+    void constructor_nullRole_throwsIllegalValueException() {
+        assertThrows(IllegalValueException.class, () ->
+                new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK,
+                        VALID_TAGS, VALID_STAFF_ID, null, VALID_SHIFT_TIMING,
+                        VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING).toModelType());
+    }
+
+    @Test
+    void constructor_nullShiftTiming_throwsIllegalValueException() {
+        assertThrows(IllegalValueException.class, () ->
+                new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REMARK,
+                        VALID_TAGS, VALID_STAFF_ID, VALID_ROLE, null,
+                        VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING).toModelType());
+    }
+
+    @Test
     public void toModelType_validStaffDetails_returnsStaff() throws Exception {
         JsonAdaptedStaff staff = new JsonAdaptedStaff(ALEX);
         assertEquals(ALEX, staff.toModelType());
