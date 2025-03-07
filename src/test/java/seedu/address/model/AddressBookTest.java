@@ -93,6 +93,59 @@ public class AddressBookTest {
     }
 
     @Test
+    public void setStaff_nullTargetStaff_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.setStaff(null, BEN));
+    }
+
+    @Test
+    public void setStaff_nullEditedStaff_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.setStaff(BEN, null));
+    }
+
+    @Test
+    public void setStaff_validStaff_success() {
+        addressBook.addStaff(BEN);
+        Staff editedBen = new StaffBuilder(BEN).withTags(VALID_TAG_FRIEND).build();
+        addressBook.setStaff(BEN, editedBen);
+        assertTrue(addressBook.hasStaff(editedBen));
+    }
+
+    @Test
+    public void hasStaff_nullStaff_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasStaff(null));
+    }
+
+    @Test
+    public void hasStaff_staffNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasStaff(BEN));
+    }
+
+    @Test
+    public void hasStaff_staffInAddressBook_returnsTrue() {
+        addressBook.addStaff(BEN);
+        assertTrue(addressBook.hasStaff(BEN));
+    }
+
+    @Test
+    public void addStaff_validStaff_success() {
+        addressBook.addStaff(BEN);
+        assertTrue(addressBook.hasStaff(BEN));
+    }
+
+    @Test
+    public void removeStaff_nullStaff_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.removeStaff(null));
+    }
+
+    @Test
+    public void removeStaff_staffInAddressBook_removesSuccessfully() {
+        addressBook.addStaff(BEN);
+        addressBook.removeStaff(BEN);
+        assertFalse(addressBook.hasStaff(BEN));
+    }
+
+
+    @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
         assertEquals(expected, addressBook.toString());
