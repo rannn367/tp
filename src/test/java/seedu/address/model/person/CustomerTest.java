@@ -6,13 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalCustomers.ALICE;
-// import static seedu.address.testutil.TypicalCustomers.BOB;
 import static seedu.address.testutil.TypicalCustomers.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.TypicalCustomers;
 
 public class CustomerTest {
 
@@ -21,13 +19,12 @@ public class CustomerTest {
         Customer customer = new CustomerBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> customer.getTags().remove(0));
     }
-    // 
 
     @Test
-    public void isSameCustomer() {        
+    public void isSameCustomer() {
         // same object -> returns true
         assertTrue(ALICE.isSameCustomer(ALICE));
-        
+
         // Different phone, rest same -> returns false
         Customer editedAlice = new CustomerBuilder(ALICE).withPhone("91234567").build();
         assertFalse(ALICE.isSameCustomer(editedAlice));
@@ -93,9 +90,9 @@ public class CustomerTest {
     public void toStringMethod() {
         String expected = Customer.class.getCanonicalName() + "{name=" + ALICE.getName() + ", "
                 + "phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail()
-                + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags() 
-                + ", rewardPoints=" + ALICE.getRewardPoints() + ", visitCount=" + ALICE.getVisitCount() 
-                + ", favoriteItem=" + ALICE.getFavoriteItem() + ", totalSpent=" + ALICE.getTotalSpent() 
+                + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
+                + ", rewardPoints=" + ALICE.getRewardPoints() + ", visitCount=" + ALICE.getVisitCount()
+                + ", favoriteItem=" + ALICE.getFavoriteItem() + ", totalSpent=" + ALICE.getTotalSpent()
                 + ", rating=" + ALICE.getRating() + "}";
         assertEquals(expected, ALICE.toString());
     }

@@ -12,7 +12,6 @@ import seedu.address.model.person.Customer;
  */
 public class TypicalCustomers {
 
-    private TypicalCustomers() {} // prevents instantiation
 
     public static final Customer ALICE = new CustomerBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111")
@@ -37,9 +36,9 @@ public class TypicalCustomers {
             .withTotalSpent(35.20)
             .withRating(4)
             .withTags("new").build();
-    
-    
-    
+
+    private TypicalCustomers() {} // prevents instantiation
+
     /**
      * Returns a list of all typical customers for testing.
      */
@@ -50,7 +49,7 @@ public class TypicalCustomers {
                 // Add other customers here
         ));
     }
-    
+
     /**
      * Returns a new {@code AddressBook} with all the typical customers.
      */
