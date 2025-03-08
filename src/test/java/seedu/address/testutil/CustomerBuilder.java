@@ -83,22 +83,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Customer} that we are building.
-     */
-    public CustomerBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Customer} that we are building.
-     */
-    public CustomerBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
-
-    /**
      * Sets the {@code Phone} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withPhone(String phone) {
@@ -115,10 +99,26 @@ public class CustomerBuilder {
     }
 
     /**
+     * Sets the {@code Address} of the {@code Customer} that we are building.
+     */
+    public CustomerBuilder withAddress(String address) {
+        this.address = new Address(address);
+        return this;
+    }
+
+    /**
      * Sets the {@code Remark} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withRemark(String remark) {
         this.remark = new Remark(remark);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Customer} that we are building.
+     */
+    public CustomerBuilder withTags(String... tags) {
+        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -163,10 +163,10 @@ public class CustomerBuilder {
     }
 
     /**
-     * Builds a Customer with the current builder settings.
+     * Builds the customer with the information altogether.
      */
     public Customer build() {
-        return new Customer(name, phone, email, address, remark, tags, rewardPoints, visitCount,
-                favoriteItem, totalSpent, rating);
+        return new Customer(name, phone, email, address, remark, tags,
+                rewardPoints, visitCount, favoriteItem, totalSpent, rating);
     }
 }
