@@ -25,7 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Staff> filteredStaffs;
-    private final FilteredList<Customer> filteredCustomers; 
+    private final FilteredList<Customer> filteredCustomers;
 
 
     /**
