@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -171,6 +172,10 @@ public class AddressBookTest {
         @Override
         public ObservableList<Staff> getStaffList() {
             return staffs;
+        }
+        @Override
+        public ObservableList<Customer> getCustomerList() {
+            return FXCollections.observableArrayList();
         }
     }
 
