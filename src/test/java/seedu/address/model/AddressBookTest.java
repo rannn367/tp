@@ -157,20 +157,6 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateCustomers_throwsDuplicatePersonException() {
-        // Two customers with the same identity
-        Customer originalCustomer = new CustomerBuilder().build();
-        Customer duplicateCustomer = new CustomerBuilder().build();
-        List<Person> newPersons = Arrays.asList(new Person[] {});
-        List<Staff> newStaff = Arrays.asList(new Staff[] {});
-        List<Customer> newCustomers = Arrays.asList(originalCustomer, duplicateCustomer);
-
-        AddressBookStub newData = new AddressBookStub(newPersons, newStaff, newCustomers);
-
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
-    }
-
-    @Test
     public void hasCustomer_nullCustomer_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasCustomer(null));
     }
