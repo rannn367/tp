@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 
@@ -24,6 +25,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Staff> filteredStaffs;
+    private final FilteredList<Customer> filteredCustomers; 
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +40,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
+        filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+
+
     }
 
     public ModelManager() {
@@ -102,6 +108,8 @@ public class ModelManager implements Model {
         return addressBook.hasStaff(staffMember);
     }
 
+
+
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
@@ -124,6 +132,8 @@ public class ModelManager implements Model {
         addressBook.addStaff(staffMember);
         updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
     }
+
+
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
