@@ -12,7 +12,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCustomers.JAMES;
 import static seedu.address.testutil.TypicalCustomers.OLIVIA;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStaff.BEN;
 
@@ -66,7 +65,9 @@ public class AddressBookTest {
         List<Staff> newStaffs = Arrays.asList(BEN, editedBen);
 
         // Two customers witht he same identity fields
-        Customer editedOlivia = new CustomerBuilder(OLIVIA).withAddress(VALID_ADDRESS_OLIVIA).withTags(VALID_TAG_STUDENT).build();
+        Customer editedOlivia = new CustomerBuilder(OLIVIA).withAddress(VALID_ADDRESS_OLIVIA)
+                .withTags(VALID_TAG_STUDENT)
+                .build();
         List<Customer> newCustomers = Arrays.asList(OLIVIA, editedOlivia);
 
         AddressBookStub newData = new AddressBookStub(newPersons, newStaffs, newCustomers);
@@ -163,9 +164,9 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(new Person[] {});
         List<Staff> newStaff = Arrays.asList(new Staff[] {});
         List<Customer> newCustomers = Arrays.asList(originalCustomer, duplicateCustomer);
-        
+
         AddressBookStub newData = new AddressBookStub(newPersons, newStaff, newCustomers);
-        
+
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
 
@@ -187,7 +188,7 @@ public class AddressBookTest {
 
     @Test
     public void getCustomerList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> 
+        assertThrows(UnsupportedOperationException.class, () ->
                 addressBook.getCustomerList().remove(0));
     }
 
@@ -226,7 +227,7 @@ public class AddressBookTest {
         public ObservableList<Customer> getCustomerList() {
             return customers;
         }
-        
+
     }
 
 }

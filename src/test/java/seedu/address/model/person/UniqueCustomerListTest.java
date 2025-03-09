@@ -46,19 +46,19 @@ public class UniqueCustomerListTest {
 
     @Test
     public void setCustomer_nullTargetCustomer_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> 
+        assertThrows(NullPointerException.class, () ->
                 uniqueCustomerList.setCustomer(null, new CustomerBuilder().build()));
     }
 
     @Test
     public void setCustomer_nullEditedCustomer_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> 
+        assertThrows(NullPointerException.class, () ->
                 uniqueCustomerList.setCustomer(new CustomerBuilder().build(), null));
     }
 
     @Test
     public void setCustomer_targetCustomerNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> 
+        assertThrows(PersonNotFoundException.class, () ->
                 uniqueCustomerList.setCustomer(new CustomerBuilder().build(), new CustomerBuilder().build()));
     }
 
