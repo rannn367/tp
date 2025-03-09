@@ -1,8 +1,50 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.FAVORITE_ITEM_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.FAVORITE_ITEM_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.REWARD_POINTS_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.REWARD_POINTS_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_STUDENT;
+import static seedu.address.logic.commands.CommandTestUtil.TOTAL_SPENT_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.TOTAL_SPENT_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FAVORITE_ITEM_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REWARD_POINTS_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_SPENT_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VISIT_COUNT_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VISIT_COUNT_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VISIT_COUNT_DESC_OLIVIA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -26,7 +68,7 @@ public class AddCustomerCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         String userInput = NAME_DESC_JAMES + PHONE_DESC_JAMES + EMAIL_DESC_JAMES + ADDRESS_DESC_JAMES
-                + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES + FAVORITE_ITEM_DESC_JAMES 
+                + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES + FAVORITE_ITEM_DESC_JAMES
                 + TOTAL_SPENT_DESC_JAMES + RATING_DESC_JAMES + TAG_DESC_STUDENT;
 
         AddCustomerCommand expectedCommand = new AddCustomerCommand(
@@ -48,7 +90,7 @@ public class AddCustomerCommandParserTest {
     @Test
     public void parse_repeatedNonTagValue_failure() {
         String validExpectedCustomerString = NAME_DESC_JAMES + PHONE_DESC_JAMES + EMAIL_DESC_JAMES
-                + ADDRESS_DESC_JAMES + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES 
+                + ADDRESS_DESC_JAMES + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES
                 + FAVORITE_ITEM_DESC_JAMES + TOTAL_SPENT_DESC_JAMES + RATING_DESC_JAMES + TAG_DESC_STUDENT;
 
         // multiple names
@@ -88,9 +130,9 @@ public class AddCustomerCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_RATING));
 
         // multiple fields repeated
-        assertParseFailure(parser, validExpectedCustomerString + PHONE_DESC_OLIVIA + EMAIL_DESC_OLIVIA 
-                        + NAME_DESC_OLIVIA + ADDRESS_DESC_OLIVIA + REWARD_POINTS_DESC_OLIVIA 
-                        + VISIT_COUNT_DESC_OLIVIA + FAVORITE_ITEM_DESC_OLIVIA + TOTAL_SPENT_DESC_OLIVIA 
+        assertParseFailure(parser, validExpectedCustomerString + PHONE_DESC_OLIVIA + EMAIL_DESC_OLIVIA
+                        + NAME_DESC_OLIVIA + ADDRESS_DESC_OLIVIA + REWARD_POINTS_DESC_OLIVIA
+                        + VISIT_COUNT_DESC_OLIVIA + FAVORITE_ITEM_DESC_OLIVIA + TOTAL_SPENT_DESC_OLIVIA
                         + RATING_DESC_OLIVIA + validExpectedCustomerString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE,
                         PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT,
@@ -161,13 +203,13 @@ public class AddCustomerCommandParserTest {
         // invalid tag
         assertParseFailure(parser, NAME_DESC_JAMES + PHONE_DESC_JAMES + EMAIL_DESC_JAMES + ADDRESS_DESC_JAMES
                 + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES + FAVORITE_ITEM_DESC_JAMES
-                + TOTAL_SPENT_DESC_JAMES + RATING_DESC_JAMES + INVALID_TAG_DESC, 
+                + TOTAL_SPENT_DESC_JAMES + RATING_DESC_JAMES + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_JAMES + PHONE_DESC_JAMES + EMAIL_DESC_JAMES
                 + ADDRESS_DESC_JAMES + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES + FAVORITE_ITEM_DESC_JAMES
-                + TOTAL_SPENT_DESC_JAMES + RATING_DESC_JAMES, 
+                + TOTAL_SPENT_DESC_JAMES + RATING_DESC_JAMES,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
     }
 }
