@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.BOB;
+import static seedu.address.testutil.TypicalCustomers.JAMES;
+import static seedu.address.testutil.TypicalCustomers.OLIVIA;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,77 +23,77 @@ public class CustomerTest {
     @Test
     public void isSameCustomer() {
         // same object -> returns true
-        assertTrue(ALICE.isSameCustomer(ALICE));
+        assertTrue(JAMES.isSameCustomer(JAMES));
 
         // Different phone, rest same -> returns false
-        Customer editedAlice = new CustomerBuilder(ALICE).withPhone("91234567").build();
-        assertFalse(ALICE.isSameCustomer(editedAlice));
+        Customer editedJames = new CustomerBuilder(JAMES).withPhone("91234567").build();
+        assertFalse(JAMES.isSameCustomer(editedJames));
     }
 
     @Test
     public void hashCode_sameCustomer_returnsSameHashCode() {
-        Customer aliceCopy = new CustomerBuilder(ALICE).build();
-        assertEquals(ALICE.hashCode(), aliceCopy.hashCode()); // Same fields -> same hashcode
+        Customer jamesCopy = new CustomerBuilder(JAMES).build();
+        assertEquals(JAMES.hashCode(), jamesCopy.hashCode()); // Same fields -> same hashcode
     }
 
     @Test
     public void hashCode_differentCustomer_returnsDifferentHashCode() {
-        Customer editedAlice = new CustomerBuilder(ALICE).withRewardPoints(999).build();
-        assertNotEquals(ALICE.hashCode(), editedAlice.hashCode()); // Different reward points -> different hashcode
+        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints(999).build();
+        assertNotEquals(JAMES.hashCode(), editedJames.hashCode()); // Different reward points -> different hashcode
     }
 
     @Test
     public void isSameCustomer_nullCustomer_returnsFalse() {
-        assertFalse(BOB.isSameCustomer(null)); // null -> should return false
+        assertFalse(OLIVIA.isSameCustomer(null)); // null -> should return false
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Customer aliceCopy = new CustomerBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Customer jamesCopy = new CustomerBuilder(JAMES).build();
+        assertTrue(JAMES.equals(jamesCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(JAMES.equals(JAMES));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(JAMES.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(JAMES.equals(5));
 
         // different customer -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(JAMES.equals(OLIVIA));
 
         // different reward points -> returns false
-        Customer editedAlice = new CustomerBuilder(ALICE).withRewardPoints(1000).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints(1000).build();
+        assertFalse(JAMES.equals(editedJames));
 
         // different visit count -> returns false
-        editedAlice = new CustomerBuilder(ALICE).withVisitCount(20).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedJames = new CustomerBuilder(JAMES).withVisitCount(20).build();
+        assertFalse(JAMES.equals(editedJames));
 
         // different favorite item -> returns false
-        editedAlice = new CustomerBuilder(ALICE).withFavoriteItem("Espresso").build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedJames = new CustomerBuilder(JAMES).withFavoriteItem("Espresso").build();
+        assertFalse(JAMES.equals(editedJames));
 
         // different total spent -> returns false
-        editedAlice = new CustomerBuilder(ALICE).withTotalSpent(999.99).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedJames = new CustomerBuilder(JAMES).withTotalSpent(999.99).build();
+        assertFalse(JAMES.equals(editedJames));
 
         // different rating -> returns false
-        editedAlice = new CustomerBuilder(ALICE).withRating(2).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedJames = new CustomerBuilder(JAMES).withRating(2).build();
+        assertFalse(JAMES.equals(editedJames));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = Customer.class.getCanonicalName() + "{name=" + ALICE.getName() + ", "
-                + "phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail()
-                + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
-                + ", rewardPoints=" + ALICE.getRewardPoints() + ", visitCount=" + ALICE.getVisitCount()
-                + ", favoriteItem=" + ALICE.getFavoriteItem() + ", totalSpent=" + ALICE.getTotalSpent()
-                + ", rating=" + ALICE.getRating() + "}";
-        assertEquals(expected, ALICE.toString());
+        String expected = Customer.class.getCanonicalName() + "{name=" + JAMES.getName() + ", "
+                + "phone=" + JAMES.getPhone() + ", email=" + JAMES.getEmail()
+                + ", address=" + JAMES.getAddress() + ", tags=" + JAMES.getTags()
+                + ", rewardPoints=" + JAMES.getRewardPoints() + ", visitCount=" + JAMES.getVisitCount()
+                + ", favoriteItem=" + JAMES.getFavoriteItem() + ", totalSpent=" + JAMES.getTotalSpent()
+                + ", rating=" + JAMES.getRating() + "}";
+        assertEquals(expected, JAMES.toString());
     }
 }
