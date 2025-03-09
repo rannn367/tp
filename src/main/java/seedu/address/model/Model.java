@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 
@@ -15,7 +16,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
-
+    Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -64,10 +65,10 @@ public interface Model {
      */
     boolean hasStaff(Staff staffMember);
 
-    // /**
-    //  * Returns true if a customer with the same identity as {@code customer} exists
-    //  */
-    // boolean hasCustomer(Customer customer);
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists
+     */
+    boolean hasCustomer(Customer customer);
 
     /**
      * Deletes the given person.
@@ -89,10 +90,10 @@ public interface Model {
 
 
 
-    // /**
-    //  * Adds the given customer
-    //  */
-    // void addCustomer(Customer customer);
+    /**
+     * Adds the given customer
+     */
+    void addCustomer(Customer customer);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -108,8 +109,8 @@ public interface Model {
     ObservableList<Staff> getFilteredStaffList();
 
 
-    // /** Returns an unmodifiable view of the filtered customer list */
-    // // ObservableList<Customer> getFilteredCustomerList();
+    /** Returns an unmodifiable view of the filtered customer list */
+    ObservableList<Customer> getFilteredCustomerList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -122,4 +123,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStaffList(Predicate<Staff> predicate);
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     */
+    void updateFilteredCustomerList(Predicate<Customer> predicate);
 }

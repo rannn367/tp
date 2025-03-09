@@ -141,9 +141,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeStaff(Staff staffMember) {
         staffs.remove(staffMember);
     }
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
+     */
+    public boolean hasCustomer(Customer customer) {
+        requireNonNull(customer);
+        return customers.contains(customer);
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
 
     //// util methods
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)

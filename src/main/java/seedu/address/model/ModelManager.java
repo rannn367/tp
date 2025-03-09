@@ -108,6 +108,11 @@ public class ModelManager implements Model {
         return addressBook.hasStaff(staffMember);
     }
 
+    @Override
+    public boolean hasCustomer(Customer customer) {
+        requireNonNull(customer);
+        return addressBook.hasCustomer(customer);
+    }
 
 
     @Override
@@ -126,11 +131,22 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
     }
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
+    }
 
     @Override
     public void addStaff(Staff staffMember) {
         addressBook.addStaff(staffMember);
         updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+    }
+
+    @Override
+    public void addCustomer(Customer customer) {
+        addressBook.addCustomer(customer);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
 
@@ -155,6 +171,11 @@ public class ModelManager implements Model {
 
     public ObservableList<Staff> getFilteredStaffList() {
         return filteredStaffs;
+    }
+
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
     }
 
     @Override
