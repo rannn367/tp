@@ -6,8 +6,10 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.UniqueCustomerList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniqueStaffList;
 
@@ -19,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueStaffList staffs;
+    private final UniqueCustomerList customers;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +33,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         staffs = new UniqueStaffList();
+        customers = new UniqueCustomerList();
+
     }
 
     public AddressBook() {}
@@ -136,9 +141,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeStaff(Staff staffMember) {
         staffs.remove(staffMember);
     }
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
+     */
+    public boolean hasCustomer(Customer customer) {
+        requireNonNull(customer);
+        return customers.contains(customer);
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
 
     //// util methods
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -155,6 +170,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Staff> getStaffList() {
         System.out.println(staffs.asUnmodifiableObservableList());
         return staffs.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Customer> getCustomerList() {
+        return customers.asUnmodifiableObservableList();
     }
 
     @Override

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalStaff.ALEX;
+import static seedu.address.testutil.TypicalCustomers.JAMES;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -25,66 +25,66 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
-import seedu.address.testutil.StaffBuilder;
+import seedu.address.testutil.CustomerBuilder;
 
-public class AddStaffCommandTest {
+public class AddCustomerCommandTest {
 
     @Test
-    public void constructor_nullStaff_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddStaffCommand(null));
+    public void constructor_nullCustomer_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddCustomerCommand(null));
     }
 
     @Test
-    public void execute_staffAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingStaffAdded modelStub = new ModelStubAcceptingStaffAdded();
-        Staff validStaff = new StaffBuilder().build();
+    public void execute_customerAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCustomerAdded modelStub = new ModelStubAcceptingCustomerAdded();
+        Customer validCustomer = new CustomerBuilder().build();
 
-        CommandResult commandResult = new AddStaffCommand(validStaff).execute(modelStub);
+        CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub);
 
-        assertEquals(String.format(AddStaffCommand.MESSAGE_SUCCESS, Messages.format(validStaff)),
+        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, Messages.format(validCustomer)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validStaff), modelStub.staffAdded);
+        assertEquals(Arrays.asList(validCustomer), modelStub.customersAdded);
     }
 
     @Test
-    public void execute_duplicateStaff_throwsCommandException() {
-        Staff validStaff = new StaffBuilder().build();
-        AddStaffCommand addStaffCommand = new AddStaffCommand(validStaff);
-        ModelStub modelStub = new ModelStubWithStaff(validStaff);
+    public void execute_duplicateCustomer_throwsCommandException() {
+        Customer validCustomer = new CustomerBuilder().build();
+        AddCustomerCommand addCustomerCommand = new AddCustomerCommand(validCustomer);
+        ModelStub modelStub = new ModelStubWithCustomer(validCustomer);
 
         assertThrows(CommandException.class,
-                AddStaffCommand.MESSAGE_DUPLICATE_STAFF, () -> addStaffCommand.execute(modelStub));
+                AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER, () -> addCustomerCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Staff alex = new StaffBuilder().withName("Alex").build();
-        Staff bob = new StaffBuilder().withName("Bob").build();
-        AddStaffCommand addAlexCommand = new AddStaffCommand(alex);
-        AddStaffCommand addBobCommand = new AddStaffCommand(bob);
+        Customer james = new CustomerBuilder().withName("James Wilson").build();
+        Customer olivia = new CustomerBuilder().withName("Olivia Chen").build();
+        AddCustomerCommand addJamesCommand = new AddCustomerCommand(james);
+        AddCustomerCommand addOliviaCommand = new AddCustomerCommand(olivia);
 
         // same object -> returns true
-        assertTrue(addAlexCommand.equals(addAlexCommand));
+        assertTrue(addJamesCommand.equals(addJamesCommand));
 
         // same values -> returns true
-        AddStaffCommand addAlexCommandCopy = new AddStaffCommand(alex);
-        assertTrue(addAlexCommand.equals(addAlexCommandCopy));
+        AddCustomerCommand addJamesCommandCopy = new AddCustomerCommand(james);
+        assertTrue(addJamesCommand.equals(addJamesCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAlexCommand.equals(1));
+        assertFalse(addJamesCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAlexCommand.equals(null));
+        assertFalse(addJamesCommand.equals(null));
 
-        // different staff -> returns false
-        assertFalse(addAlexCommand.equals(addBobCommand));
+        // different customer -> returns false
+        assertFalse(addJamesCommand.equals(addOliviaCommand));
     }
 
     @Test
     public void toStringMethod() {
-        AddStaffCommand addStaffCommand = new AddStaffCommand(ALEX);
-        String expected = AddStaffCommand.class.getCanonicalName() + "{toAdd=" + ALEX + "}";
-        assertEquals(expected, addStaffCommand.toString());
+        AddCustomerCommand addCustomerCommand = new AddCustomerCommand(JAMES);
+        String expected = AddCustomerCommand.class.getCanonicalName() + "{toAdd=" + JAMES + "}";
+        assertEquals(expected, addCustomerCommand.toString());
     }
 
     private class ModelStub implements Model {
@@ -209,34 +209,34 @@ public class AddStaffCommandTest {
         // }
     }
 
-    private class ModelStubWithStaff extends ModelStub {
-        private final Staff staff;
+    private class ModelStubWithCustomer extends ModelStub {
+        private final Customer customer;
 
-        ModelStubWithStaff(Staff staff) {
-            requireNonNull(staff);
-            this.staff = staff;
+        ModelStubWithCustomer(Customer customer) {
+            requireNonNull(customer);
+            this.customer = customer;
         }
 
         @Override
-        public boolean hasStaff(Staff staffMember) {
-            requireNonNull(staffMember);
-            return this.staff.isSameStaff(staffMember);
+        public boolean hasCustomer(Customer customer) {
+            requireNonNull(customer);
+            return this.customer.isSameCustomer(customer);
         }
     }
 
-    private class ModelStubAcceptingStaffAdded extends ModelStub {
-        final ArrayList<Staff> staffAdded = new ArrayList<>();
+    private class ModelStubAcceptingCustomerAdded extends ModelStub {
+        final ArrayList<Customer> customersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasStaff(Staff staffMember) {
-            requireNonNull(staffMember);
-            return staffAdded.stream().anyMatch(staffMember::isSameStaff);
+        public boolean hasCustomer(Customer customer) {
+            requireNonNull(customer);
+            return customersAdded.stream().anyMatch(customer::isSameCustomer);
         }
 
         @Override
-        public void addStaff(Staff staffMember) {
-            requireNonNull(staffMember);
-            staffAdded.add(staffMember);
+        public void addCustomer(Customer customer) {
+            requireNonNull(customer);
+            customersAdded.add(customer);
         }
 
         @Override
