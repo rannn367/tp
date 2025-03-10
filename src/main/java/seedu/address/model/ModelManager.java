@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Staff;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +24,9 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Staff> filteredStaffs;
+    private final FilteredList<Customer> filteredCustomers;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +39,10 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
+        filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+
+
     }
 
     public ModelManager() {
@@ -94,6 +103,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasStaff(Staff staffMember) {
+        requireAllNonNull(staffMember);
+        return addressBook.hasStaff(staffMember);
+    }
+
+    @Override
+    public boolean hasCustomer(Customer customer) {
+        requireNonNull(customer);
+        return addressBook.hasCustomer(customer);
+    }
+
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -103,6 +125,31 @@ public class ModelManager implements Model {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+        requireNonNull(predicate);
+        filteredStaffs.setPredicate(predicate);
+    }
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void addStaff(Staff staffMember) {
+        addressBook.addStaff(staffMember);
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+    }
+
+    @Override
+    public void addCustomer(Customer customer) {
+        addressBook.addCustomer(customer);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+    }
+
+
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
@@ -120,6 +167,15 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    public ObservableList<Staff> getFilteredStaffList() {
+        return filteredStaffs;
+    }
+
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
     }
 
     @Override
