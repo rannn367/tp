@@ -24,10 +24,12 @@ public class SampleDataUtil {
 
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-
-
-                new Address("Blk 30 Geylang Street 29, #06-40"), EMPTY_REMARK,
+            new Person(
+                new Name("Alex Yeoh"),
+                new Phone("87438807"),
+                new Email("alexyeoh@example.com"),
+                new Address("Blk 30 Geylang Street 29, #06-40"),
+                EMPTY_REMARK,
                 getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), EMPTY_REMARK,
@@ -55,7 +57,7 @@ public class SampleDataUtil {
                         new Email("alice.tan@cafeexample.com"),
                         new Address("123 Café Street"),
                         new Remark("Punctual and friendly"),
-                        getTagSet("barista", "full-time"),
+                        getTagSet("barista", "fulltime"),
                         "S001",
                         "Barista",
                         "Morning Shift",
@@ -68,7 +70,7 @@ public class SampleDataUtil {
                         new Email("bob.lim@cafeexample.com"),
                         new Address("456 Coffee Lane"),
                         new Remark("Great leadership skills"),
-                        getTagSet("manager", "full-time"),
+                        getTagSet("manager", "fulltime"),
                         "S002",
                         "Manager",
                         "Day Shift",
@@ -81,7 +83,7 @@ public class SampleDataUtil {
                         new Email("charlie.wong@cafeexample.com"),
                         new Address("789 Espresso Avenue"),
                         new Remark("Creative and efficient"),
-                        getTagSet("chef", "part-time"),
+                        getTagSet("chef", "parttime"),
                         "S003",
                         "Chef",
                         "Evening Shift",
