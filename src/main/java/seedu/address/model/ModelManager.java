@@ -149,6 +149,12 @@ public class ModelManager implements Model {
         updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
+    @Override
+    public void deleteCustomer(Customer customer) {
+        requireNonNull(customer);
+        addressBook.removeCustomer(customer);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+    }
 
 
     @Override
