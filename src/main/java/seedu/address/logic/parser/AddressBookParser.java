@@ -92,10 +92,6 @@ public class AddressBookParser {
             return new DeleteCustomerCommandParser().parse(arguments);
 
 
-        case AddCustomerCommand.COMMAND_WORD:
-            return new AddCustomerCommandParser().parse(arguments);
-
-
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
