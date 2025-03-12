@@ -17,16 +17,32 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 
+/**
+ * Test class for MainApp.
+ */
 public class MainAppTest {
 
     @TempDir
-    static Path tempDir;
+    protected static Path tempDir;
 
+    private static final int UI_THREAD_JOIN_TIMEOUT = 10000;
+    private static Thread uiThread;
+
+    /**
+     * Tests the default application behavior.
+     *
+     * @throws Exception if any error occurs during the test.
+     */
     @Test
     public void testDefaultApp() throws Exception {
-        Thread.sleep(5000);
+        uiThread.join(UI_THREAD_JOIN_TIMEOUT);
     }
 
+    /**
+     * Initializes the JavaFX application thread and sets up temporary configuration files.
+     *
+     * @throws Exception if any error occurs during initialization.
+     */
     @BeforeAll
     public static void initFX() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
@@ -41,22 +57,30 @@ public class MainAppTest {
         configNode.put("logLevel", "INFO");
         configNode.put("userPrefsFilePath", tempPrefPath.toString());
 
+        // Write the config to the temporary file
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String configJson = ow.writeValueAsString(configNode);
         Files.writeString(tempConfigPath, configJson);
 
-        new Thread(() -> Application.launch(
+        uiThread = new Thread(() -> Application.launch(
                 MainApp.class,
                 "--config=" + tempDir.resolve("testConfig.json").toString()
-        )).start();
+        ));
+        uiThread.start();
     }
 
+    /**
+     * Exits the JavaFX application thread.
+     */
     @AfterAll
     public static void exit() {
         Platform.exit();
     }
 
-    public class TestApp extends MainApp {
+    /**
+     * Test application class extending MainApp.
+     */
+    public static class TestApp extends MainApp {
         @Override
         public void init() throws Exception {
             super.init();
