@@ -24,8 +24,8 @@ public class Customer extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Customer(String customerId, Name name, Phone phone, Email email, Address address, Remark remark,
-                    Set<Tag> tags, int rewardPoints, int visitCount, String favoriteItem, double totalSpent) {
+    public Customer(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
+                    String customerId, int rewardPoints, int visitCount, String favoriteItem, double totalSpent) {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
 
