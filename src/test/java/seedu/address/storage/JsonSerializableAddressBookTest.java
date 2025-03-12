@@ -59,7 +59,7 @@ public class JsonSerializableAddressBookTest {
         ));
         List<JsonAdaptedStaff> staffList = List.of(staff, staff);
         JsonSerializableAddressBook jsonAddressBook =
-                new JsonSerializableAddressBook(Collections.emptyList(), staffList);
+                new JsonSerializableAddressBook(Collections.emptyList(), staffList, Collections.emptyList());
         assertThrows(IllegalValueException.class, jsonAddressBook::toModelType);
     }
 

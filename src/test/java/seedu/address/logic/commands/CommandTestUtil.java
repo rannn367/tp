@@ -3,13 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERFORMANCE_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
@@ -125,6 +125,8 @@ public class CommandTestUtil {
     public static final String VALID_FAVORITE_ITEM_JAMES = "Flat White";
     public static final double VALID_TOTAL_SPENT_JAMES = 155.75;
     public static final int VALID_RATING_JAMES = 5;
+    public static final String VALID_CUSTOMER_ID_JAMES = "C45678";
+
 
     // Constants for Olivia Chen
     public static final String VALID_NAME_OLIVIA = "Olivia Chen";
@@ -137,9 +139,11 @@ public class CommandTestUtil {
     public static final int VALID_VISIT_COUNT_OLIVIA = 3;
     public static final String VALID_FAVORITE_ITEM_OLIVIA = "Green Tea Latte";
     public static final double VALID_TOTAL_SPENT_OLIVIA = 42.90;
-    public static final int VALID_RATING_OLIVIA = 4;
+    public static final String VALID_CUSTOMER_ID_OLIVIA = "C12345";
 
     // Command string descriptors
+    public static final String CUSTOMER_ID_DESC_OLIVIA = " " + PREFIX_CUSTOMER_ID + VALID_CUSTOMER_ID_OLIVIA;
+    public static final String CUSTOMER_ID_DESC_JAMES = " " + PREFIX_CUSTOMER_ID + VALID_CUSTOMER_ID_JAMES;
     public static final String NAME_DESC_JAMES = " " + PREFIX_NAME + VALID_NAME_JAMES;
     public static final String NAME_DESC_OLIVIA = " " + PREFIX_NAME + VALID_NAME_OLIVIA;
     public static final String PHONE_DESC_JAMES = " " + PREFIX_PHONE + VALID_PHONE_JAMES;
@@ -158,8 +162,6 @@ public class CommandTestUtil {
     public static final String FAVORITE_ITEM_DESC_OLIVIA = " " + PREFIX_FAVORITE_ITEM + VALID_FAVORITE_ITEM_OLIVIA;
     public static final String TOTAL_SPENT_DESC_JAMES = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_JAMES;
     public static final String TOTAL_SPENT_DESC_OLIVIA = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_OLIVIA;
-    public static final String RATING_DESC_JAMES = " " + PREFIX_RATING + VALID_RATING_JAMES;
-    public static final String RATING_DESC_OLIVIA = " " + PREFIX_RATING + VALID_RATING_OLIVIA;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

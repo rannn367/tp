@@ -17,6 +17,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CustomerBuilder {
 
+    public static final String DEFAULT_CUSTOMER_ID = "C1001";
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
@@ -38,12 +39,13 @@ public class CustomerBuilder {
     private int visitCount;
     private String favoriteItem;
     private double totalSpent;
-    private int rating;
+    private String customerId;
 
     /**
      * Creates a {@code CustomerBuilder} with the default details.
      */
     public CustomerBuilder() {
+        customerId = DEFAULT_CUSTOMER_ID;
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -54,13 +56,13 @@ public class CustomerBuilder {
         visitCount = DEFAULT_VISIT_COUNT;
         favoriteItem = DEFAULT_FAVORITE_ITEM;
         totalSpent = DEFAULT_TOTAL_SPENT;
-        rating = DEFAULT_RATING;
     }
 
     /**
      * Initializes the CustomerBuilder with the data of {@code customerToCopy}.
      */
     public CustomerBuilder(Customer customerToCopy) {
+        customerId = customerToCopy.getCustomerId();
         name = customerToCopy.getName();
         phone = customerToCopy.getPhone();
         email = customerToCopy.getEmail();
@@ -71,7 +73,6 @@ public class CustomerBuilder {
         visitCount = customerToCopy.getVisitCount();
         favoriteItem = customerToCopy.getFavoriteItem();
         totalSpent = customerToCopy.getTotalSpent();
-        rating = customerToCopy.getRating();
     }
 
     /**
@@ -157,8 +158,8 @@ public class CustomerBuilder {
     /**
      * Sets the {@code rating} of the {@code Customer} that we are building.
      */
-    public CustomerBuilder withRating(int rating) {
-        this.rating = rating;
+    public CustomerBuilder withCustomerId(String customerId) {
+        this.customerId = customerId;
         return this;
     }
 
@@ -166,7 +167,7 @@ public class CustomerBuilder {
      * Builds the customer with the information altogether.
      */
     public Customer build() {
-        return new Customer(name, phone, email, address, remark, tags,
-                rewardPoints, visitCount, favoriteItem, totalSpent, rating);
+        return new Customer(customerId, name, phone, email, address, remark, tags,
+                rewardPoints, visitCount, favoriteItem, totalSpent);
     }
 }
