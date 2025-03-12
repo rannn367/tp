@@ -117,6 +117,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given customer member {@code target} in the list with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The staff identity of {@code editedStaff} must not be the same as another existing customer member in the
+     * address book.
+     */
+    public void setCustomer(Customer target, Customer editedCustomer) {
+        requireNonNull(editedCustomer);
+
+        customers.setCustomer(target, editedCustomer);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
