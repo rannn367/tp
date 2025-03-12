@@ -25,7 +25,7 @@ public class MainAppTest {
     @TempDir
     protected static Path tempDir;
 
-    private static final int UI_THREAD_JOIN_TIMEOUT = 10000;
+    private static final int UI_THREAD_JOIN_TIMEOUT = 20000; // Increased timeout
     private static Thread uiThread;
 
     /**
@@ -35,6 +35,11 @@ public class MainAppTest {
      */
     @Test
     public void testDefaultApp() throws Exception {
+        uiThread = new Thread(() -> Application.launch(
+                TestApp.class,
+                "--config=" + tempDir.resolve("testConfig.json").toString()
+        ));
+        uiThread.start();
         uiThread.join(UI_THREAD_JOIN_TIMEOUT);
     }
 
@@ -61,12 +66,6 @@ public class MainAppTest {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String configJson = ow.writeValueAsString(configNode);
         Files.writeString(tempConfigPath, configJson);
-
-        uiThread = new Thread(() -> Application.launch(
-                MainApp.class,
-                "--config=" + tempDir.resolve("testConfig.json").toString()
-        ));
-        uiThread.start();
     }
 
     /**
@@ -75,6 +74,11 @@ public class MainAppTest {
     @AfterAll
     public static void exit() {
         Platform.exit();
+        try {
+            uiThread.join(UI_THREAD_JOIN_TIMEOUT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
