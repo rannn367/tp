@@ -141,6 +141,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeStaff(Staff staffMember) {
         staffs.remove(staffMember);
     }
+
+    // Customer methods
+
     /**
      * Returns true if a customer with the same identity as {@code customer} exists in the address book.
      */
@@ -151,6 +154,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addCustomer(Customer customer) {
         customers.add(customer);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}'s customer list.
+     * {@code key} must exist in the address book's customer list.
+     */
+    public void removeCustomer(Customer key) {
+        customers.remove(key);
     }
 
     //// util methods
