@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 
@@ -21,21 +22,27 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_STAFF = "Staff list contains duplicate staff member(s).";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER = "Customer list contains duplicate customer(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedStaff> staff = new ArrayList<>();
+    private final List<JsonAdaptedCustomer> customers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons and staff.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("staff") List<JsonAdaptedStaff> staff) {
+                                       @JsonProperty("staff") List<JsonAdaptedStaff> staff,
+                                       @JsonProperty("customers") List<JsonAdaptedCustomer> customers) {
         if (persons != null) {
             this.persons.addAll(persons);
         }
         if (staff != null) {
             this.staff.addAll(staff);
+        }
+        if (customers != null) {
+            this.customers.addAll(customers);
         }
     }
 
@@ -51,6 +58,10 @@ class JsonSerializableAddressBook {
 
         for (Staff staffMember : source.getStaffList()) {
             staff.add(new JsonAdaptedStaff(staffMember));
+        }
+
+        for (Customer customer : source.getCustomerList()) {
+            customers.add(new JsonAdaptedCustomer(customer));
         }
     }
 
@@ -77,6 +88,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
             }
             addressBook.addStaff(staffMember);
+        }
+
+        for (JsonAdaptedCustomer jsonAdaptedCustomer : customers) {
+            Customer customer = jsonAdaptedCustomer.toModelType();
+            if (addressBook.hasCustomer(customer)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CUSTOMER);
+            }
+            addressBook.addCustomer(customer);
         }
 
         return addressBook;
