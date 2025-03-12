@@ -59,6 +59,10 @@ public class CustomerTest {
         // null -> returns false
         assertFalse(JAMES.equals(null));
 
+        // different customerId -> returns false
+        Customer editedJames = new CustomerBuilder(JAMES).withCustomerId("C1003").build();
+        assertFalse(JAMES.equals(editedJames));
+
         // different type -> returns false
         assertFalse(JAMES.equals(5));
 
@@ -66,7 +70,7 @@ public class CustomerTest {
         assertFalse(JAMES.equals(OLIVIA));
 
         // different reward points -> returns false
-        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints(1000).build();
+        editedJames = new CustomerBuilder(JAMES).withRewardPoints(1000).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different visit count -> returns false
@@ -81,19 +85,18 @@ public class CustomerTest {
         editedJames = new CustomerBuilder(JAMES).withTotalSpent(999.99).build();
         assertFalse(JAMES.equals(editedJames));
 
-        // different rating -> returns false
-        editedJames = new CustomerBuilder(JAMES).withRating(2).build();
-        assertFalse(JAMES.equals(editedJames));
+
     }
 
     @Test
     public void toStringMethod() {
-        String expected = Customer.class.getCanonicalName() + "{name=" + JAMES.getName() + ", "
+        String expected = Customer.class.getCanonicalName() + "{customerId=" + JAMES.getCustomerId() + ", name="
+                + JAMES.getName() + ", "
                 + "phone=" + JAMES.getPhone() + ", email=" + JAMES.getEmail()
                 + ", address=" + JAMES.getAddress() + ", tags=" + JAMES.getTags()
                 + ", rewardPoints=" + JAMES.getRewardPoints() + ", visitCount=" + JAMES.getVisitCount()
                 + ", favoriteItem=" + JAMES.getFavoriteItem() + ", totalSpent=" + JAMES.getTotalSpent()
-                + ", rating=" + JAMES.getRating() + "}";
+                + "}";
         assertEquals(expected, JAMES.toString());
     }
 }

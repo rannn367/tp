@@ -7,6 +7,7 @@ import java.util.Set;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
+
 /**
  * Represents a Customer in the café management system.
  * Inherits from Person and adds customer-specific attributes.
@@ -14,25 +15,29 @@ import seedu.address.model.tag.Tag;
 public class Customer extends Person {
 
     // Customer-specific fields
+    private final String customerId; // Customer id
     private final int rewardPoints; // Current reward points balance
     private final int visitCount; // Number of times customer has visited
     private final String favoriteItem; // Customer's most ordered item
     private final double totalSpent; // Total amount spent by customer
-    private final int rating; // Customer rating (1-5 stars) based on feedback
 
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
-                   int rewardPoints, int visitCount, String favoriteItem, double totalSpent, int rating) {
+    public Customer(String customerId, Name name, Phone phone, Email email, Address address, Remark remark,
+                    Set<Tag> tags, int rewardPoints, int visitCount, String favoriteItem, double totalSpent) {
         super(name, phone, email, address, remark, tags);
-        requireAllNonNull(rewardPoints, visitCount, favoriteItem, totalSpent, rating);
+        requireAllNonNull(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
 
+        this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
         this.favoriteItem = favoriteItem;
         this.totalSpent = totalSpent;
-        this.rating = rating;
+    }
+
+    public String getCustomerId() {
+        return customerId;
     }
 
     public int getRewardPoints() {
@@ -51,9 +56,7 @@ public class Customer extends Person {
         return totalSpent;
     }
 
-    public int getRating() {
-        return rating;
-    }
+
 
     /**
      * Returns true if both customers have the same identity fields.
@@ -91,18 +94,19 @@ public class Customer extends Person {
                 && visitCount == otherCustomer.visitCount
                 && favoriteItem.equals(otherCustomer.favoriteItem)
                 && Double.compare(totalSpent, otherCustomer.totalSpent) == 0
-                && rating == otherCustomer.rating;
+                && customerId.equals(otherCustomer.customerId);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + Integer.hashCode(rewardPoints) + Integer.hashCode(visitCount)
-                + favoriteItem.hashCode() + Double.hashCode(totalSpent) + Integer.hashCode(rating);
+        return super.hashCode() + customerId.hashCode() + Integer.hashCode(rewardPoints) + Integer.hashCode(visitCount)
+                + favoriteItem.hashCode() + Double.hashCode(totalSpent);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("customerId", getCustomerId())
                 .add("name", getName())
                 .add("phone", getPhone())
                 .add("email", getEmail())
@@ -112,7 +116,6 @@ public class Customer extends Person {
                 .add("visitCount", visitCount)
                 .add("favoriteItem", favoriteItem)
                 .add("totalSpent", totalSpent)
-                .add("rating", rating)
                 .toString();
     }
 }

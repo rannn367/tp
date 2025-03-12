@@ -22,9 +22,9 @@ public class CliSyntax {
 
     /* Prefix definitions for Customer */
     // Add these to your existing CliSyntax.java file
+    public static final Prefix PREFIX_CUSTOMER_ID = new Prefix("cid/");
     public static final Prefix PREFIX_REWARD_POINTS = new Prefix("rp/");
     public static final Prefix PREFIX_VISIT_COUNT = new Prefix("vc/");
     public static final Prefix PREFIX_FAVORITE_ITEM = new Prefix("fi/");
     public static final Prefix PREFIX_TOTAL_SPENT = new Prefix("ts/");
-    public static final Prefix PREFIX_RATING = new Prefix("r/");
 }
