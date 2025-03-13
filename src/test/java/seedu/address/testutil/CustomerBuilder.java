@@ -149,8 +149,6 @@ public class CustomerBuilder {
 
     /**
      * Sets the {@code totalSpent} of the {@code Customer} that we are building.
-     *
-     * 
      */
     public CustomerBuilder withTotalSpent(double totalSpent) {
         this.totalSpent = totalSpent;
