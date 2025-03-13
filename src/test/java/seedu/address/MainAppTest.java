@@ -38,7 +38,10 @@ public class MainAppTest {
     @Test
     public void testDefaultApp() {
         Platform.setImplicitExit(false);
-        Platform.startup(startupLatch::countDown);
+        Platform.startup(() -> {
+            Thread.currentThread().setUncaughtExceptionHandler((thread, ex) -> fail(ex));
+            startupLatch.countDown();
+        });
 
         new Thread(() -> {
             Application.launch(TestApp.class, "--config=" + tempDir.resolve("testConfig.json").toString());

@@ -7,7 +7,6 @@ import java.util.Set;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
-
 /**
  * Represents a Customer in the café management system.
  * Inherits from Person and adds customer-specific attributes.
@@ -55,8 +54,6 @@ public class Customer extends Person {
     public double getTotalSpent() {
         return totalSpent;
     }
-
-
 
     /**
      * Returns true if both customers have the same identity fields.

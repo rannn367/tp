@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Customer;
 
 /**
- * An UI component that displays information of a {@code Staff}.
+ * An UI component that displays information of a {@code Customer}.
  */
 public class CustomerCard extends UiPart<Region> {
 
@@ -21,7 +21,7 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label customerName;
     @FXML
     private Label id;
     @FXML
@@ -52,15 +52,15 @@ public class CustomerCard extends UiPart<Region> {
         super(FXML);
         this.customer = customer;
         id.setText(displayedIndex + ". ");
-        name.setText(customer.getName().fullName);
+        customerName.setText(customer.getName().fullName);
         phone.setText(customer.getPhone().value);
         address.setText(customer.getAddress().value);
         email.setText(customer.getEmail().value);
         customerId.setText("ID: " + customer.getCustomerId());
-        rewardPoints.setText("Role: " + customer.getRewardPoints());
-        visitCount.setText("Shift: " + customer.getVisitCount());
-        favouriteItem.setText("Hours: " + customer.getFavoriteItem());
-        totalSpent.setText("Rating: " + customer.getTotalSpent());
+        rewardPoints.setText("Reward Points: " + customer.getRewardPoints());
+        visitCount.setText("Visit Count: " + customer.getVisitCount());
+        favouriteItem.setText("Favorite Item: " + customer.getFavoriteItem());
+        totalSpent.setText("Total Spent: " + customer.getTotalSpent());
 
         remark.setText(customer.getRemark().value);
         customer.getTags().stream()
