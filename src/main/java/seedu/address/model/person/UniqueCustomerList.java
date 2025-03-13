@@ -89,10 +89,10 @@ public class UniqueCustomerList implements Iterable<Customer> {
         if (!customersAreUnique(customers)) {
             throw new DuplicatePersonException();
         }
-        
+
         internalList.setAll(customers);
     }
-    
+
     public void setCustomers(UniqueCustomerList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
