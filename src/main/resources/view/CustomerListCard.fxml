@@ -24,17 +24,17 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="staffName" text="$staffName" styleClass="cell_big_label" />
+                <Label fx:id="customerName" text="$customerName" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
             <Label fx:id="phone" styleClass="cell_small_label" text="$phone" />
             <Label fx:id="address" styleClass="cell_small_label" text="address" />
             <Label fx:id="email" styleClass="cell_small_label" text="$email" />
-            <Label fx:id="staffId" styleClass="cell_small_label" text="$staffId" />
-            <Label fx:id="role" styleClass="cell_small_label" text="$role" />
-            <Label fx:id="shiftTiming" styleClass="cell_small_label" text="$shiftTiming" />
-            <Label fx:id="hoursWorked" styleClass="cell_small_label" text="$hoursWorked" />
-            <Label fx:id="performanceRating" styleClass="cell_small_label" text="$performanceRating" />
+            <Label fx:id="customerId" styleClass="cell_small_label" text="$customerId" />
+            <Label fx:id="rewardPoints" styleClass="cell_small_label" text="$rewardPoints" />
+            <Label fx:id="visitCount" styleClass="cell_small_label" text="$visitCount" />
+            <Label fx:id="favouriteItem" styleClass="cell_small_label" text="$favouriteItem" />
+            <Label fx:id="totalSpent" styleClass="cell_small_label" text="$totalSpent" />
             <Label fx:id="remark" styleClass="cell_small_label" text="$remark" />
         </VBox>
     </GridPane>

@@ -145,7 +145,7 @@ class JsonAdaptedCustomer {
         }
 
         final Set<Tag> modelTags = new HashSet<>(customerTags);
-        return new Customer(customerId, modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
-                rewardPoints, visitCount, favoriteItem, totalSpent);
+        return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
+                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
     }
 }

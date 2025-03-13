@@ -72,12 +72,13 @@ public class AddCustomerCommandParserTest {
                 + TOTAL_SPENT_DESC_JAMES + TAG_DESC_STUDENT;
 
         AddCustomerCommand expectedCommand = new AddCustomerCommand(
-                new Customer(VALID_CUSTOMER_ID_JAMES, new Name(VALID_NAME_JAMES),
+                new Customer(new Name(VALID_NAME_JAMES),
                         new Phone(VALID_PHONE_JAMES),
                         new Email(VALID_EMAIL_JAMES),
                         new Address(VALID_ADDRESS_JAMES),
                         new Remark(""),
                         Set.of(new Tag(VALID_TAG_STUDENT)),
+                        VALID_CUSTOMER_ID_JAMES,
                         VALID_REWARD_POINTS_JAMES,
                         VALID_VISIT_COUNT_JAMES,
                         VALID_FAVORITE_ITEM_JAMES,

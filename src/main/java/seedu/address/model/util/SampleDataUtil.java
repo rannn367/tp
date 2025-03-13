@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -76,18 +77,62 @@ public class SampleDataUtil {
                         4.9
                 ),
             new Staff(
-                        new Name("Charlie Wong"),
-                        new Phone("89898989"),
-                        new Email("charlie.wong@cafeexample.com"),
-                        new Address("789 Espresso Avenue"),
-                        new Remark("Creative and efficient"),
-                        getTagSet("chef", "part-time"),
-                        "S003",
-                        "Chef",
-                        "Evening Shift",
-                        25,
-                        4.5
+                    new Name("Charlie Wong"),
+                    new Phone("89898989"),
+                    new Email("charlie.wong@cafeexample.com"),
+                    new Address("789 Espresso Avenue"),
+                    new Remark("Creative and efficient"),
+                    getTagSet("chef", "part-time"),
+                    "S003",
+                    "Chef",
+                    "Evening Shift",
+                    25,
+                    4.5
                 )
+        };
+    }
+
+    public static Customer[] getSampleCustomer() {
+        return new Customer[] {
+            new Customer(
+                    new Name("Abby Tan"),
+                    new Phone("91234567"),
+                    new Email("abby.tan@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("Always comes at 7am!"),
+                    getTagSet("barista", "full-time"),
+                    "C001",
+                    100,
+                    12,
+                    "oat latte with vanilla syrup",
+                    120.3
+            ),
+            new Customer(
+                    new Name("Bella Smith"),
+                    new Phone("81234567"),
+                    new Email("bellasmith@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("comes with her dog"),
+                    getTagSet("barista", "full-time"),
+                    "C002",
+                    100,
+                    12,
+                    "dog latte",
+                    120.3
+            ),
+            new Customer(
+                    new Name("Cory"),
+                    new Phone("81111111"),
+                    new Email("cory@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("interesting..."),
+                    getTagSet("barista", "full-time"),
+                    "C003",
+                    0,
+                    78,
+                    "water",
+                    0
+            )
         };
     }
 
