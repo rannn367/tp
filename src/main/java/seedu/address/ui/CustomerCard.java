@@ -58,7 +58,7 @@ public class CustomerCard extends UiPart<Region> {
         email.setText(customer.getEmail().value);
         customerId.setText("ID: " + customer.getCustomerId());
         rewardPoints.setText("Reward Points: " + customer.getRewardPoints());
-        visitCount.setText("Visits: " + customer.getVisitCount());
+        visitCount.setText("Visit Count: " + customer.getVisitCount());
         favouriteItem.setText("Favorite Item: " + customer.getFavoriteItem());
         totalSpent.setText("Total Spent: " + customer.getTotalSpent());
 
