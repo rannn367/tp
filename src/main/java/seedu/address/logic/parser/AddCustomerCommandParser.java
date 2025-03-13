@@ -62,8 +62,8 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
         String favoriteItem = argMultimap.getValue(PREFIX_FAVORITE_ITEM).get();
         double totalSpent = Double.parseDouble(argMultimap.getValue(PREFIX_TOTAL_SPENT).get());
 
-        Customer customer = new Customer(customerId, name, phone, email, address, remark, tagList,
-                rewardPoints, visitCount, favoriteItem, totalSpent);
+        Customer customer = new Customer(name, phone, email, address, remark, tagList,
+                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
 
         return new AddCustomerCommand(customer);
     }
