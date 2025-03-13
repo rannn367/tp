@@ -5,6 +5,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Staff List" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10; -fx-text-fill: #BBBBBB;" />
-    <ListView fx:id="staffListView" VBox.vgrow="ALWAYS" />
+    <Label text="Customer List" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10; -fx-text-fill: #BBBBBB;" />
+    <ListView fx:id="customerListView" VBox.vgrow="ALWAYS" />
 </VBox>

@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
@@ -27,6 +27,7 @@ public class AddCustomerCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
             + "Parameters: "
+            + PREFIX_CUSTOMER_ID + "CUSTOMER_ID "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -35,7 +36,6 @@ public class AddCustomerCommand extends Command {
             + PREFIX_VISIT_COUNT + "VISIT_COUNT "
             + PREFIX_FAVORITE_ITEM + "FAVORITE_ITEM "
             + PREFIX_TOTAL_SPENT + "TOTAL_SPENT "
-            + PREFIX_RATING + "RATING "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -46,7 +46,6 @@ public class AddCustomerCommand extends Command {
             + PREFIX_VISIT_COUNT + "8 "
             + PREFIX_FAVORITE_ITEM + "Cappuccino "
             + PREFIX_TOTAL_SPENT + "120.50 "
-            + PREFIX_RATING + "5 "
             + PREFIX_TAG + "regular "
             + PREFIX_TAG + "vip";
 

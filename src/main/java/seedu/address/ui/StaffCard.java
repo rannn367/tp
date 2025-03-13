@@ -21,7 +21,7 @@ public class StaffCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label staffName;
     @FXML
     private Label id;
     @FXML
@@ -52,7 +52,7 @@ public class StaffCard extends UiPart<Region> {
         super(FXML);
         this.staff = staff;
         id.setText(displayedIndex + ". ");
-        name.setText(staff.getName().fullName);
+        staffName.setText(staff.getName().fullName);
         phone.setText(staff.getPhone().value);
         address.setText(staff.getAddress().value);
         email.setText(staff.getEmail().value);

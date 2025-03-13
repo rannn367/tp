@@ -33,11 +33,11 @@ class JsonAdaptedCustomer {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     // Customer-specific fields
+    private final String customerId;
     private final int rewardPoints;
     private final int visitCount;
     private final String favoriteItem;
     private final double totalSpent;
-    private final int rating;
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
@@ -49,11 +49,11 @@ class JsonAdaptedCustomer {
                                @JsonProperty("address") String address,
                                @JsonProperty("remark") String remark,
                                @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                               @JsonProperty("customerId") String customerId,
                                @JsonProperty("rewardPoints") int rewardPoints,
                                @JsonProperty("visitCount") int visitCount,
                                @JsonProperty("favoriteItem") String favoriteItem,
-                               @JsonProperty("totalSpent") double totalSpent,
-                               @JsonProperty("rating") int rating) {
+                               @JsonProperty("totalSpent") double totalSpent) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -62,11 +62,11 @@ class JsonAdaptedCustomer {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
         this.favoriteItem = favoriteItem;
         this.totalSpent = totalSpent;
-        this.rating = rating;
     }
 
     /**
@@ -81,11 +81,11 @@ class JsonAdaptedCustomer {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        customerId = source.getCustomerId();
         rewardPoints = source.getRewardPoints();
         visitCount = source.getVisitCount();
         favoriteItem = source.getFavoriteItem();
         totalSpent = source.getTotalSpent();
-        rating = source.getRating();
     }
 
     /**
@@ -136,12 +136,16 @@ class JsonAdaptedCustomer {
         }
         final Remark modelRemark = new Remark(remark);
 
+        if (customerId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Customer ID"));
+        }
+
         if (favoriteItem == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Favorite Item"));
         }
 
         final Set<Tag> modelTags = new HashSet<>(customerTags);
         return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
-                rewardPoints, visitCount, favoriteItem, totalSpent, rating);
+                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
     }
 }

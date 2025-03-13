@@ -80,11 +80,6 @@ public class UniqueCustomerList implements Iterable<Customer> {
         }
     }
 
-    public void setCustomers(UniqueCustomerList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
     /**
      * Replaces the contents of this list with {@code customers}.
      * {@code customers} must not contain duplicate customers.
@@ -98,6 +93,10 @@ public class UniqueCustomerList implements Iterable<Customer> {
         internalList.setAll(customers);
     }
 
+    public void setCustomers(UniqueCustomerList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -112,14 +111,26 @@ public class UniqueCustomerList implements Iterable<Customer> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueCustomerList // instanceof handles nulls
-                        && internalList.equals(((UniqueCustomerList) other).internalList));
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof UniqueCustomerList)) {
+            return false;
+        }
+
+        UniqueCustomerList otherUniqueCustomerList = (UniqueCustomerList) other;
+        return internalList.equals(otherUniqueCustomerList.internalList);
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return internalList.toString();
     }
 
     /**

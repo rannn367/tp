@@ -32,9 +32,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        staffs = new UniqueStaffList();
         customers = new UniqueCustomerList();
-
+        staffs = new UniqueStaffList();
     }
 
     public AddressBook() {}
@@ -66,11 +65,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the customer list with {@code customer}.
+     * {@code customer} must not contain duplicate customer members.
+     */
+    public void setCustomers(List<Customer> customers) {
+        this.customers.setCustomers(customers);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
+        setCustomers(newData.getCustomerList());
         setPersons(newData.getPersonList());
         setStaffs(newData.getStaffList());
     }
@@ -114,6 +121,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedStaff);
 
         staffs.setStaff(target, editedStaff);
+    }
+
+    /**
+     * Replaces the given customer member {@code target} in the list with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The staff identity of {@code editedStaff} must not be the same as another existing customer member in the
+     * address book.
+     */
+    public void setCustomer(Customer target, Customer editedCustomer) {
+        requireNonNull(editedCustomer);
+
+        customers.setCustomer(target, editedCustomer);
     }
 
     /**
@@ -179,7 +198,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Staff> getStaffList() {
-        System.out.println(staffs.asUnmodifiableObservableList());
         return staffs.asUnmodifiableObservableList();
     }
 
