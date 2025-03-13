@@ -37,9 +37,9 @@ public class DeleteCustomerCommand extends Command {
         }
 
         Customer customerToDelete = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
-        model.deletePerson(customerToDelete);
+        model.deleteCustomer(customerToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_CUSTOMER_SUCCESS, Messages.format(customerToDelete)));
     }
 
     @Override
