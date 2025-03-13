@@ -6,7 +6,14 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.person.Staff;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -70,17 +77,17 @@ public class SampleDataUtil {
                         4.9
                 ),
             new Staff(
-                        new Name("Charlie Wong"),
-                        new Phone("89898989"),
-                        new Email("charlie.wong@cafeexample.com"),
-                        new Address("789 Espresso Avenue"),
-                        new Remark("Creative and efficient"),
-                        getTagSet("chef", "part-time"),
-                        "S003",
-                        "Chef",
-                        "Evening Shift",
-                        25,
-                        4.5
+                    new Name("Charlie Wong"),
+                    new Phone("89898989"),
+                    new Email("charlie.wong@cafeexample.com"),
+                    new Address("789 Espresso Avenue"),
+                    new Remark("Creative and efficient"),
+                    getTagSet("chef", "part-time"),
+                    "S003",
+                    "Chef",
+                    "Evening Shift",
+                    25,
+                    4.5
                 )
         };
     }

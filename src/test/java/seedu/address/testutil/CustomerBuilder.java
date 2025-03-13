@@ -167,7 +167,7 @@ public class CustomerBuilder {
      * Builds the customer with the information altogether.
      */
     public Customer build() {
-        return new Customer(customerId, name, phone, email, address, remark, tags,
-                rewardPoints, visitCount, favoriteItem, totalSpent);
+        return new Customer(name, phone, email, address, remark, tags,
+                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
     }
 }
