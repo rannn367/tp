@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
 
 /**
  * Test class for MainApp.
@@ -38,10 +37,18 @@ public class MainAppTest {
      */
     @Test
     public void testDefaultApp() {
+        Platform.setImplicitExit(false);
+        Platform.startup(startupLatch::countDown);
+
+        new Thread(() -> {
+            Application.launch(TestApp.class, "--config=" + tempDir.resolve("testConfig.json").toString());
+        }).start();
+
         try {
-            Thread.sleep(5000);
+            String msg = "Failed to launch FX application " + TestApp.class;
+            Assertions.assertTrue(startupLatch.await(STARTUP_TIMEOUT, TimeUnit.SECONDS), msg);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            fail(e);
         }
     }
 
@@ -66,26 +73,6 @@ public class MainAppTest {
     }
 
     /**
-     * Initializes the JavaFX application thread and sets up temporary configuration files.
-     */
-    @BeforeAll
-    public static void initFX() {
-        Platform.setImplicitExit(false);
-        Platform.startup(startupLatch::countDown);
-
-        new Thread(() -> {
-            Application.launch(TestApp.class, "--config=" + tempDir.resolve("testConfig.json").toString());
-        }).start();
-
-        try {
-            String msg = "Failed to launch FX application " + TestApp.class;
-            Assertions.assertTrue(startupLatch.await(STARTUP_TIMEOUT, TimeUnit.SECONDS), msg);
-        } catch (InterruptedException e) {
-            fail(e);
-        }
-    }
-
-    /**
      * Exits the JavaFX application thread.
      */
     @AfterAll
@@ -100,19 +87,8 @@ public class MainAppTest {
      */
     public static class TestApp extends MainApp {
         @Override
-        public void init() throws Exception {
-            super.init();
-        }
-
-        @Override
         public void start(Stage primaryStage) {
-            super.start(primaryStage);
             startupLatch.countDown();
-        }
-
-        @Override
-        protected Config initConfig(Path configFilePath) {
-            return super.initConfig(tempDir.resolve("testConfig.json"));
         }
     }
 }
