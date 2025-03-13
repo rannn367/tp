@@ -15,7 +15,7 @@ import seedu.address.model.person.Customer;
  */
 public class CustomerListPanel extends UiPart<Region> {
     private static final String FXML = "CustomerListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(StaffListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(CustomerListPanel.class);
 
     @FXML
     private ListView<Customer> customerListView;
@@ -30,7 +30,7 @@ public class CustomerListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code StaffCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code CustomerCard}.
      */
     class CustomerListViewCell extends ListCell<Customer> {
         @Override

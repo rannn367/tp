@@ -138,8 +138,6 @@ public class SampleDataUtil {
         };
     }
 
-
-
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -147,6 +145,9 @@ public class SampleDataUtil {
         }
         for (Staff sampleStaff : getSampleStaff()) {
             sampleAb.addStaff(sampleStaff);
+        }
+        for (Customer sampleCustomer : getSampleCustomer()) {
+            sampleAb.addPerson(sampleCustomer);
         }
         return sampleAb;
     }
