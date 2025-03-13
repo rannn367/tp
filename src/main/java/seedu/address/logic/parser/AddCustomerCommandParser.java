@@ -2,11 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
@@ -37,18 +37,19 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
      */
     public AddCustomerCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT, PREFIX_RATING);
+                PREFIX_CUSTOMER_ID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
+                PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT, PREFIX_RATING)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER_ID, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
+            PREFIX_EMAIL, PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT, PREFIX_RATING);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CUSTOMER_ID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+            PREFIX_ADDRESS, PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVORITE_ITEM, PREFIX_TOTAL_SPENT);
 
+        String customerId = argMultimap.getValue(PREFIX_CUSTOMER_ID).get();
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
@@ -60,10 +61,9 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
         int visitCount = Integer.parseInt(argMultimap.getValue(PREFIX_VISIT_COUNT).get());
         String favoriteItem = argMultimap.getValue(PREFIX_FAVORITE_ITEM).get();
         double totalSpent = Double.parseDouble(argMultimap.getValue(PREFIX_TOTAL_SPENT).get());
-        int rating = Integer.parseInt(argMultimap.getValue(PREFIX_RATING).get());
 
         Customer customer = new Customer(name, phone, email, address, remark, tagList,
-                rewardPoints, visitCount, favoriteItem, totalSpent, rating);
+                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
 
         return new AddCustomerCommand(customer);
     }

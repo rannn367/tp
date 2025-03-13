@@ -198,10 +198,10 @@ public class AddStaffCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // @Override
-        // public void deleteCustomer(Customer target) {
-        //     throw new AssertionError("This method should not be called.");
-        // }
+        @Override
+        public void deleteCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         // @Override
         // public void setCustomer(Customer target, Customer editedCustomer) {

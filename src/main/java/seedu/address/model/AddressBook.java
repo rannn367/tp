@@ -117,6 +117,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given customer member {@code target} in the list with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The staff identity of {@code editedStaff} must not be the same as another existing customer member in the
+     * address book.
+     */
+    public void setCustomer(Customer target, Customer editedCustomer) {
+        requireNonNull(editedCustomer);
+
+        customers.setCustomer(target, editedCustomer);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -141,6 +153,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeStaff(Staff staffMember) {
         staffs.remove(staffMember);
     }
+
+    // Customer methods
+
     /**
      * Returns true if a customer with the same identity as {@code customer} exists in the address book.
      */
@@ -151,6 +166,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addCustomer(Customer customer) {
         customers.add(customer);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}'s customer list.
+     * {@code key} must exist in the address book's customer list.
+     */
+    public void removeCustomer(Customer key) {
+        customers.remove(key);
     }
 
     //// util methods
