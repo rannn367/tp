@@ -26,12 +26,12 @@ import seedu.address.commons.core.Config;
  * Test class for MainApp.
  */
 public class MainAppTest {
-    
+
     @TempDir
     protected static Path tempDir;
-    
-    private static final int STARTUP_TIMEOUT = 15;
     protected static CountDownLatch startupLatch = new CountDownLatch(2);
+
+    private static final int STARTUP_TIMEOUT = 15;
 
     /**
      * Tests the default application behavior.
@@ -70,10 +70,9 @@ public class MainAppTest {
      */
     @BeforeAll
     public static void initFX() {
-        
         Platform.setImplicitExit(false);
         Platform.startup(startupLatch::countDown);
-        
+
         new Thread(() -> {
             Application.launch(TestApp.class, "--config=" + tempDir.resolve("testConfig.json").toString());
         }).start();
