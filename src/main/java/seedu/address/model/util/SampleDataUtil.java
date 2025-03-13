@@ -87,45 +87,45 @@ public class SampleDataUtil {
 
     public static Customer[] getSampleCustomer() {
         return new Customer[] {
-                new Customer(
-                        new Name("Abby Tan"),
-                        new Phone("91234567"),
-                        new Email("abby.tan@cafeexample.com"),
-                        new Address("123 Café Street"),
-                        new Remark("Always comes at 7am!"),
-                        getTagSet("barista", "full-time"),
-                        "C001",
-                        100,
-                        12,
-                        "oat latte with vanilla syrup",
-                        120.3
-                ),
-                new Customer(
-                        new Name("Bella Smith"),
-                        new Phone("81234567"),
-                        new Email("bellasmith@cafeexample.com"),
-                        new Address("123 Café Street"),
-                        new Remark("comes with her dog"),
-                        getTagSet("barista", "full-time"),
-                        "C002",
-                        100,
-                        12,
-                        "dog latte",
-                        120.3
-                ),
-                new Customer(
-                        new Name("Cory"),
-                        new Phone("81111111"),
-                        new Email("cory@cafeexample.com"),
-                        new Address("123 Café Street"),
-                        new Remark("interesting..."),
-                        getTagSet("barista", "full-time"),
-                        "C003",
-                        0,
-                        78,
-                        "water",
-                        0
-                )
+            new Customer(
+                    new Name("Abby Tan"),
+                    new Phone("91234567"),
+                    new Email("abby.tan@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("Always comes at 7am!"),
+                    getTagSet("barista", "full-time"),
+                    "C001",
+                    100,
+                    12,
+                    "oat latte with vanilla syrup",
+                    120.3
+            ),
+            new Customer(
+                    new Name("Bella Smith"),
+                    new Phone("81234567"),
+                    new Email("bellasmith@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("comes with her dog"),
+                    getTagSet("barista", "full-time"),
+                    "C002",
+                    100,
+                    12,
+                    "dog latte",
+                    120.3
+            ),
+            new Customer(
+                    new Name("Cory"),
+                    new Phone("81111111"),
+                    new Email("cory@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("interesting..."),
+                    getTagSet("barista", "full-time"),
+                    "C003",
+                    0,
+                    78,
+                    "water",
+                    0
+            )
         };
     }
 
