@@ -94,7 +94,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static Customer[] getSampleCustomer() {
+    public static Customer[] getSampleCustomers() {
         return new Customer[] {
             new Customer(
                     new Name("Abby Tan"),
@@ -146,8 +146,8 @@ public class SampleDataUtil {
         for (Staff sampleStaff : getSampleStaff()) {
             sampleAb.addStaff(sampleStaff);
         }
-        for (Customer sampleCustomer : getSampleCustomer()) {
-            sampleAb.addPerson(sampleCustomer);
+        for (Customer sampleCustomer : getSampleCustomers()) {
+            sampleAb.addCustomer(sampleCustomer);
         }
         return sampleAb;
     }
