@@ -77,6 +77,8 @@ public class MainAppTest {
      */
     @AfterAll
     public static void teardownOnce() {
+        tempDir.toFile().setWritable(true);
+
         Platform.runLater(() -> {
             Platform.exit();
         });
@@ -88,6 +90,7 @@ public class MainAppTest {
     public static class TestApp extends MainApp {
         @Override
         public void start(Stage primaryStage) {
+            super.start(primaryStage);
             startupLatch.countDown();
         }
     }
