@@ -2,126 +2,78 @@ package seedu.address;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.concurrent.CountDownLatch;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import org.junit.jupiter.api.io.TempDir;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.ui.UiManager;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
-
 /**
- * Test class for MainApp.
+ * Test class for MainApp using process-based testing.
  */
 public class MainAppTest {
-    
-    private static final int STARTUP_TIMEOUT = 10;
-    private static final int WAIT_TIMEOUT = 15;
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("JsonSerializableAddressBookTest")
-            .resolve("typicalPersonsAddressBook.json");
-    private static final Path TYPICAL_CONFIG_FILE = TEST_DATA_FOLDER.resolve("ConfigUtilTest")
-            .resolve("TypicalConfig.json");
+    private static final int PROCESS_TIMEOUT = 10;
 
-    @TempDir
-    protected static Path temporaryFolder;
+    /**
+     * Constructs the command for launching the JavaFX application in a separate process.
+     */
+    private List<String> createApplicationLaunchCommand(String appName) {
+        final String workerJavaCmd = System.getProperty("worker.java.cmd", "java");
+        final String workerPatchModuleFile = System.getProperty("worker.patchmodule.file");
+        final String workerClassPath = System.getProperty("worker.classpath.file");
+        final String classpath = System.getProperty("java.class.path");
 
-    protected static CountDownLatch startupLatch = new CountDownLatch(1);
-    protected static JavaFXHandler handler = new JavaFXHandler();
-    public static class JavaFXHandler implements Thread.UncaughtExceptionHandler, Executable{
-        private Throwable ex;
-        private CountDownLatch failureLatch = new CountDownLatch(1);
+        List<String> cmd = new ArrayList<>();
+        cmd.add(workerJavaCmd);
 
-        public void uncaughtException(Thread t, Throwable e) {
-            ex = e;
-            failureLatch.countDown();
+        if (workerPatchModuleFile != null) {
+            cmd.add("@" + workerPatchModuleFile);
+        } else {
+            System.out.println("Warning: no worker.patchmodule passed to unit test");
         }
 
-        public void execute() throws Throwable {
-            if (failureLatch.await(WAIT_TIMEOUT, TimeUnit.SECONDS)) {
-                throw ex;
-            }
+        cmd.add("-cp");
+        if (workerClassPath != null) {
+            cmd.add(workerClassPath + ":" + classpath);
+        } else {
+            cmd.add(classpath);
         }
+
+        cmd.add(appName);
+        return cmd;
     }
 
     /**
-     * Tests the default application behavior.
+     * Tests the default application behavior using a separate process.
      */
     @Test
-    public void testDefaultApp() {
-        new Thread(() -> {
-            Application.launch(TestApp.class);
-        }).start();
+    public void testApps() {
+        String[] toTest = {
+            "seedu.address.TestAppLauncher",
+            "seedu.address.DefaultAppLauncher"
+        };
 
-        try {
-            String msg = "Failed to launch FX application " + TestApp.class;
-            Assertions.assertTrue(startupLatch.await(STARTUP_TIMEOUT, TimeUnit.SECONDS), msg);
-        } catch (InterruptedException e) {
-            fail(e);
-        }
+        for (String appName: toTest) {
+            List<String> command = createApplicationLaunchCommand(appName);
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            processBuilder.inheritIO();
 
-        Assertions.assertDoesNotThrow(handler);
-    }
+            try {
+                Process process = processBuilder.start();
+                boolean finished = process.waitFor(PROCESS_TIMEOUT, TimeUnit.SECONDS);
+                if (!finished) {
+                    process.destroy();
+                    fail("Test application failed to start!");
+                }
 
-    /**
-     * Exits the JavaFX application thread.
-     */
-    @AfterAll
-    public static void teardownOnce() {
-        temporaryFolder.toFile().setWritable(true);
-        Platform.runLater(() -> Platform.exit());
-    }
-
-    @BeforeAll
-    public static void initFx() {
-        Platform.startup(() -> Thread.currentThread().setUncaughtExceptionHandler(handler));
-    }
-
-    /**
-     * Test application class extending MainApp.
-     */
-    public static class TestApp extends MainApp {
-
-        @Override
-        public void init() throws Exception {
-            applicationInit();
-
-            Path userPrefPath = temporaryFolder.resolve("userPrefs.json");
-            config = initConfig(TYPICAL_CONFIG_FILE);
-
-            UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(userPrefPath);
-            UserPrefs userPrefs = initPrefs(userPrefsStorage);
-            AddressBookStorage addressBookStorage = new JsonAddressBookStorage(TYPICAL_PERSONS_FILE);
-            storage = new StorageManager(addressBookStorage, userPrefsStorage);
-
-            model = initModelManager(storage, userPrefs);
-
-            logic = new LogicManager(model, storage);
-
-            ui = new UiManager(logic);
-        }
-
-        @Override
-        public void start(Stage primaryStage) {
-            super.start(primaryStage);
-            startupLatch.countDown();
+                int exitCode = process.exitValue();
+                if (exitCode != 0) {
+                    fail("Test application exited with error code: " + exitCode);
+                }
+            } catch (IOException | InterruptedException e) {
+                fail("Failed to launch test application: " + e.getMessage());
+            }
         }
     }
 }
