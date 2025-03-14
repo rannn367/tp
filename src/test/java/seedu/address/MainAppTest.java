@@ -2,8 +2,8 @@ package seedu.address;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -11,11 +11,16 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.io.TempDir;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import seedu.address.logic.LogicManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
+import seedu.address.ui.UiManager;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,26 +30,44 @@ import javafx.stage.Stage;
  * Test class for MainApp.
  */
 public class MainAppTest {
+    
+    private static final int STARTUP_TIMEOUT = 10;
+    private static final int WAIT_TIMEOUT = 15;
+
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("JsonSerializableAddressBookTest")
+            .resolve("typicalPersonsAddressBook.json");
+    private static final Path TYPICAL_CONFIG_FILE = TEST_DATA_FOLDER.resolve("ConfigUtilTest")
+            .resolve("TypicalConfig.json");
 
     @TempDir
-    protected static Path tempDir;
-    protected static CountDownLatch startupLatch = new CountDownLatch(2);
+    protected static Path temporaryFolder;
 
-    private static final int STARTUP_TIMEOUT = 15;
+    protected static CountDownLatch startupLatch = new CountDownLatch(1);
+    protected static JavaFXHandler handler = new JavaFXHandler();
+    public static class JavaFXHandler implements Thread.UncaughtExceptionHandler, Executable{
+        private Throwable ex;
+        private CountDownLatch failureLatch = new CountDownLatch(1);
+
+        public void uncaughtException(Thread t, Throwable e) {
+            ex = e;
+            failureLatch.countDown();
+        }
+
+        public void execute() throws Throwable {
+            if (failureLatch.await(WAIT_TIMEOUT, TimeUnit.SECONDS)) {
+                throw ex;
+            }
+        }
+    }
 
     /**
      * Tests the default application behavior.
      */
     @Test
     public void testDefaultApp() {
-        Platform.setImplicitExit(false);
-        Platform.startup(() -> {
-            Thread.currentThread().setUncaughtExceptionHandler((thread, ex) -> fail(ex));
-            startupLatch.countDown();
-        });
-
         new Thread(() -> {
-            Application.launch(TestApp.class, "--config=" + tempDir.resolve("testConfig.json").toString());
+            Application.launch(TestApp.class);
         }).start();
 
         try {
@@ -53,26 +76,8 @@ public class MainAppTest {
         } catch (InterruptedException e) {
             fail(e);
         }
-    }
 
-    @BeforeAll
-    public static void initFileSystem() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-
-        // Create a temporary preferences file for testing
-        Path tempPrefPath = tempDir.resolve("preferences.json");
-        Files.deleteIfExists(tempPrefPath);
-
-        // Create a temporary config file for testing
-        Path tempConfigPath = tempDir.resolve("testConfig.json");
-        ObjectNode configNode = mapper.createObjectNode();
-        configNode.put("logLevel", "INFO");
-        configNode.put("userPrefsFilePath", tempPrefPath.toString());
-
-        // Write the config to the temporary file
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String configJson = ow.writeValueAsString(configNode);
-        Files.writeString(tempConfigPath, configJson);
+        Assertions.assertDoesNotThrow(handler);
     }
 
     /**
@@ -80,17 +85,39 @@ public class MainAppTest {
      */
     @AfterAll
     public static void teardownOnce() {
-        tempDir.toFile().setWritable(true);
+        temporaryFolder.toFile().setWritable(true);
+        Platform.runLater(() -> Platform.exit());
+    }
 
-        Platform.runLater(() -> {
-            Platform.exit();
-        });
+    @BeforeAll
+    public static void initFx() {
+        Platform.startup(() -> Thread.currentThread().setUncaughtExceptionHandler(handler));
     }
 
     /**
      * Test application class extending MainApp.
      */
     public static class TestApp extends MainApp {
+
+        @Override
+        public void init() throws Exception {
+            applicationInit();
+
+            Path userPrefPath = temporaryFolder.resolve("userPrefs.json");
+            config = initConfig(TYPICAL_CONFIG_FILE);
+
+            UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(userPrefPath);
+            UserPrefs userPrefs = initPrefs(userPrefsStorage);
+            AddressBookStorage addressBookStorage = new JsonAddressBookStorage(TYPICAL_PERSONS_FILE);
+            storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+            model = initModelManager(storage, userPrefs);
+
+            logic = new LogicManager(model, storage);
+
+            ui = new UiManager(logic);
+        }
+
         @Override
         public void start(Stage primaryStage) {
             super.start(primaryStage);
