@@ -25,8 +25,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-
-      <VBox>
+      <VBox styleClass="main-pane2">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -44,7 +43,7 @@
         </VBox> -->
 
         <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-          <VBox fx:id="staffList" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" >
+          <VBox fx:id="staffList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" >
             <padding>
               <Insets top="10" right="5" bottom="10" left="10" />
             </padding>
@@ -53,7 +52,7 @@
 
           <!-- Separator Line -->
 
-          <VBox fx:id="customerList" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          <VBox fx:id="customerList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="5" />
             </padding>
