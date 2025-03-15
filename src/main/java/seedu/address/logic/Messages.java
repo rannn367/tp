@@ -19,6 +19,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX = "The customer index provided is invalid";
+    public static final String MESSAGE_INVALID_STAFF_DISPLAYED_INDEX = "The staff index provided is invalid";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

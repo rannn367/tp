@@ -89,6 +89,12 @@ public interface Model {
     void addStaff(Staff staffMember);
 
     /**
+     * Deletes the given customer.
+     * The customer must exist in the address book.
+     */
+    void deleteStaff(Staff staff);
+
+    /**
      * Adds the given customer
      */
     void addCustomer(Customer customer);

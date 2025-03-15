@@ -90,7 +90,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .list-cell {
@@ -100,15 +100,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -133,7 +133,30 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.main-pane {
+    -fx-background-color: rgba(29, 29, 29, 0.5);
+    -fx-border-color: transparent;
+    -fx-border-top-width: 1px;
+}
+
+.main-pane2 {
+    -fx-background-image: url("../images/background.png");
+    -fx-background-position: 50% 50%;
+    -fx-background-size: cover;
+}
+
+.staff-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-top-width: 1px;
+    -fx-opacity: 0.5;
+}
+
+.staff-pane:hover {
+    -fx-opacity: 1;
 }
 
 .pane-with-border {
@@ -175,13 +198,13 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
 }
 
 .context-menu {
@@ -193,7 +216,9 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
+    -fx-border-color: derive(#1d1d1d, 50%);
+    -fx-border-width: 1px;
 }
 
 .menu-bar .label {
