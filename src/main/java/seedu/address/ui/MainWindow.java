@@ -63,7 +63,7 @@ public class MainWindow extends UiPart<Stage> {
     private VBox mainPane;
 
     private int currentBackgroundIndex = 1; // Start with the first background
-
+    private int themeIndex = 0; // 0 = Dark, 1 = Light, 2 = Grey-Gold
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -196,6 +196,24 @@ public class MainWindow extends UiPart<Stage> {
         // Add the new background class
         mainPane.getStyleClass().add("main-pane-" + currentBackgroundIndex);
     }
+
+    @FXML
+    private void handleToggleTheme() {
+        themeIndex = (themeIndex + 1) % 3; // Cycle between 0, 1, and 2
+
+        // Remove previous theme classes
+        mainPane.getStyleClass().removeAll("dark-theme", "light-theme", "grey-gold-theme");
+
+        // Add the new theme class
+        if (themeIndex == 0) {
+            mainPane.getStyleClass().add("dark-theme");
+        } else if (themeIndex == 1) {
+            mainPane.getStyleClass().add("light-theme");
+        } else {
+            mainPane.getStyleClass().add("grey-gold-theme");
+        }
+    }
+
 
 
     public PersonListPanel getPersonListPanel() {
