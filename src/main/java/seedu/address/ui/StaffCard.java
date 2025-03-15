@@ -9,9 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Staff;
 
-/**
- * An UI component that displays information of a {@code Staff}.
- */
 public class StaffCard extends UiPart<Region> {
 
     private static final String FXML = "StaffListCard.fxml";
@@ -21,15 +18,11 @@ public class StaffCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label staffName;
-    @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label staffName;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label contactDetails;
     @FXML
     private Label staffId;
     @FXML
@@ -41,28 +34,27 @@ public class StaffCard extends UiPart<Region> {
     @FXML
     private Label performanceRating;
     @FXML
-    private FlowPane tags;
+    private Label address;
     @FXML
-    private Label remark;
+    private FlowPane tags;
 
-    /**
-     * Creates a {@code StaffCard} with the given {@code Staff} and index to display.
-     */
     public StaffCard(Staff staff, int displayedIndex) {
         super(FXML);
         this.staff = staff;
+
         id.setText(displayedIndex + ". ");
         staffName.setText(staff.getName().fullName);
-        phone.setText(staff.getPhone().value);
-        address.setText(staff.getAddress().value);
-        email.setText(staff.getEmail().value);
-        staffId.setText("ID: " + staff.getStaffId());
-        role.setText("Role: " + staff.getRole());
-        shiftTiming.setText("Shift: " + staff.getShiftTiming());
-        hoursWorked.setText("Hours: " + staff.getHoursWorked());
-        performanceRating.setText("Rating: " + staff.getPerformanceRating());
+        contactDetails.setText("(" + staff.getPhone().value + ", " + staff.getEmail().value + ")");
 
-        remark.setText(staff.getRemark().value);
+        staffId.setText("Staff ID: " + staff.getStaffId());
+        role.setText("| Role: " + staff.getRole());
+        shiftTiming.setText("| Shift: " + staff.getShiftTiming());
+
+        hoursWorked.setText("Total Hours: " + staff.getHoursWorked());
+        performanceRating.setText("| Performance Rating: " + staff.getPerformanceRating());
+
+        address.setText(staff.getAddress().value);
+
         staff.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
