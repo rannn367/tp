@@ -142,11 +142,31 @@
     -fx-border-top-width: 1px;
 }
 
-.main-pane2 {
-    -fx-background-image: url("../images/background.png");
+.main-pane-2 {
+    -fx-background-color: derive(#1d1d1d, 20%)
+}
+
+.main-pane-1 {
+    -fx-background-image: url("../images/background2.png");
     -fx-background-position: 50% 50%;
     -fx-background-size: cover;
 }
+
+.main-pane-3 {
+    -fx-background-image: url("../images/background3.png");
+    -fx-background-size: cover;
+}
+
+.main-pane-4 {
+    -fx-background-image: url("../images/background4.png");
+    -fx-background-size: cover;
+}
+
+.main-pane-5 {
+    -fx-background-image: url("../images/background5.png");
+    -fx-background-size: cover;
+}
+
 
 .staff-pane {
     -fx-background-color: transparent;

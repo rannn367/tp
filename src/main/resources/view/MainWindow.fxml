@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="CafeConnect" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -25,7 +26,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox styleClass="main-pane2">
+      <VBox fx:id="mainPane" styleClass="main-pane-1">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -34,6 +35,10 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+
+        <!-- Add Toggle Background Button -->
+        <Button fx:id="toggleBackgroundButton" text="Toggle Background" onAction="#handleToggleBackground" />
+
 
         <!-- <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <padding>
