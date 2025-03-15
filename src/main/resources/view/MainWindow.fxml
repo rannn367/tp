@@ -36,9 +36,11 @@
           </Menu>
         </MenuBar>
 
-        <!-- Add Toggle Background Button -->
-        <Button fx:id="toggleBackgroundButton" text="Toggle Background" onAction="#handleToggleBackground" />
-        <Button fx:id="toggleThemeButton" text="Toggle Theme" onAction="#handleToggleTheme" />
+        <!-- Add Toggle Background and Theme Button -->
+        <HBox spacing="10" alignment="TOP_LEFT">
+          <Button fx:id="toggleBackgroundButton" text="Toggle Background" onAction="#handleToggleBackground" />
+          <Button fx:id="toggleThemeButton" text="Toggle Theme" onAction="#handleToggleTheme" />
+        </HBox>
 
         <!-- <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <padding>
