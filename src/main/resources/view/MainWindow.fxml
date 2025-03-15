@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="CafeConnect" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -25,7 +26,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox styleClass="main-pane2">
+      <VBox fx:id="mainPane" styleClass="main-pane-1">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -35,6 +36,12 @@
           </Menu>
         </MenuBar>
 
+        <!-- Add Toggle Background and Theme Button -->
+        <HBox spacing="10" alignment="TOP_LEFT">
+          <Button fx:id="toggleBackgroundButton" text="Toggle Background" onAction="#handleToggleBackground" />
+          <Button fx:id="toggleThemeButton" text="Toggle Theme" onAction="#handleToggleTheme" />
+        </HBox>
+
         <!-- <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
@@ -42,23 +49,32 @@
           <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox> -->
 
-        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-          <VBox fx:id="staffList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" >
+        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="10">
+          <!-- Staff List Column -->
+          <VBox fx:id="staffList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="5" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="staffListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <!-- Separator Line -->
-
+          <!-- Customer List Column -->
           <VBox fx:id="customerList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="5" />
+              <Insets top="10" right="5" bottom="10" left="5" />
             </padding>
             <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
+
+          <!-- New Display Profile Column -->
+          <VBox fx:id="displayProfile" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="5" />
+            </padding>
+            <StackPane fx:id="displayProfilePlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
         </HBox>
+
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="100" prefHeight="100" maxHeight="100">

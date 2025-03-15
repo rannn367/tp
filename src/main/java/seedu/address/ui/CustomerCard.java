@@ -21,29 +21,27 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label customerName;
-    @FXML
     private Label id;
+    @FXML
+    private Label customerName;
     @FXML
     private Label phone;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private Label customerId;
-    @FXML
-    private Label rewardPoints;
-    @FXML
-    private Label visitCount;
     @FXML
     private Label favouriteItem;
     @FXML
+    private Label visitCount;
+    @FXML
     private Label totalSpent;
     @FXML
-    private FlowPane tags;
+    private Label rewardPoints;
+    @FXML
+    private Label address;
     @FXML
     private Label remark;
+    @FXML
+    private FlowPane tags;
 
     /**
      * Creates a {@code CustomerCard} with the given {@code Customer} and index to display.
@@ -51,18 +49,21 @@ public class CustomerCard extends UiPart<Region> {
     public CustomerCard(Customer customer, int displayedIndex) {
         super(FXML);
         this.customer = customer;
+
         id.setText(displayedIndex + ". ");
         customerName.setText(customer.getName().fullName);
-        phone.setText(customer.getPhone().value);
-        address.setText(customer.getAddress().value);
-        email.setText(customer.getEmail().value);
-        customerId.setText("ID: " + customer.getCustomerId());
-        rewardPoints.setText("Reward Points: " + customer.getRewardPoints());
-        visitCount.setText("Visit Count: " + customer.getVisitCount());
-        favouriteItem.setText("Favorite Item: " + customer.getFavoriteItem());
-        totalSpent.setText("Total Spent: " + customer.getTotalSpent());
+        phone.setText("(" + customer.getPhone().value + ", " + customer.getEmail().value + ")");
 
+        customerId.setText("Customer ID: " + customer.getCustomerId());
+        favouriteItem.setText("| Favourite Item: " + customer.getFavoriteItem());
+
+        visitCount.setText("Visit Count: " + customer.getVisitCount());
+        totalSpent.setText("| Total Spent: $" + customer.getTotalSpent());
+        rewardPoints.setText("| Reward Points: " + customer.getRewardPoints());
+
+        address.setText(customer.getAddress().value);
         remark.setText(customer.getRemark().value);
+
         customer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
