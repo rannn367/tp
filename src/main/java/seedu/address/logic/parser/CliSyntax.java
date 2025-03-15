@@ -27,4 +27,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_VISIT_COUNT = new Prefix("vc/");
     public static final Prefix PREFIX_FAVORITE_ITEM = new Prefix("fi/");
     public static final Prefix PREFIX_TOTAL_SPENT = new Prefix("ts/");
+
+    // Add this to your CliSyntax class
+    public static final Prefix PREFIX_INDEX = new Prefix("ind/");
+    public static final Prefix PREFIX_POINTS = new Prefix("pts/");
 }
