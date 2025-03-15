@@ -142,6 +142,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteStaff(Staff staffMember) {
+        requireNonNull(staffMember);
+        addressBook.removeStaff(staffMember);
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+    }
+
+    @Override
     public void addCustomer(Customer customer) {
         addressBook.addCustomer(customer);
         updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
