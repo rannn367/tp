@@ -133,7 +133,23 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.main-pane {
+    -fx-background-image: url("../images/app_background.png");
+    -fx-background-position: center;
+}
+
+.staff-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-top-width: 1px;
+    -fx-opacity: 0.5;
+}
+
+.staff-pane:hover {
+    -fx-opacity: 1;
 }
 
 .pane-with-border {
@@ -193,7 +209,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#c9ae7f, 20%);
 }
 
 .menu-bar .label {
