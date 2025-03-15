@@ -208,10 +208,10 @@ public class AddCustomerCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // @Override
-        // public void setCustomer(Customer target, Customer editedCustomer) {
-        //     throw new AssertionError("This method should not be called.");
-        // }
+        @Override
+        public void setCustomer(Customer target, Customer editedCustomer) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     private class ModelStubWithCustomer extends ModelStub {
