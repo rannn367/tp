@@ -20,7 +20,7 @@
         </columnConstraints>
 
         <!-- Main content container -->
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox styleClass="staff-pane" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
 
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
