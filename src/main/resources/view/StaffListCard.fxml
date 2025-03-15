@@ -9,62 +9,46 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- Root container for the staff card layout -->
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
     <GridPane HBox.hgrow="ALWAYS">
-
-        <!-- Define column constraints for layout flexibility -->
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
 
-        <!-- Main content container -->
         <VBox styleClass="staff-pane" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
 
-            <!-- Staff ID and Name Row -->
+            <!-- Staff Name + (Phone, Email) in one line -->
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="staffName" text="$staffName" styleClass="cell_big_label" />
+                <Label fx:id="id" styleClass="cell_big_label" />
+                <Label fx:id="staffName" styleClass="cell_big_label" />
+                <Label fx:id="contactDetails" styleClass="cell_small_label" />
             </HBox>
 
-            <!-- Staff Tags -->
+            <!-- Staff ID, Role, and Shift in one line -->
+            <HBox spacing="5">
+                <Label fx:id="staffId" styleClass="cell_small_label" />
+                <Label fx:id="role" styleClass="cell_small_label" />
+                <Label fx:id="shiftTiming" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Hours Worked and Performance Rating in one line -->
+            <HBox spacing="5">
+                <Label fx:id="hoursWorked" styleClass="cell_small_label" />
+                <Label fx:id="performanceRating" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Address -->
+            <HBox spacing="5">
+                <Label text="Address:" styleClass="cell_small_label" />
+                <Label fx:id="address" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Tags -->
             <FlowPane fx:id="tags" />
-
-            <!-- Staff Information -->
-            <VBox spacing="3">
-                <HBox spacing="5">
-                    <Label text="Phone Number:" styleClass="cell_small_label" />
-                    <Label fx:id="phone" styleClass="cell_small_label" text="$phone" />
-                </HBox>
-
-                <HBox spacing="5">
-                    <Label text="Address:" styleClass="cell_small_label" />
-                    <Label fx:id="address" styleClass="cell_small_label" text="$address" />
-                </HBox>
-
-                <HBox spacing="5">
-                    <Label text="Email Address:" styleClass="cell_small_label" />
-                    <Label fx:id="email" styleClass="cell_small_label" text="$email" />
-                </HBox>
-
-                <Label fx:id="staffId" styleClass="cell_small_label" text="$staffId" />
-                <Label fx:id="role" styleClass="cell_small_label" text="$role" />
-                <Label fx:id="shiftTiming" styleClass="cell_small_label" text="$shiftTiming" />
-                <Label fx:id="hoursWorked" styleClass="cell_small_label" text="$hoursWorked" />
-                <Label fx:id="performanceRating" styleClass="cell_small_label" text="$performanceRating" />
-                <Label fx:id="remark" styleClass="cell_small_label" text="$remark" />
-            </VBox>
-
         </VBox>
     </GridPane>
 </HBox>

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- Root container for the customer card -->
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
     <GridPane HBox.hgrow="ALWAYS">
@@ -17,49 +16,45 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
 
-        <!-- Main content inside the customer card -->
         <VBox styleClass="staff-pane" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
 
-            <!-- Customer ID and Name -->
+            <!-- Customer Name + (Phone, Email) in one line -->
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="customerName" text="$customerName" styleClass="cell_big_label" />
+                <Label fx:id="id" styleClass="cell_big_label" />
+                <Label fx:id="customerName" styleClass="cell_big_label" />
+                <Label fx:id="phone" styleClass="cell_small_label" />
             </HBox>
 
-            <!-- Customer Tags -->
+            <!-- Customer ID and Favourite Item in one line -->
+            <HBox spacing="5">
+                <Label fx:id="customerId" styleClass="cell_small_label" />
+                <Label fx:id="favouriteItem" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Visit Count, Total Spent, and Reward Points in one line -->
+            <HBox spacing="5">
+                <Label fx:id="visitCount" styleClass="cell_small_label" />
+                <Label fx:id="totalSpent" styleClass="cell_small_label" />
+                <Label fx:id="rewardPoints" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Address -->
+            <HBox spacing="5">
+                <Label text="Address:" styleClass="cell_small_label" />
+                <Label fx:id="address" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Remark -->
+            <HBox spacing="5">
+                <Label text="Remark:" styleClass="cell_small_label" />
+                <Label fx:id="remark" styleClass="cell_small_label" />
+            </HBox>
+
+            <!-- Tags -->
             <FlowPane fx:id="tags" />
-
-            <!-- Customer Information Labels -->
-            <VBox spacing="3">
-                <HBox spacing="5">
-                    <Label text="Phone Number:" styleClass="cell_small_label" />
-                    <Label fx:id="phone" styleClass="cell_small_label" text="$phone" />
-                </HBox>
-
-                <HBox spacing="5">
-                    <Label text="Address:" styleClass="cell_small_label" />
-                    <Label fx:id="address" styleClass="cell_small_label" text="$address" />
-                </HBox>
-
-                <HBox spacing="5">
-                    <Label text="Email Address:" styleClass="cell_small_label" />
-                    <Label fx:id="email" styleClass="cell_small_label" text="$email" />
-                </HBox>
-                <Label fx:id="customerId" styleClass="cell_small_label" text="$customerId" />
-                <Label fx:id="rewardPoints" styleClass="cell_small_label" text="$rewardPoints" />
-                <Label fx:id="visitCount" styleClass="cell_small_label" text="$visitCount" />
-                <Label fx:id="favouriteItem" styleClass="cell_small_label" text="$favouriteItem" />
-                <Label fx:id="totalSpent" styleClass="cell_small_label" text="$totalSpent" />
-                <Label fx:id="remark" styleClass="cell_small_label" text="$remark" />
-            </VBox>
         </VBox>
     </GridPane>
 </HBox>
