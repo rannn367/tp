@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -137,5 +138,25 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String points} into an integer.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code points} is invalid.
+     */
+    public static int parsePoints(String points) throws IllegalValueException {
+        requireNonNull(points);
+        String trimmedPoints = points.trim();
+        try {
+            int pointsValue = Integer.parseInt(trimmedPoints);
+            if (pointsValue <= 0) {
+                throw new IllegalValueException("Points must be a positive integer");
+            }
+            return pointsValue;
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Points must be a valid integer");
+        }
     }
 }

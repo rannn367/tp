@@ -162,6 +162,13 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+
+    @Override
+    public void setCustomer(Customer target, Customer editedCustomer) {
+        requireAllNonNull(target, editedCustomer);
+
+        addressBook.setCustomer(target, editedCustomer);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
