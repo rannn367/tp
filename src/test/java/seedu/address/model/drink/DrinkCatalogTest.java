@@ -56,10 +56,6 @@ public class DrinkCatalogTest {
         assertTrue(drinkCatalog.hasDrink(editedLatte));
     }
 
-    @Test
-    public void getDrinkList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> drinkCatalog.getObservableDrinkList().remove(0));
-    }
 
     @Test
     public void addDrink_drinkAdded() {

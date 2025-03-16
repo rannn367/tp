@@ -1,13 +1,11 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.drink.Drink;
 
 /**
@@ -15,7 +13,6 @@ import seedu.address.model.drink.Drink;
  */
 public class DrinkListPanel extends UiPart<Region> {
     private static final String FXML = "DrinkListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(DrinkListPanel.class);
 
     @FXML
     private ListView<Drink> drinkListView;
