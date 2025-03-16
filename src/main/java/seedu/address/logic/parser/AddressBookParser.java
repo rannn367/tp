@@ -23,6 +23,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PointsAddCommand;
+import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -99,6 +100,8 @@ public class AddressBookParser {
             return new PointsAddCommandParser().parse(arguments);
         case DrinkAddCommand.COMMAND_WORD:
             return new DrinkAddCommandParser().parse(arguments);
+        case PurchaseCommand.COMMAND_WORD:
+            return new PurchaseCommandParser().parse(arguments);
 
 
         default:
