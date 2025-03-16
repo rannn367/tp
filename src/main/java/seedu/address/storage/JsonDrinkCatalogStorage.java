@@ -53,8 +53,9 @@ public class JsonDrinkCatalogStorage implements DrinkCatalogStorage {
         }
 
         try {
-            JsonSerializableDrinkCatalog jsonDrinkCatalog = 
-                    JsonUtil.readJsonFile(filePath, JsonSerializableDrinkCatalog.class).get();
+            JsonSerializableDrinkCatalog jsonDrinkCatalog =
+                    JsonUtil.readJsonFile(filePath,
+                        JsonSerializableDrinkCatalog.class).get();
             return Optional.of(jsonDrinkCatalog.toModelType());
         } catch (IllegalValueException e) {
             logger.warning("Illegal values found in " + filePath + ": " + e.getMessage());

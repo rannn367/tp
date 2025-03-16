@@ -102,7 +102,7 @@ public class DrinkCatalog implements ReadOnlyDrinkCatalog {
         }
 
         DrinkCatalog otherDrinkCatalog = (DrinkCatalog) other;
-        
+
         // Use a list comparison since order might matter for display
         return drinks.equals(otherDrinkCatalog.drinks);
     }

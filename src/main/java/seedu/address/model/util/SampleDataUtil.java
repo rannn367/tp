@@ -142,15 +142,15 @@ public class SampleDataUtil {
     }
 
     /**
- * Returns a sample DrinkCatalog with pre-loaded sample data.
- */
-public static ReadOnlyDrinkCatalog getSampleDrinkCatalog() {
-    DrinkCatalog sampleDc = new DrinkCatalog();
-    for (Drink sampleDrink : getSampleDrinks()) {
-        sampleDc.addDrink(sampleDrink);
+     * Returns a sample DrinkCatalog with pre-loaded sample data.
+     */
+    public static ReadOnlyDrinkCatalog getSampleDrinkCatalog() {
+        DrinkCatalog sampleDc = new DrinkCatalog();
+        for (Drink sampleDrink : getSampleDrinks()) {
+            sampleDc.addDrink(sampleDrink);
+        }
+        return sampleDc;
     }
-    return sampleDc;
-}
 
     /**
      * Returns a list of sample drinks.
