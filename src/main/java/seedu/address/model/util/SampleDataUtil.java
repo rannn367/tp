@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
@@ -135,6 +138,39 @@ public class SampleDataUtil {
                     "water",
                     0
             )
+        };
+    }
+
+    /**
+ * Returns a sample DrinkCatalog with pre-loaded sample data.
+ */
+public static ReadOnlyDrinkCatalog getSampleDrinkCatalog() {
+    DrinkCatalog sampleDc = new DrinkCatalog();
+    for (Drink sampleDrink : getSampleDrinks()) {
+        sampleDc.addDrink(sampleDrink);
+    }
+    return sampleDc;
+}
+
+    /**
+     * Returns a list of sample drinks.
+     */
+    public static Drink[] getSampleDrinks() {
+        return new Drink[] {
+            new Drink("Espresso", 3.50, "Coffee"),
+            new Drink("Cappuccino", 4.50, "Coffee"),
+            new Drink("Latte", 4.50, "Coffee"),
+            new Drink("Mocha", 5.00, "Coffee"),
+            new Drink("Green Tea", 3.00, "Tea"),
+            new Drink("Black Tea", 3.00, "Tea"),
+            new Drink("Earl Grey", 3.50, "Tea"),
+            new Drink("Chamomile", 3.50, "Tea"),
+            new Drink("Orange Juice", 4.00, "Cold Drinks"),
+            new Drink("Apple Juice", 4.00, "Cold Drinks"),
+            new Drink("Iced Coffee", 4.50, "Cold Drinks"),
+            new Drink("Chocolate Chip Cookie", 2.50, "Pastries"),
+            new Drink("Croissant", 3.00, "Pastries"),
+            new Drink("Blueberry Muffin", 3.50, "Pastries")
         };
     }
 

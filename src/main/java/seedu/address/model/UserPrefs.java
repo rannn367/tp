@@ -1,10 +1,9 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.GuiSettings;
 
@@ -15,6 +14,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path drinkCatalogFilePath = DEFAULT_DRINK_CATALOG_FILE_PATH;
+    public static final Path DEFAULT_DRINK_CATALOG_FILE_PATH = Paths.get("data", "drinkcatalog.json");
+
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -83,6 +86,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
+    }
+
+    public Path getDrinkCatalogFilePath() {
+        return drinkCatalogFilePath;
+    }
+    
+    public void setDrinkCatalogFilePath(Path drinkCatalogFilePath) {
+        this.drinkCatalogFilePath = drinkCatalogFilePath;
     }
 
 }

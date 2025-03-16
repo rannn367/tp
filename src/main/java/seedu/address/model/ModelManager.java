@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -11,6 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
@@ -26,25 +30,30 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Staff> filteredStaffs;
     private final FilteredList<Customer> filteredCustomers;
+    private final DrinkCatalog drinkCatalog;
+    private final FilteredList<Drink> filteredDrinks;
 
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyDrinkCatalog drinkCatalog) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.drinkCatalog = new DrinkCatalog();
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
         filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+        filteredDrinks = new FilteredList<>(this.drinkCatalog.getObservableDrinkList());;
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new DrinkCatalog());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -217,6 +226,40 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
+    }
+
+    @Override
+    public boolean hasDrink(Drink drink) {
+        requireNonNull(drink);
+        return drinkCatalog.hasDrink(drink);
+    }
+
+    @Override
+    public void addDrink(Drink drink) {
+        drinkCatalog.addDrink(drink);
+        updateFilteredDrinkList(PREDICATE_SHOW_ALL_DRINKS);
+    }
+
+    @Override
+    public void deleteDrink(Drink target) {
+        drinkCatalog.removeDrink(target);
+    }
+
+    @Override
+    public void setDrink(Drink target, Drink editedDrink) {
+        requireAllNonNull(target, editedDrink);
+        drinkCatalog.setDrink(target, editedDrink);
+    }
+
+    @Override
+    public ObservableList<Drink> getFilteredDrinkList() {
+        return filteredDrinks;
+    }
+
+    @Override
+    public void updateFilteredDrinkList(Predicate<Drink> predicate) {
+        requireNonNull(predicate);
+        filteredDrinks.setPredicate(predicate);
     }
 
 }

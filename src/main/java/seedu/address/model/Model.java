@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
@@ -17,6 +18,8 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
+    Predicate<Drink> PREDICATE_SHOW_ALL_DRINKS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -146,4 +149,40 @@ public interface Model {
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+
+    /**
+     * Returns true if the drink catalog contains an equivalent drink as the given argument.
+     */
+    boolean hasDrink(Drink drink);
+
+    /**
+     * Adds the given drink.
+     * The drink must not already exist in the drink catalog.
+     */
+    void addDrink(Drink drink);
+
+    /**
+     * Deletes the given drink.
+     * The drink must exist in the drink catalog.
+     */
+    void deleteDrink(Drink target);
+
+    /**
+     * Replaces the given drink {@code target} with {@code editedDrink}.
+     * {@code target} must exist in the drink catalog.
+     * The drink identity of {@code editedDrink} must not be the same as another existing drink in the catalog.
+     */
+    void setDrink(Drink target, Drink editedDrink);
+
+    /**
+     * Returns an unmodifiable view of the filtered drink list
+     */
+    ObservableList<Drink> getFilteredDrinkList();
+
+    /**
+     * Updates the filter of the filtered drink list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDrinkList(Predicate<Drink> predicate);
 }
