@@ -21,9 +21,13 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.DrinkCatalogStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonDrinkCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -58,7 +62,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        DrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(userPrefs.getDrinkCatalogFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -75,29 +80,46 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book, drink catalog
+     * and {@code userPrefs}. <br>
+     * The data from the sample address book and drink catalog will be used instead if {@code storage}'s
+     * data is not found, or empty versions will be used instead if errors occur when reading.
      */
     protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getAddressBookFilePath());
+        logger.info("Using address book data file: " + storage.getAddressBookFilePath());
+        logger.info("Using drink catalog data file: " + storage.getDrinkCatalogFilePath());
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialAddressData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
+            logger.warning("Address book data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            initialAddressData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        Optional<ReadOnlyDrinkCatalog> drinkCatalogOptional;
+        ReadOnlyDrinkCatalog initialDrinkData;
+        try {
+            drinkCatalogOptional = storage.readDrinkCatalog();
+            if (!drinkCatalogOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getDrinkCatalogFilePath()
+                        + " populated with a sample DrinkCatalog.");
+            }
+            initialDrinkData = drinkCatalogOptional.orElseGet(SampleDataUtil::getSampleDrinkCatalog);
+        } catch (DataLoadingException e) {
+            logger.warning("Drink catalog data file at " + storage.getDrinkCatalogFilePath() + " could not be loaded."
+                    + " Will be starting with an empty DrinkCatalog.");
+            initialDrinkData = new DrinkCatalog();
+        }
+
+        return new ModelManager(initialAddressData, userPrefs, initialDrinkData);
     }
 
     private void initLogging(Config config) {

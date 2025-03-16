@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
@@ -14,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 
 public class StorageManagerTest {
 
@@ -26,7 +29,8 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonDrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(getTempFilePath("drinks"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -61,8 +65,25 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void drinkCatalogReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonDrinkCatalogStorage} class.
+         * More extensive testing of DrinkCatalog saving/reading is done in {@link JsonDrinkCatalogStorageTest} class.
+         */
+        DrinkCatalog original = getTypicalDrinkCatalog();
+        storageManager.saveDrinkCatalog(original);
+        ReadOnlyDrinkCatalog retrieved = storageManager.readDrinkCatalog().get();
+        assertEquals(original, new DrinkCatalog(retrieved));
+    }
+
+    @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 
+    @Test
+    public void getDrinkCatalogFilePath() {
+        assertNotNull(storageManager.getDrinkCatalogFilePath());
+    }
 }

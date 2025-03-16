@@ -13,10 +13,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.DrinkCatalogStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonDrinkCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.testutil.TestUtil;
 import seedu.address.ui.UiManager;
 
 /**
@@ -26,6 +29,7 @@ public class DefaultAppLauncher {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
+    private static final Path TYPICAL_DRINKS_FILE = TestUtil.getFilePathInSandboxFolder("typicalDrinks.json");
     public static void main(String[] args) {
         try {
             Application.launch(TestApp.class, args);
@@ -44,6 +48,7 @@ public class DefaultAppLauncher {
         @Override
         public void init() throws Exception {
             // Always set logs to severe
+
             config = new Config();
             config.setLogLevel(Level.SEVERE);
             LogsCenter.init(config);
@@ -54,7 +59,8 @@ public class DefaultAppLauncher {
             UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(userPrefPath);
             UserPrefs userPrefs = initPrefs(userPrefsStorage);
             AddressBookStorage addressBookStorage = new JsonAddressBookStorage(TYPICAL_PERSONS_FILE);
-            storage = new StorageManager(addressBookStorage, userPrefsStorage);
+            DrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(TYPICAL_DRINKS_FILE);
+            storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
 
             model = initModelManager(storage, userPrefs);
 

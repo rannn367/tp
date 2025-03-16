@@ -12,9 +12,10 @@ import seedu.address.commons.core.GuiSettings;
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
-
+    public static final Path DEFAULT_DRINK_CATALOG_FILE_PATH = Paths.get("data", "drinkcatalog.json");
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path drinkCatalogFilePath = DEFAULT_DRINK_CATALOG_FILE_PATH;
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -83,6 +84,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
+    }
+
+    public Path getDrinkCatalogFilePath() {
+        return drinkCatalogFilePath;
+    }
+
+    public void setDrinkCatalogFilePath(Path drinkCatalogFilePath) {
+        this.drinkCatalogFilePath = drinkCatalogFilePath;
     }
 
 }
