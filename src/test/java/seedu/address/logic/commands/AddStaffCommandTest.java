@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
 import static seedu.address.testutil.TypicalStaff.ALEX;
 
 import java.nio.file.Path;
@@ -22,6 +23,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
@@ -210,6 +213,55 @@ public class AddStaffCommandTest {
 
         @Override
         public void setCustomer(Customer target, Customer editedCustomer) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public boolean hasDrink(Drink drink) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDrink(Drink drink) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDrink(Drink target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDrink(Drink target, Drink editedDrink) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Drink> getFilteredDrinkList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredDrinkList(Predicate<Drink> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyDrinkCatalog getDrinkCatalog() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDrinkCatalog(ReadOnlyDrinkCatalog drinkCatalog) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getDrinkCatalogFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDrinkCatalogFilePath(Path drinkCatalogFilePath) {
             throw new AssertionError("This method should not be called.");
         }
     }

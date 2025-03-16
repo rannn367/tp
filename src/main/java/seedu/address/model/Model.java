@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
@@ -185,4 +186,24 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDrinkList(Predicate<Drink> predicate);
+
+    /**
+     * Returns an unmodifiable view of the drink catalog
+     */
+    ReadOnlyDrinkCatalog getDrinkCatalog();
+
+    /**
+     * Returns the user prefs' drink catalog file path.
+     */
+    Path getDrinkCatalogFilePath();
+
+    /**
+     * Sets the user prefs' drink catalog file path.
+     */
+    void setDrinkCatalogFilePath(Path drinkCatalogFilePath);
+
+    /**
+     * Replaces drink catalog data with the data in {@code drinkCatalog}.
+     */
+    void setDrinkCatalog(ReadOnlyDrinkCatalog drinkCatalog);
 }
