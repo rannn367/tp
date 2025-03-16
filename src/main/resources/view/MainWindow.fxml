@@ -67,11 +67,11 @@
           </VBox>
 
           <!-- New Display Profile Column -->
-          <VBox fx:id="displayProfile" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          <VBox fx:id="drinkList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="5" />
             </padding>
-            <StackPane fx:id="displayProfilePlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="drinkListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
         </HBox>
 
