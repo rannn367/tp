@@ -48,7 +48,7 @@ public class DefaultAppLauncher {
         @Override
         public void init() throws Exception {
             // Always set logs to severe
-            
+
             config = new Config();
             config.setLogLevel(Level.SEVERE);
             LogsCenter.init(config);

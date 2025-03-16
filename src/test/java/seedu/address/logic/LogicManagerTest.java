@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -29,9 +28,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.person.Person;
-import seedu.address.storage.DrinkCatalogStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonDrinkCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -53,7 +50,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonDrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(temporaryFolder.resolve("drinkCatalog.json"));
+        JsonDrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(temporaryFolder
+            .resolve("drinkCatalog.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
         logic = new LogicManager(model, storage);
     }
@@ -176,8 +174,8 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        JsonDrinkCatalogStorage drinkCatalogStorage = 
-                new JsonDrinkCatalogStorage(temporaryFolder.resolve("ExceptionDrinkCatalog.json"));       
+        JsonDrinkCatalogStorage drinkCatalogStorage =
+                new JsonDrinkCatalogStorage(temporaryFolder.resolve("ExceptionDrinkCatalog.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
 
 

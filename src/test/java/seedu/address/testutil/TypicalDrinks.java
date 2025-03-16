@@ -29,8 +29,9 @@ public class TypicalDrinks {
 
     // Drinks with unusual properties for testing edge cases
     public static final Drink EXPENSIVE_SPECIALTY = new Drink("Special Reserve Coffee", 15.00, "Specialty");
-    public static final Drink LONG_NAME_DRINK = new Drink("Super Deluxe Triple Shot Caramel Vanilla Bean Latte with Extra Whipped Cream", 6.00, "Coffee");
-    
+    public static final Drink LONG_NAME_DRINK = new Drink("Super Deluxe Triple Shot Caramel Vanilla "
+        + "Bean Latte with Extra Whipped Cream", 6.00, "Coffee");
+
     private TypicalDrinks() {} // prevents instantiation
 
     /**
@@ -48,8 +49,8 @@ public class TypicalDrinks {
      * Returns a list containing all typical drinks for testing.
      */
     public static List<Drink> getTypicalDrinks() {
-        return new ArrayList<>(Arrays.asList(ESPRESSO, CAPPUCCINO, LATTE, MOCHA, 
-                GREEN_TEA, BLACK_TEA, EARL_GREY, CHAMOMILE, 
+        return new ArrayList<>(Arrays.asList(ESPRESSO, CAPPUCCINO, LATTE, MOCHA,
+                GREEN_TEA, BLACK_TEA, EARL_GREY, CHAMOMILE,
                 ORANGE_JUICE, APPLE_JUICE, ICED_COFFEE));
     }
 
@@ -59,14 +60,14 @@ public class TypicalDrinks {
     public static List<Drink> getBasicDrinks() {
         return new ArrayList<>(Arrays.asList(ESPRESSO, LATTE, GREEN_TEA, ORANGE_JUICE));
     }
-    
+
     /**
      * Returns only the food items (pastries).
      */
     public static List<Drink> getFoodItems() {
         return new ArrayList<>(Arrays.asList(CHOCOLATE_COOKIE, CROISSANT, BLUEBERRY_MUFFIN));
     }
-    
+
     /**
      * Returns drinks with unusual properties for edge case testing.
      */

@@ -29,7 +29,7 @@ public class TestAppLauncher {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("doesnotexist.json");
     private static final Path TYPICAL_DRINKS_FILE = TEST_DATA_FOLDER.resolve("doesnotexist_drinks.json");
-    
+
     public static void main(String[] args) {
         try {
             Application.launch(TestApp.class, args);
