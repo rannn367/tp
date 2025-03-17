@@ -6,16 +6,16 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Button?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="CafeConnect" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="CafeConnect" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -24,6 +24,7 @@
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
+        <URL value="@CafeConnect.css" />
       </stylesheets>
 
       <VBox fx:id="mainPane" styleClass="main-pane-1">
@@ -37,44 +38,58 @@
         </MenuBar>
 
         <!-- Add Toggle Background and Theme Button -->
-        <HBox spacing="10" alignment="TOP_LEFT">
-          <Button fx:id="toggleBackgroundButton" text="Toggle Background" onAction="#handleToggleBackground" />
-          <Button fx:id="toggleThemeButton" text="Toggle Theme" onAction="#handleToggleTheme" />
-        </HBox>
-
-        <!-- <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <HBox spacing="10" alignment="TOP_RIGHT">
           <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
+            <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox> -->
-
-        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="10">
-          <!-- Staff List Column -->
-          <VBox fx:id="staffList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="5" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="staffListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-
-          <!-- Customer List Column -->
-          <VBox fx:id="customerList" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="5" bottom="10" left="5" />
-            </padding>
-            <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-
-          <!-- New Display Profile Column -->
-          <VBox fx:id="displayProfile" style="-fx-background-color: transparent" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="5" />
-            </padding>
-            <StackPane fx:id="displayProfilePlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          <Button fx:id="toggleBackgroundButton" text="Toggle Background" onAction="#handleToggleBackground" styleClass="header-button" />
+          <Button fx:id="toggleThemeButton" text="Toggle Theme" onAction="#handleToggleTheme" styleClass="header-button" />
         </HBox>
 
+        <!-- Tab Pane for Staff and Customers -->
+        <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" styleClass="main-tab-pane">
+          <!-- Staff Tab -->
+          <Tab text="Staff" closable="false">
+            <HBox VBox.vgrow="ALWAYS" spacing="10">
+              <!-- Staff List Column (1/3 width) -->
+              <VBox fx:id="staffList" styleClass="list-column" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" prefWidth="250">
+                <padding>
+                  <Insets top="10" right="5" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="staffListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+
+              <!-- Staff Details Column (2/3 width) -->
+              <VBox fx:id="staffDetails" styleClass="details-column" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" prefWidth="550">
+                <padding>
+                  <Insets top="10" right="10" bottom="10" left="5" />
+                </padding>
+                <StackPane fx:id="staffDetailsPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+            </HBox>
+          </Tab>
+
+          <!-- Customers Tab -->
+          <Tab text="Customers" closable="false">
+            <HBox VBox.vgrow="ALWAYS" spacing="10">
+              <!-- Customer List Column (1/3 width) -->
+              <VBox fx:id="customerList" styleClass="list-column" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" prefWidth="250">
+                <padding>
+                  <Insets top="10" right="5" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+
+              <!-- Customer Details Column (2/3 width) -->
+              <VBox fx:id="customerDetails" styleClass="details-column" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" prefWidth="550">
+                <padding>
+                  <Insets top="10" right="10" bottom="10" left="5" />
+                </padding>
+                <StackPane fx:id="customerDetailsPlaceholder" VBox.vgrow="ALWAYS"/>
+              </VBox>
+            </HBox>
+          </Tab>
+        </TabPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="100" prefHeight="100" maxHeight="100">
@@ -83,12 +98,11 @@
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="command-box">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

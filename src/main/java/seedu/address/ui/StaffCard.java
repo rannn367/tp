@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -16,6 +14,12 @@ public class StaffCard extends UiPart<Region> {
 
     private static final String FXML = "StaffListCard.fxml";
 
+    /**
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
+     * As a consequence, UI elements' variable names cannot be set to such keywords
+     * or an exception will be thrown by JavaFX during runtime.
+     */
+
     public final Staff staff;
 
     @FXML
@@ -25,19 +29,15 @@ public class StaffCard extends UiPart<Region> {
     @FXML
     private Label staffName;
     @FXML
-    private Label contactDetails;
-    @FXML
     private Label staffId;
+    @FXML
+    private Label phone;
+    @FXML
+    private Label email;
     @FXML
     private Label role;
     @FXML
     private Label shiftTiming;
-    @FXML
-    private Label hoursWorked;
-    @FXML
-    private Label performanceRating;
-    @FXML
-    private Label address;
     @FXML
     private FlowPane tags;
 
@@ -47,22 +47,37 @@ public class StaffCard extends UiPart<Region> {
     public StaffCard(Staff staff, int displayedIndex) {
         super(FXML);
         this.staff = staff;
-
         id.setText(displayedIndex + ". ");
         staffName.setText(staff.getName().fullName);
-        contactDetails.setText("(" + staff.getPhone().value + ", " + staff.getEmail().value + ")");
+        staffId.setText("ID: " + staff.getStaffId());
+        phone.setText("Phone: " + staff.getPhone().value);
+        email.setText("Email: " + staff.getEmail().value);
+        role.setText("Role: " + staff.getRole());
+        shiftTiming.setText("Shift: " + staff.getShiftTiming());
 
-        staffId.setText("Staff ID: " + staff.getStaffId());
-        role.setText("| Role: " + staff.getRole());
-        shiftTiming.setText("| Shift: " + staff.getShiftTiming());
+        // Set tags
+        staff.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add("tag");
+            tags.getChildren().add(tagLabel);
+        });
+    }
 
-        hoursWorked.setText("Total Hours: " + staff.getHoursWorked());
-        performanceRating.setText("| Performance Rating: " + staff.getPerformanceRating());
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
 
-        address.setText(staff.getAddress().value);
+        // instanceof handles nulls
+        if (!(other instanceof StaffCard)) {
+            return false;
+        }
 
-        staff.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        // state check
+        StaffCard card = (StaffCard) other;
+        return id.getText().equals(card.id.getText())
+                && staff.equals(card.staff);
     }
 }

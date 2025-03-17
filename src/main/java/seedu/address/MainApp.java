@@ -6,11 +6,11 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
-import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -28,37 +28,46 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.ui.BackgroundImageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.address.ui.WelcomeScreen;
 
 /**
  * Runs the application.
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 2, 2, true);
+    public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected Ui ui;
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing CafeConnect ]===========================");
         super.init();
 
+        // Load custom fonts first
+        loadCustomFonts();
+
+        // Preload background images
+        BackgroundImageManager.preloadBackgroundImages();
+
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-        initLogging(config);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
@@ -68,10 +77,43 @@ public class MainApp extends Application {
     }
 
     /**
-     * Exposes Application init method to child of MainApp.
+     * Application initialization helper method.
+     * Added for testing purposes.
      */
-    public void applicationInit() throws Exception {
-        super.init();
+    protected void applicationInit() throws Exception {
+        // This method exists to support testing
+        logger.info("Application init called");
+    }
+
+    /**
+     * Loads custom fonts for the application UI.
+     */
+    private void loadCustomFonts() {
+        try {
+            // Load Playfair Display font (serif for headings)
+            Font.loadFont(getClass().getResourceAsStream("/fonts/PlayfairDisplay-Regular.ttf"), 12);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/PlayfairDisplay-Bold.ttf"), 12);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/PlayfairDisplay-Italic.ttf"), 12);
+
+            // Load Lora font (serif for body text)
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Lora-Regular.ttf"), 12);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Lora-Bold.ttf"), 12);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Lora-Italic.ttf"), 12);
+
+            logger.info("Custom fonts loaded successfully");
+        } catch (Exception e) {
+            logger.warning("Failed to load custom fonts: " + e.getMessage());
+            // App will fall back to system fonts
+        }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        logger.info("Starting CafeConnect " + MainApp.VERSION);
+
+        // Show welcome screen instead of directly going to main window
+        WelcomeScreen welcomeScreen = new WelcomeScreen(primaryStage, logic);
+        welcomeScreen.show();
     }
 
     /**
@@ -80,20 +122,17 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getAddressBookFilePath());
-
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                        + " populated with a sample AddressBook.");
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
+        } catch (Exception e) {
+            logger.warning("Data file could not be read. Will be starting with an empty AddressBook: "
+                    + StringUtil.getDetails(e));
             initialData = new AddressBook();
         }
 
@@ -124,13 +163,11 @@ public class MainApp extends Application {
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            if (!configOptional.isPresent()) {
-                logger.info("Creating new config file " + configFilePathUsed);
-            }
             initializedConfig = configOptional.orElse(new Config());
-        } catch (DataLoadingException e) {
-            logger.warning("Config file at " + configFilePathUsed + " could not be loaded."
-                    + " Using default config properties.");
+        } catch (Exception e) {
+            logger.warning("Config file at " + configFilePathUsed
+                    + " is not in the correct format or could not be read. "
+                    + "Using default config properties: " + StringUtil.getDetails(e));
             initializedConfig = new Config();
         }
 
@@ -150,18 +187,15 @@ public class MainApp extends Application {
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using preference file : " + prefsFilePath);
+        logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            if (!prefsOptional.isPresent()) {
-                logger.info("Creating new preference file " + prefsFilePath);
-            }
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataLoadingException e) {
-            logger.warning("Preference file at " + prefsFilePath + " could not be loaded."
-                    + " Using default preferences.");
+        } catch (Exception e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " could not be read. "
+                    + "Using default user prefs: " + StringUtil.getDetails(e));
             initializedPrefs = new UserPrefs();
         }
 
@@ -176,14 +210,8 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        logger.info("Starting CafeConnect " + MainApp.VERSION);
-        ui.start(primaryStage);
-    }
-
-    @Override
     public void stop() {
-        logger.info("============================ [ Stopping CafeConnect ] =============================");
+        logger.info("============================ Stopping CafeConnect =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

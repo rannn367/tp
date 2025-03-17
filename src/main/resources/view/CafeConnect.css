@@ -1,0 +1,160 @@
+/* CafeConnect CSS - Simple styling that extends DarkTheme.css */
+
+/* Detail panel styling */
+.detail-panel {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: derive(#1d1d1d, 50%);
+    -fx-border-width: 1px;
+}
+
+.detail-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 10px 0;
+}
+
+.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d8d8d8;
+    -fx-padding: 5px 0;
+}
+
+.detail-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #aaaaaa;
+}
+
+.detail-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.detail-button {
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-text-fill: white;
+    -fx-border-color: derive(#1d1d1d, 50%);
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+}
+
+.detail-button:hover {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+/* List styling */
+.staff-list .list-cell, .customer-list .list-cell {
+    -fx-background-color: #3c3c3c;
+    -fx-padding: 5px;
+}
+
+.staff-list .list-cell:filled:selected:focused,
+.staff-list .list-cell:filled:selected,
+.customer-list .list-cell:filled:selected:focused,
+.customer-list .list-cell:filled:selected {
+    -fx-background-color: #424d5f;
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1px;
+}
+
+.staff-list .list-cell:filled:hover,
+.customer-list .list-cell:filled:hover {
+    -fx-background-color: #3e3e3e;
+}
+
+/* Card styling */
+.person-card {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+
+.cell-id {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.cell-name {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.cell-details {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #e2e2e2;
+    -fx-opacity: 0.9;
+}
+
+/* Tag styling */
+.tags-container {
+    -fx-hgap: 5px;
+    -fx-vgap: 3px;
+}
+
+.cell-tags {
+    -fx-hgap: 5px;
+    -fx-vgap: 3px;
+}
+
+.tag {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1px 5px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-font-size: 11px;
+}
+
+/* Tab styling */
+.tab-pane {
+    -fx-background-color: derive(#1d1d1d, 10%);
+}
+
+.tab {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-radius: 3 3 0 0;
+    -fx-padding: 5px 10px;
+}
+
+.tab:selected {
+    -fx-background-color: #3e7b91;
+}
+
+/* Welcome screen styling */
+.welcome-title {
+    -fx-font-size: 24pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.95;
+}
+
+.welcome-text {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.welcome-button {
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-text-fill: white;
+    -fx-border-color: derive(#1d1d1d, 50%);
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.welcome-button:hover {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}

@@ -23,6 +23,7 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private WelcomeScreen welcomeScreen;
     private MainWindow mainWindow;
 
     /**
@@ -40,13 +41,31 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
+            // Show welcome screen first instead of directly showing main window
+            welcomeScreen = new WelcomeScreen(primaryStage, logic);
+            welcomeScreen.show();
+
+            // The WelcomeScreen will create and show the MainWindow when the user clicks "Enter"
+
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * Creates and shows the main window.
+     * This is called by the WelcomeScreen when the user clicks "Enter".
+     */
+    public void showMainWindow(Stage primaryStage) {
+        try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown("Fatal error during initializing main window", e);
         }
     }
 
@@ -66,6 +85,7 @@ public class UiManager implements Ui {
                                                String contentText) {
         final Alert alert = new Alert(type);
         alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/CafeConnect.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

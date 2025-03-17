@@ -4,7 +4,9 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -17,6 +19,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Staff;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,11 +36,21 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private StaffListPanel staffListPanel;
     private CustomerListPanel customerListPanel;
+    private StaffDetailPanel staffDetailPanel;
+    private CustomerDetailPanel customerDetailPanel;
     private ResultDisplay resultDisplay;
+    private CommandBox commandBox;
+    private StatusBarFooter statusBarFooter;
     private HelpWindow helpWindow;
+
+    private int currentTheme = 0; // 0 = Dark, 1 = Light
+    private int currentBackground = 1; // Track current background (1-5)
+
+    // Store last selected items to restore when switching tabs
+    private Staff lastSelectedStaff = null;
+    private Customer lastSelectedCustomer = null;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -44,14 +58,20 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    // @FXML
-    // private StackPane personListPanelPlaceholder;
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private StackPane staffListPanelPlaceholder;
 
     @FXML
     private StackPane customerListPanelPlaceholder;
+
+    @FXML
+    private StackPane staffDetailsPlaceholder;
+
+    @FXML
+    private StackPane customerDetailsPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -62,15 +82,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox mainPane;
 
-    private int currentBackgroundIndex = 1; // Start with the first background
-    private int themeIndex = 0; // 0 = Dark, 1 = Light, 2 = Grey-Gold
-
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -78,9 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -123,26 +137,84 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets up tab change handlers to preserve selections when switching tabs.
+     */
+    private void setupTabChangeHandlers() {
+        // Handle tab changes
+        tabPane.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.intValue() == 0) {
+                // Staff tab selected
+                logger.info("Switched to Staff tab");
+                // Restore previous staff selection if any
+                if (lastSelectedStaff != null) {
+                    staffListPanel.selectStaff(lastSelectedStaff);
+                }
+            } else if (newVal.intValue() == 1) {
+                // Customer tab selected
+                logger.info("Switched to Customer tab");
+                // Restore previous customer selection if any
+                if (lastSelectedCustomer != null) {
+                    customerListPanel.selectCustomer(lastSelectedCustomer);
+                }
+            }
+        });
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        // personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
+        // Staff components
         staffListPanel = new StaffListPanel(logic.getFilteredStaffList());
         staffListPanelPlaceholder.getChildren().add(staffListPanel.getRoot());
 
+        staffDetailPanel = new StaffDetailPanel();
+        staffDetailsPlaceholder.getChildren().add(staffDetailPanel.getRoot());
+
+        // Customer components
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+
+        customerDetailPanel = new CustomerDetailPanel();
+        customerDetailsPlaceholder.getChildren().add(customerDetailPanel.getRoot());
+
+        // Set up selection handlers
+        staffListPanel.setStaffSelectionHandler(this::handleStaffSelection);
+        customerListPanel.setCustomerSelectionHandler(this::handleCustomerSelection);
+
+        // Set command executor for detail panels
+        staffDetailPanel.setCommandExecutor(this::executeCommand);
+        customerDetailPanel.setCommandExecutor(this::executeCommand);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Setup tab change handlers
+        setupTabChangeHandlers();
+    }
+
+    /**
+     * Handles staff selection from the list.
+     */
+    private void handleStaffSelection(Staff staff) {
+        logger.info("Staff selected: " + (staff != null ? staff.getName().fullName : "none"));
+        lastSelectedStaff = staff;
+        staffDetailPanel.updateStaffDetails(staff);
+    }
+
+    /**
+     * Handles customer selection from the list.
+     */
+    private void handleCustomerSelection(Customer customer) {
+        logger.info("Customer selected: " + (customer != null ? customer.getName().fullName : "none"));
+        lastSelectedCustomer = customer;
+        customerDetailPanel.updateCustomerDetails(customer);
     }
 
     /**
@@ -161,7 +233,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -185,39 +257,47 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Toggles the background image.
+     */
     @FXML
     private void handleToggleBackground() {
-        // Remove previous background class
-        mainPane.getStyleClass().remove("main-pane-" + currentBackgroundIndex);
+        // Remove all background classes first
+        mainPane.getStyleClass().removeIf(style -> style.startsWith("main-pane-"));
 
         // Cycle through backgrounds (1 to 5)
-        currentBackgroundIndex = (currentBackgroundIndex % 5) + 1;
+        currentBackground = (currentBackground % 5) + 1;
 
         // Add the new background class
-        mainPane.getStyleClass().add("main-pane-" + currentBackgroundIndex);
+        String newStyle = "main-pane-" + currentBackground;
+        mainPane.getStyleClass().add(newStyle);
+
+        logger.info("Background changed to: " + newStyle);
     }
 
+    /**
+     * Toggles between dark and light themes.
+     */
     @FXML
     private void handleToggleTheme() {
-        themeIndex = (themeIndex + 1) % 3; // Cycle between 0, 1, and 2
+        Scene scene = primaryStage.getScene();
 
-        // Remove previous theme classes
-        mainPane.getStyleClass().removeAll("dark-theme", "light-theme", "grey-gold-theme");
-
-        // Add the new theme class
-        if (themeIndex == 0) {
-            mainPane.getStyleClass().add("dark-theme");
-        } else if (themeIndex == 1) {
-            mainPane.getStyleClass().add("light-theme");
+        // Toggle between dark theme (default) and light theme
+        if (currentTheme == 0) {
+            // Switch to light theme
+            if (!scene.getStylesheets().contains("view/LightTheme.css")) {
+                scene.getStylesheets().add("view/LightTheme.css");
+            }
+            scene.getRoot().getStyleClass().add("light-theme");
+            currentTheme = 1;
         } else {
-            mainPane.getStyleClass().add("grey-gold-theme");
+            // Switch back to dark theme
+            scene.getStylesheets().remove("view/LightTheme.css");
+            scene.getRoot().getStyleClass().remove("light-theme");
+            currentTheme = 0;
         }
-    }
 
-
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+        logger.info("Theme toggled to: " + (currentTheme == 0 ? "Dark" : "Light"));
     }
 
     /**
@@ -241,7 +321,7 @@ public class MainWindow extends UiPart<Stage> {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("An error occurred while executing command: " + commandText);
+            logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
