@@ -36,16 +36,7 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      - name: Install Xvfb on Linux
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y xvfb
-
-      - name: Run tests with Monocle on Linux
-        if: runner.os == 'Linux'
-        run: xvfb-run --auto-servernum --server-args='-screen 0 1024x768x24' ./gradlew check coverage -Djavafx.platform=Monocle -Dmonocle.platform=Headless -Dmonocle.headless=true
-
-      - name: Run tests on other platforms
-        if: runner.os != 'Linux'
+      - name: Run tests on all platforms
         run: ./gradlew check coverage 2>&1 | tee output.log
 
       - name: Persist logs
