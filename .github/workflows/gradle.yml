@@ -38,7 +38,7 @@ jobs:
 
       - name: Run tests with Monocle on Linux
         if: runner.os == 'Linux'
-        run: ./gradlew check coverage -Djavafx.platform=Monocle -Dmonocle.platform=Headless -Dmonocle.headless=true
+        run: DISPLAY=:0 ./gradlew check coverage -Djavafx.platform=Monocle -Dmonocle.platform=Headless -Dmonocle.headless=true
 
       - name: Run tests on other platforms
         if: runner.os != 'Linux'
