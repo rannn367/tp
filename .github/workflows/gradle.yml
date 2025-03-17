@@ -36,11 +36,12 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      - name: Install Xvfb on Linux
+      - name: Run tests with Monocle on Linux
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y xvfb
+        run: ./gradlew check coverage -Djavafx.platform=Monocle -Dmonocle.platform=Headless -Dmonocle.headless=true
 
-      - name: Build and check with Gradle
+      - name: Run tests on other platforms
+        if: runner.os != 'Linux'
         run: ./gradlew check coverage
 
       - name: Upload coverage reports to Codecov
