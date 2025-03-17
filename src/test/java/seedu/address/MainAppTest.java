@@ -13,6 +13,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.io.TempDir;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.AddressBookStorage;
@@ -23,15 +27,15 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.UiManager;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
-
 /**
  * Test class for MainApp.
  */
 public class MainAppTest {
-    
+    @TempDir
+    protected static Path temporaryFolder;
+    protected static CountDownLatch startupLatch = new CountDownLatch(1);
+    protected static JavaFxHandler handler = new JavaFxHandler();
+
     private static final int STARTUP_TIMEOUT = 10;
     private static final int WAIT_TIMEOUT = 15;
 
@@ -43,12 +47,7 @@ public class MainAppTest {
     private static final Path TYPICAL_CONFIG_FILE = TEST_DATA_FOLDER.resolve("ConfigUtilTest")
             .resolve("TypicalConfig.json");
 
-    @TempDir
-    protected static Path temporaryFolder;
-
-    protected static CountDownLatch startupLatch = new CountDownLatch(1);
-    protected static JavaFXHandler handler = new JavaFXHandler();
-    public static class JavaFXHandler implements Thread.UncaughtExceptionHandler, Executable{
+    public static class JavaFxHandler implements Thread.UncaughtExceptionHandler, Executable {
         private Throwable ex;
         private CountDownLatch failureLatch = new CountDownLatch(1);
 
