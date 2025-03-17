@@ -2,35 +2,45 @@ package seedu.address.model.drink;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the drink-catalog level
- * Duplicates are not allowed (by .isSameDrink comparison)
+ * Wraps all data at the drink-catalog level.
+ * Duplicates are not allowed (by .isSameDrink comparison).
  */
 public class DrinkCatalog implements ReadOnlyDrinkCatalog {
 
-    private final ObservableList<Drink> drinks;
-    private final ObservableList<Drink> unmodifiableDrinks;
+    private final UniqueDrinkList drinks;
 
-    /**
-     * Creates an empty DrinkCatalog.
+    /*
+     * The 'unusual' code block below is a non-static initialization block,
+     * sometimes used to avoid duplication between constructors.
+     * Note that non-static init blocks are not recommended to use.
      */
-    public DrinkCatalog() {
-        drinks = FXCollections.observableArrayList();
-        unmodifiableDrinks = FXCollections.unmodifiableObservableList(drinks);
+    {
+        drinks = new UniqueDrinkList();
     }
 
+    public DrinkCatalog() {}
+
     /**
-     * Creates a DrinkCatalog using the Drinks in the {@code toBeCopied}
+     * Creates a DrinkCatalog using the Drinks in {@code toBeCopied}.
      */
     public DrinkCatalog(ReadOnlyDrinkCatalog toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the drink list with {@code drinks}.
+     * {@code drinks} must not contain duplicate drinks.
+     */
+    public void setDrinks(List<Drink> drinks) {
+        this.drinks.setDrinks(drinks);
     }
 
     /**
@@ -38,17 +48,17 @@ public class DrinkCatalog implements ReadOnlyDrinkCatalog {
      */
     public void resetData(ReadOnlyDrinkCatalog newData) {
         requireNonNull(newData);
-
-        drinks.clear();
-        drinks.addAll(newData.getDrinkList());
+        setDrinks(newData.getDrinkList());
     }
+
+    //// drink-level operations
 
     /**
      * Returns true if a drink with the same identity as {@code drink} exists in the drink catalog.
      */
     public boolean hasDrink(Drink drink) {
         requireNonNull(drink);
-        return drinks.stream().anyMatch(d -> d.isSameDrink(drink));
+        return drinks.contains(drink);
     }
 
     /**
@@ -56,39 +66,37 @@ public class DrinkCatalog implements ReadOnlyDrinkCatalog {
      * The drink must not already exist in the drink catalog.
      */
     public void addDrink(Drink drink) {
-        requireNonNull(drink);
         drinks.add(drink);
-    }
-
-    /**
-     * Removes a drink from the drink catalog.
-     * The drink must exist in the drink catalog.
-     */
-    public void removeDrink(Drink key) {
-        drinks.remove(key);
     }
 
     /**
      * Replaces the given drink {@code target} in the list with {@code editedDrink}.
      * {@code target} must exist in the drink catalog.
+     * The identity of {@code editedDrink} must not be the same as another existing drink in the drink catalog.
      */
     public void setDrink(Drink target, Drink editedDrink) {
         requireNonNull(editedDrink);
-
-        int index = drinks.indexOf(target);
-        drinks.set(index, editedDrink);
-    }
-
-    @Override
-    public List<Drink> getDrinkList() {
-        return new ArrayList<>(drinks);
+        drinks.setDrink(target, editedDrink);
     }
 
     /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     * Removes {@code key} from this {@code DrinkCatalog}.
+     * {@code key} must exist in the drink catalog.
      */
-    public ObservableList<Drink> getObservableDrinkList() {
-        return unmodifiableDrinks;
+    public void removeDrink(Drink key) {
+        drinks.remove(key);
+    }
+
+    //// util methods
+
+    @Override
+    public String toString() {
+        return drinks.asUnmodifiableObservableList().size() + " drinks";
+    }
+
+    @Override
+    public ObservableList<Drink> getDrinkList() {
+        return drinks.asUnmodifiableObservableList();
     }
 
     @Override
@@ -102,8 +110,6 @@ public class DrinkCatalog implements ReadOnlyDrinkCatalog {
         }
 
         DrinkCatalog otherDrinkCatalog = (DrinkCatalog) other;
-
-        // Use a list comparison since order might matter for display
         return drinks.equals(otherDrinkCatalog.drinks);
     }
 

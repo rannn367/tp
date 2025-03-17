@@ -42,13 +42,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.drinkCatalog = new DrinkCatalog();
+        this.drinkCatalog = new DrinkCatalog(drinkCatalog);
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
         filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
-        filteredDrinks = new FilteredList<>(this.drinkCatalog.getObservableDrinkList());;
+        filteredDrinks = new FilteredList<>(this.drinkCatalog.getDrinkList());;
 
     }
 
