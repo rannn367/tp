@@ -89,10 +89,10 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BEN = "Barista";
     public static final String VALID_SHIFT_ALEX = "9am-5pm";
     public static final String VALID_SHIFT_BEN = "2pm-10pm";
-    public static final int VALID_HOURS_ALEX = 40;
-    public static final int VALID_HOURS_BEN = 35;
-    public static final double VALID_RATING_ALEX = 4.5;
-    public static final double VALID_RATING_BEN = 4.2;
+    public static final String VALID_HOURS_ALEX = "40";
+    public static final String VALID_HOURS_BEN = "35";
+    public static final String VALID_RATING_ALEX = "4.5";
+    public static final String VALID_RATING_BEN = "4.2";
 
     // Description constants
     public static final String NAME_DESC_ALEX = " " + PREFIX_NAME + VALID_NAME_ALEX;

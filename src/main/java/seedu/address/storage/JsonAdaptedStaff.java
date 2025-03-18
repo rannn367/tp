@@ -28,7 +28,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedStaff {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's Staff ID field is missing!";
 
     private final String name;
     private final String phone;
@@ -137,16 +137,25 @@ class JsonAdaptedStaff {
         }
         final Remark modelRemark = new Remark(remark);
 
+        if (staffId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StaffId.class.getSimpleName()));
+        }
         if (!StaffId.isValidStaffId(staffId)) {
             throw new IllegalValueException(StaffId.MESSAGE_CONSTRAINTS);
         }
         final StaffId modelStaffId = new StaffId(staffId);
 
+        if (role == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
+        }
         if (!Role.isValidRole(role)) {
             throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
         }
         final Role modelRole = new Role(role);
 
+        if (shiftTiming == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ShiftTiming.class.getSimpleName()));
+        }
         if (!ShiftTiming.isValidShiftTiming(shiftTiming)) {
             throw new IllegalValueException(ShiftTiming.MESSAGE_CONSTRAINTS);
         }

@@ -79,11 +79,11 @@ public class StaffTest {
         assertFalse(ALEX.equals(editedAlex));
 
         // different hoursWorked -> returns false
-        editedAlex = new StaffBuilder(ALEX).withHoursWorked(45).build();
+        editedAlex = new StaffBuilder(ALEX).withHoursWorked("45").build();
         assertFalse(ALEX.equals(editedAlex));
 
         // different performanceRating -> returns false
-        editedAlex = new StaffBuilder(ALEX).withPerformanceRating(4.8).build();
+        editedAlex = new StaffBuilder(ALEX).withPerformanceRating("4.8").build();
         assertFalse(ALEX.equals(editedAlex));
     }
 

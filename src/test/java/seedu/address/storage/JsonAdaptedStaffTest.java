@@ -16,6 +16,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Staff;
 
 public class JsonAdaptedStaffTest {
     private static final String INVALID_NAME = "J@ck";
@@ -32,11 +33,11 @@ public class JsonAdaptedStaffTest {
     private static final List<JsonAdaptedTag> VALID_TAGS = ALEX.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
-    private static final String VALID_STAFF_ID = ALEX.getStaffId();
-    private static final String VALID_ROLE = ALEX.getRole();
-    private static final String VALID_SHIFT_TIMING = ALEX.getShiftTiming();
-    private static final int VALID_HOURS_WORKED = ALEX.getHoursWorked();
-    private static final double VALID_PERFORMANCE_RATING = ALEX.getPerformanceRating();
+    private static final String VALID_STAFF_ID = ALEX.getStaffId().toString();
+    private static final String VALID_ROLE = ALEX.getRole().toString();
+    private static final String VALID_SHIFT_TIMING = ALEX.getShiftTiming().toString();
+    private static final String VALID_HOURS_WORKED = ALEX.getHoursWorked().toString();
+    private static final String VALID_PERFORMANCE_RATING = ALEX.getPerformanceRating().toString();
 
     @Test
     void constructor_nullEmail_throwsIllegalValueException() {
@@ -82,6 +83,10 @@ public class JsonAdaptedStaffTest {
     @Test
     public void toModelType_validStaffDetails_returnsStaff() throws Exception {
         JsonAdaptedStaff staff = new JsonAdaptedStaff(ALEX);
+        Staff expected = ALEX;
+        Staff actual = staff.toModelType();
+        System.out.println("Expected: " + expected);
+        System.out.println("Actual: " + actual);
         assertEquals(ALEX, staff.toModelType());
     }
 

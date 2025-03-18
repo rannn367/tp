@@ -55,10 +55,15 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddStaffCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 
 public class AddStaffCommandParserTest {
@@ -77,11 +82,11 @@ public class AddStaffCommandParserTest {
                         new Address(VALID_ADDRESS_ALEX),
                         new Remark(""),
                         Set.of(new Tag("manager")),
-                        VALID_STAFF_ID_ALEX,
-                        VALID_ROLE_ALEX,
-                        VALID_SHIFT_ALEX,
-                        VALID_HOURS_ALEX,
-                        VALID_RATING_ALEX));
+                        new StaffId(VALID_STAFF_ID_ALEX),
+                        new Role(VALID_ROLE_ALEX),
+                        new ShiftTiming(VALID_SHIFT_ALEX),
+                        new HoursWorked(VALID_HOURS_ALEX),
+                        new PerformanceRating(VALID_RATING_ALEX)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

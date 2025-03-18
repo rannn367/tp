@@ -91,8 +91,8 @@ public class Staff extends Person {
                 && staffId.equals(otherStaff.staffId)
                 && role.equals(otherStaff.role)
                 && shiftTiming.equals(otherStaff.shiftTiming)
-                && hoursWorked == otherStaff.hoursWorked
-                && performanceRating == otherStaff.performanceRating;
+                && hoursWorked.equals(otherStaff.hoursWorked)
+                && performanceRating.equals(otherStaff.performanceRating);
     }
 
     @Override
@@ -109,10 +109,10 @@ public class Staff extends Person {
                 .add("email", getEmail())
                 .add("address", getAddress())
                 .add("tags", getTags())
-                .add("role", role)
-                .add("shiftTiming", shiftTiming)
-                .add("hoursWorked", hoursWorked)
-                .add("performanceRating", performanceRating)
+                .add("role", getRole())
+                .add("shiftTiming", getShiftTiming())
+                .add("hoursWorked", getHoursWorked())
+                .add("performanceRating", getPerformanceRating())
                 .toString();
     }
 
