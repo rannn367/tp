@@ -12,9 +12,14 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -159,4 +164,81 @@ public class ParserUtil {
             throw new IllegalValueException("Points must be a valid integer");
         }
     }
+
+    /**
+     * Parses a {@code String staffId} into a {@code StaffId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code staffId} is invalid.
+     */
+    public static StaffId parseStaffId(String staffId) throws ParseException {
+        requireNonNull(staffId);
+        String trimmedStaffId = staffId.trim();
+        if (!StaffId.isValidStaffId(trimmedStaffId)) {
+            throw new ParseException(StaffId.MESSAGE_CONSTRAINTS);
+        }
+        return new StaffId(trimmedStaffId);
+    }
+
+    /**
+     * Parses a {@code String role} into a {@code Role}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
+    public static Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+        if (!Role.isValidRole(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
+        }
+        return new Role(trimmedRole);
+    }
+
+    /**
+     * Parses a {@code String shiftTiming} into a {@code ShiftTiming}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code shiftTiming} is invalid.
+     */
+    public static ShiftTiming parseShiftTiming(String shiftTiming) throws ParseException {
+        requireNonNull(shiftTiming);
+        String trimmedShiftTiming = shiftTiming.trim();
+        if (!ShiftTiming.isValidShiftTiming(trimmedShiftTiming)) {
+            throw new ParseException(ShiftTiming.MESSAGE_CONSTRAINTS);
+        }
+        return new ShiftTiming(trimmedShiftTiming);
+    }
+
+    /**
+     * Parses a {@code String hoursWorked} into a {@code HoursWorked}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code hoursWorked} is invalid.
+     */
+    public static HoursWorked parseHoursWorked(String hoursWorked) throws ParseException {
+        requireNonNull(hoursWorked);
+        String trimmedHoursWorked = hoursWorked.trim();
+        if (!HoursWorked.isValidHoursWorked(trimmedHoursWorked)) {
+            throw new ParseException(HoursWorked.MESSAGE_CONSTRAINTS);
+        }
+        return new HoursWorked(trimmedHoursWorked);
+    }
+
+    /**
+     * Parses a {@code String performanceRating} into a {@code PerformanceRating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code performanceRating} is invalid.
+     */
+    public static PerformanceRating parsePerformanceRating(String performanceRating) throws ParseException {
+        requireNonNull(performanceRating);
+        String trimmedPerformanceRating = performanceRating.trim();
+        if (!PerformanceRating.isValidPerformanceRating(trimmedPerformanceRating)) {
+            throw new ParseException(PerformanceRating.MESSAGE_CONSTRAINTS);
+        }
+        return new PerformanceRating(trimmedPerformanceRating);
+    }
+
+
 }

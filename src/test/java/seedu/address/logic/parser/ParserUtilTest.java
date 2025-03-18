@@ -16,8 +16,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -193,4 +198,75 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseStaffId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStaffId(null));
+    }
+
+    @Test
+    public void parseStaffId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseStaffId("invalid id"));
+    }
+
+    @Test
+    public void parseStaffId_validValueWithoutWhitespace_returnsStaffId() throws Exception {
+        StaffId expectedStaffId = new StaffId("S12345");
+        assertEquals(expectedStaffId, ParserUtil.parseStaffId("S12345"));
+    }
+
+    @Test
+    public void parseRole_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRole(null));
+    }
+
+    @Test
+    public void parseRole_validValue_returnsRole() throws Exception {
+        Role expectedRole = new Role("Manager");
+        assertEquals(expectedRole, ParserUtil.parseRole("Manager"));
+    }
+
+    @Test
+    public void parseShiftTiming_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseShiftTiming(null));
+    }
+
+    @Test
+    public void parseShiftTiming_validValue_returnsShiftTiming() throws Exception {
+        ShiftTiming expectedShiftTiming = new ShiftTiming("09:00-17:00");
+        assertEquals(expectedShiftTiming, ParserUtil.parseShiftTiming("09:00-17:00"));
+    }
+
+    @Test
+    public void parseHoursWorked_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseHoursWorked(null));
+    }
+
+    @Test
+    public void parseHoursWorked_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseHoursWorked("-5"));
+    }
+
+    @Test
+    public void parseHoursWorked_validValue_returnsHoursWorked() throws Exception {
+        HoursWorked expectedHoursWorked = new HoursWorked("40");
+        assertEquals(expectedHoursWorked, ParserUtil.parseHoursWorked("40"));
+    }
+
+    @Test
+    public void parsePerformanceRating_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePerformanceRating(null));
+    }
+
+    @Test
+    public void parsePerformanceRating_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePerformanceRating("invalid rating"));
+    }
+
+    @Test
+    public void parsePerformanceRating_validValue_returnsPerformanceRating() throws Exception {
+        PerformanceRating expectedPerformanceRating = new PerformanceRating("5");
+        assertEquals(expectedPerformanceRating, ParserUtil.parsePerformanceRating("5"));
+    }
+
 }

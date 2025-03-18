@@ -55,7 +55,12 @@ public class JsonSerializableAddressBookTest {
                 new seedu.address.model.person.Email("alice.tan@cafeexample.com"),
                 new seedu.address.model.person.Address("123 Café Street"),
                 new seedu.address.model.person.Remark("Punctual and friendly"),
-                Collections.emptySet(), "S001", "Barista", "Morning Shift", 40, 4.8
+                Collections.emptySet(),
+                new seedu.address.model.person.StaffId("S001"),
+                new seedu.address.model.person.Role("Barista"),
+                new seedu.address.model.person.ShiftTiming("Morning Shift"),
+                new seedu.address.model.person.HoursWorked("40"),
+                new seedu.address.model.person.PerformanceRating("4.8")
         ));
         List<JsonAdaptedStaff> staffList = List.of(staff, staff);
         JsonSerializableAddressBook jsonAddressBook =

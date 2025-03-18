@@ -12,11 +12,16 @@ import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -62,11 +67,11 @@ public class SampleDataUtil {
                         new Address("123 Café Street"),
                         new Remark("Punctual and friendly"),
                         getTagSet("barista", "fulltime"),
-                        "S001",
-                        "Barista",
-                        "Morning Shift",
-                        40,
-                        4.8
+                        new StaffId("S001"),
+                        new Role("Barista"),
+                        new ShiftTiming("Morning Shift"),
+                        new HoursWorked("40"),
+                        new PerformanceRating("4.8")
                 ),
             new Staff(
                         new Name("Bob Lim"),
@@ -75,11 +80,11 @@ public class SampleDataUtil {
                         new Address("456 Coffee Lane"),
                         new Remark("Great leadership skills"),
                         getTagSet("manager", "fulltime"),
-                        "S002",
-                        "Manager",
-                        "Day Shift",
-                        45,
-                        4.9
+                        new StaffId("S002"),
+                        new Role("Manager"),
+                        new ShiftTiming("Day Shift"),
+                        new HoursWorked("45"),
+                        new PerformanceRating("4.9")
                 ),
             new Staff(
                         new Name("Charlie Wong"),
@@ -88,11 +93,11 @@ public class SampleDataUtil {
                         new Address("789 Espresso Avenue"),
                         new Remark("Creative and efficient"),
                         getTagSet("chef", "parttime"),
-                        "S003",
-                        "Chef",
-                        "Evening Shift",
-                        25,
-                        4.5
+                        new StaffId("S003"),
+                        new Role("Chef"),
+                        new ShiftTiming("Evening Shift"),
+                        new HoursWorked("25"),
+                        new PerformanceRating("4.5")
                 )
         };
     }
