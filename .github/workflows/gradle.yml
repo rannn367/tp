@@ -37,12 +37,8 @@ jobs:
           java-package: jdk+fx
 
       - name: Run tests on all platforms
-        run: ./gradlew check coverage | tee output.log
-
-      - name: Persist logs
-        if: ${{ failure() }}
-        run: cat output.log
-
+        run: ./gradlew check coverage
+        
       - name: Upload coverage reports to Codecov
         if: runner.os == 'Linux'
         uses: codecov/codecov-action@v4
