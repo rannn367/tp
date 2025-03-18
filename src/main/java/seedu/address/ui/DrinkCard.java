@@ -32,10 +32,11 @@ public class DrinkCard extends UiPart<Region> {
     public DrinkCard(Drink drink, int displayedIndex) {
         super(FXML);
         this.drink = drink;
+
         id.setText(displayedIndex + ". ");
         drinkName.setText(drink.getName());
         price.setText("$" + String.format("%.2f", drink.getPrice()));
-        category.setText(drink.getCategory());
+        category.setText("Category: " + drink.getCategory());
     }
 
     @Override

@@ -91,44 +91,44 @@ public class SampleDataUtil {
     public static Staff[] getSampleStaff() {
         return new Staff[] {
             new Staff(
-                new Name("Alice Tan"),
-                new Phone("81234567"),
-                new Email("alice.tan@cafeexample.com"),
-                new Address("123 Café Street"),
-                new Remark("Punctual and friendly"),
-                getTagSet("barista", "fulltime"),
-                new StaffId("S001"),
-                new Role("Barista"),
-                new ShiftTiming("Morning Shift"),
-                new HoursWorked("40"),
-                new PerformanceRating("4.8")
-            ),
+                        new Name("Alice Tan"),
+                        new Phone("81234567"),
+                        new Email("alice.tan@cafeexample.com"),
+                        new Address("123 Café Street"),
+                        new Remark("Punctual and friendly"),
+                        getTagSet("barista", "fulltime"),
+                        new StaffId("S001"),
+                        new Role("Barista"),
+                        new ShiftTiming("Morning Shift"),
+                        new HoursWorked("40"),
+                        new PerformanceRating("4.8")
+                ),
             new Staff(
-                new Name("Bob Lim"),
-                new Phone("87654321"),
-                new Email("bob.lim@cafeexample.com"),
-                new Address("456 Coffee Lane"),
-                new Remark("Great leadership skills"),
-                getTagSet("manager", "fulltime"),
-                new StaffId("S002"),
-                new Role("Manager"),
-                new ShiftTiming("Day Shift"),
-                new HoursWorked("45"),
-                new PerformanceRating("4.9")
-            ),
+                        new Name("Bob Lim"),
+                        new Phone("87654321"),
+                        new Email("bob.lim@cafeexample.com"),
+                        new Address("456 Coffee Lane"),
+                        new Remark("Great leadership skills"),
+                        getTagSet("manager", "fulltime"),
+                        new StaffId("S002"),
+                        new Role("Manager"),
+                        new ShiftTiming("Day Shift"),
+                        new HoursWorked("45"),
+                        new PerformanceRating("4.9")
+                ),
             new Staff(
-                new Name("Charlie Wong"),
-                new Phone("89898989"),
-                new Email("charlie.wong@cafeexample.com"),
-                new Address("789 Espresso Avenue"),
-                new Remark("Creative and efficient"),
-                getTagSet("chef", "parttime"),
-                new StaffId("S003"),
-                new Role("Chef"),
-                new ShiftTiming("Evening Shift"),
-                new HoursWorked("25"),
-                new PerformanceRating("4.5")
-            )
+                        new Name("Charlie Wong"),
+                        new Phone("89898989"),
+                        new Email("charlie.wong@cafeexample.com"),
+                        new Address("789 Espresso Avenue"),
+                        new Remark("Creative and efficient"),
+                        getTagSet("chef", "parttime"),
+                        new StaffId("S003"),
+                        new Role("Chef"),
+                        new ShiftTiming("Evening Shift"),
+                        new HoursWorked("25"),
+                        new PerformanceRating("4.5")
+                )
         };
     }
 
@@ -140,17 +140,17 @@ public class SampleDataUtil {
     public static Customer[] getSampleCustomers() {
         return new Customer[] {
             new Customer(
-                new Name("Abby Tan"),
-                new Phone("91234567"),
-                new Email("abby.tan@cafeexample.com"),
-                new Address("123 Café Street"),
-                new Remark("Always comes at 7am!"),
-                getTagSet(),
-                "C001",
-                100,
-                12,
-                "oat latte with vanilla syrup",
-                120.3
+                    new Name("Abby Tan"),
+                    new Phone("91234567"),
+                    new Email("abby.tan@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("Always comes at 7am!"),
+                    getTagSet(),
+                    "C001",
+                    100,
+                    12,
+                    "oat latte with vanilla syrup",
+                    120.3
             ),
             new Customer(
                 new Name("Bella Smith"),
@@ -183,8 +183,6 @@ public class SampleDataUtil {
 
     /**
      * Returns a sample DrinkCatalog with pre-loaded sample data.
-     *
-     * @return ReadOnlyDrinkCatalog with sample drinks
      */
     public static ReadOnlyDrinkCatalog getSampleDrinkCatalog() {
         DrinkCatalog sampleDc = new DrinkCatalog();
@@ -195,9 +193,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns an array of sample drinks.
-     *
-     * @return Array of sample drinks
+     * Returns a list of sample drinks.
      */
     public static Drink[] getSampleDrinks() {
         return new Drink[] {
@@ -218,11 +214,6 @@ public class SampleDataUtil {
         };
     }
 
-    /**
-     * Returns a sample AddressBook with pre-loaded sample data.
-     *
-     * @return ReadOnlyAddressBook with sample persons, staff, and customers
-     */
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -248,4 +239,5 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
+
 }

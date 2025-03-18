@@ -146,11 +146,33 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Address book data file not found. Will be starting with a sample AddressBook");
             }
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        } catch (DataLoadingException e) {
+            logger.warning("Address book data file at " + storage.getAddressBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty AddressBook.");
+            initialAddressData = new AddressBook();
+        }
 
             if (!drinkCatalogOptional.isPresent()) {
                 logger.info("Drink catalog data file not found. Will be starting with a sample DrinkCatalog");
             }
 
+        Optional<ReadOnlyDrinkCatalog> drinkCatalogOptional;
+        ReadOnlyDrinkCatalog initialDrinkData;
+        try {
+            drinkCatalogOptional = storage.readDrinkCatalog();
+            if (!drinkCatalogOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getDrinkCatalogFilePath()
+                        + " populated with a sample DrinkCatalog.");
+            }
+            initialDrinkData = drinkCatalogOptional.orElseGet(SampleDataUtil::getSampleDrinkCatalog);
+        } catch (DataLoadingException e) {
+            logger.warning("Drink catalog data file at " + storage.getDrinkCatalogFilePath() + " could not be loaded."
+                    + " Will be starting with an empty DrinkCatalog.");
+            initialDrinkData = new DrinkCatalog();
+        }
+
+        return new ModelManager(initialAddressData, userPrefs, initialDrinkData);
             initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialDrinkCatalogData = drinkCatalogOptional.orElseGet(() -> new DrinkCatalog());
         } catch (Exception e) {
@@ -211,11 +233,14 @@ public class MainApp extends Application {
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
+        logger.info("Using preference file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
+            if (!prefsOptional.isPresent()) {
+                logger.info("Creating new preference file " + prefsFilePath);
+            }
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (Exception e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " could not be read. "
