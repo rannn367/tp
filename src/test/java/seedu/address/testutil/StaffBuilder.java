@@ -5,10 +5,15 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,8 +30,8 @@ public class StaffBuilder {
     public static final String DEFAULT_STAFF_ID = "S1001";
     public static final String DEFAULT_ROLE = "Barista";
     public static final String DEFAULT_SHIFT_TIMING = "8am-4pm";
-    public static final int DEFAULT_HOURS_WORKED = 40;
-    public static final double DEFAULT_PERFORMANCE_RATING = 4.5;
+    public static final String DEFAULT_HOURS_WORKED = "40";
+    public static final String DEFAULT_PERFORMANCE_RATING = "4.5";
 
     private Name name;
     private Phone phone;
@@ -34,11 +39,11 @@ public class StaffBuilder {
     private Address address;
     private Remark remark;
     private Set<Tag> tags;
-    private String staffId;
-    private String role;
-    private String shiftTiming;
-    private int hoursWorked;
-    private double performanceRating;
+    private StaffId staffId;
+    private Role role;
+    private ShiftTiming shiftTiming;
+    private HoursWorked hoursWorked;
+    private PerformanceRating performanceRating;
 
     /**
      * Creates a {@code StaffBuilder} with the default details.
@@ -50,11 +55,11 @@ public class StaffBuilder {
         address = new Address(DEFAULT_ADDRESS);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
-        staffId = DEFAULT_STAFF_ID;
-        role = DEFAULT_ROLE;
-        shiftTiming = DEFAULT_SHIFT_TIMING;
-        hoursWorked = DEFAULT_HOURS_WORKED;
-        performanceRating = DEFAULT_PERFORMANCE_RATING;
+        staffId = new StaffId(DEFAULT_STAFF_ID);
+        role = new Role(DEFAULT_ROLE);
+        shiftTiming = new ShiftTiming(DEFAULT_SHIFT_TIMING);
+        hoursWorked = new HoursWorked(DEFAULT_HOURS_WORKED);
+        performanceRating = new PerformanceRating(DEFAULT_PERFORMANCE_RATING);
     }
 
     /**
@@ -126,7 +131,7 @@ public class StaffBuilder {
      * Sets the {@code Address} of the {@code Staff} that we are building.
      */
     public StaffBuilder withStaffId(String staffId) {
-        this.staffId = staffId;
+        this.staffId = new StaffId(staffId);
         return this;
     }
 
@@ -134,7 +139,7 @@ public class StaffBuilder {
      * Sets the {@code Role} of the {@code Staff} that we are building.
      */
     public StaffBuilder withRole(String role) {
-        this.role = role;
+        this.role = new Role(role);
         return this;
     }
 
@@ -142,23 +147,23 @@ public class StaffBuilder {
      * Sets the {@code ShiftTiming} of the {@code Staff} that we are building.
      */
     public StaffBuilder withShiftTiming(String shiftTiming) {
-        this.shiftTiming = shiftTiming;
+        this.shiftTiming = new ShiftTiming(shiftTiming);
         return this;
     }
 
     /**
      * Sets the {@code HoursWorked} of the {@code Staff} that we are building.
      */
-    public StaffBuilder withHoursWorked(int hoursWorked) {
-        this.hoursWorked = hoursWorked;
+    public StaffBuilder withHoursWorked(String hoursWorked) {
+        this.hoursWorked = new HoursWorked(hoursWorked);
         return this;
     }
 
     /**
      * Sets the {@code PerformanceRating} of the {@code Staff} that we are building.
      */
-    public StaffBuilder withPerformanceRating(double performanceRating) {
-        this.performanceRating = performanceRating;
+    public StaffBuilder withPerformanceRating(String performanceRating) {
+        this.performanceRating = new PerformanceRating(performanceRating);
         return this;
     }
 

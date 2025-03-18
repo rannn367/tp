@@ -19,10 +19,15 @@ import seedu.address.logic.commands.AddStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -56,11 +61,12 @@ public class AddStaffCommandParser implements Parser<AddStaffCommand> {
         Remark remark = new Remark(""); // still no remarks at creation
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        String staffId = argMultimap.getValue(PREFIX_STAFF_ID).get();
-        String role = argMultimap.getValue(PREFIX_ROLE).get();
-        String shiftTiming = argMultimap.getValue(PREFIX_SHIFT_TIMING).get();
-        int hoursWorked = Integer.parseInt(argMultimap.getValue(PREFIX_HOURS_WORKED).get());
-        double performanceRating = Double.parseDouble(argMultimap.getValue(PREFIX_PERFORMANCE_RATING).get());
+        StaffId staffId = ParserUtil.parseStaffId(argMultimap.getValue(PREFIX_STAFF_ID).get());
+        Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
+        ShiftTiming shiftTiming = ParserUtil.parseShiftTiming(argMultimap.getValue(PREFIX_SHIFT_TIMING).get());
+        HoursWorked hoursWorked = ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURS_WORKED).get());
+        PerformanceRating performanceRating = ParserUtil.parsePerformanceRating(
+                argMultimap.getValue(PREFIX_PERFORMANCE_RATING).get());
 
         Staff staff = new Staff(name, phone, email, address, remark, tagList,
                 staffId, role, shiftTiming, hoursWorked, performanceRating);
