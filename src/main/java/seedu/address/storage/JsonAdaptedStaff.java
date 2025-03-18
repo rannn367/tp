@@ -154,7 +154,8 @@ class JsonAdaptedStaff {
         final Role modelRole = new Role(role);
 
         if (shiftTiming == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ShiftTiming.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ShiftTiming.class.getSimpleName()));
         }
         if (!ShiftTiming.isValidShiftTiming(shiftTiming)) {
             throw new IllegalValueException(ShiftTiming.MESSAGE_CONSTRAINTS);
