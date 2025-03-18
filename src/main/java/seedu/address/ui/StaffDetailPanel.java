@@ -98,14 +98,14 @@ public class StaffDetailPanel extends UiPart<Region> {
 
         // Set all the text fields
         staffNameHeader.setText(staff.getName().fullName);
-        staffId.setText(staff.getStaffId());
+        staffId.setText(staff.getStaffId().value);
         phone.setText(staff.getPhone().value);
         email.setText(staff.getEmail().value);
         address.setText(staff.getAddress().value);
-        role.setText(staff.getRole());
-        shiftTiming.setText(staff.getShiftTiming());
-        hoursWorked.setText(String.valueOf(staff.getHoursWorked()));
-        performanceRating.setText(String.valueOf(staff.getPerformanceRating()));
+        role.setText(staff.getRole().value);
+        shiftTiming.setText(staff.getShiftTiming().value);
+        hoursWorked.setText(staff.getHoursWorked().value);
+        performanceRating.setText(staff.getPerformanceRating().value);
 
         // Clear existing tags
         tags.getChildren().clear();
@@ -116,6 +116,12 @@ public class StaffDetailPanel extends UiPart<Region> {
             tagLabel.getStyleClass().add("tag");
             tags.getChildren().add(tagLabel);
         });
+    }
+
+    @FXML
+    private void initialize() {
+        editButton.setOnAction(event -> handleEditButtonAction());
+        deleteButton.setOnAction(event -> handleDeleteButtonAction());
     }
 
     /**

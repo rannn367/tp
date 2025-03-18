@@ -12,10 +12,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Role;
+import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,7 +28,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedStaff {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's Staff ID field is missing!";
 
     private final String name;
     private final String phone;
@@ -36,8 +41,8 @@ class JsonAdaptedStaff {
     private final String staffId;
     private final String role;
     private final String shiftTiming;
-    private final int hoursWorked;
-    private final double performanceRating;
+    private final String hoursWorked;
+    private final String performanceRating;
 
     /**
      * Constructs a {@code JsonAdaptedStaff} with the given staff details.
@@ -48,8 +53,8 @@ class JsonAdaptedStaff {
                             @JsonProperty("remark") String remark, @JsonProperty("tags") List<JsonAdaptedTag> tags,
                             @JsonProperty("staffId") String staffId, @JsonProperty("role") String role,
                             @JsonProperty("shiftTiming") String shiftTiming,
-                            @JsonProperty("hoursWorked") int hoursWorked,
-                            @JsonProperty("performanceRating") double performanceRating) {
+                            @JsonProperty("hoursWorked") String hoursWorked,
+                            @JsonProperty("performanceRating") String performanceRating) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -77,11 +82,11 @@ class JsonAdaptedStaff {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        staffId = source.getStaffId();
-        role = source.getRole();
-        shiftTiming = source.getShiftTiming();
-        hoursWorked = source.getHoursWorked();
-        performanceRating = source.getPerformanceRating();
+        staffId = source.getStaffId().value;
+        role = source.getRole().value;
+        shiftTiming = source.getShiftTiming().value;
+        hoursWorked = source.getHoursWorked().value;
+        performanceRating = source.getPerformanceRating().value;
     }
 
     /**
@@ -133,19 +138,49 @@ class JsonAdaptedStaff {
         final Remark modelRemark = new Remark(remark);
 
         if (staffId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Staff ID"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, StaffId.class.getSimpleName()));
         }
+        if (!StaffId.isValidStaffId(staffId)) {
+            throw new IllegalValueException(StaffId.MESSAGE_CONSTRAINTS);
+        }
+        final StaffId modelStaffId = new StaffId(staffId);
 
         if (role == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Role"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
         }
+        if (!Role.isValidRole(role)) {
+            throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
+        }
+        final Role modelRole = new Role(role);
 
         if (shiftTiming == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Shift Timing"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ShiftTiming.class.getSimpleName()));
         }
+        if (!ShiftTiming.isValidShiftTiming(shiftTiming)) {
+            throw new IllegalValueException(ShiftTiming.MESSAGE_CONSTRAINTS);
+        }
+        final ShiftTiming modelShiftTiming = new ShiftTiming(shiftTiming);
+
+        if (hoursWorked == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Hours Worked"));
+        }
+        if (!HoursWorked.isValidHoursWorked(hoursWorked)) {
+            throw new IllegalValueException(HoursWorked.MESSAGE_CONSTRAINTS);
+        }
+        final HoursWorked modelHoursWorked = new HoursWorked(hoursWorked);
+
+        if (performanceRating == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Performance Rating"));
+        }
+        if (!PerformanceRating.isValidPerformanceRating(performanceRating)) {
+            throw new IllegalValueException(PerformanceRating.MESSAGE_CONSTRAINTS);
+        }
+        final PerformanceRating modelPerformanceRating = new PerformanceRating(performanceRating);
+
 
         final Set<Tag> modelTags = new HashSet<>(staffTags);
         return new Staff(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
-                staffId, role, shiftTiming, hoursWorked, performanceRating);
+                modelStaffId, modelRole, modelShiftTiming, modelHoursWorked, modelPerformanceRating);
     }
 }

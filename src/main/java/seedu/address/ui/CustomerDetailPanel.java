@@ -110,6 +110,12 @@ public class CustomerDetailPanel extends UiPart<Region> {
         remark.setText(remarkText.isEmpty() ? "No notes" : remarkText);
     }
 
+    @FXML
+    private void initialize() {
+        editButton.setOnAction(event -> handleEditButtonAction());
+        deleteButton.setOnAction(event -> handleDeleteButtonAction());
+    }
+
     /**
      * Handles edit button action.
      */

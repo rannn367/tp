@@ -11,6 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
@@ -26,25 +29,31 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Staff> filteredStaffs;
     private final FilteredList<Customer> filteredCustomers;
+    private final DrinkCatalog drinkCatalog;
+    private final FilteredList<Drink> filteredDrinks;
 
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyDrinkCatalog drinkCatalog) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.drinkCatalog = new DrinkCatalog(drinkCatalog);
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
         filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+        filteredDrinks = new FilteredList<>(this.drinkCatalog.getDrinkList());;
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new DrinkCatalog());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -216,7 +225,63 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && drinkCatalog.equals(otherModelManager.drinkCatalog)
+                && filteredDrinks.equals(otherModelManager.filteredDrinks);
+    }
+
+    @Override
+    public boolean hasDrink(Drink drink) {
+        requireNonNull(drink);
+        return drinkCatalog.hasDrink(drink);
+    }
+
+    @Override
+    public void addDrink(Drink drink) {
+        drinkCatalog.addDrink(drink);
+        updateFilteredDrinkList(PREDICATE_SHOW_ALL_DRINKS);
+    }
+
+    @Override
+    public void deleteDrink(Drink target) {
+        drinkCatalog.removeDrink(target);
+    }
+
+    @Override
+    public void setDrink(Drink target, Drink editedDrink) {
+        requireAllNonNull(target, editedDrink);
+        drinkCatalog.setDrink(target, editedDrink);
+    }
+
+    @Override
+    public ObservableList<Drink> getFilteredDrinkList() {
+        return filteredDrinks;
+    }
+
+    @Override
+    public void updateFilteredDrinkList(Predicate<Drink> predicate) {
+        requireNonNull(predicate);
+        filteredDrinks.setPredicate(predicate);
+    }
+    @Override
+    public ReadOnlyDrinkCatalog getDrinkCatalog() {
+        return drinkCatalog;
+    }
+
+    @Override
+    public Path getDrinkCatalogFilePath() {
+        return userPrefs.getDrinkCatalogFilePath();
+    }
+
+    @Override
+    public void setDrinkCatalogFilePath(Path drinkCatalogFilePath) {
+        requireNonNull(drinkCatalogFilePath);
+        userPrefs.setDrinkCatalogFilePath(drinkCatalogFilePath);
+    }
+
+    @Override
+    public void setDrinkCatalog(ReadOnlyDrinkCatalog drinkCatalog) {
+        this.drinkCatalog.resetData(drinkCatalog);
     }
 
 }

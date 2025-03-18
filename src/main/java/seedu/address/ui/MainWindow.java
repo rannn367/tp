@@ -2,9 +2,13 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -19,6 +23,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Staff;
 
@@ -38,8 +43,10 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private StaffListPanel staffListPanel;
     private CustomerListPanel customerListPanel;
+    private DrinkListPanel drinkListPanel;
     private StaffDetailPanel staffDetailPanel;
     private CustomerDetailPanel customerDetailPanel;
+    private DrinkDetailPanel drinkDetailPanel;
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
     private StatusBarFooter statusBarFooter;
@@ -51,6 +58,10 @@ public class MainWindow extends UiPart<Stage> {
     // Store last selected items to restore when switching tabs
     private Staff lastSelectedStaff = null;
     private Customer lastSelectedCustomer = null;
+    private Drink lastSelectedDrink = null;
+
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -59,19 +70,22 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private TabPane tabPane;
-
-    @FXML
     private StackPane staffListPanelPlaceholder;
 
     @FXML
     private StackPane customerListPanelPlaceholder;
 
     @FXML
+    private StackPane drinksListPanelPlaceholder;
+
+    @FXML
     private StackPane staffDetailsPlaceholder;
 
     @FXML
     private StackPane customerDetailsPlaceholder;
+
+    @FXML
+    private StackPane drinksDetailsPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -81,6 +95,14 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox mainPane;
+
+    @FXML
+    private Button toggleBackgroundButton;
+
+    @FXML
+    private Button toggleThemeButton;
+
+    @FXML private MenuBar menuBar;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -96,6 +118,24 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
         setAccelerators();
         helpWindow = new HelpWindow();
+    }
+
+    /**
+     * Initialize method called by JavaFX after FXML loading.
+     * Sets up all event handlers programmatically.
+     */
+    @FXML
+    private void initialize() {
+        // Set up toggle button handlers
+        toggleBackgroundButton.setOnAction(event -> handleToggleBackground());
+        toggleThemeButton.setOnAction(event -> handleToggleTheme());
+
+        // Set up menu handlers
+        menuBar.getMenus().get(0).getItems().get(0).setOnAction(event -> handleExit());
+        helpMenuItem.setOnAction(event -> handleHelp());
+
+        // Set window close handler
+        primaryStage.setOnCloseRequest(event -> handleExit());
     }
 
     public Stage getPrimaryStage() {
@@ -156,6 +196,13 @@ public class MainWindow extends UiPart<Stage> {
                 if (lastSelectedCustomer != null) {
                     customerListPanel.selectCustomer(lastSelectedCustomer);
                 }
+            } else if (newVal.intValue() == 2) {
+                // Drinks tab selected
+                logger.info("Switched to Drinks tab");
+                // Restore previous drink selection if any
+                if (lastSelectedDrink != null && drinkListPanel != null) {
+                    drinkListPanel.selectDrink(lastSelectedDrink);
+                }
             }
         });
     }
@@ -178,13 +225,32 @@ public class MainWindow extends UiPart<Stage> {
         customerDetailPanel = new CustomerDetailPanel();
         customerDetailsPlaceholder.getChildren().add(customerDetailPanel.getRoot());
 
+        // Sample drinks for testing (since you might not have model support yet)
+        ObservableList<Drink> sampleDrinks = FXCollections.observableArrayList(
+                new Drink("Espresso", 3.50, "Coffee"),
+                new Drink("Latte", 4.50, "Coffee"),
+                new Drink("Cappuccino", 4.00, "Coffee"),
+                new Drink("Green Tea", 3.00, "Tea"),
+                new Drink("Orange Juice", 2.50, "Juice")
+        );
+
+        // Drinks components
+        try {
+            drinkListPanel = new DrinkListPanel(logic.getFilteredDrinkList());
+        } catch (Exception e) {
+            // Fall back to sample drinks if the method doesn't exist
+            logger.info("Using sample drinks data since getFilteredDrinksList() is not available: " + e.getMessage());
+            drinkListPanel = new DrinkListPanel(sampleDrinks);
+        }
+        drinksListPanelPlaceholder.getChildren().add(drinkListPanel.getRoot());
+
+        drinkDetailPanel = new DrinkDetailPanel();
+        drinksDetailsPlaceholder.getChildren().add(drinkDetailPanel.getRoot());
+
         // Set up selection handlers
         staffListPanel.setStaffSelectionHandler(this::handleStaffSelection);
         customerListPanel.setCustomerSelectionHandler(this::handleCustomerSelection);
-
-        // Set command executor for detail panels
-        staffDetailPanel.setCommandExecutor(this::executeCommand);
-        customerDetailPanel.setCommandExecutor(this::executeCommand);
+        drinkListPanel.setDrinkSelectionHandler(this::handleDrinkSelection);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -218,6 +284,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Handles drink selection from the list.
+     */
+    private void handleDrinkSelection(Drink drink) {
+        logger.info("Drink selected: " + (drink != null ? drink.getName() : "none"));
+        lastSelectedDrink = drink;
+        drinkDetailPanel.updateDrinkDetails(drink);
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -232,7 +307,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
-    @FXML
     private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
@@ -248,7 +322,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Closes the application.
      */
-    @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
@@ -260,7 +333,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Toggles the background image.
      */
-    @FXML
     private void handleToggleBackground() {
         // Remove all background classes first
         mainPane.getStyleClass().removeIf(style -> style.startsWith("main-pane-"));
@@ -278,7 +350,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Toggles between dark and light themes.
      */
-    @FXML
     private void handleToggleTheme() {
         Scene scene = primaryStage.getScene();
 
@@ -324,6 +395,16 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Selects the specified tab.
+     * @param tabIndex The index of the tab to select (0-based)
+     */
+    public void selectTab(int tabIndex) {
+        if (tabPane != null && tabIndex >= 0 && tabIndex < tabPane.getTabs().size()) {
+            tabPane.getSelectionModel().select(tabIndex);
         }
     }
 }

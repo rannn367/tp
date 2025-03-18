@@ -22,12 +22,12 @@ public class BackgroundImageManager {
      */
     public static void preloadBackgroundImages() {
         String[] backgrounds = {
-                "/images/cafe-welcome-bg.jpg",
-                "/images/background1.png",
-                "/images/background2.png",
-                "/images/background3.png",
-                "/images/background4.png",
-                "/images/background5.png"
+            "/images/cafe-welcome-bg.jpg",
+            "/images/background1.png",
+            "/images/background2.png",
+            "/images/background3.png",
+            "/images/background4.png",
+            "/images/background5.png"
         };
 
         for (String path : backgrounds) {
@@ -79,11 +79,13 @@ public class BackgroundImageManager {
      * @param imagePath The resource path to the image
      */
     public static void setBackgroundImage(Region region, String imagePath) {
-        if (region == null) return;
+        if (region == null) {
+            return;
+        }
 
         String url = BackgroundImageManager.class.getResource(imagePath).toExternalForm();
-        region.setStyle("-fx-background-image: url('" + url + "'); " +
-                "-fx-background-size: cover; " +
-                "-fx-background-position: center;");
+        region.setStyle("-fx-background-image: url('" + url + "'); "
+                + "-fx-background-size: cover; "
+                + "-fx-background-position: center;");
     }
 }

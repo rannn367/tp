@@ -1,0 +1,16 @@
+{
+    "drinks": [
+      {
+        "name": "Latte",
+        "price": 4.50,
+        "size": "Medium",
+        "ingredients": ["Espresso", "Milk"]
+      },
+      {
+        "name": "Cappuccino",
+        "price": 4.00,
+        "size": "Small",
+        "ingredients": ["Espresso", "Milk", "Foam"]
+      }
+    ]
+  }

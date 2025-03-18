@@ -21,9 +21,13 @@ public class WelcomeScreen extends UiPart<Region> {
 
     private final Logic logic;
     private final Stage primaryStage;
+    private final UiManager uiManager;
 
     @FXML
-    private Button enterButton;
+    private Button staffCustomerButton;
+
+    @FXML
+    private Button drinksMenuButton;
 
     @FXML
     private StackPane welcomePane;
@@ -31,10 +35,11 @@ public class WelcomeScreen extends UiPart<Region> {
     /**
      * Creates a welcome screen with the given parameters.
      */
-    public WelcomeScreen(Stage primaryStage, Logic logic) {
+    public WelcomeScreen(Stage primaryStage, Logic logic, UiManager uiManager) {
         super(FXML);
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.uiManager = uiManager;
 
         // Set the title
         primaryStage.setTitle("CafeConnect");
@@ -61,22 +66,47 @@ public class WelcomeScreen extends UiPart<Region> {
         logger.info("Showing welcome screen");
         primaryStage.show();
     }
+    @FXML
+    private void initialize() {
+        staffCustomerButton.setOnAction(event -> handleStaffCustomerButtonAction());
+        drinksMenuButton.setOnAction(event -> handleDrinksMenuButtonAction());
+    }
 
     /**
-     * Handles the enter button action.
+     * Handles the staff/customer button action.
      */
     @FXML
-    private void handleEnterButtonAction() {
-        logger.info("Enter button clicked, transitioning to main application");
+    private void handleStaffCustomerButtonAction() {
+        logger.info("Staff & Customer button clicked, transitioning to main application");
 
         // Hide the welcome screen
         primaryStage.hide();
 
-        // Create and display the main window
+        // Create and display the main window with Staff & Customer tabs
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
         mainWindow.show();
 
-        // Fill in the components of the main window
+        // Fill in the components of the main window and select the Staff tab
         mainWindow.fillInnerParts();
+        mainWindow.selectTab(0); // Select Staff tab (index 0)
+    }
+
+    /**
+     * Handles the drinks menu button action.
+     */
+    @FXML
+    private void handleDrinksMenuButtonAction() {
+        logger.info("Drinks Menu button clicked, transitioning to drinks menu");
+
+        // Hide the welcome screen
+        primaryStage.hide();
+
+        // Create and display the main window with Drinks tab
+        MainWindow mainWindow = new MainWindow(primaryStage, logic);
+        mainWindow.show();
+
+        // Fill in the components of the main window and select the Drinks tab
+        mainWindow.fillInnerParts();
+        mainWindow.selectTab(2); // Select Drinks tab (index 2, assuming it's the third tab)
     }
 }

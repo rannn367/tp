@@ -42,7 +42,7 @@ public class UiManager implements Ui {
 
         try {
             // Show welcome screen first instead of directly showing main window
-            welcomeScreen = new WelcomeScreen(primaryStage, logic);
+            welcomeScreen = new WelcomeScreen(primaryStage, logic, this);
             welcomeScreen.show();
 
             // The WelcomeScreen will create and show the MainWindow when the user clicks "Enter"

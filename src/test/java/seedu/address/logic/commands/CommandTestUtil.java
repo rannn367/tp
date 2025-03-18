@@ -3,13 +3,16 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRINKNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERFORMANCE_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
@@ -86,10 +89,10 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BEN = "Barista";
     public static final String VALID_SHIFT_ALEX = "9am-5pm";
     public static final String VALID_SHIFT_BEN = "2pm-10pm";
-    public static final int VALID_HOURS_ALEX = 40;
-    public static final int VALID_HOURS_BEN = 35;
-    public static final double VALID_RATING_ALEX = 4.5;
-    public static final double VALID_RATING_BEN = 4.2;
+    public static final String VALID_HOURS_ALEX = "40";
+    public static final String VALID_HOURS_BEN = "35";
+    public static final String VALID_RATING_ALEX = "4.5";
+    public static final String VALID_RATING_BEN = "4.2";
 
     // Description constants
     public static final String NAME_DESC_ALEX = " " + PREFIX_NAME + VALID_NAME_ALEX;
@@ -169,6 +172,25 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    // Drink-related constants
+    public static final String VALID_NAME_LATTE = "Latte";
+    public static final String VALID_NAME_CAPPUCCINO = "Cappuccino";
+    public static final double VALID_PRICE_LATTE = 4.50;
+    public static final double VALID_PRICE_CAPPUCCINO = 4.50;
+    public static final String VALID_CATEGORY_COFFEE = "Coffee";
+    public static final String VALID_CATEGORY_TEA = "Tea";
+
+    public static final String NAME_DESC_LATTE = " " + PREFIX_NAME + VALID_NAME_LATTE;
+    public static final String NAME_DESC_CAPPUCCINO = " " + PREFIX_NAME + VALID_NAME_CAPPUCCINO;
+    public static final String PRICE_DESC_LATTE = " " + PREFIX_PRICE + VALID_PRICE_LATTE;
+    public static final String PRICE_DESC_CAPPUCCINO = " " + PREFIX_PRICE + VALID_PRICE_CAPPUCCINO;
+    public static final String CATEGORY_DESC_COFFEE = " " + PREFIX_CATEGORY + VALID_CATEGORY_COFFEE;
+    public static final String CATEGORY_DESC_TEA = " " + PREFIX_CATEGORY + VALID_CATEGORY_TEA;
+
+    public static final String INVALID_DRINKNAME_DESC = " " + PREFIX_DRINKNAME + ""; // empty name not allowed
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "-5.0"; // negative price not allowed
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + ""; // empty category not allowed
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -184,7 +206,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -199,7 +221,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }

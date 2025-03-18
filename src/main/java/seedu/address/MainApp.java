@@ -21,9 +21,13 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.DrinkCatalogStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonDrinkCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -64,8 +68,14 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        // Add DrinkCatalogStorage
+        DrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(userPrefs.getDrinkCatalogFilePath());
+
+        // Update StorageManager constructor call
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
 
         initLogging(config);
 
@@ -112,31 +122,45 @@ public class MainApp extends Application {
         logger.info("Starting CafeConnect " + MainApp.VERSION);
 
         // Show welcome screen instead of directly going to main window
-        WelcomeScreen welcomeScreen = new WelcomeScreen(primaryStage, logic);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(primaryStage, logic, (UiManager) ui);
         welcomeScreen.show();
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book,
+     * {@code userPrefs}, and drink catalog. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s
+     * address book is not found, or an empty address book will be used instead if
+     * errors occur when reading {@code storage}'s address book.
      */
     protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyDrinkCatalog> drinkCatalogOptional;
+        ReadOnlyAddressBook initialAddressBookData;
+        ReadOnlyDrinkCatalog initialDrinkCatalogData;
+
         try {
             addressBookOptional = storage.readAddressBook();
+            drinkCatalogOptional = storage.readDrinkCatalog();
+
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Address book data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
+            if (!drinkCatalogOptional.isPresent()) {
+                logger.info("Drink catalog data file not found. Will be starting with a sample DrinkCatalog");
+            }
+
+            initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialDrinkCatalogData = drinkCatalogOptional.orElseGet(() -> new DrinkCatalog());
         } catch (Exception e) {
-            logger.warning("Data file could not be read. Will be starting with an empty AddressBook: "
+            logger.warning("Data file could not be read. Will be starting with an empty AddressBook and DrinkCatalog: "
                     + StringUtil.getDetails(e));
-            initialData = new AddressBook();
+            initialAddressBookData = new AddressBook();
+            initialDrinkCatalogData = new DrinkCatalog();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialAddressBookData, userPrefs, initialDrinkCatalogData);
     }
 
     private void initLogging(Config config) {

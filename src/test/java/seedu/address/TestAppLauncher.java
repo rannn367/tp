@@ -19,6 +19,8 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.UiManager;
 
+import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
+
 /**
  * Launcher for TestApp to be used in process-based tests.
  */
@@ -54,7 +56,7 @@ public class TestAppLauncher {
             UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(userPrefPath);
             UserPrefs userPrefs = initPrefs(userPrefsStorage);
             AddressBookStorage addressBookStorage = new JsonAddressBookStorage(TYPICAL_PERSONS_FILE);
-            storage = new StorageManager(addressBookStorage, userPrefsStorage);
+            storage = new StorageManager(addressBookStorage, userPrefsStorage, getTypicalDrinkCatalog());
 
             model = initModelManager(storage, userPrefs);
 
