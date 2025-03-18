@@ -16,7 +16,7 @@ public class PerformanceRating {
      * Regex validates that it looks like a number:
      * - Matches integers (0-5) or floats with optional decimals (e.g., 3.5)
      */
-    public static final String VALIDATION_REGEX = "^(\\d+(\\.\\d+)?)$";
+    public static final String VALIDATION_REGEX = "^(\\d+(\\.\\d{1})?)$";
 
     public final String value;
 

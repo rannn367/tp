@@ -15,7 +15,7 @@ public class Role {
     /*
      * The role must not be blank.
      */
-    public static final String VALIDATION_REGEX = ".+";
+    public static final String VALIDATION_REGEX = "\\S.*";
 
     public final String value;
 
