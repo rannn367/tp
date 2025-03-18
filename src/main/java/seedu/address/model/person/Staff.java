@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -14,17 +15,17 @@ import seedu.address.model.tag.Tag;
 public class Staff extends Person {
 
     // Staff-specific fields
-    private final String staffId; // Unique identifier for staff
-    private final String role; // Job role (e.g., "Barista", "Manager")
-    private final String shiftTiming; // Work schedule (e.g., "9am-5pm")
-    private final int hoursWorked; // Total hours worked in a period
-    private final double performanceRating; // Performance rating out of 5.0
+    private final StaffId staffId; // Unique identifier for staff
+    private final Role role; // Job role (e.g., "Barista", "Manager")
+    private final ShiftTiming shiftTiming; // Work schedule (e.g., "9am-5pm")
+    private final HoursWorked hoursWorked; // Total hours worked in a period
+    private final PerformanceRating performanceRating; // Performance rating out of 5.0
 
     /**
      * Every field must be present and not null.
      */
-    public Staff(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
-                 String staffId, String role, String shiftTiming, int hoursWorked, double performanceRating) {
+    public Staff(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags, StaffId staffId,
+                 Role role, ShiftTiming shiftTiming, HoursWorked hoursWorked, PerformanceRating performanceRating) {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(staffId, role, shiftTiming, hoursWorked, performanceRating);
 
@@ -35,23 +36,23 @@ public class Staff extends Person {
         this.performanceRating = performanceRating;
     }
 
-    public String getStaffId() {
+    public StaffId getStaffId() {
         return staffId;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public String getShiftTiming() {
+    public ShiftTiming getShiftTiming() {
         return shiftTiming;
     }
 
-    public int getHoursWorked() {
+    public HoursWorked getHoursWorked() {
         return hoursWorked;
     }
 
-    public double getPerformanceRating() {
+    public PerformanceRating getPerformanceRating() {
         return performanceRating;
     }
 
@@ -91,14 +92,12 @@ public class Staff extends Person {
                 && role.equals(otherStaff.role)
                 && shiftTiming.equals(otherStaff.shiftTiming)
                 && hoursWorked == otherStaff.hoursWorked
-                && Double.compare(performanceRating, otherStaff.performanceRating) == 0;
+                && performanceRating == otherStaff.performanceRating;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + staffId.hashCode() + role.hashCode()
-                + shiftTiming.hashCode() + Integer.hashCode(hoursWorked)
-                + Double.hashCode(performanceRating);
+        return super.hashCode() + Objects.hash(staffId, role, shiftTiming, hoursWorked, performanceRating);
     }
 
     @Override
