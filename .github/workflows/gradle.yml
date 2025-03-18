@@ -37,7 +37,7 @@ jobs:
           java-package: jdk+fx
 
       - name: Run tests on all platforms
-        run: ./gradlew check coverage 2>&1 | tee output.log
+        run: ./gradlew check coverage 2>&1
 
       - name: Persist logs
         if: ${{ failure() }}
