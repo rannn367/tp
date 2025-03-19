@@ -214,6 +214,12 @@ public class AddStaffCommandTest {
         public void setCustomer(Customer target, Customer editedCustomer) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setStaff(Staff target, Staff editedCustomer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public boolean hasDrink(Drink drink) {
             throw new AssertionError("This method should not be called.");
