@@ -51,7 +51,7 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonDrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(temporaryFolder
-            .resolve("drinkCatalog.json"));
+                .resolve("drinkCatalog.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
         logic = new LogicManager(model, storage);
     }

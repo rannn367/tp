@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Customer;
 
 /**
- * Panel containing the list of customer.
+ * Panel containing the list of customers.
  */
 public class CustomerListPanel extends UiPart<Region> {
     private static final String FXML = "CustomerListPanel.fxml";
@@ -20,6 +21,9 @@ public class CustomerListPanel extends UiPart<Region> {
     @FXML
     private ListView<Customer> customerListView;
 
+    // Handler for customer selection events
+    private Consumer<Customer> selectionHandler;
+
     /**
      * Creates a {@code CustomerListPanel} with the given {@code ObservableList}.
      */
@@ -27,6 +31,46 @@ public class CustomerListPanel extends UiPart<Region> {
         super(FXML);
         customerListView.setItems(customerList);
         customerListView.setCellFactory(listView -> new CustomerListViewCell());
+
+        // Add listener for customer selection
+        customerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && selectionHandler != null) {
+                logger.fine("Selection changed to: " + newValue.getName().fullName);
+                selectionHandler.accept(newValue);
+            }
+        });
+    }
+
+    /**
+     * Sets the handler for customer selection events.
+     *
+     * @param handler the function to call when a customer is selected
+     */
+    public void setCustomerSelectionHandler(Consumer<Customer> handler) {
+        this.selectionHandler = handler;
+    }
+
+    /**
+     * Selects the specified customer in the list view, if present.
+     *
+     * @param customer The customer to select
+     * @return true if selection was successful, false if customer not found
+     */
+    public boolean selectCustomer(Customer customer) {
+        if (customer == null) {
+            return false;
+        }
+
+        // Find the index of the customer in the list
+        for (int i = 0; i < customerListView.getItems().size(); i++) {
+            if (customerListView.getItems().get(i).equals(customer)) {
+                customerListView.getSelectionModel().select(i);
+                customerListView.scrollTo(i);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
