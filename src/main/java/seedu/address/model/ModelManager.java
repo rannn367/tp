@@ -178,6 +178,12 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void setStaff(Staff target, Staff editedStaff) {
+        requireAllNonNull(target, editedStaff);
+
+        addressBook.setStaff(target, editedStaff);
+    }
 
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {

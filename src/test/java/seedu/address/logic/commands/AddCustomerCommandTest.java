@@ -141,6 +141,11 @@ public class AddCustomerCommandTest {
         }
 
         @Override
+        public void setStaff(Staff staffMember, Staff other) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteStaff(Staff staffMember) {
             throw new AssertionError("This method should not be called.");
         }
