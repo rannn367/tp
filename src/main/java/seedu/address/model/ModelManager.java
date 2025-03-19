@@ -134,7 +134,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+    public void updateFilteredStaffList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
     }
@@ -202,6 +202,7 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    @Override
     public ObservableList<Staff> getFilteredStaffList() {
         return filteredStaffs;
     }
