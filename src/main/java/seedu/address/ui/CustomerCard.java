@@ -55,7 +55,7 @@ public class CustomerCard extends UiPart<Region> {
         phone.setText("Phone: " + customer.getPhone().value);
         email.setText("Email: " + customer.getEmail().value);
         visitCount.setText("Visits: " + customer.getVisitCount());
-        totalSpent.setText("Total: $" + String.format("%.2f", customer.getTotalSpent()));
+        totalSpent.setText("Total: $" + String.format("%.2f", Double.parseDouble(customer.getTotalSpent().value)));
 
         // Set tags
         customer.getTags().forEach(tag -> {

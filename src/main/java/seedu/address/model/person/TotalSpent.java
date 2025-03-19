@@ -17,7 +17,7 @@ public class TotalSpent {
      * - Non-negative numbers with exactly 1 or 2 decimal places
      * Examples: 0.0, 5.5, 12.34, 100.00
      */
-    public static final String VALIDATION_REGEX = "^\\d+\\.\\d{1,2}$";
+    public static final String VALIDATION_REGEX = "^\\d+(\\.\\d{1,2})?$";
 
     public final String value;
 
