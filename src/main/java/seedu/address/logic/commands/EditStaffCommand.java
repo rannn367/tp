@@ -13,8 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -156,15 +155,7 @@ public class EditStaffCommand extends Command {
      * Stores the details to edit the staff with. Each non-empty field value
      * will replace the corresponding field value of the staff.
      */
-    public static class EditStaffDescriptor {
-
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Remark remark;
-
-        private Set<Tag> tags;
+    public static class EditStaffDescriptor extends EditPersonDescriptor {
 
         // Staff-specific fields
         private StaffId staffId; // Unique identifier for staff
@@ -181,12 +172,7 @@ public class EditStaffCommand extends Command {
          * internally.
          */
         public EditStaffDescriptor(EditStaffDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setRemark(toCopy.remark);
-            setTags(toCopy.tags);
+            super(toCopy);
             setStaffId(toCopy.staffId);
             setRole(toCopy.role);
             setShiftTiming(toCopy.shiftTiming);
@@ -198,65 +184,8 @@ public class EditStaffCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, remark, tags,
-                staffId, role, shiftTiming, hoursWorked, performanceRating);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        public Optional<Remark> getRemark() {
-            return Optional.ofNullable(remark);
-        }
-
-        public void setRemark(Remark remark) {
-            this.remark = remark;
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}. A defensive copy of
-         * {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws
-         * {@code UnsupportedOperationException} if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return super.isAnyFieldEdited()
+                    || CollectionUtil.isAnyNonNull(staffId, role, shiftTiming, hoursWorked, performanceRating);
         }
 
         public Optional<StaffId> getStaffId() {
@@ -310,33 +239,35 @@ public class EditStaffCommand extends Command {
                 return false;
             }
 
+            if (!super.equals(other)) {
+                return false;
+            }
+
             EditStaffDescriptor otherEditStaffDescriptor = (EditStaffDescriptor) other;
-            return Objects.equals(name, otherEditStaffDescriptor.name)
-                    && Objects.equals(phone, otherEditStaffDescriptor.phone)
-                    && Objects.equals(email, otherEditStaffDescriptor.email)
-                    && Objects.equals(address, otherEditStaffDescriptor.address)
-                    && Objects.equals(tags, otherEditStaffDescriptor.tags)
-                    && Objects.equals(staffId, otherEditStaffDescriptor.staffId)
+            return Objects.equals(staffId, otherEditStaffDescriptor.staffId)
                     && Objects.equals(role, otherEditStaffDescriptor.role)
                     && Objects.equals(shiftTiming, otherEditStaffDescriptor.shiftTiming)
                     && Objects.equals(hoursWorked, otherEditStaffDescriptor.hoursWorked)
                     && Objects.equals(performanceRating, otherEditStaffDescriptor.performanceRating);
         }
 
+        /**
+         * Builds a string representation of the object using a {@link ToStringBuilder}.
+         * This method extends the parent class's string representation by adding
+         * additional fields specific to the staff entity, such as staff ID, role,
+         * shift timing, hours worked, and performance rating.
+         *
+         * @return A {@link ToStringBuilder} containing the string representation of the object.
+         */
         @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
-                    .add("address", address)
-                    .add("tags", tags)
-                    .add("staffId", staffId)
+        public ToStringBuilder toStringBuilder() {
+            ToStringBuilder parentBuilder = super.toStringBuilder();
+            parentBuilder.add("staffId", staffId)
                     .add("role", role)
                     .add("shiftTiming", shiftTiming)
                     .add("hoursWorked", hoursWorked)
-                    .add("performanceRating", performanceRating)
-                    .toString();
+                    .add("performanceRating", performanceRating);
+            return parentBuilder;
         }
     }
 }
