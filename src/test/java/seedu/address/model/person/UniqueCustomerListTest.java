@@ -75,7 +75,7 @@ public class UniqueCustomerListTest {
     @Test
     public void setCustomer_editedCustomerHasSameIdentity_success() {
         uniqueCustomerList.add(JAMES);
-        Customer editedJames = new CustomerBuilder(JAMES).withAddress("different address").withRewardPoints(300)
+        Customer editedJames = new CustomerBuilder(JAMES).withAddress("different address").withRewardPoints("300")
                 .withTags("regular").build();
         uniqueCustomerList.setCustomer(JAMES, editedJames);
         UniqueCustomerList expectedUniqueCustomerList = new UniqueCustomerList();

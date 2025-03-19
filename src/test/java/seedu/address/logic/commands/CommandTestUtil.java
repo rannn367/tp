@@ -123,11 +123,11 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_JAMES = "45 Orchard Road, #12-34";
     public static final String VALID_REMARK_JAMES = "Prefers decaf";
     public static final String VALID_TAG_STUDENT = "student";
-    public static final int VALID_REWARD_POINTS_JAMES = 200;
-    public static final int VALID_VISIT_COUNT_JAMES = 12;
+    public static final String VALID_REWARD_POINTS_JAMES = "200";
+    public static final String VALID_VISIT_COUNT_JAMES = "12";
     public static final String VALID_FAVORITE_ITEM_JAMES = "Flat White";
-    public static final double VALID_TOTAL_SPENT_JAMES = 155.75;
-    public static final int VALID_RATING_JAMES = 5;
+    public static final String VALID_TOTAL_SPENT_JAMES = "155.75";
+    public static final String VALID_RATING_JAMES = "5";
     public static final String VALID_CUSTOMER_ID_JAMES = "C45678";
 
 
@@ -138,10 +138,10 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_OLIVIA = "88 Sunset Drive, #05-10";
     public static final String VALID_REMARK_OLIVIA = "Birthday in March";
     public static final String VALID_TAG_NEW = "new";
-    public static final int VALID_REWARD_POINTS_OLIVIA = 75;
-    public static final int VALID_VISIT_COUNT_OLIVIA = 3;
+    public static final String VALID_REWARD_POINTS_OLIVIA = "75";
+    public static final String VALID_VISIT_COUNT_OLIVIA = "3";
     public static final String VALID_FAVORITE_ITEM_OLIVIA = "Green Tea Latte";
-    public static final double VALID_TOTAL_SPENT_OLIVIA = 42.90;
+    public static final String VALID_TOTAL_SPENT_OLIVIA = "42.90";
     public static final String VALID_CUSTOMER_ID_OLIVIA = "C12345";
 
     // Command string descriptors
