@@ -207,15 +207,15 @@ public class AddStaffCommandParserTest {
                 new Staff(
                         new Name("John"),
                         new Phone("92012012"),
-                        new Email("default@gmail.com"),  // Updated to reflect actual default
-                        new Address("empty"),             // Updated to reflect actual default
-                        new Remark(""),                   // Default remark
-                        Set.of(),                         // Default empty set of tags
+                        new Email("default@gmail.com"),
+                        new Address("empty"),
+                        new Remark(""),
+                        Set.of(),
                         new StaffId("S0101"),
-                        new Role("Full Time worker"),     // Updated to reflect actual default
-                        new ShiftTiming("9am-5pm"),       // Updated to reflect actual default
-                        new HoursWorked("0"),             // Default 0 hours worked
-                        new PerformanceRating("0")        // Default performance rating
+                        new Role("Full Time worker"),
+                        new ShiftTiming("9am-5pm"),
+                        new HoursWorked("0"),
+                        new PerformanceRating("0")
                 )
         );
 
