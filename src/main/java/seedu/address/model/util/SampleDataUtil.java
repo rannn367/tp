@@ -178,9 +178,6 @@ public class SampleDataUtil {
             new Drink("Orange Juice", 4.00, "Cold Drinks"),
             new Drink("Apple Juice", 4.00, "Cold Drinks"),
             new Drink("Iced Coffee", 4.50, "Cold Drinks"),
-            new Drink("Chocolate Chip Cookie", 2.50, "Pastries"),
-            new Drink("Croissant", 3.00, "Pastries"),
-            new Drink("Blueberry Muffin", 3.50, "Pastries")
         };
     }
 

@@ -189,6 +189,27 @@ These are the before and after images of the first example
   </div>
 </div>
 
+## Adding a staff: `staffadd`
+
+Adds a staff to the address book with required details such as staff ID, name, phone, email, address, role, shift, hours worked, and performance rating.
+
+Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
+
+* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
+* `PHONE` should only contain digits, and it should be at least 3 digits long
+* `EMAIL` must be a valid email address.
+* `ADDRESS` can take any value, and it should not be blank
+* `REWARD_POINTS` should only contain digits
+* `VISIT_COUNT` should only contain digits
+* `FAVORITE_ITEM` can take any value, and it should not be blank
+* `TOTAL_SPENT` should only contain digits, representing the amount in dollars
+
+Examples:
+* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
+* `customeradd cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
+
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
