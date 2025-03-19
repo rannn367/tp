@@ -35,7 +35,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AddStaffCommandParser implements Parser<AddStaffCommand> {
 
-    private static final String DEFAULT_EMAIL = "sid@gmail.com";
+    private static final String DEFAULT_EMAIL = "default@gmail.com";
     private static final String DEFAULT_ADDRESS = "empty";
     private static final String DEFAULT_REMARK = "";
     private static final String DEFAULT_ROLE = "Full Time worker";
