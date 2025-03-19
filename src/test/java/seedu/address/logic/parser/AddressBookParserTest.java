@@ -97,7 +97,6 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_remark() throws Exception {
-
         final Remark remark = new Remark("Some remark.");
         RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark);
@@ -116,7 +115,6 @@ public class AddressBookParserTest {
                 HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "10");
         assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 10), command);
     }
-
 
     @Test
     public void parseCommand_hoursAddInvalidInputThrowsParseException() {
@@ -137,5 +135,89 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    // New tests for the fuzzy matching functionality
+
+    @Test
+    public void parseCommand_typoWithCloseLevenshteinDistance_suggestsCorrectCommand() {
+        // Test close typos that should be caught by Levenshtein distance (≤ 2)
+        try {
+            parser.parseCommand("ad");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'add'?"));
+        }
+
+        try {
+            parser.parseCommand("delte");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'delete'?"));
+        }
+
+        try {
+            parser.parseCommand("lisr");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'list'?"));
+        }
+
+        try {
+            parser.parseCommand("cler");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'clear'?"));
+        }
+    }
+
+    @Test
+    public void parseCommand_typoWithTokenSetRatioMatch_suggestsCorrectCommand() {
+        // Test typos that should be caught by token set ratio (≥ 80%)
+        try {
+            parser.parseCommand("hlep");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'help'?"));
+        }
+
+        try {
+            parser.parseCommand("edti");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'edit'?"));
+        }
+
+        try {
+            parser.parseCommand("fnid");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'find'?"));
+        }
+    }
+
+    @Test
+    public void parseCommand_commandWithNoCloseMatch_doesNotSuggest() {
+        // Test commands that are too different to suggest alternatives
+        try {
+            parser.parseCommand("xyz");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
+        }
+
+        try {
+            parser.parseCommand("commandnotexist");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
+        }
+
+        try {
+            parser.parseCommand("randomtext");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
+        }
     }
 }
