@@ -157,7 +157,6 @@ public class SampleDataUtil {
                     new FavouriteItem("oat latte with vanilla syrup"),
                     new TotalSpent("120.3")
             ),
-            new Customer(
                     new Name("Bella Smith"),
                     new Phone("81234567"),
                     new Email("bellasmith@cafeexample.com"),
@@ -182,6 +181,7 @@ public class SampleDataUtil {
                     new VisitCount("78"),
                     new FavouriteItem("water"),
                     new TotalSpent("50.0")
+
             )
         };
     }
