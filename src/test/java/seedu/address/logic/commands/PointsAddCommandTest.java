@@ -88,7 +88,8 @@ public class PointsAddCommandTest {
                 testCustomer.getRemark(),
                 testCustomer.getTags(),
                 testCustomer.getCustomerId(),
-                new RewardPoints(String.valueOf(initialPoints + VALID_POINTS)), // Convert updated points to RewardPoints
+                new RewardPoints(String.valueOf(initialPoints + VALID_POINTS)),
+                // Convert updated points to RewardPoints
                 testCustomer.getVisitCount(),
                 testCustomer.getFavoriteItem(),
                 testCustomer.getTotalSpent()
