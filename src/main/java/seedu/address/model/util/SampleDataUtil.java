@@ -146,7 +146,7 @@ public class SampleDataUtil {
                     new RewardPoints("0"),
                     new VisitCount("78"),
                     new FavouriteItem("water"),
-                    new TotalSpent("0")
+                    new TotalSpent("50.0")
             )
         };
     }
