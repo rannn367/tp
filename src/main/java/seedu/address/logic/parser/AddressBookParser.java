@@ -90,6 +90,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case AddStaffCommand.COMMAND_WORD:
+        case AddStaffCommand.COMMAND_WORD_SHORTCUT:
             return new AddStaffCommandParser().parse(arguments);
         case DeleteStaffCommand.COMMAND_WORD:
             return new DeleteStaffCommandParser().parse(arguments);
