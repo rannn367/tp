@@ -155,7 +155,7 @@ public class CustomerDetailPanel extends UiPart<Region> {
             }
 
             try {
-                safeSetText(totalSpent, String.format("$%.2f", customer.getTotalSpent()));
+                safeSetText(totalSpent, String.valueOf(customer.getTotalSpent()));
             } catch (Exception e) {
                 safeSetText(totalSpent, "$0.00");
             }
