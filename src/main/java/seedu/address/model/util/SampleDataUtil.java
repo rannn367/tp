@@ -39,71 +39,71 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(
-                new Name("Alex Yeoh"),
-                new Phone("87438807"),
-                new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                EMPTY_REMARK,
-                getTagSet("friends")),
+                    new Name("Alex Yeoh"),
+                    new Phone("87438807"),
+                    new Email("alexyeoh@example.com"),
+                    new Address("Blk 30 Geylang Street 29, #06-40"),
+                    EMPTY_REMARK,
+                    getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), EMPTY_REMARK,
-                getTagSet("colleagues", "friends")),
+                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), EMPTY_REMARK,
+                    getTagSet("colleagues", "friends")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), EMPTY_REMARK,
-                getTagSet("neighbours")),
+                    new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), EMPTY_REMARK,
+                    getTagSet("neighbours")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), EMPTY_REMARK,
-                getTagSet("family")),
+                    new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), EMPTY_REMARK,
+                    getTagSet("family")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"), EMPTY_REMARK,
-                getTagSet("classmates")),
+                    new Address("Blk 47 Tampines Street 20, #17-35"), EMPTY_REMARK,
+                    getTagSet("classmates")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"), EMPTY_REMARK,
-                getTagSet("colleagues"))
+                    new Address("Blk 45 Aljunied Street 85, #11-31"), EMPTY_REMARK,
+                    getTagSet("colleagues"))
         };
     }
 
     public static Staff[] getSampleStaff() {
         return new Staff[] {
             new Staff(
-                        new Name("Alice Tan"),
-                        new Phone("81234567"),
-                        new Email("alice.tan@cafeexample.com"),
-                        new Address("123 Café Street"),
-                        new Remark("Punctual and friendly"),
-                        getTagSet("barista", "fulltime"),
-                        new StaffId("S001"),
-                        new Role("Barista"),
-                        new ShiftTiming("Morning Shift"),
-                        new HoursWorked("40"),
-                        new PerformanceRating("4.8")
-                ),
+                    new Name("Alice Tan"),
+                    new Phone("81234567"),
+                    new Email("alice.tan@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("Punctual and friendly"),
+                    getTagSet("barista", "fulltime"),
+                    new StaffId("S001"),
+                    new Role("Barista"),
+                    new ShiftTiming("Morning Shift"),
+                    new HoursWorked("40"),
+                    new PerformanceRating("4.8")
+            ),
             new Staff(
-                        new Name("Bob Lim"),
-                        new Phone("87654321"),
-                        new Email("bob.lim@cafeexample.com"),
-                        new Address("456 Coffee Lane"),
-                        new Remark("Great leadership skills"),
-                        getTagSet("manager", "fulltime"),
-                        new StaffId("S002"),
-                        new Role("Manager"),
-                        new ShiftTiming("Day Shift"),
-                        new HoursWorked("45"),
-                        new PerformanceRating("4.9")
-                ),
+                    new Name("Bob Lim"),
+                    new Phone("87654321"),
+                    new Email("bob.lim@cafeexample.com"),
+                    new Address("456 Coffee Lane"),
+                    new Remark("Great leadership skills"),
+                    getTagSet("manager", "fulltime"),
+                    new StaffId("S002"),
+                    new Role("Manager"),
+                    new ShiftTiming("Day Shift"),
+                    new HoursWorked("45"),
+                    new PerformanceRating("4.9")
+            ),
             new Staff(
-                        new Name("Charlie Wong"),
-                        new Phone("89898989"),
-                        new Email("charlie.wong@cafeexample.com"),
-                        new Address("789 Espresso Avenue"),
-                        new Remark("Creative and efficient"),
-                        getTagSet("chef", "parttime"),
-                        new StaffId("S003"),
-                        new Role("Chef"),
-                        new ShiftTiming("Evening Shift"),
-                        new HoursWorked("25"),
-                        new PerformanceRating("4.5")
-                )
+                    new Name("Charlie Wong"),
+                    new Phone("89898989"),
+                    new Email("charlie.wong@cafeexample.com"),
+                    new Address("789 Espresso Avenue"),
+                    new Remark("Creative and efficient"),
+                    getTagSet("chef", "parttime"),
+                    new StaffId("S003"),
+                    new Role("Chef"),
+                    new ShiftTiming("Evening Shift"),
+                    new HoursWorked("25"),
+                    new PerformanceRating("4.5")
+            )
         };
     }
 

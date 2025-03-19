@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.drink.Drink;
 
 /**
- * A UI component that displays information of a {@code Drink}.
+ * An UI component that displays information of a {@code Drink}.
  */
 public class DrinkCard extends UiPart<Region> {
 
@@ -37,5 +37,23 @@ public class DrinkCard extends UiPart<Region> {
         drinkName.setText(drink.getName());
         price.setText("$" + String.format("%.2f", drink.getPrice()));
         category.setText("Category: " + drink.getCategory());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DrinkCard)) {
+            return false;
+        }
+
+        // state check
+        DrinkCard card = (DrinkCard) other;
+        return id.getText().equals(card.id.getText())
+                && drink.equals(card.drink);
     }
 }
