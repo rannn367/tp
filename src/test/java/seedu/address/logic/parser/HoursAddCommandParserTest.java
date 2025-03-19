@@ -50,6 +50,26 @@ public class HoursAddCommandParserTest {
     }
 
     @Test
+    public void parse_invalidHours_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HoursAddCommand.MESSAGE_USAGE);
+
+        // Negative hours
+        assertParseFailure(parser, PREFIX_INDEX + "1 " + PREFIX_HOURS + "-5", expectedMessage);
+
+        // Hours with invalid format (not a number)
+        assertParseFailure(parser, PREFIX_INDEX + "1 " + PREFIX_HOURS + "abc", expectedMessage);
+    }
+
+    @Test
+    public void parse_numberFormatException_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HoursAddCommand.MESSAGE_USAGE);
+
+        // Invalid index (not a number)
+        assertParseFailure(parser, PREFIX_INDEX + "abc " + PREFIX_HOURS + "8", expectedMessage);
+    }
+
+
+    @Test
     public void parse_invalidValue_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HoursAddCommand.MESSAGE_USAGE);
 
