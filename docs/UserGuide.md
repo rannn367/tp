@@ -143,6 +143,7 @@ Format: `customerdelete INDEX`
 
 Examples:
 * `customerdelete 2` deletes the 2nd customer in the address book.
+* `customerdelete 4` when you only have three customers returns an error message.
 
 These are the before and after images of the first example
 
@@ -154,6 +155,37 @@ These are the before and after images of the first example
   <div style="text-align: center; max-width: 48%;">
     <img src="images/UG_Ui_Images/after_customerdelete.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
     <p><i>After deleting the customer</i></p>
+  </div>
+</div>
+
+## Recording a purchase: `purchase`
+
+Records a purchase for a customer, updating their total spent, visit count, and reward points.
+
+Format: `purchase ind/INDEX n/DRINK_NAME`
+
+* Records a purchase for the customer at the specified `INDEX`.
+* The `INDEX` refers to the index number shown in the displayed customer list.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …
+* The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
+* `DRINK_NAME` must match a drink that exists in the drink catalog.
+* For every $1 spent, customers earn 10 reward points.
+* Visit count will be incremented by 1 for each purchase.
+
+Examples:
+* `purchase ind/1 n/Espresso` records a purchase of an espresso for the 1st customer in the list.
+* `purchase ind/3 n/Cappuccino` records a purchase of a cappuccino for the 3rd customer in the list.
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_purchase.png" alt="Before recording a purchase" style="max-width: 100%; height: auto;"/>
+    <p><i>Before recording a purchase</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_purchase.png" alt="After recording a purchase" style="max-width: 100%; height: auto;"/>
+    <p><i>After recording a purchase</i></p>
   </div>
 </div>
 
