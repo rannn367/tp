@@ -141,6 +141,11 @@ public class AddStaffCommandTest {
         }
 
         @Override
+        public void setStaff(Staff staffMember, Staff other) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteStaff(Staff staffMember) {
             throw new AssertionError("This method should not be called.");
         }
@@ -166,7 +171,7 @@ public class AddStaffCommandTest {
         }
 
         @Override
-        public void updateFilteredStaffList(Predicate<Staff> predicate) {
+        public void updateFilteredStaffList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -214,12 +219,6 @@ public class AddStaffCommandTest {
         public void setCustomer(Customer target, Customer editedCustomer) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void setStaff(Staff target, Staff editedCustomer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public boolean hasDrink(Drink drink) {
             throw new AssertionError("This method should not be called.");
