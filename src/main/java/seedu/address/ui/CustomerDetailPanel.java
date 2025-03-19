@@ -142,7 +142,7 @@ public class CustomerDetailPanel extends UiPart<Region> {
             }
 
             // Update all fields with null safety
-            safeSetText(customerId, customer.getCustomerId());
+            safeSetText(customerId, customer.getCustomerId().toString());
             safeSetText(phone, customer.getPhone() != null ? customer.getPhone().value : "");
             safeSetText(email, customer.getEmail() != null ? customer.getEmail().value : "");
             safeSetText(address, customer.getAddress() != null ? customer.getAddress().value : "");
@@ -167,7 +167,7 @@ public class CustomerDetailPanel extends UiPart<Region> {
             }
 
             try {
-                safeSetText(favoriteItem, customer.getFavoriteItem());
+                safeSetText(favoriteItem, customer.getFavoriteItem().toString());
             } catch (Exception e) {
                 safeSetText(favoriteItem, "None");
             }
