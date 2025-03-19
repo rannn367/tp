@@ -23,7 +23,7 @@ Think of **CaféConnect** like your café’s personal assistant. Whether you're
 
 ### Why Choose CaféConnect?
 
-**CaféConnect** is like the Swiss knife of café management. Whether it’s adding customer info or organising staff, it’s quick, easy, and efficient. You won’t waste time clicking through complicated contact books or trying to find the right spreadsheet. Just use the command line, and you’ll get what you need in seconds. No fuss, no headache.
+**CaféConnect** is like the swiss army knife of café management. Whether it’s adding customer info or organising staff, it’s quick, easy, and efficient. You won’t waste time clicking through complicated contact books or trying to find the right spreadsheet. Just use the command line, and you’ll get what you need in seconds. No fuss, no headache.
 
 ### Overview of Target Users
 
@@ -97,76 +97,65 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+## Adding a customer: `customeradd`
 
-### Adding a person: `add`
+Adds a customer to the address book with required details such as customer ID, name, phone, email, address, reward points, visit count, favorite item, and total spent.
 
-Adds a person to the address book.
+Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVORITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
-
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
+* `PHONE` should only contain digits, and it should be at least 3 digits long
+* `EMAIL` must be a valid email address.
+* `ADDRESS` can take any value, and it should not be blank
+* `REWARD_POINTS` should only contain digits
+* `VISIT_COUNT` should only contain digits
+* `FAVORITE_ITEM` can take any value, and it should not be blank
+* `TOTAL_SPENT` should only contain digits, representing the amount in dollars
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
+* `customeradd cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
 
-### Locating persons by name: `find`
+These are the before and after images of the first example
 
-Finds persons whose names contain any of the given keywords.
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_customeradd.png" alt="Before adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding the customer</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_customeradd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding the customer</i></p>
+  </div>
+</div>
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+## Deleting a customer: `customerdelete`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Deletes the specified customer from the address book.
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+Format: `customerdelete INDEX`
 
-### Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the customer at the specified `INDEX`.
+* The `INDEX` refers to the index number shown in the displayed customer list.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …
+* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five applications in the displayed list).
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `customerdelete 2` deletes the 2nd customer in the address book.
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_customerdelete.png" alt="Before deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before deleting the customer</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_customerdelete.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After deleting the customer</i></p>
+  </div>
+</div>
 
 ### Clearing all entries : `clear`
 
@@ -182,17 +171,23 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CafeConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CafeConnect data are saved automatically in the following JSON files:
+- Address book data: `[JAR file location]/data/addressbook.json`
+- Drink catalog data: `[JAR file location]/data/drinkcatalog.json`
+- User preferences: `[JAR file location]/preferences.json`
+
+Advanced users are welcome to update data directly by editing these data files.
+
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to any data file makes its format invalid, CafeConnect will discard all data in that file and start with an empty data file at the next run. Hence, it is recommended to take a backup of the files before editing them.<br>
+Furthermore, certain edits can cause CafeConnect to behave in unexpected ways (e.g., if a value entered is outside the acceptable range for the address book, drink catalog, or user preferences). Therefore, edit the data files only if you are confident that you can update them correctly.
 </box>
 
 ### Archiving data files `[coming in v2.0]`
