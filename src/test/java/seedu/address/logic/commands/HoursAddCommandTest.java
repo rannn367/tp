@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.HoursAddCommand.MESSAGE_INVALID_HOURS;
 import static seedu.address.logic.commands.HoursAddCommand.MESSAGE_INVALID_INDEX;
@@ -90,4 +91,61 @@ public class HoursAddCommandTest {
 
         assertThrows(CommandException.class, () -> command.execute(model), MESSAGE_INVALID_HOURS);
     }
+
+    @Test
+    public void equals_sameObject_returnsTrue() {
+        Index validIndex = Index.fromOneBased(1);
+        int hoursToAdd = 5;
+        HoursAddCommand command1 = new HoursAddCommand(validIndex, hoursToAdd);
+
+        // Comparing the command with itself
+        assertEquals(command1, command1);
+    }
+
+    @Test
+    public void equals_differentType_returnsFalse() {
+        Index validIndex = Index.fromOneBased(1);
+        int hoursToAdd = 5;
+        HoursAddCommand command1 = new HoursAddCommand(validIndex, hoursToAdd);
+        String nonCommandObject = "Non-command object";
+
+        // Comparing command with a non-command object
+        assertNotEquals(command1, nonCommandObject);
+    }
+
+    @Test
+    public void equals_differentIndex_returnsFalse() {
+        Index index1 = Index.fromOneBased(1);
+        Index index2 = Index.fromOneBased(2);
+        int hoursToAdd = 5;
+        HoursAddCommand command1 = new HoursAddCommand(index1, hoursToAdd);
+        HoursAddCommand command2 = new HoursAddCommand(index2, hoursToAdd);
+
+        // Comparing commands with different indices
+        assertNotEquals(command1, command2);
+    }
+
+    @Test
+    public void equals_differentHours_returnsFalse() {
+        Index validIndex = Index.fromOneBased(1);
+        int hoursToAdd1 = 5;
+        int hoursToAdd2 = 10;
+        HoursAddCommand command1 = new HoursAddCommand(validIndex, hoursToAdd1);
+        HoursAddCommand command2 = new HoursAddCommand(validIndex, hoursToAdd2);
+
+        // Comparing commands with different hours to add
+        assertNotEquals(command1, command2);
+    }
+
+    @Test
+    public void equals_sameValues_returnsTrue() {
+        Index validIndex = Index.fromOneBased(1);
+        int hoursToAdd = 5;
+        HoursAddCommand command1 = new HoursAddCommand(validIndex, hoursToAdd);
+        HoursAddCommand command2 = new HoursAddCommand(validIndex, hoursToAdd);
+
+        // Comparing two commands with the same values
+        assertEquals(command1, command2);
+    }
+
 }
