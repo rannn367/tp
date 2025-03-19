@@ -37,7 +37,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-        ReadOnlyDrinkCatalog drinkCatalog) {
+                        ReadOnlyDrinkCatalog drinkCatalog) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -49,6 +49,7 @@ public class ModelManager implements Model {
         filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
         filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
         filteredDrinks = new FilteredList<>(this.drinkCatalog.getDrinkList());;
+
     }
 
     public ModelManager() {
@@ -133,7 +134,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+    public void updateFilteredStaffList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
     }
@@ -177,19 +178,18 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void setStaff(Staff target, Staff editedStaff) {
+        requireAllNonNull(target, editedStaff);
+
+        addressBook.setStaff(target, editedStaff);
+    }
 
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
         addressBook.setCustomer(target, editedCustomer);
-    }
-
-    @Override
-    public void setStaff(Staff target, Staff editedStaff) {
-        requireAllNonNull(target, editedStaff);
-
-        addressBook.setStaff(target, editedStaff);
     }
     //=========== Filtered Person List Accessors =============================================================
 
@@ -202,6 +202,7 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    @Override
     public ObservableList<Staff> getFilteredStaffList() {
         return filteredStaffs;
     }
