@@ -17,7 +17,7 @@ import seedu.address.model.person.Staff;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Drink> PREDICATE_SHOW_ALL_DRINKS = unused -> true;
 
@@ -117,6 +117,13 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
+     * Replaces the given person {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void setStaff(Staff target, Staff editedPerson);
+
+    /**
      * Replaces the given customer {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same
@@ -144,7 +151,7 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredStaffList(Predicate<Staff> predicate);
+    void updateFilteredStaffList(Predicate<Person> predicate);
 
     /**
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.

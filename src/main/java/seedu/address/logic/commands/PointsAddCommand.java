@@ -16,10 +16,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -73,7 +78,8 @@ public class PointsAddCommand extends Command {
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
         return new CommandResult(String.format(MESSAGE_ADD_POINTS_SUCCESS,
-                customerToUpdate.getName().fullName, pointsToAdd, updatedCustomer.getRewardPoints()));
+                customerToUpdate.getName().fullName, pointsToAdd,
+                Integer.parseInt(updatedCustomer.getRewardPoints().value)));
     }
 
     /**
@@ -89,15 +95,23 @@ public class PointsAddCommand extends Command {
         Address address = customerToUpdate.getAddress();
         Remark remark = customerToUpdate.getRemark();
         Set<Tag> tags = customerToUpdate.getTags();
-        String customerId = customerToUpdate.getCustomerId();
-        int updatedRewardPoints = customerToUpdate.getRewardPoints() + pointsToAdd;
-        int visitCount = customerToUpdate.getVisitCount();
-        String favoriteItem = customerToUpdate.getFavoriteItem();
-        double totalSpent = customerToUpdate.getTotalSpent();
+        CustomerId customerId = customerToUpdate.getCustomerId();
+
+        // Retrieve current reward points and visit count
+        int currentRewardPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
+        int updatedRewardPoints = currentRewardPoints + pointsToAdd;
+        RewardPoints newRewardPoints = new RewardPoints(String.valueOf(updatedRewardPoints));
+
+        int currentVisitCount = Integer.parseInt(customerToUpdate.getVisitCount().value);
+        VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount));
+
+        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
+        TotalSpent totalSpent = customerToUpdate.getTotalSpent();
 
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, updatedRewardPoints, visitCount, favoriteItem, totalSpent);
+                customerId, newRewardPoints, visitCount, favoriteItem, totalSpent);
     }
+
 
     @Override
     public boolean equals(Object other) {

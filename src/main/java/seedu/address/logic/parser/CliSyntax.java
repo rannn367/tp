@@ -31,6 +31,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_INDEX = new Prefix("ind/");
     public static final Prefix PREFIX_POINTS = new Prefix("pts/");
 
+    // Prefixes for addPoints command
+    public static final Prefix PREFIX_HOURS = new Prefix("h/");
 
     // Drinks prefixes
     public static final Prefix PREFIX_DRINKNAME = new Prefix("n/");

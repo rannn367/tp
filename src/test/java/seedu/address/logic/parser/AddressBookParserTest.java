@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -23,6 +25,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HoursAddCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -101,7 +104,29 @@ public class AddressBookParserTest {
         assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, remark), command);
     }
 
+    @Test
+    public void parseCommand_hoursAdd() throws Exception {
+        // Correct format: hoursadd <index> <hours>
+        HoursAddCommand command = (HoursAddCommand) parser.parseCommand(
+                HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "8");
+        assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 8), command);
 
+        // Another valid test case with different hours
+        command = (HoursAddCommand) parser.parseCommand(
+                HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "10");
+        assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 10), command);
+    }
+
+
+    @Test
+    public void parseCommand_hoursAddInvalidInputThrowsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                HoursAddCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(HoursAddCommand.COMMAND_WORD + " 1 " + PREFIX_HOURS + "-5"));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        HoursAddCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(HoursAddCommand.COMMAND_WORD + " abc " + PREFIX_HOURS + "8"));
+    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {

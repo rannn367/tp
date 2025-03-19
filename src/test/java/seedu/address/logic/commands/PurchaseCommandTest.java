@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -21,10 +23,15 @@ import seedu.address.model.drink.Drink;
 import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 
 public class PurchaseCommandTest {
 
@@ -50,16 +57,55 @@ public class PurchaseCommandTest {
             new Address("Test Address"),
             new Remark(""),
             new HashSet<>(),
-            "C001",
-            100, // Initial reward points
-            5, // Initial visit count
-            "Coffee", // Initial favorite item
-            50.0 // Initial total spent
+            new CustomerId("C001"),
+            new RewardPoints("100"),
+            new VisitCount("5"),
+            new FavouriteItem("Coffee"),
+            new TotalSpent("50.0")
         );
         addressBook.addCustomer(testCustomer);
 
         // Create the model with our address book and drink catalog
         model = new ModelManager(addressBook, new UserPrefs(), drinkCatalog);
+    }
+
+    @Test
+    public void execute_validPurchase_success() throws Exception {
+        PurchaseCommand purchaseCommand = new PurchaseCommand(INDEX_FIRST_PERSON, VALID_DRINK_NAME);
+
+        Customer customerBefore = model.getFilteredCustomerList().get(0);
+        double expectedNewTotalSpent = Double.parseDouble(customerBefore.getTotalSpent().value) + VALID_DRINK_PRICE;
+        int expectedNewRewardPoints = Integer.parseInt(customerBefore.getRewardPoints().value)
+                + (int) Math.floor(VALID_DRINK_PRICE * 10);
+
+        CommandResult result = purchaseCommand.execute(model);
+
+        Customer customerAfter = model.getFilteredCustomerList().get(0);
+        assertEquals(String.format(
+                PurchaseCommand.MESSAGE_PURCHASE_SUCCESS,
+                customerBefore.getName(),
+                VALID_DRINK_NAME,
+                VALID_DRINK_PRICE,
+                (int) Math.floor(VALID_DRINK_PRICE * 10),
+                expectedNewRewardPoints,
+                expectedNewTotalSpent), result.getFeedbackToUser());
+
+        assertEquals(expectedNewTotalSpent, Double.parseDouble(customerAfter.getTotalSpent().value));
+        assertEquals(expectedNewRewardPoints, Integer.parseInt(customerAfter.getRewardPoints().value));
+    }
+
+    @Test
+    public void toString_validPurchaseCommand_correctFormat() {
+        Index testIndex = Index.fromOneBased(1);
+        String testDrink = "ICED LATTE";
+        PurchaseCommand command = new PurchaseCommand(testIndex, testDrink);
+
+        String expected = new ToStringBuilder(command)
+                .add("customerIndex", testIndex)
+                .add("drinkName", testDrink)
+                .toString();
+
+        assertEquals(expected, command.toString());
     }
 
     @Test
