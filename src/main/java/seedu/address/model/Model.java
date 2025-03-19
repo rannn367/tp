@@ -124,6 +124,14 @@ public interface Model {
      */
     void setCustomer(Customer target, Customer editedCustomer);
 
+    /**
+     * Replaces the given staff {@code target} with {@code editedStaff}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedStaff} must not be the same
+     * as another existing customer in the address book.
+     */
+    void setStaff(Staff target, Staff editedCustomer);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
