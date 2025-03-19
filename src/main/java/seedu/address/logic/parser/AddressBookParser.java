@@ -3,14 +3,13 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
@@ -39,7 +38,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses user input.
  */
 public class AddressBookParser {
-    
+
     @FunctionalInterface
     interface ThrowingFunction<T, R, E extends Exception> {
         R apply(T t) throws E;
@@ -54,7 +53,8 @@ public class AddressBookParser {
     private static final Map<String, ThrowingFunction<String, Command, ParseException>> COMMAND_MAP = new HashMap<>();
 
     static {
-        COMMAND_MAP.put(AddCommand.COMMAND_WORD, arguments -> new AddCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            AddCommand.COMMAND_WORD, arguments -> new AddCommandParser().parse(arguments));
         COMMAND_MAP.put(EditCommand.COMMAND_WORD, arguments -> new EditCommandParser().parse(arguments));
         COMMAND_MAP.put(DeleteCommand.COMMAND_WORD, arguments -> new DeleteCommandParser().parse(arguments));
         COMMAND_MAP.put(ClearCommand.COMMAND_WORD, arguments -> new ClearCommand());
@@ -63,11 +63,16 @@ public class AddressBookParser {
         COMMAND_MAP.put(ListCommand.COMMAND_WORD, arguments -> new ListCommand());
         COMMAND_MAP.put(ExitCommand.COMMAND_WORD, arguments -> new ExitCommand());
         COMMAND_MAP.put(HelpCommand.COMMAND_WORD, arguments -> new HelpCommand());
-        COMMAND_MAP.put(AddStaffCommand.COMMAND_WORD, arguments -> new AddStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(EditStaffCommand.COMMAND_WORD, arguments -> new EditStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(DeleteStaffCommand.COMMAND_WORD, arguments -> new DeleteStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(AddCustomerCommand.COMMAND_WORD, arguments -> new AddCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(DeleteCustomerCommand.COMMAND_WORD, arguments -> new DeleteCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            AddStaffCommand.COMMAND_WORD, arguments -> new AddStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            EditStaffCommand.COMMAND_WORD, arguments -> new EditStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            DeleteStaffCommand.COMMAND_WORD, arguments -> new DeleteStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            AddCustomerCommand.COMMAND_WORD, arguments -> new AddCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            DeleteCustomerCommand.COMMAND_WORD, arguments -> new DeleteCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(PointsAddCommand.COMMAND_WORD, arguments -> new PointsAddCommandParser().parse(arguments));
         COMMAND_MAP.put(DrinkAddCommand.COMMAND_WORD, arguments -> new DrinkAddCommandParser().parse(arguments));
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD, arguments -> new PurchaseCommandParser().parse(arguments));
@@ -101,7 +106,13 @@ public class AddressBookParser {
 
         String closestCommand = findClosestCommand(commandWord);
         if (closestCommand != null) {
-            throw new ParseException(String.format("Unknown command: '%s'. Did you mean '%s'?", commandWord, closestCommand));
+            throw new ParseException(
+                String.format(
+                    "Unknown command: '%s'. Did you mean '%s'?",
+                    commandWord,
+                    closestCommand
+                )
+            );
         }
 
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
