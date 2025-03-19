@@ -5,24 +5,47 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.control.Button?>
 
 <VBox styleClass="detail-panel" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <!-- No drink selected message -->
-    <Label fx:id="noSelectionMessage" text="Select a drink to view details" styleClass="section-header" />
+    <Label fx:id="noSelectionMessage" text="Select a drink to view details" styleClass="section-header">
+        <VBox.margin>
+            <Insets top="20.0" />
+        </VBox.margin>
+    </Label>
 
     <!-- Drink details content -->
-    <VBox fx:id="detailsContent" spacing="10">
+    <VBox fx:id="detailsContent" spacing="10" visible="false">
         <!-- Header with name -->
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label fx:id="drinkNameHeader" styleClass="detail-header" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="editButton" text="Edit" styleClass="detail-button" />
-            <Button fx:id="deleteButton" text="Delete" styleClass="detail-button" />
+            <!-- Buttons removed for CLI-based approach -->
         </HBox>
 
-        <!-- Rest of the content remains the same -->
-        <!-- ... -->
+        <!-- Price -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Price:" styleClass="detail-label" />
+            <Label fx:id="price" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Category -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Category:" styleClass="detail-label" />
+            <Label fx:id="category" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Description -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Description:" styleClass="detail-label" />
+            <Label fx:id="description" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Stock -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Stock:" styleClass="detail-label" />
+            <Label fx:id="stock" styleClass="detail-value" />
+        </HBox>
     </VBox>
 
     <padding>

@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Button?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="CafeConnect" minWidth="800" minHeight="600">
@@ -22,7 +21,6 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
         <URL value="@CafeConnect.css" />
       </stylesheets>
@@ -37,14 +35,7 @@
           </Menu>
         </MenuBar>
 
-        <!-- Add Toggle Background and Theme Button -->
-        <HBox spacing="10" alignment="TOP_RIGHT">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-          <Button fx:id="toggleBackgroundButton" text="Toggle Background" styleClass="header-button" />
-          <Button fx:id="toggleThemeButton" text="Toggle Theme" styleClass="header-button" />
-        </HBox>
+        <!-- Removed toggle buttons section -->
 
         <!-- Tab Pane for Staff, Customers, and Drinks -->
         <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" styleClass="main-tab-pane">

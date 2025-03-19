@@ -52,7 +52,6 @@ public class WelcomeScreen extends UiPart<Region> {
         Scene scene = new Scene(getRoot());
 
         // Add default stylesheets
-        scene.getStylesheets().add("view/DarkTheme.css");
         scene.getStylesheets().add("view/Extensions.css");
         scene.getStylesheets().add("view/CafeConnect.css");
 
@@ -66,6 +65,7 @@ public class WelcomeScreen extends UiPart<Region> {
         logger.info("Showing welcome screen");
         primaryStage.show();
     }
+
     @FXML
     private void initialize() {
         staffCustomerButton.setOnAction(event -> handleStaffCustomerButtonAction());
@@ -84,6 +84,10 @@ public class WelcomeScreen extends UiPart<Region> {
 
         // Create and display the main window with Staff & Customer tabs
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
+
+        // Important: Set up the stage after construction but before using it
+        mainWindow.setUpStage();
+
         mainWindow.show();
 
         // Fill in the components of the main window and select the Staff tab
@@ -103,6 +107,10 @@ public class WelcomeScreen extends UiPart<Region> {
 
         // Create and display the main window with Drinks tab
         MainWindow mainWindow = new MainWindow(primaryStage, logic);
+
+        // Important: Set up the stage after construction but before using it
+        mainWindow.setUpStage();
+
         mainWindow.show();
 
         // Fill in the components of the main window and select the Drinks tab

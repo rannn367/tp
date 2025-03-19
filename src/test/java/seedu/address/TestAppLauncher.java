@@ -13,13 +13,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.DrinkCatalogStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonDrinkCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.UiManager;
-
-import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
 
 /**
  * Launcher for TestApp to be used in process-based tests.
@@ -27,7 +27,8 @@ import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
 public class TestAppLauncher {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("doesnotexist.json");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
+
     public static void main(String[] args) {
         try {
             Application.launch(TestApp.class, args);
@@ -52,11 +53,15 @@ public class TestAppLauncher {
 
             applicationInit();
             Path userPrefPath = File.createTempFile("userPrefs", ".json").toPath();
+            Path drinkCatalogPath = File.createTempFile("drinkCatalog", ".json").toPath();
 
             UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(userPrefPath);
             UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
             AddressBookStorage addressBookStorage = new JsonAddressBookStorage(TYPICAL_PERSONS_FILE);
-            storage = new StorageManager(addressBookStorage, userPrefsStorage, getTypicalDrinkCatalog());
+            DrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(drinkCatalogPath);
+
+            storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
 
             model = initModelManager(storage, userPrefs);
 

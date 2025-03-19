@@ -29,17 +29,46 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        // Set up initialization
+        initialize();
+
+        // Immediately request focus to enable typing
+        javafx.application.Platform.runLater(() -> commandTextField.requestFocus());
     }
 
-    @FXML
+    /**
+     * Initialize the command box components.
+     * Note: This method is called manually in the constructor to ensure initialization
+     * rather than relying on FXML loader to call it.
+     */
     private void initialize() {
         commandTextField.setOnAction(event -> handleCommandEntered());
+        commandTextField.setPromptText("Enter command here...");
+    }
+
+    @Override
+    public Region getRoot() {
+        Region root = super.getRoot();
+        // Ensure the text field is focusable after the component is added to the scene
+        javafx.application.Platform.runLater(() -> {
+            if (commandTextField != null) {
+                commandTextField.requestFocus();
+            }
+        });
+        return root;
+    }
+
+    /**
+     * Focuses the command text field.
+     */
+    public void focus() {
+        commandTextField.requestFocus();
     }
 
     /**
      * Handles the Enter button pressed event.
      */
-    @FXML
     private void handleCommandEntered() {
         String commandText = commandTextField.getText();
         if (commandText.equals("")) {
@@ -86,5 +115,4 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
-
 }

@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -19,7 +18,7 @@ import seedu.address.model.person.Staff;
  */
 public class StaffDetailPanel extends UiPart<Region> {
     private static final String FXML = "StaffDetailView.fxml";
-    private final Logger logger = LogsCenter.getLogger(StaffDetailPanel.class);
+    private static final Logger logger = LogsCenter.getLogger(StaffDetailPanel.class);
 
     /**
      * Interface to execute commands from the UI.
@@ -57,26 +56,59 @@ public class StaffDetailPanel extends UiPart<Region> {
     private Label performanceRating;
     @FXML
     private FlowPane tags;
-    @FXML
-    private Button editButton;
-    @FXML
-    private Button deleteButton;
 
     /**
      * Creates a {@code StaffDetailPanel}.
      */
     public StaffDetailPanel() {
         super(FXML);
+
+        // Verify critical components
+        boolean componentsOk = verifyComponents();
+        if (!componentsOk) {
+            logger.warning("Some FXML components were not properly loaded in StaffDetailPanel");
+        }
+
         // Hide details initially since no staff is selected
         showNoStaffSelected();
+    }
+
+    /**
+     * Verifies that critical FXML components were loaded properly.
+     * @return true if all critical components exist
+     */
+    private boolean verifyComponents() {
+        boolean allOk = true;
+
+        if (noSelectionMessage == null) {
+            logger.severe("noSelectionMessage is null");
+            allOk = false;
+        }
+
+        if (detailsContent == null) {
+            logger.severe("detailsContent is null");
+            allOk = false;
+        }
+
+        if (staffNameHeader == null) {
+            logger.severe("staffNameHeader is null");
+            allOk = false;
+        }
+
+        return allOk;
     }
 
     /**
      * Shows the no staff selected message.
      */
     private void showNoStaffSelected() {
-        noSelectionMessage.setVisible(true);
-        detailsContent.setVisible(false);
+        if (noSelectionMessage != null) {
+            noSelectionMessage.setVisible(true);
+        }
+
+        if (detailsContent != null) {
+            detailsContent.setVisible(false);
+        }
     }
 
     /**
@@ -92,52 +124,60 @@ public class StaffDetailPanel extends UiPart<Region> {
 
         logger.fine("Updating staff details for: " + staff.getName().fullName);
 
-        // Show details and hide the no selection message
-        noSelectionMessage.setVisible(false);
-        detailsContent.setVisible(true);
+        try {
+            // Show details and hide the no selection message
+            if (noSelectionMessage != null) {
+                noSelectionMessage.setVisible(false);
+            }
 
-        // Set all the text fields
-        staffNameHeader.setText(staff.getName().fullName);
-        staffId.setText(staff.getStaffId().value);
-        phone.setText(staff.getPhone().value);
-        email.setText(staff.getEmail().value);
-        address.setText(staff.getAddress().value);
-        role.setText(staff.getRole().value);
-        shiftTiming.setText(staff.getShiftTiming().value);
-        hoursWorked.setText(staff.getHoursWorked().value);
-        performanceRating.setText(staff.getPerformanceRating().value);
+            if (detailsContent != null) {
+                detailsContent.setVisible(true);
+            }
 
-        // Clear existing tags
-        tags.getChildren().clear();
+            // Set the header (this is the most crucial part)
+            if (staffNameHeader != null) {
+                staffNameHeader.setText(staff.getName().fullName);
+            }
 
-        // Add tags
-        staff.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add("tag");
-            tags.getChildren().add(tagLabel);
-        });
-    }
+            // Update all fields with null safety
+            safeSetText(staffId, staff.getStaffId() != null ? staff.getStaffId().value : "");
+            safeSetText(phone, staff.getPhone() != null ? staff.getPhone().value : "");
+            safeSetText(email, staff.getEmail() != null ? staff.getEmail().value : "");
+            safeSetText(address, staff.getAddress() != null ? staff.getAddress().value : "");
+            safeSetText(role, staff.getRole() != null ? staff.getRole().value : "");
+            safeSetText(shiftTiming, staff.getShiftTiming() != null ? staff.getShiftTiming().value : "");
+            safeSetText(hoursWorked, staff.getHoursWorked() != null ? staff.getHoursWorked().value : "0");
+            safeSetText(performanceRating, staff.getPerformanceRating() != null
+                    ? staff.getPerformanceRating().value : "N/A");
 
-    @FXML
-    private void initialize() {
-        editButton.setOnAction(event -> handleEditButtonAction());
-        deleteButton.setOnAction(event -> handleDeleteButtonAction());
+            // Clear existing tags and add new ones
+            if (tags != null) {
+                tags.getChildren().clear();
+
+                if (staff.getTags() != null) {
+                    staff.getTags().forEach(tag -> {
+                        Label tagLabel = new Label(tag.tagName);
+                        tagLabel.getStyleClass().add("tag");
+                        tags.getChildren().add(tagLabel);
+                    });
+                }
+            }
+        } catch (Exception e) {
+            logger.warning("Error updating staff details: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Handles edit button action.
+     * Safely sets text to a label, handling null cases.
+     *
+     * @param label The label to update
+     * @param text The text to set
      */
-    @FXML
-    private void handleEditButtonAction() {
-        logger.info("Edit button clicked - use 'edit-staff' command instead");
-    }
-
-    /**
-     * Handles delete button action.
-     */
-    @FXML
-    private void handleDeleteButtonAction() {
-        logger.info("Delete button clicked - use 'delete-staff' command instead");
+    private void safeSetText(Label label, String text) {
+        if (label != null) {
+            label.setText(text != null ? text : "");
+        }
     }
 
     /**

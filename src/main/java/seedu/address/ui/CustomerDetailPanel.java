@@ -3,8 +3,8 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
@@ -18,7 +18,7 @@ import seedu.address.model.person.Customer;
  */
 public class CustomerDetailPanel extends UiPart<Region> {
     private static final String FXML = "CustomerDetailView.fxml";
-    private final Logger logger = LogsCenter.getLogger(CustomerDetailPanel.class);
+    private static final Logger logger = LogsCenter.getLogger(CustomerDetailPanel.class);
 
     /**
      * Interface to execute commands from the UI.
@@ -57,25 +57,60 @@ public class CustomerDetailPanel extends UiPart<Region> {
     @FXML
     private Label remark;
     @FXML
-    private Button editButton;
-    @FXML
-    private Button deleteButton;
+    private FlowPane tags;
 
     /**
      * Creates a {@code CustomerDetailPanel}.
      */
     public CustomerDetailPanel() {
         super(FXML);
+
+        // Verify critical components
+        boolean componentsOk = verifyComponents();
+        if (!componentsOk) {
+            logger.warning("Some FXML components were not properly loaded in CustomerDetailPanel");
+        }
+
         // Hide details initially since no customer is selected
         showNoCustomerSelected();
+    }
+
+    /**
+     * Verifies that critical FXML components were loaded properly.
+     * @return true if all critical components exist
+     */
+    private boolean verifyComponents() {
+        boolean allOk = true;
+
+        if (noSelectionMessage == null) {
+            logger.severe("noSelectionMessage is null");
+            allOk = false;
+        }
+
+        if (detailsContent == null) {
+            logger.severe("detailsContent is null");
+            allOk = false;
+        }
+
+        if (customerNameHeader == null) {
+            logger.severe("customerNameHeader is null");
+            allOk = false;
+        }
+
+        return allOk;
     }
 
     /**
      * Shows the no customer selected message.
      */
     private void showNoCustomerSelected() {
-        noSelectionMessage.setVisible(true);
-        detailsContent.setVisible(false);
+        if (noSelectionMessage != null) {
+            noSelectionMessage.setVisible(true);
+        }
+
+        if (detailsContent != null) {
+            detailsContent.setVisible(false);
+        }
     }
 
     /**
@@ -91,45 +126,87 @@ public class CustomerDetailPanel extends UiPart<Region> {
 
         logger.fine("Updating customer details for: " + customer.getName().fullName);
 
-        // Show details and hide the no selection message
-        noSelectionMessage.setVisible(false);
-        detailsContent.setVisible(true);
+        try {
+            // Show details and hide the no selection message
+            if (noSelectionMessage != null) {
+                noSelectionMessage.setVisible(false);
+            }
 
-        // Set all the text fields
-        customerNameHeader.setText(customer.getName().fullName);
-        customerId.setText(customer.getCustomerId());
-        phone.setText(customer.getPhone().value);
-        email.setText(customer.getEmail().value);
-        address.setText(customer.getAddress().value);
-        visitCount.setText(String.valueOf(customer.getVisitCount()));
-        totalSpent.setText(String.format("$%.2f", customer.getTotalSpent()));
-        rewardPoints.setText(String.valueOf(customer.getRewardPoints()));
-        favoriteItem.setText(customer.getFavoriteItem());
+            if (detailsContent != null) {
+                detailsContent.setVisible(true);
+            }
 
-        String remarkText = customer.getRemark().value;
-        remark.setText(remarkText.isEmpty() ? "No notes" : remarkText);
-    }
+            // Set the header (this is the most crucial part)
+            if (customerNameHeader != null) {
+                customerNameHeader.setText(customer.getName().fullName);
+            }
 
-    @FXML
-    private void initialize() {
-        editButton.setOnAction(event -> handleEditButtonAction());
-        deleteButton.setOnAction(event -> handleDeleteButtonAction());
+            // Update all fields with null safety
+            safeSetText(customerId, customer.getCustomerId());
+            safeSetText(phone, customer.getPhone() != null ? customer.getPhone().value : "");
+            safeSetText(email, customer.getEmail() != null ? customer.getEmail().value : "");
+            safeSetText(address, customer.getAddress() != null ? customer.getAddress().value : "");
+
+            // For fields that might be specific to Customer subclass
+            try {
+                safeSetText(visitCount, String.valueOf(customer.getVisitCount()));
+            } catch (Exception e) {
+                safeSetText(visitCount, "0");
+            }
+
+            try {
+                safeSetText(totalSpent, String.format("$%.2f", customer.getTotalSpent()));
+            } catch (Exception e) {
+                safeSetText(totalSpent, "$0.00");
+            }
+
+            try {
+                safeSetText(rewardPoints, String.valueOf(customer.getRewardPoints()));
+            } catch (Exception e) {
+                safeSetText(rewardPoints, "0");
+            }
+
+            try {
+                safeSetText(favoriteItem, customer.getFavoriteItem());
+            } catch (Exception e) {
+                safeSetText(favoriteItem, "None");
+            }
+
+            try {
+                safeSetText(remark, customer.getRemark() != null && customer.getRemark().value != null
+                        ? customer.getRemark().value : "");
+            } catch (Exception e) {
+                safeSetText(remark, "No notes");
+            }
+
+            // Clear existing tags and add new ones
+            if (tags != null) {
+                tags.getChildren().clear();
+
+                if (customer.getTags() != null) {
+                    customer.getTags().forEach(tag -> {
+                        Label tagLabel = new Label(tag.tagName);
+                        tagLabel.getStyleClass().add("tag");
+                        tags.getChildren().add(tagLabel);
+                    });
+                }
+            }
+        } catch (Exception e) {
+            logger.warning("Error updating customer details: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Handles edit button action.
+     * Safely sets text to a label, handling null cases.
+     *
+     * @param label The label to update
+     * @param text The text to set
      */
-    @FXML
-    private void handleEditButtonAction() {
-        logger.info("Edit button clicked - use 'edit-customer' command instead");
-    }
-
-    /**
-     * Handles delete button action.
-     */
-    @FXML
-    private void handleDeleteButtonAction() {
-        logger.info("Delete button clicked - use 'delete-customer' command instead");
+    private void safeSetText(Label label, String text) {
+        if (label != null) {
+            label.setText(text != null ? text : "");
+        }
     }
 
     /**

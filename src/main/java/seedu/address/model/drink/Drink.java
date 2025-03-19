@@ -17,7 +17,12 @@ public class Drink {
     private final double price;
     private final String category;
 
+    // Optional fields - stored as transient to not affect equals/hashCode
+    private transient String description;
+    private transient int stock;
+
     /**
+     * Basic constructor with required fields only.
      * Every field must be present and not null.
      */
     public Drink(String name, double price, String category) {
@@ -25,6 +30,9 @@ public class Drink {
         this.name = name;
         this.price = price;
         this.category = category;
+        // Default values for optional fields
+        this.description = "";
+        this.stock = 0;
     }
 
     public String getName() {
@@ -37,6 +45,30 @@ public class Drink {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getDescription() {
+        return description != null ? description : "";
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    /**
+     * Sets the description without affecting equals/hashCode.
+     * Note: This does not affect the immutability of the core fields.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Sets the stock without affecting equals/hashCode.
+     * Note: This does not affect the immutability of the core fields.
+     */
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     /**
