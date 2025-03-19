@@ -72,13 +72,19 @@ public class EditStaffCommandParser implements Parser<EditStaffCommand> {
             editStaffDescriptor.setRole(ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
         }
         if (argMultimap.getValue(PREFIX_SHIFT_TIMING).isPresent()) {
-            editStaffDescriptor.setShiftTiming(ParserUtil.parseShiftTiming(argMultimap.getValue(PREFIX_SHIFT_TIMING).get()));
+            editStaffDescriptor.setShiftTiming(
+                ParserUtil.parseShiftTiming(argMultimap.getValue(PREFIX_SHIFT_TIMING).get())
+            );
         }
         if (argMultimap.getValue(PREFIX_HOURS_WORKED).isPresent()) {
-            editStaffDescriptor.setHoursWorked(ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURS_WORKED).get()));
+            editStaffDescriptor.setHoursWorked(
+                ParserUtil.parseHoursWorked(argMultimap.getValue(PREFIX_HOURS_WORKED).get())
+            );
         }
         if (argMultimap.getValue(PREFIX_PERFORMANCE_RATING).isPresent()) {
-            editStaffDescriptor.setPerformanceRating(ParserUtil.parsePerformanceRating(argMultimap.getValue(PREFIX_PERFORMANCE_RATING).get()));
+            editStaffDescriptor.setPerformanceRating(
+                ParserUtil.parsePerformanceRating(argMultimap.getValue(PREFIX_PERFORMANCE_RATING).get())
+            );
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStaffDescriptor::setTags);
 

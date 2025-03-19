@@ -91,14 +91,14 @@ public class AddressBookParser {
 
         case AddStaffCommand.COMMAND_WORD:
             return new AddStaffCommandParser().parse(arguments);
-        
+
         case EditStaffCommand.COMMAND_WORD:
             return new EditStaffCommandParser().parse(arguments);
-        
+
         case DeleteStaffCommand.COMMAND_WORD:
             return new DeleteStaffCommandParser().parse(arguments);
 
-            case AddCustomerCommand.COMMAND_WORD:
+        case AddCustomerCommand.COMMAND_WORD:
             return new AddCustomerCommandParser().parse(arguments);
         case DeleteCustomerCommand.COMMAND_WORD:
             return new DeleteCustomerCommandParser().parse(arguments);
