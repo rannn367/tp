@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -93,7 +94,19 @@ public class PurchaseCommandTest {
         assertEquals(expectedNewRewardPoints, Integer.parseInt(customerAfter.getRewardPoints().value));
     }
 
+    @Test
+    public void toString_validPurchaseCommand_correctFormat() {
+        Index testIndex = Index.fromOneBased(1);
+        String testDrink = "ICED LATTE";
+        PurchaseCommand command = new PurchaseCommand(testIndex, testDrink);
 
+        String expected = new ToStringBuilder(command)
+                .add("customerIndex", testIndex)
+                .add("drinkName", testDrink)
+                .toString();
+
+        assertEquals(expected, command.toString());
+    }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
