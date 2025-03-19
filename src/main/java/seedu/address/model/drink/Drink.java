@@ -13,29 +13,29 @@ import seedu.address.commons.util.ToStringBuilder;
 public class Drink {
 
     // Identity fields
-    private final String name;
-    private final double price;
-    private final String category;
+    private final DrinkName drinkName;
+    private final Price price;
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
-    public Drink(String name, double price, String category) {
-        requireAllNonNull(name, price, category);
-        this.name = name;
+    public Drink(DrinkName drinkName, Price price, Category category) {
+        requireAllNonNull(drinkName, price, category);
+        this.drinkName = drinkName;
         this.price = price;
         this.category = category;
     }
 
-    public String getName() {
-        return name;
+    public DrinkName getDrinkName() {
+        return drinkName;
     }
 
-    public double getPrice() {
+    public Price getPrice() {
         return price;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -49,7 +49,7 @@ public class Drink {
         }
 
         return otherDrink != null
-                && otherDrink.getName().equalsIgnoreCase(getName());
+                && otherDrink.getDrinkName().toString().equalsIgnoreCase(getDrinkName().toString());
     }
 
     /**
@@ -66,20 +66,20 @@ public class Drink {
         }
 
         Drink otherDrink = (Drink) other;
-        return name.equalsIgnoreCase(otherDrink.name)
-                && Double.compare(price, otherDrink.price) == 0
+        return drinkName.getDrinkName().equalsIgnoreCase(otherDrink.drinkName.getDrinkName())
+                && Double.compare(price.getPrice(), otherDrink.price.getPrice()) == 0
                 && category.equals(otherDrink.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name.toLowerCase(), price, category);
+        return Objects.hash(drinkName, price, category);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
+                .add("drinkName", drinkName)
                 .add("price", price)
                 .add("category", category)
                 .toString();
