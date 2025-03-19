@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -66,6 +67,33 @@ public class PurchaseCommandTest {
         // Create the model with our address book and drink catalog
         model = new ModelManager(addressBook, new UserPrefs(), drinkCatalog);
     }
+
+    @Test
+    public void execute_validPurchase_success() throws Exception {
+        PurchaseCommand purchaseCommand = new PurchaseCommand(INDEX_FIRST_PERSON, VALID_DRINK_NAME);
+
+        Customer customerBefore = model.getFilteredCustomerList().get(0);
+        double expectedNewTotalSpent = Double.parseDouble(customerBefore.getTotalSpent().value) + VALID_DRINK_PRICE;
+        int expectedNewRewardPoints = Integer.parseInt(customerBefore.getRewardPoints().value)
+                + (int) Math.floor(VALID_DRINK_PRICE * 10);
+
+        CommandResult result = purchaseCommand.execute(model);
+
+        Customer customerAfter = model.getFilteredCustomerList().get(0);
+        assertEquals(String.format(
+                PurchaseCommand.MESSAGE_PURCHASE_SUCCESS,
+                customerBefore.getName(),
+                VALID_DRINK_NAME,
+                VALID_DRINK_PRICE,
+                (int) Math.floor(VALID_DRINK_PRICE * 10),
+                expectedNewRewardPoints,
+                expectedNewTotalSpent), result.getFeedbackToUser());
+
+        assertEquals(expectedNewTotalSpent, Double.parseDouble(customerAfter.getTotalSpent().value));
+        assertEquals(expectedNewRewardPoints, Integer.parseInt(customerAfter.getRewardPoints().value));
+    }
+
+
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {

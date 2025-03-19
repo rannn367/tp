@@ -99,8 +99,8 @@ public class PurchaseCommand extends Command {
                 drink.getName(),
                 price,
                 pointsToAdd,
-                updatedCustomer.getRewardPoints(),
-                updatedCustomer.getTotalSpent()));
+                Integer.parseInt(updatedCustomer.getRewardPoints().value),
+                Double.parseDouble(updatedCustomer.getTotalSpent().value)));
     }
 
     /**
