@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -14,17 +15,18 @@ import seedu.address.model.tag.Tag;
 public class Customer extends Person {
 
     // Customer-specific fields
-    private final String customerId; // Customer id
-    private final int rewardPoints; // Current reward points balance
-    private final int visitCount; // Number of times customer has visited
-    private final String favoriteItem; // Customer's most ordered item
-    private final double totalSpent; // Total amount spent by customer
+    private final CustomerId customerId; // Customer id
+    private final RewardPoints rewardPoints; // Current reward points balance
+    private final VisitCount visitCount; // Number of times customer has visited
+    private final FavouriteItem favoriteItem; // Customer's most ordered item
+    private final TotalSpent totalSpent; // Total amount spent by customer
 
     /**
      * Every field must be present and not null.
      */
     public Customer(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
-                    String customerId, int rewardPoints, int visitCount, String favoriteItem, double totalSpent) {
+                    CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount,
+                    FavouriteItem favoriteItem, TotalSpent totalSpent) {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
 
@@ -35,23 +37,23 @@ public class Customer extends Person {
         this.totalSpent = totalSpent;
     }
 
-    public String getCustomerId() {
+    public CustomerId getCustomerId() {
         return customerId;
     }
 
-    public int getRewardPoints() {
+    public RewardPoints getRewardPoints() {
         return rewardPoints;
     }
 
-    public int getVisitCount() {
+    public VisitCount getVisitCount() {
         return visitCount;
     }
 
-    public String getFavoriteItem() {
+    public FavouriteItem getFavoriteItem() {
         return favoriteItem;
     }
 
-    public double getTotalSpent() {
+    public TotalSpent getTotalSpent() {
         return totalSpent;
     }
 
@@ -87,17 +89,16 @@ public class Customer extends Person {
 
         Customer otherCustomer = (Customer) other;
         return super.equals(otherCustomer) // Calls the equality check from Person
-                && rewardPoints == otherCustomer.rewardPoints
-                && visitCount == otherCustomer.visitCount
+                && rewardPoints.equals(otherCustomer.rewardPoints)
+                && visitCount.equals(otherCustomer.visitCount)
                 && favoriteItem.equals(otherCustomer.favoriteItem)
-                && Double.compare(totalSpent, otherCustomer.totalSpent) == 0
+                && totalSpent.equals(otherCustomer.totalSpent)
                 && customerId.equals(otherCustomer.customerId);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + customerId.hashCode() + Integer.hashCode(rewardPoints) + Integer.hashCode(visitCount)
-                + favoriteItem.hashCode() + Double.hashCode(totalSpent);
+        return super.hashCode() + Objects.hash(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
     }
 
     @Override

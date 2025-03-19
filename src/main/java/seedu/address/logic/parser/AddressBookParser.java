@@ -18,9 +18,11 @@ import seedu.address.logic.commands.DeleteCustomerCommand;
 import seedu.address.logic.commands.DeleteStaffCommand;
 import seedu.address.logic.commands.DrinkAddCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HoursAddCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PointsAddCommand;
 import seedu.address.logic.commands.PurchaseCommand;
@@ -90,8 +92,13 @@ public class AddressBookParser {
 
         case AddStaffCommand.COMMAND_WORD:
             return new AddStaffCommandParser().parse(arguments);
+
+        case EditStaffCommand.COMMAND_WORD:
+            return new EditStaffCommandParser().parse(arguments);
+
         case DeleteStaffCommand.COMMAND_WORD:
             return new DeleteStaffCommandParser().parse(arguments);
+
         case AddCustomerCommand.COMMAND_WORD:
             return new AddCustomerCommandParser().parse(arguments);
         case DeleteCustomerCommand.COMMAND_WORD:
@@ -102,6 +109,8 @@ public class AddressBookParser {
             return new DrinkAddCommandParser().parse(arguments);
         case PurchaseCommand.COMMAND_WORD:
             return new PurchaseCommandParser().parse(arguments);
+        case HoursAddCommand.COMMAND_WORD:
+            return new HoursAddCommandParser().parse(arguments);
 
 
         default:

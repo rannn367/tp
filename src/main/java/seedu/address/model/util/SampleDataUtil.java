@@ -11,17 +11,22 @@ import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
 import seedu.address.model.person.Role;
 import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.StaffId;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -146,37 +151,37 @@ public class SampleDataUtil {
                     new Address("123 Café Street"),
                     new Remark("Always comes at 7am!"),
                     getTagSet(),
-                    "C001",
-                    100,
-                    12,
-                    "oat latte with vanilla syrup",
-                    120.3
+                    new CustomerId("C001"),
+                    new RewardPoints("100"),
+                    new VisitCount("12"),
+                    new FavouriteItem("oat latte with vanilla syrup"),
+                    new TotalSpent("120.3")
             ),
             new Customer(
-                new Name("Bella Smith"),
-                new Phone("81234567"),
-                new Email("bellasmith@cafeexample.com"),
-                new Address("123 Café Street"),
-                new Remark("comes with her dog"),
-                getTagSet(),
-                "C002",
-                100,
-                12,
-                "dog latte",
-                120.3
+                    new Name("Bella Smith"),
+                    new Phone("81234567"),
+                    new Email("bellasmith@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("comes with her dog"),
+                    getTagSet(),
+                    new CustomerId("C002"),
+                    new RewardPoints("100"),
+                    new VisitCount("12"),
+                    new FavouriteItem("dog latte"),
+                    new TotalSpent("120.3")
             ),
             new Customer(
-                new Name("Cory"),
-                new Phone("81111111"),
-                new Email("cory@cafeexample.com"),
-                new Address("123 Café Street"),
-                new Remark("interesting..."),
-                getTagSet(),
-                "C003",
-                0,
-                78,
-                "water",
-                0
+                    new Name("Cory"),
+                    new Phone("81111111"),
+                    new Email("cory@cafeexample.com"),
+                    new Address("123 Café Street"),
+                    new Remark("interesting..."),
+                    getTagSet(),
+                    new CustomerId("C003"),
+                    new RewardPoints("0"),
+                    new VisitCount("78"),
+                    new FavouriteItem("water"),
+                    new TotalSpent("50.0")
             )
         };
     }

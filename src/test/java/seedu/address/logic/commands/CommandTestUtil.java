@@ -33,6 +33,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditStaffDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -123,11 +124,11 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_JAMES = "45 Orchard Road, #12-34";
     public static final String VALID_REMARK_JAMES = "Prefers decaf";
     public static final String VALID_TAG_STUDENT = "student";
-    public static final int VALID_REWARD_POINTS_JAMES = 200;
-    public static final int VALID_VISIT_COUNT_JAMES = 12;
+    public static final String VALID_REWARD_POINTS_JAMES = "200";
+    public static final String VALID_VISIT_COUNT_JAMES = "12";
     public static final String VALID_FAVORITE_ITEM_JAMES = "Flat White";
-    public static final double VALID_TOTAL_SPENT_JAMES = 155.75;
-    public static final int VALID_RATING_JAMES = 5;
+    public static final String VALID_TOTAL_SPENT_JAMES = "155.75";
+    public static final String VALID_RATING_JAMES = "5";
     public static final String VALID_CUSTOMER_ID_JAMES = "C45678";
 
 
@@ -138,10 +139,10 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_OLIVIA = "88 Sunset Drive, #05-10";
     public static final String VALID_REMARK_OLIVIA = "Birthday in March";
     public static final String VALID_TAG_NEW = "new";
-    public static final int VALID_REWARD_POINTS_OLIVIA = 75;
-    public static final int VALID_VISIT_COUNT_OLIVIA = 3;
+    public static final String VALID_REWARD_POINTS_OLIVIA = "75";
+    public static final String VALID_VISIT_COUNT_OLIVIA = "3";
     public static final String VALID_FAVORITE_ITEM_OLIVIA = "Green Tea Latte";
-    public static final double VALID_TOTAL_SPENT_OLIVIA = 42.90;
+    public static final String VALID_TOTAL_SPENT_OLIVIA = "42.90";
     public static final String VALID_CUSTOMER_ID_OLIVIA = "C12345";
 
     // Command string descriptors
@@ -171,6 +172,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditStaffCommand.EditStaffDescriptor DESC_ALEX;
+    public static final EditStaffCommand.EditStaffDescriptor DESC_BEN;
 
     // Drink-related constants
     public static final String VALID_NAME_LATTE = "Latte";
@@ -198,6 +201,16 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ALEX = new EditStaffDescriptorBuilder().withName(VALID_NAME_ALEX)
+                .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
+                .withTags(VALID_TAG_MANAGER).withStaffId(VALID_STAFF_ID_ALEX).withRole(VALID_ROLE_ALEX)
+                .withShiftTiming(VALID_SHIFT_ALEX).withHoursWorked(VALID_HOURS_ALEX)
+                .withPerformanceRating(VALID_RATING_ALEX).build();
+        DESC_BEN = new EditStaffDescriptorBuilder().withName(VALID_NAME_BEN)
+                .withPhone(VALID_PHONE_BEN).withEmail(VALID_EMAIL_BEN).withAddress(VALID_ADDRESS_BEN)
+                .withTags(VALID_TAG_MANAGER).withStaffId(VALID_STAFF_ID_BEN).withRole(VALID_ROLE_BEN)
+                .withShiftTiming(VALID_SHIFT_BEN).withHoursWorked(VALID_HOURS_BEN)
+                .withPerformanceRating(VALID_RATING_BEN).build();
     }
 
     /**
@@ -254,6 +267,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the staff at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showStaffAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredStaffList().size());
+
+        Person staff = model.getFilteredStaffList().get(targetIndex.getZeroBased());
+        final String[] splitName = staff.getName().fullName.split("\\s+");
+        model.updateFilteredStaffList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredStaffList().size());
     }
 
 }

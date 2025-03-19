@@ -12,10 +12,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,10 +39,10 @@ class JsonAdaptedCustomer {
 
     // Customer-specific fields
     private final String customerId;
-    private final int rewardPoints;
-    private final int visitCount;
+    private final String rewardPoints;
+    private final String visitCount;
     private final String favoriteItem;
-    private final double totalSpent;
+    private final String totalSpent;
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
@@ -50,10 +55,10 @@ class JsonAdaptedCustomer {
                                @JsonProperty("remark") String remark,
                                @JsonProperty("tags") List<JsonAdaptedTag> tags,
                                @JsonProperty("customerId") String customerId,
-                               @JsonProperty("rewardPoints") int rewardPoints,
-                               @JsonProperty("visitCount") int visitCount,
+                               @JsonProperty("rewardPoints") String rewardPoints,
+                               @JsonProperty("visitCount") String visitCount,
                                @JsonProperty("favoriteItem") String favoriteItem,
-                               @JsonProperty("totalSpent") double totalSpent) {
+                               @JsonProperty("totalSpent") String totalSpent) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -81,11 +86,11 @@ class JsonAdaptedCustomer {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        customerId = source.getCustomerId();
-        rewardPoints = source.getRewardPoints();
-        visitCount = source.getVisitCount();
-        favoriteItem = source.getFavoriteItem();
-        totalSpent = source.getTotalSpent();
+        customerId = source.getCustomerId().value;
+        rewardPoints = source.getRewardPoints().value;
+        visitCount = source.getVisitCount().value;
+        favoriteItem = source.getFavoriteItem().value;
+        totalSpent = source.getTotalSpent().value;
     }
 
     /**
@@ -139,13 +144,46 @@ class JsonAdaptedCustomer {
         if (customerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Customer ID"));
         }
+        if (!CustomerId.isValidCustomerId(customerId)) {
+            throw new IllegalValueException(CustomerId.MESSAGE_CONSTRAINTS);
+        }
+        final CustomerId modelCustomerId = new CustomerId(customerId);
+
+        if (rewardPoints == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Reward Points"));
+        }
+        if (!RewardPoints.isValidRewardPoints(rewardPoints)) {
+            throw new IllegalValueException(RewardPoints.MESSAGE_CONSTRAINTS);
+        }
+        final RewardPoints modelRewardPoints = new RewardPoints(rewardPoints);
+
+        if (visitCount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Visit Count"));
+        }
+        if (!VisitCount.isValidVisitCount(visitCount)) {
+            throw new IllegalValueException(VisitCount.MESSAGE_CONSTRAINTS);
+        }
+        final VisitCount modelVisitCount = new VisitCount(visitCount);
 
         if (favoriteItem == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Favorite Item"));
         }
+        if (!FavouriteItem.isValidFavouriteItem(favoriteItem)) {
+            throw new IllegalValueException(FavouriteItem.MESSAGE_CONSTRAINTS);
+        }
+        final FavouriteItem modelFavoriteItem = new FavouriteItem(favoriteItem);
+
+        if (totalSpent == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Total Spent"));
+        }
+        if (!TotalSpent.isValidTotalSpent(totalSpent)) {
+            throw new IllegalValueException(TotalSpent.MESSAGE_CONSTRAINTS);
+        }
+        final TotalSpent modelTotalSpent = new TotalSpent(totalSpent);
 
         final Set<Tag> modelTags = new HashSet<>(customerTags);
         return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
-                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
+                modelCustomerId, modelRewardPoints, modelVisitCount, modelFavoriteItem, modelTotalSpent);
     }
+
 }

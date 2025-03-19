@@ -16,10 +16,15 @@ import seedu.address.model.Model;
 import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -94,8 +99,8 @@ public class PurchaseCommand extends Command {
                 drink.getName(),
                 price,
                 pointsToAdd,
-                updatedCustomer.getRewardPoints(),
-                updatedCustomer.getTotalSpent()));
+                Integer.parseInt(updatedCustomer.getRewardPoints().value),
+                Double.parseDouble(updatedCustomer.getTotalSpent().value)));
     }
 
     /**
@@ -119,15 +124,28 @@ public class PurchaseCommand extends Command {
         Address address = customerToUpdate.getAddress();
         Remark remark = customerToUpdate.getRemark();
         Set<Tag> tags = customerToUpdate.getTags();
-        String customerId = customerToUpdate.getCustomerId();
-        int updatedRewardPoints = customerToUpdate.getRewardPoints() + pointsToAdd;
-        int visitCount = customerToUpdate.getVisitCount() + 1; // Increment visit count
-        String favoriteItem = customerToUpdate.getFavoriteItem();
-        double updatedTotalSpent = customerToUpdate.getTotalSpent() + purchaseAmount;
+        CustomerId customerId = customerToUpdate.getCustomerId();
+
+        // Retrieve current reward points and total spent values
+        int currentRewardPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
+        double currentTotalSpent = Double.parseDouble(customerToUpdate.getTotalSpent().value);
+        int currentVisitCount = Integer.parseInt(customerToUpdate.getVisitCount().value);
+
+        // Calculate updated values
+        int updatedRewardPoints = currentRewardPoints + pointsToAdd;
+        double updatedTotalSpent = currentTotalSpent + purchaseAmount;
+
+        // Create new RewardPoints and TotalSpent objects
+        RewardPoints newRewardPoints = new RewardPoints(String.valueOf(updatedRewardPoints));
+        TotalSpent newTotalSpent = new TotalSpent(String.format("%.2f", updatedTotalSpent));
+
+        VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount + 1));
+        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
 
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, updatedRewardPoints, visitCount, favoriteItem, updatedTotalSpent);
+                customerId, newRewardPoints, visitCount, favoriteItem, newTotalSpent);
     }
+
 
     @Override
     public boolean equals(Object other) {

@@ -31,7 +31,7 @@ public class TypicalStaff {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Staff staff : getTypicalStaff()) {
-            ab.addPerson(staff);
+            ab.addStaff(staff);
         }
         return ab;
     }
