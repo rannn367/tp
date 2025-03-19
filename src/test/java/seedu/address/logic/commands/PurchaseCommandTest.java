@@ -21,10 +21,15 @@ import seedu.address.model.drink.Drink;
 import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 
 public class PurchaseCommandTest {
 
@@ -50,11 +55,11 @@ public class PurchaseCommandTest {
             new Address("Test Address"),
             new Remark(""),
             new HashSet<>(),
-            "C001",
-            100, // Initial reward points
-            5, // Initial visit count
-            "Coffee", // Initial favorite item
-            50.0 // Initial total spent
+            new CustomerId("C001"),
+            new RewardPoints("100"),
+            new VisitCount("5"),
+            new FavouriteItem("Coffee"),
+            new TotalSpent("50.0")
         );
         addressBook.addCustomer(testCustomer);
 

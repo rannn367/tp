@@ -19,10 +19,10 @@ public class TypicalCustomers {
         .withEmail("james@example.com")
         .withPhone("91234789")
         .withRemark("Prefers decaf")
-        .withRewardPoints(200)
-        .withVisitCount(12)
+        .withRewardPoints("200")
+        .withVisitCount("12")
         .withFavoriteItem("Flat White")
-        .withTotalSpent(155.75)
+        .withTotalSpent("155.75")
 
         .withTags("regular", "student").build();
 
@@ -32,10 +32,10 @@ public class TypicalCustomers {
             .withEmail("olivia@example.com")
             .withPhone("82345678")
             .withRemark("Birthday in March")
-            .withRewardPoints(75)
-            .withVisitCount(3)
+            .withRewardPoints("75")
+            .withVisitCount("3")
             .withFavoriteItem("Green Tea Latte")
-            .withTotalSpent(42.90)
+            .withTotalSpent("42.90")
             .withTags("new", "student").build();
 
     private TypicalCustomers() {} // prevents instantiation

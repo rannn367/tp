@@ -77,8 +77,10 @@ public class PointsAddCommand extends Command {
         model.setCustomer(customerToUpdate, updatedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
+        // Fix: Extract the RewardPoints value as an integer for formatting
         return new CommandResult(String.format(MESSAGE_ADD_POINTS_SUCCESS,
-                customerToUpdate.getName().fullName, pointsToAdd, updatedCustomer.getRewardPoints()));
+                customerToUpdate.getName().fullName, pointsToAdd,
+                Integer.parseInt(updatedCustomer.getRewardPoints().value)));
     }
 
     /**

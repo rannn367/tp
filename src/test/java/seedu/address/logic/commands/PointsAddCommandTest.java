@@ -22,10 +22,15 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 
 public class PointsAddCommandTest {
 
@@ -47,11 +52,11 @@ public class PointsAddCommandTest {
             new Address("Test Address"),
             new Remark(""),
             new HashSet<>(),
-            "C001", // Customer ID
-            50, // Initial reward points
-            5, // Initial visit count
-            "Coffee", // Initial favorite item
-            50.0 // Initial total spent
+            new CustomerId("C001"),
+            new RewardPoints("50"),
+            new VisitCount("5"),
+            new FavouriteItem("Coffee"),
+            new TotalSpent("50.0")
         );
         addressBook.addCustomer(testCustomer);
 
@@ -62,10 +67,13 @@ public class PointsAddCommandTest {
     @Test
     public void execute_validIndexValidPoints_success() throws Exception {
         Customer customerBefore = (Customer) model.getFilteredCustomerList().get(0);
-        int initialPoints = customerBefore.getRewardPoints();
+
+        // Convert RewardPoints to int
+        int initialPoints = Integer.parseInt(customerBefore.getRewardPoints().value);
 
         PointsAddCommand pointsAddCommand = new PointsAddCommand(INDEX_FIRST_PERSON, VALID_POINTS);
 
+        // Fix: Extract the RewardPoints value as an integer for formatting
         String expectedMessage = String.format(PointsAddCommand.MESSAGE_ADD_POINTS_SUCCESS,
                 customerBefore.getName().fullName, VALID_POINTS, initialPoints + VALID_POINTS);
 
@@ -73,17 +81,17 @@ public class PointsAddCommandTest {
 
         // Create the expected updated customer
         Customer updatedCustomer = new Customer(
-            testCustomer.getName(),
-            testCustomer.getPhone(),
-            testCustomer.getEmail(),
-            testCustomer.getAddress(),
-            testCustomer.getRemark(),
-            testCustomer.getTags(),
-            testCustomer.getCustomerId(),
-            initialPoints + VALID_POINTS,
-            testCustomer.getVisitCount(),
-            testCustomer.getFavoriteItem(),
-            testCustomer.getTotalSpent()
+                testCustomer.getName(),
+                testCustomer.getPhone(),
+                testCustomer.getEmail(),
+                testCustomer.getAddress(),
+                testCustomer.getRemark(),
+                testCustomer.getTags(),
+                testCustomer.getCustomerId(),
+                new RewardPoints(String.valueOf(initialPoints + VALID_POINTS)), // Convert updated points to RewardPoints
+                testCustomer.getVisitCount(),
+                testCustomer.getFavoriteItem(),
+                testCustomer.getTotalSpent()
         );
 
         // Update the model directly to match expected state after command execution
@@ -93,8 +101,10 @@ public class PointsAddCommandTest {
 
         // Verify the points were added correctly
         Customer customerAfter = (Customer) model.getFilteredCustomerList().get(0);
-        assertEquals(initialPoints + VALID_POINTS, customerAfter.getRewardPoints());
+        assertEquals(initialPoints + VALID_POINTS, Integer.parseInt(customerAfter.getRewardPoints().value));
     }
+
+
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {

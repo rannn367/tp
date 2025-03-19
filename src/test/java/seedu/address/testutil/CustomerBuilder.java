@@ -5,10 +5,15 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -23,11 +28,11 @@ public class CustomerBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "Regular customer";
-    public static final int DEFAULT_REWARD_POINTS = 100;
-    public static final int DEFAULT_VISIT_COUNT = 5;
+    public static final String DEFAULT_REWARD_POINTS = "100";
+    public static final String DEFAULT_VISIT_COUNT = "5";
     public static final String DEFAULT_FAVORITE_ITEM = "Latte";
-    public static final double DEFAULT_TOTAL_SPENT = 75.50;
-    public static final int DEFAULT_RATING = 5;
+    public static final String DEFAULT_TOTAL_SPENT = "75.50";
+    public static final String DEFAULT_RATING = "5";
 
     private Name name;
     private Phone phone;
@@ -35,27 +40,27 @@ public class CustomerBuilder {
     private Address address;
     private Remark remark;
     private Set<Tag> tags;
-    private int rewardPoints;
-    private int visitCount;
-    private String favoriteItem;
-    private double totalSpent;
-    private String customerId;
+    private RewardPoints rewardPoints;
+    private VisitCount visitCount;
+    private FavouriteItem favoriteItem;
+    private TotalSpent totalSpent;
+    private CustomerId customerId;
 
     /**
      * Creates a {@code CustomerBuilder} with the default details.
      */
     public CustomerBuilder() {
-        customerId = DEFAULT_CUSTOMER_ID;
+        customerId = new CustomerId(DEFAULT_CUSTOMER_ID);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
-        rewardPoints = DEFAULT_REWARD_POINTS;
-        visitCount = DEFAULT_VISIT_COUNT;
-        favoriteItem = DEFAULT_FAVORITE_ITEM;
-        totalSpent = DEFAULT_TOTAL_SPENT;
+        rewardPoints = new RewardPoints(DEFAULT_REWARD_POINTS);
+        visitCount = new VisitCount(DEFAULT_VISIT_COUNT);
+        favoriteItem = new FavouriteItem(DEFAULT_FAVORITE_ITEM);
+        totalSpent = new TotalSpent(DEFAULT_TOTAL_SPENT);
     }
 
     /**
@@ -126,16 +131,16 @@ public class CustomerBuilder {
     /**
      * Sets the {@code rewardPoints} of the {@code Customer} that we are building.
      */
-    public CustomerBuilder withRewardPoints(int rewardPoints) {
-        this.rewardPoints = rewardPoints;
+    public CustomerBuilder withRewardPoints(String rewardPoints) {
+        this.rewardPoints = new RewardPoints(rewardPoints);
         return this;
     }
 
     /**
      * Sets the {@code visitCount} of the {@code Customer} that we are building.
      */
-    public CustomerBuilder withVisitCount(int visitCount) {
-        this.visitCount = visitCount;
+    public CustomerBuilder withVisitCount(String visitCount) {
+        this.visitCount = new VisitCount(visitCount);
         return this;
     }
 
@@ -143,15 +148,15 @@ public class CustomerBuilder {
      * Sets the {@code favoriteItem} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withFavoriteItem(String favoriteItem) {
-        this.favoriteItem = favoriteItem;
+        this.favoriteItem = new FavouriteItem(favoriteItem);
         return this;
     }
 
     /**
      * Sets the {@code totalSpent} of the {@code Customer} that we are building.
      */
-    public CustomerBuilder withTotalSpent(double totalSpent) {
-        this.totalSpent = totalSpent;
+    public CustomerBuilder withTotalSpent(String totalSpent) {
+        this.totalSpent = new TotalSpent(totalSpent);
         return this;
     }
 
@@ -159,7 +164,7 @@ public class CustomerBuilder {
      * Sets the {@code rating} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withCustomerId(String customerId) {
-        this.customerId = customerId;
+        this.customerId = new CustomerId(customerId);
         return this;
     }
 
