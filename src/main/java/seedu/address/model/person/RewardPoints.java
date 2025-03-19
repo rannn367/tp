@@ -17,7 +17,7 @@ public class RewardPoints {
      */
     public static final String VALIDATION_REGEX = "\\d+";
 
-    public final int value;
+    public final String value;
 
     /**
      * Constructs a {@code RewardPoints}.
@@ -27,7 +27,7 @@ public class RewardPoints {
     public RewardPoints(String points) {
         requireNonNull(points);
         checkArgument(isValidRewardPoints(points), MESSAGE_CONSTRAINTS);
-        this.value = Integer.parseInt(points);
+        this.value = points;
     }
 
     /**
@@ -39,18 +39,18 @@ public class RewardPoints {
 
     @Override
     public String toString() {
-        return Integer.toString(value);
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RewardPoints // instanceof handles nulls
-                && value == ((RewardPoints) other).value); // state check
+                && value.equals(((RewardPoints) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(value);
+        return value.hashCode();
     }
 }

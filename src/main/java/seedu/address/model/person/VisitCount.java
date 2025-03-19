@@ -17,7 +17,7 @@ public class VisitCount {
      */
     public static final String VALIDATION_REGEX = "\\d+";
 
-    public final int value;
+    public final String value;
 
     /**
      * Constructs a {@code VisitCount}.
@@ -27,7 +27,7 @@ public class VisitCount {
     public VisitCount(String visitCount) {
         requireNonNull(visitCount);
         checkArgument(isValidVisitCount(visitCount), MESSAGE_CONSTRAINTS);
-        this.value = Integer.parseInt(visitCount);
+        this.value = visitCount;
     }
 
     /**
@@ -39,18 +39,18 @@ public class VisitCount {
 
     @Override
     public String toString() {
-        return Integer.toString(value);
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VisitCount // instanceof handles nulls
-                && value == ((VisitCount) other).value); // state check
+                && value.equals(((VisitCount) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(value);
+        return value.hashCode();
     }
 }
