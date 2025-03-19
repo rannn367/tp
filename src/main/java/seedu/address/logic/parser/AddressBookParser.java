@@ -65,6 +65,8 @@ public class AddressBookParser {
         COMMAND_MAP.put(
             AddStaffCommand.COMMAND_WORD, arguments -> new AddStaffCommandParser().parse(arguments));
         COMMAND_MAP.put(
+            AddStaffCommand.COMMAND_WORD_SHORTCUT, arguments -> new AddStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
             EditStaffCommand.COMMAND_WORD, arguments -> new EditStaffCommandParser().parse(arguments));
         COMMAND_MAP.put(
             DeleteStaffCommand.COMMAND_WORD, arguments -> new DeleteStaffCommandParser().parse(arguments));

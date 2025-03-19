@@ -24,6 +24,7 @@ import seedu.address.model.person.Staff;
 public class AddStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "staffadd";
+    public static final String COMMAND_WORD_SHORTCUT = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff member to the address book. "
             + "Parameters: "
