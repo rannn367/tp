@@ -29,7 +29,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HoursAddCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.PointsAddCommand;
 import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -73,7 +72,6 @@ public class AddressBookParser {
             AddCustomerCommand.COMMAND_WORD, arguments -> new AddCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(
             DeleteCustomerCommand.COMMAND_WORD, arguments -> new DeleteCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(PointsAddCommand.COMMAND_WORD, arguments -> new PointsAddCommandParser().parse(arguments));
         COMMAND_MAP.put(DrinkAddCommand.COMMAND_WORD, arguments -> new DrinkAddCommandParser().parse(arguments));
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD, arguments -> new PurchaseCommandParser().parse(arguments));
         COMMAND_MAP.put(HoursAddCommand.COMMAND_WORD, arguments -> new HoursAddCommandParser().parse(arguments));
