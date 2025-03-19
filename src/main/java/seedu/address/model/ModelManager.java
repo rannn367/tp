@@ -186,10 +186,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setStaff(Staff target, Staff editedCustomer) {
-        requireAllNonNull(target, editedCustomer);
+    public void setStaff(Staff target, Staff editedStaff) {
+        requireAllNonNull(target, editedStaff);
 
-        addressBook.setStaff(target, editedCustomer);
+        addressBook.setStaff(target, editedStaff);
     }
     //=========== Filtered Person List Accessors =============================================================
 
