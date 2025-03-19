@@ -89,6 +89,11 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    @FXML
+    private void initialize() {
+        copyButton.setOnAction(event -> copyUrl());
+    }
+
     /**
      * Copies the URL to the user guide to the clipboard.
      */

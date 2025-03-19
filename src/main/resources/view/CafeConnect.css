@@ -1,0 +1,370 @@
+/* CafeConnect - Cafe Theme CSS */
+
+/* Gotham Font Declarations */
+@font-face {
+    font-family: 'Gotham Book';
+    src: url('../fonts/Gotham-Book.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Gotham Bold';
+    src: url('../fonts/GOTHAM-BOLD.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gotham Light';
+    src: url('../fonts/GOTHAM-LIGHT.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gotham Medium';
+    src: url('../fonts/GOTHAM-MEDIUM.TTF') format('truetype');
+}
+
+/* Main Color Palette
+ * Dark Brown: #4A3829 (text and headers)
+ * Medium Brown: #7D5A50 (accent color)
+ * Light Taupe: #B9A89B (secondary elements)
+ * Sand: #D9CAB3 (borders and highlights)
+ * Cream: #F6F2E9 (background color)
+ * Sage Green: #8A9A5B (accent color 2)
+ * Terracotta: #BC6C25 (highlight color)
+ */
+
+/* Background Styles */
+.background {
+    -fx-background-color: #F6F2E9;
+    background-color: #F6F2E9;
+}
+
+.main-pane {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 1px;
+}
+
+.main-pane-1, .main-pane-2, .main-pane-3, .main-pane-4, .main-pane-5 {
+    -fx-background-image: url("../images/cafe-background.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+/* Text Styles */
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Gotham Book", "Segoe UI", sans-serif;
+    -fx-text-fill: #4A3829;
+    -fx-opacity: 0.9;
+}
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Gotham Bold", "Segoe UI Semibold", sans-serif;
+    -fx-text-fill: #4A3829;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 24pt;
+    -fx-font-family: "Gotham Bold", "Segoe UI Light", sans-serif;
+    -fx-text-fill: #4A3829;
+    -fx-opacity: 1;
+}
+
+/* UI Component Styles */
+.stack-pane {
+    -fx-background-color: #F6F2E9;
+}
+
+.pane-with-border {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+/* Detail Panel Styling */
+.detail-panel {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+}
+
+.detail-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A3829;
+    -fx-padding: 0 0 10px 0;
+}
+
+.detail-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7D5A50;
+    -fx-font-weight: bold;
+}
+
+.detail-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4A3829;
+}
+
+.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7D5A50;
+    -fx-padding: 5px 0;
+}
+
+/* Command Box Styling */
+.command-box {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+#commandTextField {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-background-insets: 0;
+    -fx-border-color: #D9CAB3;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-font-family: "Gotham Book", "Segoe UI Light", serif;
+    -fx-font-size: 13pt;
+    -fx-text-fill: #4A3829;
+}
+
+.result-display {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-font-family: "Gotham Book", "Segoe UI Light", serif;
+    -fx-font-size: 13pt;
+    -fx-text-fill: #4A3829;
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.result-display .label {
+    -fx-text-fill: #4A3829 !important;
+}
+
+/* Menu and Status Bar */
+.menu-bar {
+    -fx-background-color: rgba(125, 90, 80, 0.9);
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Gotham Light", "Segoe UI Light", serif;
+    -fx-text-fill: #F6F2E9;
+    -fx-opacity: 0.9;
+}
+
+.context-menu {
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-border-color: #D9CAB3;
+}
+
+.context-menu .label {
+    -fx-text-fill: #4A3829;
+}
+
+.status-bar {
+    -fx-background-color: rgba(125, 90, 80, 0.9);
+}
+
+.status-bar .label {
+    -fx-font-family: "Gotham Light", "Segoe UI Light";
+    -fx-text-fill: #F6F2E9;
+    -fx-padding: 4px;
+    -fx-pref-height: 30px;
+}
+
+/* Tab Styling */
+.tab-pane {
+    -fx-background-color: rgba(246, 242, 233, 0.85);
+    -fx-padding: 0 0 0 0;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 0;
+}
+
+.tab {
+    -fx-background-color: #B9A89B;
+    -fx-background-radius: 3 3 0 0;
+    -fx-padding: 8px 15px;
+}
+
+.tab:selected {
+    -fx-background-color: #7D5A50;
+}
+
+.tab-label {
+    -fx-font-family: "Gotham Bold", "Segoe UI", serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #F6F2E9;
+    -fx-font-weight: bold;
+}
+
+/* List Styling */
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5px 0;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: rgba(246, 242, 233, 0.6);
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: rgba(217, 202, 179, 0.4);
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: rgba(125, 90, 80, 0.7);
+}
+
+.list-cell:filled:selected .cell-name,
+.list-cell:filled:selected .cell-details,
+.list-cell:filled:selected .cell-id {
+    -fx-text-fill: #F6F2E9;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #BC6C25;
+    -fx-border-width: 2;
+}
+
+/* Card Styling */
+#cardPane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 5px;
+}
+
+.person-card {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+.cell-id {
+    -fx-font-family: "Gotham Bold", "Segoe UI", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #7D5A50;
+    -fx-font-weight: bold;
+}
+
+.cell-name {
+    -fx-font-family: "Gotham Bold", "Segoe UI Semibold", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #4A3829;
+}
+
+.cell-details {
+    -fx-font-family: "Gotham Book", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #4A3829;
+    -fx-opacity: 0.9;
+}
+
+/* Tag Styling */
+.tag {
+    -fx-text-fill: #F6F2E9;
+    -fx-background-color: #8A9A5B;
+    -fx-padding: 1px 5px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-font-size: 11px;
+}
+
+#tags {
+    -fx-hgap: 5;
+    -fx-vgap: 3;
+}
+
+/* Scroll Bar Styling */
+.scroll-bar {
+    -fx-background-color: rgba(217, 202, 179, 0.6);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #7D5A50;
+    -fx-background-radius: 3px;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+/* Error Styling */
+.error {
+    -fx-text-fill: #BC6C25 !important;
+    -fx-border-color: #BC6C25;
+}
+
+/* Button Styling */
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #B9A89B;
+    -fx-border-width: 2;
+    -fx-background-radius: 5;
+    -fx-background-color: rgba(246, 242, 233, 0.9);
+    -fx-font-family: "Gotham Book", "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #4A3829;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #D9CAB3;
+}
+
+.button:pressed, .button:default:hover:pressed {
+    -fx-background-color: #7D5A50;
+    -fx-text-fill: #F6F2E9;
+}
+
+.button:focused {
+    -fx-border-color: #BC6C25, #BC6C25;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:default {
+    -fx-background-color: #7D5A50;
+    -fx-text-fill: #F6F2E9;
+}
+
+.button:default:hover {
+    -fx-background-color: #BC6C25;
+}
+
+/* No Selection Message */
+.no-selection-message {
+    -fx-font-size: 14pt;
+    -fx-text-fill: #7D5A50;
+    -fx-opacity: 0.8;
+    -fx-padding: 20px;
+}

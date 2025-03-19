@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -32,184 +33,210 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.ui.BackgroundImageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.address.ui.WelcomeScreen;
 
 /**
- * Runs the application.
+ * Runs the CafeConnect application.
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 2, 2, true);
+    public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected Ui ui;
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing CafeConnect ]===========================");
         super.init();
 
+        loadCustomFonts();
+        BackgroundImageManager.preloadBackgroundImages();
+
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-        initLogging(config);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         DrinkCatalogStorage drinkCatalogStorage = new JsonDrinkCatalogStorage(userPrefs.getDrinkCatalogFilePath());
+
         storage = new StorageManager(addressBookStorage, userPrefsStorage, drinkCatalogStorage);
 
+        initLogging(config);
         model = initModelManager(storage, userPrefs);
-
         logic = new LogicManager(model, storage);
-
         ui = new UiManager(logic);
     }
 
     /**
-     * Exposes Application init method to child of MainApp.
+     * Application initialization helper method for testing purposes.
      */
-    public void applicationInit() throws Exception {
-        super.init();
+    protected void applicationInit() throws Exception {
+        logger.info("Application init called");
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book, drink catalog
-     * and {@code userPrefs}. <br>
-     * The data from the sample address book and drink catalog will be used instead if {@code storage}'s
-     * data is not found, or empty versions will be used instead if errors occur when reading.
+     * Loads custom fonts for the application UI.
      */
-    protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using address book data file: " + storage.getAddressBookFilePath());
-        logger.info("Using drink catalog data file: " + storage.getDrinkCatalogFilePath());
-
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialAddressData;
+    private void loadCustomFonts() {
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                        + " populated with a sample AddressBook.");
-            }
-            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataLoadingException e) {
-            logger.warning("Address book data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
-            initialAddressData = new AddressBook();
+            // Load Gotham font family
+            loadFontFamily("/fonts/", new String[]{
+                "Gotham-Book.otf",
+                "GOTHAM-BOLD.TTF",
+                "GOTHAM-LIGHT.TTF",
+                "GOTHAM-MEDIUM.TTF"
+            });
+            logger.info("Gotham fonts loaded successfully");
+        } catch (Exception e) {
+            logger.severe("Failed to load Gotham fonts: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        Optional<ReadOnlyDrinkCatalog> drinkCatalogOptional;
-        ReadOnlyDrinkCatalog initialDrinkData;
-        try {
-            drinkCatalogOptional = storage.readDrinkCatalog();
-            if (!drinkCatalogOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getDrinkCatalogFilePath()
-                        + " populated with a sample DrinkCatalog.");
-            }
-            initialDrinkData = drinkCatalogOptional.orElseGet(SampleDataUtil::getSampleDrinkCatalog);
-        } catch (DataLoadingException e) {
-            logger.warning("Drink catalog data file at " + storage.getDrinkCatalogFilePath() + " could not be loaded."
-                    + " Will be starting with an empty DrinkCatalog.");
-            initialDrinkData = new DrinkCatalog();
-        }
-
-        return new ModelManager(initialAddressData, userPrefs, initialDrinkData);
-    }
-
-    private void initLogging(Config config) {
-        LogsCenter.init(config);
     }
 
     /**
-     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
-     * if {@code configFilePath} is null.
+     * Loads a font family with the given base path and variants.
      */
-    protected Config initConfig(Path configFilePath) {
-        Config initializedConfig;
-        Path configFilePathUsed;
+    private void loadFontFamily(String basePath, String[] fontFiles) {
+        for (String fontFile : fontFiles) {
+            try {
+                String fullPath = basePath + fontFile;
+                Font loadedFont = Font.loadFont(getClass().getResourceAsStream(fullPath), 12);
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
-
-        logger.info("Using config file : " + configFilePathUsed);
-
-        try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            if (!configOptional.isPresent()) {
-                logger.info("Creating new config file " + configFilePathUsed);
+                if (loadedFont == null) {
+                    logger.warning("Font could not be loaded: " + fullPath);
+                }
+            } catch (Exception e) {
+                logger.warning("Error loading font: " + fontFile + ": " + e.getMessage());
             }
-            initializedConfig = configOptional.orElse(new Config());
-        } catch (DataLoadingException e) {
-            logger.warning("Config file at " + configFilePathUsed + " could not be loaded."
-                    + " Using default config properties.");
-            initializedConfig = new Config();
         }
-
-        //Update config file in case it was missing to begin with or there are new/unused fields
-        try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-        return initializedConfig;
-    }
-
-    /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
-     */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using preference file : " + prefsFilePath);
-
-        UserPrefs initializedPrefs;
-        try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            if (!prefsOptional.isPresent()) {
-                logger.info("Creating new preference file " + prefsFilePath);
-            }
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataLoadingException e) {
-            logger.warning("Preference file at " + prefsFilePath + " could not be loaded."
-                    + " Using default preferences.");
-            initializedPrefs = new UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedPrefs;
     }
 
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting CafeConnect " + MainApp.VERSION);
-        ui.start(primaryStage);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(primaryStage, logic, (UiManager) ui);
+        welcomeScreen.show();
+    }
+
+    /**
+     * Initializes the ModelManager with data from storage or sample data.
+     */
+    protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyAddressBook initialAddressBookData = loadAddressBookData(storage);
+        ReadOnlyDrinkCatalog initialDrinkCatalogData = loadDrinkCatalogData(storage);
+
+        return new ModelManager(initialAddressBookData, userPrefs, initialDrinkCatalogData);
+    }
+
+    /**
+     * Loads AddressBook data from storage, using sample data or an empty AddressBook if loading fails.
+     */
+    private ReadOnlyAddressBook loadAddressBookData(Storage storage) {
+        try {
+            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readAddressBook();
+
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Address book data file not found. Will start with a sample AddressBook");
+                return SampleDataUtil.getSampleAddressBook();
+            }
+
+            return addressBookOptional.get();
+        } catch (DataLoadingException e) {
+            logger.warning("Address book data file could not be loaded. "
+                    + "Will start with an empty AddressBook: " + StringUtil.getDetails(e));
+            return new AddressBook();
+        }
+    }
+
+    /**
+     * Loads DrinkCatalog data from storage, using sample data or an empty DrinkCatalog if loading fails.
+     */
+    private ReadOnlyDrinkCatalog loadDrinkCatalogData(Storage storage) {
+        try {
+            Optional<ReadOnlyDrinkCatalog> drinkCatalogOptional = storage.readDrinkCatalog();
+
+            if (!drinkCatalogOptional.isPresent()) {
+                logger.info("Drink catalog data file not found. Will start with a sample DrinkCatalog");
+                return SampleDataUtil.getSampleDrinkCatalog();
+            }
+
+            return drinkCatalogOptional.get();
+        } catch (DataLoadingException e) {
+            logger.warning("Drink catalog data file could not be loaded. "
+                    + "Will start with an empty DrinkCatalog: " + StringUtil.getDetails(e));
+            return new DrinkCatalog();
+        }
+    }
+
+    /**
+     * Initializes logging configuration.
+     */
+    private void initLogging(Config config) {
+        LogsCenter.init(config);
+    }
+
+    /**
+     * Initializes configuration, using default or custom config file.
+     */
+    protected Config initConfig(Path configFilePath) {
+        Path configFilePathUsed = configFilePath != null
+                ? configFilePath
+                : Config.DEFAULT_CONFIG_FILE;
+
+        logger.info("Using config file: " + configFilePathUsed);
+
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            Config initializedConfig = configOptional.orElse(new Config());
+            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            return initializedConfig;
+        } catch (Exception e) {
+            logger.warning("Config file could not be read. Using default config: " + StringUtil.getDetails(e));
+            return new Config();
+        }
+    }
+
+    /**
+     * Initializes user preferences, using existing or default preferences.
+     */
+    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+        Path prefsFilePath = storage.getUserPrefsFilePath();
+        logger.info("Using preference file: " + prefsFilePath);
+
+        try {
+            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
+
+            if (!prefsOptional.isPresent()) {
+                logger.info("Creating new preference file: " + prefsFilePath);
+            }
+
+            UserPrefs initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            storage.saveUserPrefs(initializedPrefs);
+            return initializedPrefs;
+        } catch (Exception e) {
+            logger.warning("UserPrefs file could not be read. Using default prefs: " + StringUtil.getDetails(e));
+            return new UserPrefs();
+        }
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping CafeConnect ] =============================");
+        logger.info("============================ Stopping CafeConnect =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            logger.severe("Failed to save preferences: " + StringUtil.getDetails(e));
         }
     }
 }

@@ -243,15 +243,24 @@ public class EditCommand extends Command {
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
-        @Override
-        public String toString() {
+        /**
+         * Creates a {@code ToStringBuilder} for this object.
+         * The builder includes the fields: name, phone, email, address, and tags.
+         *
+         * @return A {@code ToStringBuilder} instance containing the string representation of this object.
+         */
+        public ToStringBuilder toStringBuilder() {
             return new ToStringBuilder(this)
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-                    .add("tags", tags)
-                    .toString();
+                    .add("tags", tags);
+        }
+
+        @Override
+        public String toString() {
+            return toStringBuilder().toString();
         }
     }
 }

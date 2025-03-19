@@ -2,59 +2,33 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" styleClass="person-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox spacing="2">
+        <!-- Customer name and ID -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="id" styleClass="cell-id" />
+            <Label fx:id="customerName" styleClass="cell-name" text="Customer Name" />
+        </HBox>
 
-    <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
+        <!-- Basic details -->
+        <Label fx:id="customerId" styleClass="cell-details" text="ID: ABC123" />
+        <Label fx:id="phone" styleClass="cell-details" text="Phone: 99999999" />
+        <Label fx:id="email" styleClass="cell-details" text="Email: name@example.com" />
 
-        <VBox styleClass="staff-pane" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-            <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
-            </padding>
+        <!-- Additional details -->
+        <HBox spacing="10">
+            <Label fx:id="visitCount" styleClass="cell-details" text="Visits: 10" />
+            <Label fx:id="totalSpent" styleClass="cell-details" text="Total: $100.00" />
+        </HBox>
 
-            <!-- Customer Name + (Phone, Email) in one line -->
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label" />
-                <Label fx:id="customerName" styleClass="cell_big_label" />
-                <Label fx:id="phone" styleClass="cell_small_label" />
-            </HBox>
-
-            <!-- Customer ID and Favourite Item in one line -->
-            <HBox spacing="5">
-                <Label fx:id="customerId" styleClass="cell_small_label" />
-                <Label fx:id="favouriteItem" styleClass="cell_small_label" />
-            </HBox>
-
-            <!-- Visit Count, Total Spent, and Reward Points in one line -->
-            <HBox spacing="5">
-                <Label fx:id="visitCount" styleClass="cell_small_label" />
-                <Label fx:id="totalSpent" styleClass="cell_small_label" />
-                <Label fx:id="rewardPoints" styleClass="cell_small_label" />
-            </HBox>
-
-            <!-- Address -->
-            <HBox spacing="5">
-                <Label text="Address:" styleClass="cell_small_label" />
-                <Label fx:id="address" styleClass="cell_small_label" />
-            </HBox>
-
-            <!-- Remark -->
-            <HBox spacing="5">
-                <Label text="Remark:" styleClass="cell_small_label" />
-                <Label fx:id="remark" styleClass="cell_small_label" />
-            </HBox>
-
-            <!-- Tags -->
-            <FlowPane fx:id="tags" />
-        </VBox>
-    </GridPane>
+        <!-- Tags -->
+        <FlowPane fx:id="tags" styleClass="cell-tags" />
+    </VBox>
+    <padding>
+        <Insets bottom="5" left="5" right="5" top="5" />
+    </padding>
 </HBox>
