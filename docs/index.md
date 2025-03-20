@@ -13,8 +13,8 @@
 
 **CaféConnect is a desktop application for managing your café's staff, customers, and drink menu.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
-* If you are interested in using CaféConnect, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested in developing CaféConnect, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+* If you are interested in using CaféConnect, head over to the [_Quick Start_ section of the **User Guide**](../docs/UserGuide.md).
+* If you are interested in developing CaféConnect, the [**Developer Guide**](../docs/DeveloperGuide.md) is a good place to start.
 
 **Key Features**
 * Manage staff records with roles, shift timings, and performance tracking
