@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.drink.*;
+import seedu.address.model.drink.Category;
+import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.drink.DrinkName;
+import seedu.address.model.drink.Price;
+import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;

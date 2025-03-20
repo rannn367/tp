@@ -29,6 +29,14 @@ public class Drink {
         this.category = category;
     }
 
+    /**
+     * Constructs a {@code Drink} object using the given drink name.
+     * It looks up the drink details from the {@code UniqueDrinkList}.
+     *
+     * @param drinkName The name of the drink to look up.
+     * @throws NullPointerException if {@code drinkName} is null.
+     * @throws DrinkNotFoundException if the drink with the specified name is not found in the catalog.
+     */
     public Drink(String drinkName) {
         requireNonNull(drinkName);
         Drink foundDrink = UniqueDrinkList.findDrinkByName(drinkName);
@@ -39,7 +47,6 @@ public class Drink {
         this.price = foundDrink.getPrice();
         this.category = foundDrink.getCategory();
     }
-
 
     public DrinkName getDrinkName() {
         return drinkName;
