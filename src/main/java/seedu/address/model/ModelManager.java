@@ -49,7 +49,6 @@ public class ModelManager implements Model {
         filteredStaffs = new FilteredList<>(this.addressBook.getStaffList());
         filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
         filteredDrinks = new FilteredList<>(this.drinkCatalog.getDrinkList());;
-
     }
 
     public ModelManager() {

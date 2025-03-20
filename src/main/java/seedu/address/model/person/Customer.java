@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,14 +18,14 @@ public class Customer extends Person {
     private final String customerId; // Customer id
     private final int rewardPoints; // Current reward points balance
     private final int visitCount; // Number of times customer has visited
-    private final String favoriteItem; // Customer's most ordered item
+    private final Drink favoriteItem; // Customer's most ordered item
     private final double totalSpent; // Total amount spent by customer
 
     /**
      * Every field must be present and not null.
      */
     public Customer(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
-                    String customerId, int rewardPoints, int visitCount, String favoriteItem, double totalSpent) {
+                    String customerId, int rewardPoints, int visitCount, Drink favoriteItem, double totalSpent) {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
 
@@ -47,7 +48,7 @@ public class Customer extends Person {
         return visitCount;
     }
 
-    public String getFavoriteItem() {
+    public Drink getFavoriteItem() {
         return favoriteItem;
     }
 

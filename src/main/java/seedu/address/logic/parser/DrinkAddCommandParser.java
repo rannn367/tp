@@ -9,7 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DrinkAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.drink.Category;
 import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.DrinkName;
+import seedu.address.model.drink.Price;
 
 /**
  * Parses input arguments and creates a new DrinkAddCommand object
@@ -44,7 +47,7 @@ public class DrinkAddCommandParser implements Parser<DrinkAddCommand> {
 
         String category = argMultimap.getValue(PREFIX_CATEGORY).get();
 
-        Drink drink = new Drink(name, price, category);
+        Drink drink = new Drink(new DrinkName(name), new Price(price), new Category(category));
 
         return new DrinkAddCommand(drink);
     }

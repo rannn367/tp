@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
@@ -36,7 +37,7 @@ class JsonAdaptedCustomer {
     private final String customerId;
     private final int rewardPoints;
     private final int visitCount;
-    private final String favoriteItem;
+    private final Drink favoriteItem;
     private final double totalSpent;
 
     /**
@@ -52,7 +53,7 @@ class JsonAdaptedCustomer {
                                @JsonProperty("customerId") String customerId,
                                @JsonProperty("rewardPoints") int rewardPoints,
                                @JsonProperty("visitCount") int visitCount,
-                               @JsonProperty("favoriteItem") String favoriteItem,
+                               @JsonProperty("favoriteItem") Drink favoriteItem,
                                @JsonProperty("totalSpent") double totalSpent) {
         this.name = name;
         this.phone = phone;

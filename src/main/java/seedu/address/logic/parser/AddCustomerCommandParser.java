@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
@@ -59,7 +60,7 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
 
         int rewardPoints = Integer.parseInt(argMultimap.getValue(PREFIX_REWARD_POINTS).get());
         int visitCount = Integer.parseInt(argMultimap.getValue(PREFIX_VISIT_COUNT).get());
-        String favoriteItem = argMultimap.getValue(PREFIX_FAVORITE_ITEM).get();
+        Drink favoriteItem = ParserUtil.parseDrink(argMultimap.getValue(PREFIX_FAVORITE_ITEM).get());
         double totalSpent = Double.parseDouble(argMultimap.getValue(PREFIX_TOTAL_SPENT).get());
 
         Customer customer = new Customer(name, phone, email, address, remark, tagList,

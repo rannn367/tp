@@ -2,14 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.drink.Drink;
+import seedu.address.model.drink.UniqueDrinkList;
+import seedu.address.model.drink.exceptions.DrinkNotFoundException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HoursWorked;
@@ -21,6 +20,10 @@ import seedu.address.model.person.Role;
 import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -162,6 +165,21 @@ public class ParserUtil {
             return pointsValue;
         } catch (NumberFormatException e) {
             throw new IllegalValueException("Points must be a valid integer");
+        }
+    }
+    
+    public static Drink parseDrink(String drinkName) throws ParseException {
+        requireNonNull(drinkName);
+        String trimmedName = drinkName.trim();
+        if (trimmedName.isEmpty()) {
+            throw new ParseException("Drink name cannot be empty.");
+        }
+
+        try {
+            // Directly call findDrinkByName() without orElseThrow()
+            return UniqueDrinkList.findDrinkByName(trimmedName);
+        } catch (DrinkNotFoundException e) {
+            throw new ParseException("Drink not found: " + trimmedName);
         }
     }
 

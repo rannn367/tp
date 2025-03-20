@@ -14,6 +14,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
@@ -92,7 +93,7 @@ public class PointsAddCommand extends Command {
         String customerId = customerToUpdate.getCustomerId();
         int updatedRewardPoints = customerToUpdate.getRewardPoints() + pointsToAdd;
         int visitCount = customerToUpdate.getVisitCount();
-        String favoriteItem = customerToUpdate.getFavoriteItem();
+        Drink favoriteItem = customerToUpdate.getFavoriteItem();
         double totalSpent = customerToUpdate.getTotalSpent();
 
         return new Customer(name, phone, email, address, remark, tags,

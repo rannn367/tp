@@ -1,10 +1,12 @@
 package seedu.address.model.drink;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.drink.exceptions.DrinkNotFoundException;
 
 /**
  * Represents a Drink in the café management system.
@@ -26,6 +28,18 @@ public class Drink {
         this.price = price;
         this.category = category;
     }
+
+    public Drink(String drinkName) {
+        requireNonNull(drinkName);
+        Drink foundDrink = UniqueDrinkList.findDrinkByName(drinkName);
+        if (foundDrink == null) {
+            throw new DrinkNotFoundException();
+        }
+        this.drinkName = foundDrink.getDrinkName();
+        this.price = foundDrink.getPrice();
+        this.category = foundDrink.getCategory();
+    }
+
 
     public DrinkName getDrinkName() {
         return drinkName;

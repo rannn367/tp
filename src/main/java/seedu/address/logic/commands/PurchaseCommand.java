@@ -72,7 +72,7 @@ public class PurchaseCommand extends Command {
 
         // Find the drink in the catalog
         Optional<Drink> drinkOptional = model.getFilteredDrinkList().stream()
-                .filter(d -> d.getName().equalsIgnoreCase(drinkName))
+                .filter(d -> d.getDrinkName().getDrinkName().equalsIgnoreCase(drinkName))
                 .findFirst();
 
         if (!drinkOptional.isPresent()) {
@@ -83,16 +83,16 @@ public class PurchaseCommand extends Command {
         Price price = drink.getPrice();
 
         // Calculate points to add based on purchase amount
-        int pointsToAdd = calculatePointsForPurchase(price);
+        int pointsToAdd = calculatePointsForPurchase(price.getPrice());
 
-        Customer updatedCustomer = createUpdatedCustomer(customerToUpdate, price, pointsToAdd);
+        Customer updatedCustomer = createUpdatedCustomer(customerToUpdate, price.getPrice(), pointsToAdd);
 
         model.setCustomer(customerToUpdate, updatedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
 
         return new CommandResult(String.format(MESSAGE_PURCHASE_SUCCESS,
                 customerToUpdate.getName(),
-                drink.getName(),
+                drink.getDrinkName(),
                 price,
                 pointsToAdd,
                 updatedCustomer.getRewardPoints(),
@@ -123,7 +123,7 @@ public class PurchaseCommand extends Command {
         String customerId = customerToUpdate.getCustomerId();
         int updatedRewardPoints = customerToUpdate.getRewardPoints() + pointsToAdd;
         int visitCount = customerToUpdate.getVisitCount() + 1; // Increment visit count
-        String favoriteItem = customerToUpdate.getFavoriteItem();
+        Drink favoriteItem = customerToUpdate.getFavoriteItem();
         double updatedTotalSpent = customerToUpdate.getTotalSpent() + purchaseAmount;
 
         return new Customer(name, phone, email, address, remark, tags,
