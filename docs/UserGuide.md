@@ -97,7 +97,7 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-## Adding a customer: `customeradd`
+## Adding a customer: `customeradd` or `c`
 
 Adds a customer to the address book with required details such as customer ID, name, phone, email, address, reward points, visit count, favorite item, and total spent.
 
@@ -126,6 +126,33 @@ These are the before and after images of the first example
   </div>
   <div style="text-align: center; max-width: 48%;">
     <img src="images/UG_Ui_Images/after_customeradd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding the customer</i></p>
+  </div>
+</div>
+
+## Adding a customer: `customeradd` or `c` (shortcut)
+
+An extension of the customeradd command above, useful when there is a need to input customer information quickly into the system.
+
+Format: `c <CUSTOMER_ID>:<NAME>:<PHONE>`
+
+* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
+* `PHONE` should only contain digits, and it should be at least 3 digits long
+
+Examples:
+* `c C0102:Charlie:97285712`
+* `c C0103:Charles:80192832`
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_customeraddshortcut.png" alt="Before adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding the customer</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_customeraddshortcut.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
     <p><i>After adding the customer</i></p>
   </div>
 </div>
@@ -189,26 +216,122 @@ These are the before and after images of the first example
   </div>
 </div>
 
-## Adding a staff: `staffadd`
+## Adding a staff: `staffadd` or `s`
 
 Adds a staff to the address book with required details such as staff ID, name, phone, email, address, role, shift, hours worked, and performance rating.
 
 Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
 
-* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
+* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
 * `PHONE` should only contain digits, and it should be at least 3 digits long
-* `EMAIL` must be a valid email address.
+* `EMAIL` must be a valid email address
 * `ADDRESS` can take any value, and it should not be blank
-* `REWARD_POINTS` should only contain digits
-* `VISIT_COUNT` should only contain digits
-* `FAVORITE_ITEM` can take any value, and it should not be blank
-* `TOTAL_SPENT` should only contain digits, representing the amount in dollars
+* `SHIFT_TIMING` should only contain digits
+* `HOURS_WORKED` should only contain digits
+* `PERFORMANCE_RATING` can take any value, and it should not be blank
+* `TAG` can take any value, optional field
 
 Examples:
-* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
-* `customeradd cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
+* `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced`
+* `staffadd sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime`
 
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_staffadd.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding the staff</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_staffadd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding the staff</i></p>
+  </div>
+</div>
+
+## Adding a staff: `staffadd` or `s` (shortcut)
+
+An extension of the staffadd command above, useful when there is a need to input staff information quickly into the system.
+
+Format: `s <STAFF_ID>:<NAME>:<PHONE>`
+
+* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
+* `PHONE` should only contain digits, and it should be at least 3 digits long
+
+Examples:
+* `s S0102:Ali:98291029`
+* `s S0103:Bali:89201029`
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_staffaddshortcut.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding the staff</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_staffaddshortcut.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding the staff</i></p>
+  </div>
+</div>
+
+## Deleting a staff: `staffdelete`
+
+Deletes the specified staff from the address book.
+
+Format: `staffdelete INDEX`
+
+* Deletes the staff at the specified `INDEX`.
+* The `INDEX` refers to the index number shown in the displayed staff list.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …
+* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five applications in the displayed list).
+
+Examples:
+* `staffdelete 2` deletes the 2nd staff in the address book.
+* `staffdelete 4` when you only have three staff returns an error message.
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_staffdelete.png" alt="Before deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before deleting the staff</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_staffdelete.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After deleting the staff</i></p>
+  </div>
+</div>
+
+## Adding hours worked for staff: `hoursadd`
+
+Adds number of hours worked for a staff.
+
+Format: `hoursadd ind/<INDEX> h/<HOURS>`
+
+* Records a purchase for the customer at the specified `INDEX`.
+* The `INDEX` refers to the index number shown in the displayed staff list.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …
+* The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
+* `HOURS` is the desired number of hours to add to the staff's total hours worked.
+
+Examples:
+* `hoursadd ind/1 h/5` adds 5 hours worked to the 1st staff in the list.
+* `hoursadd ind/9 h/5` when you have less than 9 staff returns an error.
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_hoursadd.png" alt="Before deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding hours worked for the staff</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_hoursadd.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding hours worked for the staff</i></p>
+  </div>
+</div>
 
 ### Clearing all entries : `clear`
 
