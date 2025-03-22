@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# CafeConnect Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -103,13 +103,13 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 <box type="info" seamless>
 
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+**Note:** The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </box>
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteStaffCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteStaffCommand`) which is executed by the `LogicManager`.
+1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCustomerCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCustomerCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a staff).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -120,7 +120,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCustomerCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
