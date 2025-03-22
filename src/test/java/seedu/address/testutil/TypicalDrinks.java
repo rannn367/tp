@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.drink.Drink;
-import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.DrinkCatalog;
 
 /**
  * A utility class containing a list of {@code Drink} objects to be used in tests.

@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.drink.Drink;
-import seedu.address.model.drink.DrinkCatalog;
+import seedu.address.model.DrinkCatalog;
 
 public class DrinkAddCommandTest {
 
