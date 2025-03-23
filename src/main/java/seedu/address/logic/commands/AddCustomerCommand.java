@@ -39,6 +39,7 @@ public class AddCustomerCommand extends Command {
             + PREFIX_TOTAL_SPENT + "TOTAL_SPENT "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_CUSTOMER_ID + "C1234 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "

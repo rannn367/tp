@@ -45,9 +45,9 @@ If you're a café owner who types fast and needs a simple way to manage customer
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cafeconnect.jar` command to run the application.<br>
-   
+
    The CafeConnect home screen will appear in a few seconds, displaying the application title and navigation options.
-   
+
    <div style="text-align: center; max-width: 80%; margin: 0 auto;">
      <img src="images/UG_Ui_Images/welcome_screen.png" alt="CafeConnect Welcome Screen" style="max-width: 100%; height: auto;"/>
      <p><i>CafeConnect Welcome Screen</i></p>
@@ -58,12 +58,12 @@ If you're a café owner who types fast and needs a simple way to manage customer
    * Click on **Drinks Menu** to view and manage the drink catalog directly
 
 3. The Staff & Customer Management section shows the initial staff data:
-   
+
    <div style="text-align: center; max-width: 80%; margin: 0 auto;">
      <img src="images/UG_Ui_Images/initial_staff.png" alt="Initial Staff Screen" style="max-width: 100%; height: auto;"/>
      <p><i>Initial Staff Screen</i></p>
    </div>
-   
+
    This section allows you to:
    * Add, edit, and delete staff members
    * Add, edit, and delete customers
@@ -71,12 +71,12 @@ If you're a café owner who types fast and needs a simple way to manage customer
    * Track staff working hours
 
 4. The Drinks Menu section shows the initial drink catalog:
-   
+
    <div style="text-align: center; max-width: 80%; margin: 0 auto;">
      <img src="images/UG_Ui_Images/initial_drink.png" alt="Initial Drinks Menu" style="max-width: 100%; height: auto;"/>
      <p><i>Initial Drinks Menu</i></p>
    </div>
-   
+
    This section allows you to:
    * View all drinks in the catalog
    * Add new drinks to the menu
@@ -98,7 +98,7 @@ Note: The application comes with sample data to help you get started.
    * `purchase ind/1 n/Espresso` : Records a purchase of Espresso for the 1st customer in the list.
 
    * `customerdelete 3` : Deletes the 3rd customer shown in the current customer list.
-   
+
    * `c C0102:Charlie:97285712` : Quickly adds a customer using the shortcut command.
 
    * `exit` : Exits the app.
@@ -475,7 +475,7 @@ Furthermore, certain edits can cause CafeConnect to behave in unexpected ways (e
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ 
+## FAQ
 
 Get your questions or doubts about CafeConnect's functionality and details answered here. If you have further questions, you can contact us through our email <font color="#dd0000">cafeconnect@gmail.com</font>.
 
@@ -528,7 +528,7 @@ Ans: Yes, all changes to customer or staff data are immediately reflected in the
 #### Q10: Can I use shortcuts to add customers and staff quickly?
 
 Ans: Yes, you can use the shortcut commands:
-- For customers: `c C0102:Charlie:97285712` 
+- For customers: `c C0102:Charlie:97285712`
 - For staff: `s S0102:Ali:98291029`
 
 These shortcuts allow you to quickly add basic information, which you can later edit to add more details if needed.
