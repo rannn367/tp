@@ -570,4 +570,3 @@ Action | Format, Examples
 **Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee`
 **Purchase** | `purchase ind/INDEX n/DRINK_NAME` <br> e.g., `purchase ind/1 n/Espresso`
 **Help** | `help`
-
