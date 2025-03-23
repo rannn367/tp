@@ -290,7 +290,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Customer Base: 100–300 regular customers
 * Pain Points:
   * Struggles with scattered information (handwritten notes, spreadsheets, physical loyalty cards)
-  * Finds it hard to keep track of customer preferences, allergies, birthdays, and visit history 
+  * Finds it hard to keep track of customer preferences, allergies, birthdays, and visit history
   * Needs a better way to manage staff shifts, roles, and contact details
   * Deals with frequent equipment breakdowns without a proper maintenance log
   * Wants to streamline supplier management and order frequency tracking
@@ -363,25 +363,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Café owner requests to add a new staff member. 
-2. System prompts for staff details: name, phone number, and role. 
-3. Café owner provides the required details. 
-4. System validates the input. 
-5. System adds the new staff member. 
+1. Café owner requests to add a new staff member.
+2. System prompts for staff details: name, phone number, and role.
+3. Café owner provides the required details.
+4. System validates the input.
+5. System adds the new staff member.
 6. System confirms the addition.
 Use case ends.
 
 **Extensions**
 
-* 4a. Provided name format is invalid. 
+* 4a. Provided name format is invalid.
 
-  * 4a1. System shows an error message. 
+  * 4a1. System shows an error message.
   
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided phone number is invalid.
 
-  * 4b1. System shows an error message. 
+  * 4b1. System shows an error message.
   
   * 4b2. Use case resumes at step 2.
 
@@ -391,7 +391,7 @@ Use case ends.
   
   * 4c2. Use case resumes at step 2.
 
-* 4d. Staff member with the same name and phone number already exists. 
+* 4d. Staff member with the same name and phone number already exists.
 
   * 4d1. System shows a duplication error message.
 
@@ -403,7 +403,7 @@ Use case ends.
   
   * 4e2. Café owner chooses not to update.
   
-  Use case ends. 
+  Use case ends.
   
   * 4e3. Café owner chooses to update.
   
@@ -515,9 +515,9 @@ Use case ends.
 Use case ends.
 
 **Extensions**
-* 4a. Provided reward name format is invalid. 
+* 4a. Provided reward name format is invalid.
 
-  * 4a1. System shows an error message. 
+  * 4a1. System shows an error message.
 
   * 4a2. Use case resumes at step 2.
 
@@ -555,13 +555,13 @@ Use case ends.
 * 4a. Reward not found.
 
   * 4a1. System shows an error message.
-  
+
     Use case ends.
 
 * 4b. Provided points value is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 **Use case: Track Customer Points**
@@ -583,10 +583,10 @@ Use case ends.
 Use case ends.
 
 **Extensions**
-* 4a. Provided customer name format is invalid. 
+* 4a. Provided customer name format is invalid.
 
   * 4a1. System shows an error message.
-    
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided points value is invalid.
@@ -598,17 +598,17 @@ Use case ends.
 * 4c. Customer not found.
 
   * 4c1. System shows an error message.
-  
+
     Use case ends.
 
 * 4d. Multiple customers with the same name are found.
 
   * 4d1. System prompts for a unique identifier (e.g., phone number).
-  
+
   * 4d2. Café owner provides the identifier.
-  
+
   * 4d3. System validates and updates the correct entry.
-  
+
   * 4d4. System confirms the update.
 
     Use case ends.
@@ -641,13 +641,13 @@ Use case ends.
 * 4b. Reward not found.
 
   * 4b1. System shows an error message.
-  
+
     Use case ends.
 
 * 5a. Customer does not have enough points.
 
   * 5a1. System shows an insufficient points message.
-  
+
     Use case ends.
 
 **Use case: View Customer Visit History**
@@ -668,7 +668,7 @@ Use case ends.
 * 4a. Customer not found.
 
   * 4a1. System shows an error message.
-  
+
     Use case ends.
 
 * 4b. Customer has no recorded visits.
@@ -697,13 +697,13 @@ Use case ends.
 * 2a. Provided date format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. No sales data found for the given date.
 
   * 3a1. System shows a message indicating no recorded transactions.
-  
+
     Use case ends.
 
 **Use case: Generate Customer Insights Report**
@@ -724,19 +724,19 @@ Use case ends.
 * 2a. Provided customer name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 2b. No data available for the requested report.
 
   * 2b1. System shows a message indicating lack of data.
-  
+
     Use case ends.
 
 * 3a. Customer not found.
 
   * 3a1. System shows an error message.
-  
+
     Use case ends.
 
 **Use case: Monitor Stock Levels**
@@ -757,19 +757,19 @@ Use case ends.
 * 2a. Provided item name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 2b. Item not found in inventory.
 
   * 2b1. System shows an error message.
-  
+
     Use case ends.
 
 * 2c. Provided threshold value is invalid.
 
   * 2c1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. Stock level is below the threshold.
@@ -794,13 +794,13 @@ Use case ends.
 * 2a. Provided customer name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. Customer not found.
 
   * 3a1. System shows an error message.
-  
+
     Use case ends.
 
 **Use case: View Customer Order History**
@@ -819,13 +819,13 @@ Use case ends.
 * 2a. Provided customer name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. Customer not found.
 
   * 3a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3b. No past orders found for the customer.
@@ -856,25 +856,25 @@ Use case ends.
 * 4a. Provided customer name format is invalid.
 
   * 4a1. System shows an error message.
-  
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided rating is out of the accepted range.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Feedback message exceeds character limit.
 
   * 4c1. System shows an error message.
-  
+
   * 4c2. Use case resumes at step 2.
 
 * 4d. Customer not found.
 
   * 4d1. System shows an error message.
-  
+
     Use case ends.
 
 **Use case: Add a Supplier Email**
@@ -898,9 +898,9 @@ Use case ends.
 * 4a. Provided name format is invalid.
 
   * 4a1. System shows an error message.
-  
+
   * 4a2. Use case resumes at step 2.
-  
+
 * 4b. Provided email format is invalid.
 
   * 4b1. System shows an error message.
@@ -912,27 +912,27 @@ Use case ends.
   * 4c1. System shows a duplication error message.
 
     Use case ends.
-    
+
 * 4d. Supplier with the same name but a different email exists.
-  
+
   * 4d1. System prompts to confirm if email should be updated.
-    
+
   * 4d2. Café owner chooses not to update.
-    
+
     Use case ends.
-    
+
   * 4d3. Café owner chooses to update.
-    
+
     * System updates the email.
-      
+
     * System confirms the update.
-      
+
     Use case ends.
 
 * 4e. Required fields are missing.
-    
+
   * 4e1. System shows an error message.
-      
+
   * 4e2. Use case resumes at step 2.
 
 **Use case: Delete a Supplier Email**
@@ -951,7 +951,7 @@ Use case ends.
 
 6. System confirms the deletion.
 
-Use case ends. 
+Use case ends.
 
 **Extensions**
 
@@ -960,17 +960,17 @@ Use case ends.
   * 4a1. System shows an error message.
 
     Use case ends.
-  
+
 * 4b. Multiple suppliers with the same name are found.
 
   * 4b1. System prompts for the email.
-  
+
   * 4b2. Café owner provides the email.
-  
+
   * 4b3. System validates and deletes the correct entry.
-  
+
   * 4b4. System confirms the deletion.
-  
+
     Use case ends.
 
 **Use case: View Supplier Email List**
@@ -987,7 +987,7 @@ Use case ends.
 * 2a. The supplier list is empty.
 
   * 2a1. System shows a message indicating no suppliers are found.
-  
+
     Use case ends.
 
 **Use case: View Supplier Email List**
@@ -1011,54 +1011,54 @@ Use case ends.
 
 1. Performance & Scalability
 
-   * The application should be able to handle up to 1000 persons without noticeable sluggishness in performance for typical usage. 
-   
-   * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for contacts. 
-   
-   * The startup time should be no more than 2 seconds on a modern consumer-grade computer. 
-   
+   * The application should be able to handle up to 1000 persons without noticeable sluggishness in performance for typical usage.
+
+   * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for contacts.
+
+   * The startup time should be no more than 2 seconds on a modern consumer-grade computer.
+
    * The application should consume no more than 200MB of RAM during normal operation with 1000 persons stored.
 
 3. Compatibility & Portability
-   
+
    * The application should be compatible with Java 17 or above and run on any mainstream OS (Windows, Linux, macOS, Unix).
-   
+
    * The application should be usable on both 32-bit and 64-bit architectures.
-   
+
    * The system should be self-contained and should not require an internet connection for core functionalities.
-   
+
 3. Usability & Accessibility
 
    * A user with above-average typing speed for regular English text should be able to accomplish most tasks faster using commands than using the mouse.
-   
+
    * The user interface should be intuitive enough for users who are not IT-savvy.
-   
+
    * The application should provide clear and actionable error messages when a user makes an incorrect input.
-   
+
 4. Reliability & Robustness
 
    * The system should not crash or freeze when an invalid command is entered.
-   
+
    * User data should be persisted safely to prevent accidental loss due to application crashes.
-   
+
    * The system should be able to recover gracefully from unexpected failures (e.g., power loss, abrupt shutdowns).
-   
+
 5. Security & Privacy
 
    * The system should not expose private contact details unless explicitly permitted by the user.
-   
+
    * The application should ensure that only authorized users can access certain functionalities if applicable.
 
 6. Maintainability & Extensibility
 
    * The codebase should be modular and well-structured, allowing easy addition of new features without affecting existing ones.
-   
+
    * The system should be easily maintainable, with clear documentation for developers.
 
 7. Compliance & Constraints
 
-   * The application should follow standard software development best practices, ensuring reliability and efficiency. 
-   
+   * The application should follow standard software development best practices, ensuring reliability and efficiency.
+
    * The application should not exceed a total package size of 100MB to ensure ease of distribution and comply with Constraint-File-Size.
 
 ### Glossary
