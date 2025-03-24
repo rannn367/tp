@@ -13,7 +13,7 @@
         <padding>
             <Insets bottom="20" left="20" right="20" top="20" />
         </padding>
-        
+
         <Label text="CafeConnect" styleClass="welcome-title" />
         <Label text="Staff and Customer Management System" styleClass="welcome-text" />
 
