@@ -69,4 +69,8 @@ shadowJar {
     archiveFileName = 'cafeconnect.jar'
 }
 
+run {
+    enableAssertions = true
+}
+
 defaultTasks 'clean', 'test'
