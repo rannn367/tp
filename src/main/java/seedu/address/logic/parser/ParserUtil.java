@@ -239,6 +239,19 @@ public class ParserUtil {
         }
         return new PerformanceRating(trimmedPerformanceRating);
     }
+    /**
+     * Parses a {@code String boolean} into a {@code boolean}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code boolean} is invalid.
+     */
+    public static boolean parseBoolean(String bool) throws ParseException {
+        String trimmedBool = bool.trim();
+        if (!trimmedBool.equalsIgnoreCase("true") && !trimmedBool.equalsIgnoreCase("false")) {
+            throw new ParseException("Boolean value must be 'true' or 'false'");
+        }
+        return Boolean.parseBoolean(trimmedBool);
+    }
 
 
 }
