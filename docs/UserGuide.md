@@ -1,7 +1,7 @@
 ---
   layout: default.md
   title: "User Guide"
-  pageNav: 3
+  pageNav: 4
 ---
 
 # CaféConnect User Guide
@@ -415,32 +415,54 @@ These are the before and after images of the first example
 
 ## Recording a purchase: `purchase`
 
-Records a purchase for a customer, updating their total spent, visit count, and reward points.
+Records a purchase for a customer, updating their total spent, visit count, and reward points. Optionally, allows redemption of reward points to pay for the purchase.
 
-Format: `purchase ind/INDEX n/DRINK_NAME`
+Format: `purchase INDEX n/DRINK_NAME [redeem/true]`
 
 * Records a purchase for the customer at the specified `INDEX`.
 * The `INDEX` refers to the index number shown in the displayed customer list.
 * The `INDEX` **must be a positive integer** 1, 2, 3, …
 * The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
 * `DRINK_NAME` must match a drink that exists in the drink catalog.
-* For every $1 spent, customers earn 10 reward points.
-* Visit count will be incremented by 1 for each purchase.
+* For standard purchases (without redemption):
+  * For every $1 spent, customers earn 10 reward points.
+  * Total spent is updated with the drink price.
+* For redemption purchases (with `redeem/true`):
+  * Reward points are deducted at a rate of 100 points = $1 (e.g., a $4.50 drink costs 450 points).
+  * Total spent is not updated as the purchase is made with points.
+* Visit count will be incremented by 1 for each purchase, including redemptions.
 
 Examples:
-* `purchase ind/1 n/Espresso` records a purchase of an espresso for the 1st customer in the list.
-* `purchase ind/3 n/Cappuccino` records a purchase of a cappuccino for the 3rd customer in the list.
+* `purchase 1 n/Espresso` records a regular purchase of an Espresso for the 1st customer, updating their total spent and adding reward points.
+* `purchase 2 n/Cappuccino redeem/true` redeems a Cappuccino for the 3rd customer using their reward points.
 
-These are the before and after images of the first example
+### Standard Purchase
+
+These are the before and after images of a standard purchase using the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_purchase.png" alt="Before recording a purchase" style="max-width: 100%; height: auto;"/>
-    <p><i>Before recording a purchase</i></p>
+    <img src="images/UG_Ui_Images/before_purchase.png" alt="Before standard purchase" style="max-width: 100%; height: auto;"/>
+    <p><i>Before standard purchase</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_purchase.png" alt="After recording a purchase" style="max-width: 100%; height: auto;"/>
-    <p><i>After recording a purchase</i></p>
+    <img src="images/UG_Ui_Images/after_purchase.png" alt="After standard purchase" style="max-width: 100%; height: auto;"/>
+    <p><i>After standard purchase (points added and total spent increased)</i></p>
+  </div>
+</div>
+
+### Redemption Purchase
+
+These are the before and after images of a redemption purchase using the second example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_purchase_redeem.png" alt="Before redemption purchase" style="max-width: 100%; height: auto;"/>
+    <p><i>Before redemption purchase</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_purchase_redeem.png" alt="After redemption purchase" style="max-width: 100%; height: auto;"/>
+    <p><i>After redemption purchase (points deducted, total spent unchanged)</i></p>
   </div>
 </div>
 
@@ -568,5 +590,5 @@ Action | Format, Examples
 **Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` <br> e.g., `staffedit 1 p/99994567 e/newemail@example.com`
 **Add Hours** | `hoursadd ind/INDEX h/HOURS` <br> e.g., `hoursadd ind/1 h/5`
 **Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee`
-**Purchase** | `purchase ind/INDEX n/DRINK_NAME` <br> e.g., `purchase ind/1 n/Espresso`
+**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` <br> e.g., `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
 **Help** | `help`
