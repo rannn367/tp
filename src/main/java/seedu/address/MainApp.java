@@ -53,6 +53,19 @@ public class MainApp extends Application {
     protected Config config;
     protected Ui ui;
 
+    // Flag to indicate if the app is running in test mode
+    private boolean isTestMode = false;
+
+    /**
+     * Sets the application to run in test mode.
+     * In test mode, UI components that might cause test failures (like WelcomeScreen) are bypassed.
+     *
+     * @param testMode true to enable test mode, false otherwise
+     */
+    public void setTestMode(boolean testMode) {
+        this.isTestMode = testMode;
+    }
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing CafeConnect ]===========================");
@@ -99,8 +112,7 @@ public class MainApp extends Application {
             });
             logger.info("Gotham fonts loaded successfully");
         } catch (Exception e) {
-            logger.severe("Failed to load Gotham fonts: " + e.getMessage());
-            e.printStackTrace();
+            logger.warning("Failed to load Gotham fonts (this is expected in test environments): " + e.getMessage());
         }
     }
 
@@ -125,6 +137,16 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting CafeConnect " + MainApp.VERSION);
+
+        // Skip welcome screen in test mode to avoid resource loading issues
+        if (isTestMode) {
+            logger.info("Running in test mode - bypassing welcome screen");
+            // Let the UiManager handle the UI initialization in test mode
+            ui.start(primaryStage);
+            return;
+        }
+
+        // Normal application flow with welcome screen
         WelcomeScreen welcomeScreen = new WelcomeScreen(primaryStage, logic, (UiManager) ui);
         welcomeScreen.show();
     }

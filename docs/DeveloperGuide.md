@@ -1,13 +1,13 @@
 ---
   layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+    title: "Developer Guide"
+    pageNav: 3
 ---
 
 # CafeConnect Developer Guide
 
 <!-- * Table of Contents -->
-<page-nav-print />
+<page-nav-print></page-nav-print>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ### Architecture
 
-<puml src="diagrams/ArchitectureDiagram.puml" width="280" />
+<puml src="diagrams/ArchitectureDiagram.puml" width="280"></puml>
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -52,7 +52,7 @@ The bulk of the app's work is done by the following four components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `customerdelete 1`.
 
-<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
+<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574"></puml>
 <box type="info" seamless>
 
 **Note:** The sequence diagram shows a simplified execution of the `DeleteCommand`.
@@ -61,11 +61,11 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<puml src="diagrams/ComponentManagers.puml" width="300" />
+<puml src="diagrams/ComponentManagers.puml" width="300"></puml>
 
 The sections below give more details of each component.
 
@@ -73,7 +73,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-<puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
+<puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"></puml>
 
 The **UI** consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StaffListPanel`, `DrinkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
@@ -95,11 +95,11 @@ The `HelpWindow` component is shown when you execute a help command. It contains
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml" width="550"></puml>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("customerdelete 1")` API call as an example.
 
-<puml src="diagrams/DeleteCustomerSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `customerdelete 1` Command" />
+<puml src="diagrams/DeleteCustomerSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `customerdelete 1` Command"></puml>
 
 <box type="info" seamless>
 
@@ -109,14 +109,14 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCustomerCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCustomerCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a staff).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCustomerCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a staff).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<puml src="diagrams/ParserClasses.puml" width="600"/>
+<puml src="diagrams/ParserClasses.puml" width="600"></puml>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -125,21 +125,21 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="850" height="1500" />
+<puml src="diagrams/ModelClassDiagram.puml" width="850" height="1500"></puml>
 
 
 The `Model` component,
 
 * stores CaféConnect data i.e., all `Person`, `Staff`, `Customer` and `Drink` objects (which are contained in a `UniquePersonList`, `UniqueStaffList`, `UniqueCustomerList` and `UniqueDrinkList` objects).
 * stores the currently 'selected' `Person`, `Staff`, `Customer` or `DrinkList` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>`, `ObservableList<Staff>`, `ObservableList<Customer>` and `ObservableList<Drink>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
 **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+<puml src="diagrams/BetterModelClassDiagram.puml" width="450"></puml>
 
 </box>
 
@@ -148,7 +148,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="550"></puml>
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
@@ -171,9 +171,9 @@ This section describes some noteworthy details on how certain features are imple
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
@@ -181,15 +181,15 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0"></puml>
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1"></puml>
 
 Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2"></puml>
 
 <box type="info" seamless>
 
@@ -199,7 +199,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3"></puml>
 
 
 <box type="info" seamless>
@@ -211,7 +211,7 @@ than attempting to perform the undo.
 
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic"></puml>
 
 <box type="info" seamless>
 
@@ -221,9 +221,9 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 Similarly, how an undo operation goes through the `Model` component is shown below:
 
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
+<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model"></puml>
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 <box type="info" seamless>
 
@@ -233,15 +233,15 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
+<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4"></puml>
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
+<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5"></puml>
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
+<puml src="diagrams/CommitActivityDiagram.puml" width="250"></puml>
 
 #### Design considerations:
 
@@ -369,26 +369,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. System validates the input.
 5. System adds the new staff member.
 6. System confirms the addition.
-Use case ends.
+   Use case ends.
 
 **Extensions**
 
 * 4a. Provided name format is invalid.
 
   * 4a1. System shows an error message.
-  
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided phone number is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Role description exceeds character limit.
 
   * 4c1. System shows an error message.
-  
+
   * 4c2. Use case resumes at step 2.
 
 * 4d. Staff member with the same name and phone number already exists.
@@ -400,17 +400,17 @@ Use case ends.
 * 4e. Staff member with the same name but different phone number exists.
 
   * 4e1. System prompts to confirm if phone number should be updated.
-  
+
   * 4e2. Café owner chooses not to update.
-  
+
   Use case ends.
-  
+
   * 4e3. Café owner chooses to update.
-  
+
     * System updates phone number.
-    
+
     * System confirms update.
-    
+
   Use case ends.
 
 **Use case: Delete a Staff Member**
@@ -421,7 +421,7 @@ Use case ends.
 
 2. System prompts for the staff member's name.
 
-3. Café owner provides the staff member’s name.
+3. Café owner provides the staff member's name.
 
 4. System checks if the staff member exists.
 
@@ -473,9 +473,9 @@ Use case ends.
 
 1. Café owner requests to search for a staff member by name.
 
-2. System prompts for the staff member’s name.
+2. System prompts for the staff member's name.
 
-3. Café owner provides the staff member’s name.
+3. Café owner provides the staff member's name.
 
 4. System searches for matching staff members.
 
@@ -524,7 +524,7 @@ Use case ends.
 * 4b. Provided points value is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Reward with the same name already exists.
@@ -576,7 +576,7 @@ Use case ends.
 
 4. System validates the input.
 
-5. System updates the customer’s points balance.
+5. System updates the customer's points balance.
 
 6. System confirms the update.
 
@@ -654,13 +654,13 @@ Use case ends.
 
 **MSS**
 
-1. Café owner requests to view a customer’s visit history.
+1. Café owner requests to view a customer's visit history.
 
-2. System prompts for the customer’s name.
+2. System prompts for the customer's name.
 
-3. Café owner provides the customer’s name.
+3. Café owner provides the customer's name.
 
-4. System retrieves and displays the customer’s visit history.
+4. System retrieves and displays the customer's visit history.
 
 Use case ends.
 
@@ -782,11 +782,11 @@ Use case ends.
 
 **MSS**
 
-1. Café owner requests to view a customer’s reward points.
+1. Café owner requests to view a customer's reward points.
 
 2. System validates the customer name.
 
-3. System retrieves and displays the customer’s reward points and eligible rewards.
+3. System retrieves and displays the customer's reward points and eligible rewards.
 
 Use case ends.
 
@@ -807,11 +807,11 @@ Use case ends.
 
 **MSS**
 
-1. Café owner requests to view a customer’s order history.
+1. Café owner requests to view a customer's order history.
 
 2. System validates the customer name.
 
-3. System retrieves and displays the customer’s past orders.
+3. System retrieves and displays the customer's past orders.
 
 Use case ends.
 
@@ -974,23 +974,6 @@ Use case ends.
     Use case ends.
 
 **Use case: View Supplier Email List**
-**MSS**
-
-1. Café owner requests to view the supplier email list.
-
-2. System retrieves and displays the list of suppliers.
-
-Use case ends.
-
-**Extensions**
-
-* 2a. The supplier list is empty.
-
-  * 2a1. System shows a message indicating no suppliers are found.
-
-    Use case ends.
-
-**Use case: View Supplier Email List**
 
 **MSS**
 
@@ -1001,6 +984,7 @@ Use case ends.
 Use case ends.
 
 **Extensions**
+
 * 2a. The supplier list is empty.
 
   * 2a1. System shows a message indicating no suppliers are found.
@@ -1011,55 +995,55 @@ Use case ends.
 
 1. Performance & Scalability
 
-   * The application should be able to handle up to 1000 persons without noticeable sluggishness in performance for typical usage.
+  * The application should be able to handle up to 1000 persons without noticeable sluggishness in performance for typical usage.
 
-   * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for contacts.
+  * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for contacts.
 
-   * The startup time should be no more than 2 seconds on a modern consumer-grade computer.
+  * The startup time should be no more than 2 seconds on a modern consumer-grade computer.
 
-   * The application should consume no more than 200MB of RAM during normal operation with 1000 persons stored.
+  * The application should consume no more than 200MB of RAM during normal operation with 1000 persons stored.
 
-3. Compatibility & Portability
+2. Compatibility & Portability
 
-   * The application should be compatible with Java 17 or above and run on any mainstream OS (Windows, Linux, macOS, Unix).
+  * The application should be compatible with Java 17 or above and run on any mainstream OS (Windows, Linux, macOS, Unix).
 
-   * The application should be usable on both 32-bit and 64-bit architectures.
+  * The application should be usable on both 32-bit and 64-bit architectures.
 
-   * The system should be self-contained and should not require an internet connection for core functionalities.
+  * The system should be self-contained and should not require an internet connection for core functionalities.
 
 3. Usability & Accessibility
 
-   * A user with above-average typing speed for regular English text should be able to accomplish most tasks faster using commands than using the mouse.
+  * A user with above-average typing speed for regular English text should be able to accomplish most tasks faster using commands than using the mouse.
 
-   * The user interface should be intuitive enough for users who are not IT-savvy.
+  * The user interface should be intuitive enough for users who are not IT-savvy.
 
-   * The application should provide clear and actionable error messages when a user makes an incorrect input.
+  * The application should provide clear and actionable error messages when a user makes an incorrect input.
 
 4. Reliability & Robustness
 
-   * The system should not crash or freeze when an invalid command is entered.
+  * The system should not crash or freeze when an invalid command is entered.
 
-   * User data should be persisted safely to prevent accidental loss due to application crashes.
+  * User data should be persisted safely to prevent accidental loss due to application crashes.
 
-   * The system should be able to recover gracefully from unexpected failures (e.g., power loss, abrupt shutdowns).
+  * The system should be able to recover gracefully from unexpected failures (e.g., power loss, abrupt shutdowns).
 
 5. Security & Privacy
 
-   * The system should not expose private contact details unless explicitly permitted by the user.
+  * The system should not expose private contact details unless explicitly permitted by the user.
 
-   * The application should ensure that only authorized users can access certain functionalities if applicable.
+  * The application should ensure that only authorized users can access certain functionalities if applicable.
 
 6. Maintainability & Extensibility
 
-   * The codebase should be modular and well-structured, allowing easy addition of new features without affecting existing ones.
+  * The codebase should be modular and well-structured, allowing easy addition of new features without affecting existing ones.
 
-   * The system should be easily maintainable, with clear documentation for developers.
+  * The system should be easily maintainable, with clear documentation for developers.
 
 7. Compliance & Constraints
 
-   * The application should follow standard software development best practices, ensuring reliability and efficiency.
+  * The application should follow standard software development best practices, ensuring reliability and efficiency.
 
-   * The application should not exceed a total package size of 100MB to ensure ease of distribution and comply with Constraint-File-Size.
+  * The application should not exceed a total package size of 100MB to ensure ease of distribution and comply with Constraint-File-Size.
 
 ### Glossary
 
@@ -1087,7 +1071,7 @@ Use case ends.
 
 * Self-contained application: An application that does not require external dependencies or an internet connection for its core features to function.
 
-* Scalability: The system’s ability to maintain performance and responsiveness even as the user base or data size increases.
+* Scalability: The system's ability to maintain performance and responsiveness even as the user base or data size increases.
 
 * Undo/Redo functionality: A feature that allows users to reverse or reapply their last action, improving usability and error recovery.
 
@@ -1112,40 +1096,40 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+  a. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  b. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+  a. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+  b. Re-launch the app by double-clicking the jar file.<br>
+     Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3._{ more test cases …​ }_
 
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+  a. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+  b. Test case: `delete 1`<br>
+     Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+  c. Test case: `delete 0`<br>
+     Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+  d. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+     Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2._{ more test cases …​ }_
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+  a._{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+2._{ more test cases …​ }_

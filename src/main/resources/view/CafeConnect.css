@@ -31,6 +31,99 @@
  * Terracotta: #BC6C25 (highlight color)
  */
 
+/* Welcome screen specific styles */
+.welcome-background {
+    -fx-background-color: linear-gradient(to bottom, #F6F2E9, #EFE8D8);
+    -fx-padding: 40px;
+}
+
+.welcome-container {
+    -fx-spacing: 30px;
+    -fx-alignment: center;
+    -fx-max-width: 900px;
+}
+
+/* Main title styling */
+.welcome-title {
+    -fx-font-family: "Gotham Bold", "Segoe UI Bold", sans-serif;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A3829;
+    -fx-effect: dropshadow(gaussian, rgba(74,56,41,0.2), 2, 0, 0, 1);
+}
+
+/* Subtitle styling */
+.welcome-subtitle {
+    -fx-font-family: "Gotham Medium", "Segoe UI Semibold", sans-serif;
+    -fx-font-size: 22px;
+    -fx-text-fill: #4A3829;
+    -fx-effect: dropshadow(gaussian, rgba(74,56,41,0.2), 1, 0, 0, 1);
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Logo container */
+.logo-container {
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
+.button-container {
+    -fx-spacing: 30px;
+    -fx-padding: 15px 0 0 0;
+    -fx-alignment: center;
+}
+
+/* Welcome screen buttons */
+.welcome-button {
+    -fx-background-color: #7D5A50;
+    -fx-text-fill: #F6F2E9;
+    -fx-font-family: "Gotham Bold", "Segoe UI Semibold", sans-serif;
+    -fx-font-size: 16px;
+    -fx-padding: 15px 30px;
+    -fx-min-width: 280px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #D9CAB3;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.welcome-button:hover {
+    -fx-background-color: #8A674E;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 7, 0, 0, 3);
+}
+
+.welcome-button:pressed {
+    -fx-background-color: #4A3829;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.subtitle {
+    -fx-font-size: 20px;
+    -fx-text-fill: #6D4C41;
+    -fx-padding: 5px 0 30px 0;
+}
+
+.menu-button {
+    -fx-background-color: #8D6E63;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 30px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #6D4C41;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 1);
+}
+
+.menu-button:hover {
+    -fx-background-color: #6D4C41;
+    -fx-cursor: hand;
+}
+
 /* Background Styles */
 .background {
     -fx-background-color: #F6F2E9;
@@ -41,12 +134,6 @@
     -fx-background-color: rgba(246, 242, 233, 0.9);
     -fx-border-color: #D9CAB3;
     -fx-border-width: 1px;
-}
-
-.main-pane-1, .main-pane-2, .main-pane-3, .main-pane-4, .main-pane-5 {
-    -fx-background-image: url("../images/cafe-background.jpg");
-    -fx-background-size: cover;
-    -fx-background-position: center;
 }
 
 /* Text Styles */
