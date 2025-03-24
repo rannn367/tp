@@ -415,7 +415,7 @@ These are the before and after images of the first example
 
 ## Recording a purchase: `purchase`
 
-Records a purchase for a customer, updating their total spent, visit count, and reward points. Optionally, allows redemption of reward points to pay for the purchase.
+Records a purchase for a customer, updating their total spent, visit count, and reward points. Optionally, allows users to redeem reward points to pay for the purchase.
 
 Format: `purchase INDEX n/DRINK_NAME [redeem/true]`
 
