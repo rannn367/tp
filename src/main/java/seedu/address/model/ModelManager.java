@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.drink.Drink;
-import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
@@ -37,7 +36,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-        ReadOnlyDrinkCatalog drinkCatalog) {
+                        ReadOnlyDrinkCatalog drinkCatalog) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -133,7 +132,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+    public void updateFilteredStaffList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
     }
@@ -177,6 +176,12 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void setStaff(Staff target, Staff editedStaff) {
+        requireAllNonNull(target, editedStaff);
+
+        addressBook.setStaff(target, editedStaff);
+    }
 
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {
@@ -195,6 +200,7 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    @Override
     public ObservableList<Staff> getFilteredStaffList() {
         return filteredStaffs;
     }

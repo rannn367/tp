@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -16,6 +14,14 @@ public class CustomerCard extends UiPart<Region> {
 
     private static final String FXML = "CustomerListCard.fxml";
 
+    /**
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
+     * As a consequence, UI elements' variable names cannot be set to such keywords
+     * or an exception will be thrown by JavaFX during runtime.
+     *
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     */
+
     public final Customer customer;
 
     @FXML
@@ -25,21 +31,15 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private Label customerName;
     @FXML
-    private Label phone;
-    @FXML
     private Label customerId;
     @FXML
-    private Label favouriteItem;
+    private Label phone;
+    @FXML
+    private Label email;
     @FXML
     private Label visitCount;
     @FXML
     private Label totalSpent;
-    @FXML
-    private Label rewardPoints;
-    @FXML
-    private Label address;
-    @FXML
-    private Label remark;
     @FXML
     private FlowPane tags;
 
@@ -49,23 +49,38 @@ public class CustomerCard extends UiPart<Region> {
     public CustomerCard(Customer customer, int displayedIndex) {
         super(FXML);
         this.customer = customer;
-
         id.setText(displayedIndex + ". ");
         customerName.setText(customer.getName().fullName);
-        phone.setText("(" + customer.getPhone().value + ", " + customer.getEmail().value + ")");
+        customerId.setText("ID: " + customer.getCustomerId());
+        phone.setText("Phone: " + customer.getPhone().value);
+        email.setText("Email: " + customer.getEmail().value);
+        visitCount.setText("Visits: " + customer.getVisitCount());
+        totalSpent.setText("Total: $" + String.format("%.2f", Double.parseDouble(customer.getTotalSpent().value)));
 
-        customerId.setText("Customer ID: " + customer.getCustomerId());
-        favouriteItem.setText("| Favourite Item: " + customer.getFavoriteItem());
 
-        visitCount.setText("Visit Count: " + customer.getVisitCount());
-        totalSpent.setText("| Total Spent: $" + customer.getTotalSpent());
-        rewardPoints.setText("| Reward Points: " + customer.getRewardPoints());
+        // Set tags
+        customer.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add("tag");
+            tags.getChildren().add(tagLabel);
+        });
+    }
 
-        address.setText(customer.getAddress().value);
-        remark.setText(customer.getRemark().value);
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
 
-        customer.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        // instanceof handles nulls
+        if (!(other instanceof CustomerCard)) {
+            return false;
+        }
+
+        // state check
+        CustomerCard card = (CustomerCard) other;
+        return id.getText().equals(card.id.getText())
+                && customer.equals(card.customer);
     }
 }

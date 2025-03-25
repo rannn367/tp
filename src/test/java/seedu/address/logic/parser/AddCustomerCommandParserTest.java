@@ -56,10 +56,15 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 
 public class AddCustomerCommandParserTest {
@@ -78,11 +83,11 @@ public class AddCustomerCommandParserTest {
                         new Address(VALID_ADDRESS_JAMES),
                         new Remark(""),
                         Set.of(new Tag(VALID_TAG_STUDENT)),
-                        VALID_CUSTOMER_ID_JAMES,
-                        VALID_REWARD_POINTS_JAMES,
-                        VALID_VISIT_COUNT_JAMES,
-                        VALID_FAVORITE_ITEM_JAMES,
-                        VALID_TOTAL_SPENT_JAMES));
+                        new CustomerId(VALID_CUSTOMER_ID_JAMES),
+                        new RewardPoints(VALID_REWARD_POINTS_JAMES),
+                        new VisitCount(VALID_VISIT_COUNT_JAMES),
+                        new FavouriteItem(VALID_FAVORITE_ITEM_JAMES),
+                        new TotalSpent(VALID_TOTAL_SPENT_JAMES)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -212,4 +217,30 @@ public class AddCustomerCommandParserTest {
                 + FAVORITE_ITEM_DESC_JAMES + TOTAL_SPENT_DESC_JAMES,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_validFastAdd_success() {
+        String userInput = "C1230:John:91234567"; // Simulating fast-add format
+
+        // Define the expected AddCustomerCommand with the correct default values
+        AddCustomerCommand expectedCommand = new AddCustomerCommand(
+                new Customer(
+                        new Name("John"),
+                        new Phone("91234567"),
+                        new Email("default@gmail.com"),
+                        new Address("empty"),
+                        new Remark(""),
+                        Set.of(),
+                        new CustomerId("C1230"),
+                        new RewardPoints("0"),
+                        new VisitCount("1"),
+                        new FavouriteItem("unknown"),
+                        new TotalSpent("10")
+                )
+        );
+
+        // Assert that the parsed command matches the expected command
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
 }

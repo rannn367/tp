@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.drink.*;
+import seedu.address.model.DrinkCatalog;
+import seedu.address.model.drink.Drink;
 
 /**
  * A utility class containing a list of {@code Drink} objects to be used in tests.
@@ -23,9 +24,6 @@ public class TypicalDrinks {
     public static final Drink ORANGE_JUICE = new Drink("Orange Juice", 4.00, "Cold Drinks");
     public static final Drink APPLE_JUICE = new Drink("Apple Juice", 4.00, "Cold Drinks");
     public static final Drink ICED_COFFEE = new Drink("Iced Coffee", 4.50, "Cold Drinks");
-    public static final Drink CHOCOLATE_COOKIE = new Drink("Chocolate Chip Cookie", 2.50, "Pastries");
-    public static final Drink CROISSANT = new Drink("Croissant", 3.00, "Pastries");
-    public static final Drink BLUEBERRY_MUFFIN = new Drink("Blueberry Muffin", 3.50, "Pastries");
 
     // Drinks with unusual properties for testing edge cases
     public static final Drink EXPENSIVE_SPECIALTY = new Drink("Special Reserve Coffee", 15.00, "Specialty");
@@ -59,13 +57,6 @@ public class TypicalDrinks {
      */
     public static List<Drink> getBasicDrinks() {
         return new ArrayList<>(Arrays.asList(ESPRESSO, LATTE, GREEN_TEA, ORANGE_JUICE));
-    }
-
-    /**
-     * Returns only the food items (pastries).
-     */
-    public static List<Drink> getFoodItems() {
-        return new ArrayList<>(Arrays.asList(CHOCOLATE_COOKIE, CROISSANT, BLUEBERRY_MUFFIN));
     }
 
     /**

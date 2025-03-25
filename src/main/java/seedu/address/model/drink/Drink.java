@@ -19,7 +19,12 @@ public class Drink {
     private final Price price;
     private final Category category;
 
+    // Optional fields - stored as transient to not affect equals/hashCode
+    private transient String description;
+    private transient int stock;
+
     /**
+     * Basic constructor with required fields only.
      * Every field must be present and not null.
      */
     public Drink(DrinkName drinkName, Price price, Category category) {
@@ -27,6 +32,9 @@ public class Drink {
         this.drinkName = drinkName;
         this.price = price;
         this.category = category;
+        // Default values for optional fields
+        this.description = "";
+        this.stock = 0;
     }
 
     /**
@@ -58,6 +66,30 @@ public class Drink {
 
     public Category getCategory() {
         return category;
+    }
+
+    public String getDescription() {
+        return description != null ? description : "";
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    /**
+     * Sets the description without affecting equals/hashCode.
+     * Note: This does not affect the immutability of the core fields.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Sets the stock without affecting equals/hashCode.
+     * Note: This does not affect the immutability of the core fields.
+     */
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     /**
@@ -99,10 +131,6 @@ public class Drink {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("drinkName", drinkName)
-                .add("price", price)
-                .add("category", category)
-                .toString();
+        return getDrinkName().toString() + " $" + getPrice().toString() + " Category: " + getCategory().toString();
     }
 }

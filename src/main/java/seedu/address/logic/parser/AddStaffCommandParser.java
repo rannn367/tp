@@ -35,12 +35,51 @@ import seedu.address.model.tag.Tag;
  */
 public class AddStaffCommandParser implements Parser<AddStaffCommand> {
 
+    private static final String DEFAULT_EMAIL = "default@gmail.com";
+    private static final String DEFAULT_ADDRESS = "empty";
+    private static final String DEFAULT_REMARK = "";
+    private static final String DEFAULT_ROLE = "Full Time worker";
+    private static final String DEFAULT_SHIFT_TIMING = "9am-5pm";
+    private static final String DEFAULT_HOURS_WORKED = "0";
+    private static final String DEFAULT_PERFORMANCE_RATING = "0";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddStaffCommand
      * and returns an AddStaffCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
     public AddStaffCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+
+        // Fast add format: <staffId>:<name>:<phone>
+        if (trimmedArgs.matches("^[^\\s:]+:[^\\s:]+:[^\\s:]+$")) {
+            String[] staffInfo = trimmedArgs.split(":");
+
+            if (staffInfo.length != 3) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStaffCommand.MESSAGE_USAGE));
+            }
+
+            StaffId staffId = ParserUtil.parseStaffId(staffInfo[0]);
+            Name name = ParserUtil.parseName(staffInfo[1]);
+            Phone phone = ParserUtil.parsePhone(staffInfo[2]);
+
+            Email email = new Email(DEFAULT_EMAIL);
+            Address address = new Address(DEFAULT_ADDRESS);
+            Remark remark = new Remark(DEFAULT_REMARK);
+            Set<Tag> tagList = Set.of();
+
+            Role role = new Role(DEFAULT_ROLE);
+            ShiftTiming shiftTiming = new ShiftTiming(DEFAULT_SHIFT_TIMING);
+            HoursWorked hoursWorked = new HoursWorked(DEFAULT_HOURS_WORKED);
+            PerformanceRating performanceRating = new PerformanceRating(DEFAULT_PERFORMANCE_RATING);
+
+            Staff staff = new Staff(name, phone, email, address, remark, tagList,
+                    staffId, role, shiftTiming, hoursWorked, performanceRating);
+
+            return new AddStaffCommand(staff);
+        }
+
+        // Default behavior for other cases (where user provides all fields)
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
                 PREFIX_STAFF_ID, PREFIX_ROLE, PREFIX_SHIFT_TIMING, PREFIX_HOURS_WORKED, PREFIX_PERFORMANCE_RATING);
@@ -73,6 +112,7 @@ public class AddStaffCommandParser implements Parser<AddStaffCommand> {
 
         return new AddStaffCommand(staff);
     }
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

@@ -67,7 +67,9 @@ public abstract class UiPart<T> {
         requireNonNull(location);
         fxmlLoader.setLocation(location);
         fxmlLoader.setController(this);
-        fxmlLoader.setRoot(root);
+        if (root != null) {
+            fxmlLoader.setRoot(root);
+        }
         try {
             fxmlLoader.load();
         } catch (IOException e) {
@@ -84,5 +86,4 @@ public abstract class UiPart<T> {
         URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
         return requireNonNull(fxmlFileUrl);
     }
-
 }

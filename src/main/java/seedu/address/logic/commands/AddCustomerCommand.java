@@ -24,6 +24,7 @@ import seedu.address.model.person.Customer;
 public class AddCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "customeradd";
+    public static final String COMMAND_WORD_SHORTCUT = "c";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
             + "Parameters: "
@@ -38,6 +39,7 @@ public class AddCustomerCommand extends Command {
             + PREFIX_TOTAL_SPENT + "TOTAL_SPENT "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_CUSTOMER_ID + "C1234 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -23,6 +25,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HoursAddCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -94,14 +97,34 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_remark() throws Exception {
-
         final Remark remark = new Remark("Some remark.");
         RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark);
         assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, remark), command);
     }
 
+    @Test
+    public void parseCommand_hoursAdd() throws Exception {
+        // Correct format: hoursadd <index> <hours>
+        HoursAddCommand command = (HoursAddCommand) parser.parseCommand(
+                HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "8");
+        assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 8), command);
 
+        // Another valid test case with different hours
+        command = (HoursAddCommand) parser.parseCommand(
+                HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "10");
+        assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 10), command);
+    }
+
+    @Test
+    public void parseCommand_hoursAddInvalidInputThrowsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                HoursAddCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(HoursAddCommand.COMMAND_WORD + " 1 " + PREFIX_HOURS + "-5"));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        HoursAddCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(HoursAddCommand.COMMAND_WORD + " abc " + PREFIX_HOURS + "8"));
+    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
@@ -112,5 +135,89 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    // New tests for the fuzzy matching functionality
+
+    @Test
+    public void parseCommand_typoWithCloseLevenshteinDistance_suggestsCorrectCommand() {
+        // Test close typos that should be caught by Levenshtein distance (≤ 2)
+        try {
+            parser.parseCommand("ad");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'add'?"));
+        }
+
+        try {
+            parser.parseCommand("delte");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'delete'?"));
+        }
+
+        try {
+            parser.parseCommand("lisr");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'list'?"));
+        }
+
+        try {
+            parser.parseCommand("cler");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'clear'?"));
+        }
+    }
+
+    @Test
+    public void parseCommand_typoWithTokenSetRatioMatch_suggestsCorrectCommand() {
+        // Test typos that should be caught by token set ratio (≥ 80%)
+        try {
+            parser.parseCommand("hlep");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'help'?"));
+        }
+
+        try {
+            parser.parseCommand("edti");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'edit'?"));
+        }
+
+        try {
+            parser.parseCommand("fnid");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertTrue(e.getMessage().contains("Did you mean 'find'?"));
+        }
+    }
+
+    @Test
+    public void parseCommand_commandWithNoCloseMatch_doesNotSuggest() {
+        // Test commands that are too different to suggest alternatives
+        try {
+            parser.parseCommand("xyz");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
+        }
+
+        try {
+            parser.parseCommand("commandnotexist");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
+        }
+
+        try {
+            parser.parseCommand("randomtext");
+            assertTrue(false, "Expected ParseException was not thrown");
+        } catch (ParseException e) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
+        }
     }
 }
