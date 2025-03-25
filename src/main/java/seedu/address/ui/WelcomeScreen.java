@@ -24,6 +24,9 @@ public class WelcomeScreen extends UiPart<Region> {
     private static final String FXML = "WelcomeScreen.fxml";
     private static final Logger logger = LogsCenter.getLogger(WelcomeScreen.class);
 
+    // The path to the coffee icon
+    private static final String COFFEE_ICON_PATH = "docs/images/cafeconnect_graphics/cafeconnect-icon.png";
+
     private final Logic logic;
     private final Stage primaryStage;
     private final UiManager uiManager;
@@ -38,7 +41,13 @@ public class WelcomeScreen extends UiPart<Region> {
     private StackPane welcomePane;
 
     @FXML
-    private ImageView logoImageView;
+    private ImageView logoIconView;
+
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label sloganLabel;
 
     @FXML
     private Label subtitleLabel;
@@ -96,28 +105,31 @@ public class WelcomeScreen extends UiPart<Region> {
             welcomePane.setStyle("-fx-background-color: #F2E8CF;"); // Warm earthy color as fallback
         }
 
-        // Safely initialize logo image
-        if (logoImageView != null) {
+        // Style the title and slogan
+        if (titleLabel != null) {
+            titleLabel.getStyleClass().add("welcome-title");
+        }
+
+        if (sloganLabel != null) {
+            sloganLabel.getStyleClass().add("welcome-slogan");
+        }
+
+        // Safely initialize coffee icon
+        if (logoIconView != null) {
             try {
-                // First try to load from classpath
-                String logoPath = "/images/cafeconnect-logo-with-slogan.png";
-                Image logoImage = BackgroundImageManager.getBackgroundImage(logoPath);
+                // Load the coffee icon image directly from the file path
+                Image iconImage = new Image("file:" + COFFEE_ICON_PATH);
 
-                // If that fails, try the specific path we know exists
-                if (logoImage == null || logoImage.isError()) {
-                    logoPath = "docs/images/cafeconnect_graphics/cafeconnect-logo-with-slogan.png";
-                    logoImage = new Image("file:" + logoPath);
-                }
-
-                if (!logoImage.isError()) {
-                    logoImageView.setImage(logoImage);
-                    logger.info("Successfully loaded logo image from: " + logoPath);
+                if (!iconImage.isError()) {
+                    logoIconView.setImage(iconImage);
+                    logger.info("Successfully loaded coffee icon from: " + COFFEE_ICON_PATH);
                 } else {
-                    logger.warning("Failed to load logo image - will show placeholder");
+                    logger.warning("Failed to load coffee icon - will try alternative paths");
+                    tryLoadingFromAlternativePaths();
                 }
             } catch (Exception e) {
-                logger.warning("Could not load logo image: " + e.getMessage());
-                // Continue without the logo - the UI will still be functional
+                logger.warning("Could not load coffee icon: " + e.getMessage());
+                tryLoadingFromAlternativePaths();
             }
         }
 
@@ -128,6 +140,43 @@ public class WelcomeScreen extends UiPart<Region> {
 
         if (drinksMenuButton != null) {
             drinksMenuButton.setOnAction(event -> handleDrinksMenuButtonAction());
+        }
+    }
+
+    /**
+     * Tries to load the coffee icon from alternative paths.
+     */
+    private void tryLoadingFromAlternativePaths() {
+        try {
+            // Try alternative paths
+            String[] alternativePaths = {
+                "/images/cafeconnect-icon.png",
+                "src/main/resources/images/cafeconnect-icon.png",
+                "cafeconnect-icon.png"
+            };
+
+            for (String path : alternativePaths) {
+                try {
+                    Image altImage;
+                    if (path.startsWith("/")) {
+                        altImage = BackgroundImageManager.getBackgroundImage(path);
+                    } else {
+                        altImage = new Image("file:" + path);
+                    }
+
+                    if (altImage != null && !altImage.isError()) {
+                        logoIconView.setImage(altImage);
+                        logger.info("Successfully loaded coffee icon from alternative path: " + path);
+                        return;
+                    }
+                } catch (Exception e) {
+                    logger.fine("Failed to load from " + path + ": " + e.getMessage());
+                }
+            }
+
+            logger.warning("Could not load coffee icon from any path");
+        } catch (Exception e) {
+            logger.warning("Error in tryLoadingFromAlternativePaths: " + e.getMessage());
         }
     }
 

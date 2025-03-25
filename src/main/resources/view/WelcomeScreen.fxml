@@ -10,12 +10,21 @@
 
 <StackPane fx:id="welcomePane" styleClass="welcome-background" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER" spacing="25" styleClass="welcome-container">
-        <!-- Logo with drop shadow -->
-        <ImageView fx:id="logoImageView" fitWidth="360" fitHeight="360" preserveRatio="true" styleClass="logo-container">
-            <effect>
-                <DropShadow radius="10" color="#00000040"/>
-            </effect>
-        </ImageView>
+        <!-- Logo container with coffee icon, title and slogan -->
+        <VBox alignment="CENTER" spacing="5" styleClass="logo-container">
+            <!-- Coffee cup icon -->
+            <ImageView fx:id="logoIconView" fitWidth="150" fitHeight="150" preserveRatio="true">
+                <effect>
+                    <DropShadow radius="5" color="#00000040"/>
+                </effect>
+            </ImageView>
+
+            <!-- CaféConnect text -->
+            <Label fx:id="titleLabel" text="CaféConnect" styleClass="welcome-title"/>
+
+            <!-- Slogan text -->
+            <Label fx:id="sloganLabel" text="from beans to business" styleClass="welcome-slogan"/>
+        </VBox>
 
         <!-- Subtitle with better spacing -->
         <Label fx:id="subtitleLabel" text="Staff and Customer Management System" styleClass="welcome-subtitle"/>
