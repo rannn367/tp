@@ -33,7 +33,6 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.ui.BackgroundImageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 import seedu.address.ui.WelcomeScreen;
@@ -72,7 +71,6 @@ public class MainApp extends Application {
         super.init();
 
         loadCustomFonts();
-        BackgroundImageManager.preloadBackgroundImages();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());

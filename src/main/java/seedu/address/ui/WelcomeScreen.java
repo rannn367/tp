@@ -125,11 +125,9 @@ public class WelcomeScreen extends UiPart<Region> {
                     logger.info("Successfully loaded coffee icon from: " + COFFEE_ICON_PATH);
                 } else {
                     logger.warning("Failed to load coffee icon - will try alternative paths");
-                    tryLoadingFromAlternativePaths();
                 }
             } catch (Exception e) {
                 logger.warning("Could not load coffee icon: " + e.getMessage());
-                tryLoadingFromAlternativePaths();
             }
         }
 
@@ -143,42 +141,7 @@ public class WelcomeScreen extends UiPart<Region> {
         }
     }
 
-    /**
-     * Tries to load the coffee icon from alternative paths.
-     */
-    private void tryLoadingFromAlternativePaths() {
-        try {
-            // Try alternative paths
-            String[] alternativePaths = {
-                "/images/cafeconnect-icon.png",
-                "src/main/resources/images/cafeconnect-icon.png",
-                "cafeconnect-icon.png"
-            };
 
-            for (String path : alternativePaths) {
-                try {
-                    Image altImage;
-                    if (path.startsWith("/")) {
-                        altImage = BackgroundImageManager.getBackgroundImage(path);
-                    } else {
-                        altImage = new Image("file:" + path);
-                    }
-
-                    if (altImage != null && !altImage.isError()) {
-                        logoIconView.setImage(altImage);
-                        logger.info("Successfully loaded coffee icon from alternative path: " + path);
-                        return;
-                    }
-                } catch (Exception e) {
-                    logger.fine("Failed to load from " + path + ": " + e.getMessage());
-                }
-            }
-
-            logger.warning("Could not load coffee icon from any path");
-        } catch (Exception e) {
-            logger.warning("Error in tryLoadingFromAlternativePaths: " + e.getMessage());
-        }
-    }
 
     /**
      * Handles the staff/customer button action.
