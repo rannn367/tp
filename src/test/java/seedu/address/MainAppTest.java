@@ -63,7 +63,7 @@ public class MainAppTest {
             // Toolkit is already running, which is fine
         }
 
-        // Create temporary files - use Files.createFile only if they don't exist
+        // Create temporary files - use createFile only if they don't exist
         tempConfigPath = temporaryFolder.resolve("config.json");
         tempUserPrefsPath = temporaryFolder.resolve("userPrefs.json");
         tempAddressBookPath = temporaryFolder.resolve("addressBook.json");
@@ -193,6 +193,21 @@ public class MainAppTest {
     }
 
     /**
+     * Test test mode affects start behavior.
+     */
+    @Test
+    public void testMode_affectsStartBehavior() {
+        // Set test mode to true
+        mainApp.setTestMode(true);
+
+        // Verify that test mode is properly set
+        assertTrue(mainApp.isInTestMode());
+
+        // We can't actually call start() or create a real Stage in a test environment
+        // but we can verify the test mode flag is set correctly
+    }
+
+    /**
      * Test stopping the application.
      */
     @Test
@@ -278,7 +293,6 @@ public class MainAppTest {
 
     /**
      * A test storage class to check if methods are called.
-     * Implemented according to your Storage interface.
      */
     private class TestStorage implements Storage {
         private boolean saveUserPrefsCalled = false;

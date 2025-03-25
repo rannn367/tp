@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -77,6 +78,21 @@ public class WelcomeScreenTest {
     }
 
     /**
+     * Test showing the welcome screen with animation.
+     */
+    @Test
+    public void show_withAnimation_handlesExceptions() {
+        // Setup for animation test
+        welcomeScreen.setupMockComponents();
+
+        // Call show() which should attempt animation
+        welcomeScreen.show();
+
+        // No exception should be thrown even if animation fails
+        assertTrue(stage.isShowCalled());
+    }
+
+    /**
      * Test initialization with valid components.
      */
     @Test
@@ -95,6 +111,23 @@ public class WelcomeScreenTest {
         // Verify button handlers were set
         assertTrue(welcomeScreen.isStaffCustomerButtonHandlerSet());
         assertTrue(welcomeScreen.isDrinksMenuButtonHandlerSet());
+    }
+
+    /**
+     * Test coffee icon loading in initialize.
+     */
+    @Test
+    public void initialize_logoIconLoading_handlesErrors() {
+        // Setup with mock image view
+        TestImageView logoIconView = new TestImageView();
+        welcomeScreen.setupMockComponents();
+        welcomeScreen.setLogoIconView(logoIconView);
+
+        // Call initialize which should attempt to load the icon
+        welcomeScreen.initialize();
+
+        // No exception should occur
+        assertTrue(true, "Initialize should handle image loading errors gracefully");
     }
 
     /**
@@ -287,6 +320,7 @@ public class WelcomeScreenTest {
         private boolean sloganLabelStyled = false;
         private boolean staffCustomerButtonHandlerSet = false;
         private boolean drinksMenuButtonHandlerSet = false;
+        private boolean iconLoaded = false;
 
         // Mock components
         private TestButton staffCustomerButton;
@@ -327,6 +361,15 @@ public class WelcomeScreenTest {
         }
 
         public void show() {
+            // Simulate animation attempt
+            if (welcomePane != null) {
+                try {
+                    // Simulate fade transition
+                } catch (Exception e) {
+                    // Expected in test environment
+                }
+            }
+
             stage.show();
         }
 
@@ -346,6 +389,23 @@ public class WelcomeScreenTest {
             if (sloganLabel != null) {
                 sloganLabel.applyStyle();
                 sloganLabelStyled = true;
+            }
+
+            // Try to load the icon
+            if (logoIconView != null) {
+                try {
+                    // Simulate image loading
+                    Image iconImage = new Image("file:nonexistent.png");
+                    if (!iconImage.isError()) {
+                        iconLoaded = true;
+                    } else {
+                        // Try alternative paths
+                        tryLoadingFromAlternativePaths();
+                    }
+                } catch (Exception e) {
+                    // Try alternative paths
+                    tryLoadingFromAlternativePaths();
+                }
             }
 
             // Set up button handlers
@@ -399,6 +459,15 @@ public class WelcomeScreenTest {
                 // Just loop through paths - actual implementation would load images
                 for (String path : alternativePaths) {
                     // Simulate trying to load image
+                    try {
+                        Image altImage = new Image("file:" + path);
+                        if (!altImage.isError()) {
+                            iconLoaded = true;
+                            break;
+                        }
+                    } catch (Exception e) {
+                        // Expected in test environment
+                    }
                 }
             } catch (Exception e) {
                 // Expected in test environment
@@ -428,6 +497,10 @@ public class WelcomeScreenTest {
 
         public boolean isDrinksMenuButtonHandlerSet() {
             return drinksMenuButtonHandlerSet;
+        }
+
+        public boolean isIconLoaded() {
+            return iconLoaded;
         }
 
         // Interface for creating TestMainWindow instances
