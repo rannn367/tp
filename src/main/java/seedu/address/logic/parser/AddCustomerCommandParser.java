@@ -70,11 +70,11 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
 
             RewardPoints rewardPoints = new RewardPoints(DEFAULT_REWARD_POINTS);
             VisitCount visitCount = new VisitCount(DEFAULT_VISIT_COUNT);
-            FavouriteItem favoriteItem = new FavouriteItem(DEFAULT_FAVOURITE_ITEM);
+            FavouriteItem favouriteItem = new FavouriteItem(DEFAULT_FAVOURITE_ITEM);
             TotalSpent totalSpent = new TotalSpent(DEFAULT_TOTAL_SPENT);
 
             Customer customer = new Customer(name, phone, email, address, remark, tagList,
-                    customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
+                    customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
 
             return new AddCustomerCommand(customer);
         }
@@ -103,11 +103,11 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
         // Wrap the parsed primitives into their domain-specific types
         RewardPoints rewardPoints = new RewardPoints(argMultimap.getValue(PREFIX_REWARD_POINTS).get());
         VisitCount visitCount = new VisitCount(argMultimap.getValue(PREFIX_VISIT_COUNT).get());
-        FavouriteItem favoriteItem = new FavouriteItem(argMultimap.getValue(PREFIX_FAVORITE_ITEM).get());
+        FavouriteItem favouriteItem = new FavouriteItem(argMultimap.getValue(PREFIX_FAVORITE_ITEM).get());
         TotalSpent totalSpent = new TotalSpent(argMultimap.getValue(PREFIX_TOTAL_SPENT).get());
 
         Customer customer = new Customer(name, phone, email, address, remark, tagList,
-                customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
+                customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
 
         return new AddCustomerCommand(customer);
     }

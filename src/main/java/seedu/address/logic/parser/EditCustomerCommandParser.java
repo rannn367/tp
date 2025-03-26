@@ -82,7 +82,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
             );
         }
         if (argMultimap.getValue(PREFIX_FAVORITE_ITEM).isPresent()) {
-            editCustomerDescriptor.setFavoriteItem(
+            editCustomerDescriptor.setFavouriteItem(
                 ParserUtil.parseFavouriteItem(argMultimap.getValue(PREFIX_FAVORITE_ITEM).get())
             );
         }

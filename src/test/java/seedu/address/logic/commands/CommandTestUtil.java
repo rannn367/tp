@@ -218,12 +218,12 @@ public class CommandTestUtil {
             .withPhone(VALID_PHONE_JAMES).withEmail(VALID_EMAIL_JAMES).withAddress(VALID_ADDRESS_JAMES)
             .withTags(VALID_TAG_STUDENT).withCustomerId(VALID_CUSTOMER_ID_JAMES)
             .withRewardPoints(VALID_REWARD_POINTS_JAMES).withVisitCount(VALID_VISIT_COUNT_JAMES)
-            .withFavoriteItem(VALID_FAVORITE_ITEM_JAMES).withTotalSpent(VALID_TOTAL_SPENT_JAMES).build();
+            .withFavouriteItem(VALID_FAVORITE_ITEM_JAMES).withTotalSpent(VALID_TOTAL_SPENT_JAMES).build();
         DESC_OLIVIA = new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA)
             .withPhone(VALID_PHONE_OLIVIA).withEmail(VALID_EMAIL_OLIVIA).withAddress(VALID_ADDRESS_OLIVIA)
             .withTags(VALID_TAG_NEW).withCustomerId(VALID_CUSTOMER_ID_OLIVIA)
             .withRewardPoints(VALID_REWARD_POINTS_OLIVIA).withVisitCount(VALID_VISIT_COUNT_OLIVIA)
-            .withFavoriteItem(VALID_FAVORITE_ITEM_OLIVIA).withTotalSpent(VALID_TOTAL_SPENT_OLIVIA).build();
+            .withFavouriteItem(VALID_FAVORITE_ITEM_OLIVIA).withTotalSpent(VALID_TOTAL_SPENT_OLIVIA).build();
     }
 
     /**

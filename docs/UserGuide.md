@@ -147,7 +147,7 @@ Format: `help`
 
 ## Adding a customer: `customeradd` or `c`
 
-Adds a customer to the customer list with required details such as customer ID, name, phone, email, address, reward points, visit count, favorite item, and total spent.
+Adds a customer to the customer list with required details such as customer ID, name, phone, email, address, reward points, visit count, favourite item, and total spent.
 
 Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVORITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
 

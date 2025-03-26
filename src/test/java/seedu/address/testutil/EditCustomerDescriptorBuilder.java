@@ -45,7 +45,7 @@ public class EditCustomerDescriptorBuilder {
         descriptor.setCustomerId(customer.getCustomerId());
         descriptor.setRewardPoints(customer.getRewardPoints());
         descriptor.setVisitCount(customer.getVisitCount());
-        descriptor.setFavoriteItem(customer.getFavoriteItem());
+        descriptor.setFavouriteItem(customer.getFavouriteItem());
         descriptor.setTotalSpent(customer.getTotalSpent());
     }
 
@@ -108,8 +108,8 @@ public class EditCustomerDescriptorBuilder {
     /**
      * Sets the {@code FavouriteItem} of the {@code EditCustomerDescriptor} that we are building.
      */
-    public EditCustomerDescriptorBuilder withFavoriteItem(String favoriteItem) {
-        descriptor.setFavoriteItem(new FavouriteItem(favoriteItem));
+    public EditCustomerDescriptorBuilder withFavouriteItem(String favouriteItem) {
+        descriptor.setFavouriteItem(new FavouriteItem(favouriteItem));
         return this;
     }
 

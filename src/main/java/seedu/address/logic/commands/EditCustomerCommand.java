@@ -126,12 +126,12 @@ public class EditCustomerCommand extends Command {
         RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(
                 customerToEdit.getRewardPoints());
         VisitCount updatedVisitCount = editCustomerDescriptor.getVisitCount().orElse(customerToEdit.getVisitCount());
-        FavouriteItem updatedFavoriteItem = editCustomerDescriptor.getFavoriteItem().orElse(
-                customerToEdit.getFavoriteItem());
+        FavouriteItem updatedFavouriteItem = editCustomerDescriptor.getFavouriteItem().orElse(
+                customerToEdit.getFavouriteItem());
         TotalSpent updatedTotalSpent = editCustomerDescriptor.getTotalSpent().orElse(customerToEdit.getTotalSpent());
 
         return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
-                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavoriteItem, updatedTotalSpent);
+                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavouriteItem, updatedTotalSpent);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class EditCustomerCommand extends Command {
         private CustomerId customerId;
         private RewardPoints rewardPoints;
         private VisitCount visitCount;
-        private FavouriteItem favoriteItem;
+        private FavouriteItem favouriteItem;
         private TotalSpent totalSpent;
 
         public EditCustomerDescriptor() {
@@ -182,14 +182,14 @@ public class EditCustomerCommand extends Command {
             setCustomerId(toCopy.customerId);
             setRewardPoints(toCopy.rewardPoints);
             setVisitCount(toCopy.visitCount);
-            setFavoriteItem(toCopy.favoriteItem);
+            setFavouriteItem(toCopy.favouriteItem);
             setTotalSpent(toCopy.totalSpent);
         }
 
         @Override
         public boolean isAnyFieldEdited() {
             return super.isAnyFieldEdited()
-                    || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
+                    || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
         }
 
         public Optional<CustomerId> getCustomerId() {
@@ -216,12 +216,12 @@ public class EditCustomerCommand extends Command {
             this.visitCount = visitCount;
         }
 
-        public Optional<FavouriteItem> getFavoriteItem() {
-            return Optional.ofNullable(favoriteItem);
+        public Optional<FavouriteItem> getFavouriteItem() {
+            return Optional.ofNullable(favouriteItem);
         }
 
-        public void setFavoriteItem(FavouriteItem favoriteItem) {
-            this.favoriteItem = favoriteItem;
+        public void setFavouriteItem(FavouriteItem favouriteItem) {
+            this.favouriteItem = favouriteItem;
         }
 
         public Optional<TotalSpent> getTotalSpent() {
@@ -251,7 +251,7 @@ public class EditCustomerCommand extends Command {
             return Objects.equals(customerId, otherEditCustomerDescriptor.customerId)
                     && Objects.equals(rewardPoints, otherEditCustomerDescriptor.rewardPoints)
                     && Objects.equals(visitCount, otherEditCustomerDescriptor.visitCount)
-                    && Objects.equals(favoriteItem, otherEditCustomerDescriptor.favoriteItem)
+                    && Objects.equals(favouriteItem, otherEditCustomerDescriptor.favouriteItem)
                     && Objects.equals(totalSpent, otherEditCustomerDescriptor.totalSpent);
         }
 
@@ -269,7 +269,7 @@ public class EditCustomerCommand extends Command {
             parentBuilder.add("customerId", customerId)
                     .add("rewardPoints", rewardPoints)
                     .add("visitCount", visitCount)
-                    .add("favoriteItem", favoriteItem)
+                    .add("favouriteItem", favouriteItem)
                     .add("totalSpent", totalSpent);
             return parentBuilder;
         }

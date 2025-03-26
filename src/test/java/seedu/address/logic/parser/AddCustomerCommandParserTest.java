@@ -122,7 +122,7 @@ public class AddCustomerCommandParserTest {
         assertParseFailure(parser, VISIT_COUNT_DESC_OLIVIA + validExpectedCustomerString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_VISIT_COUNT));
 
-        // multiple favorite items
+        // multiple favourite items
         assertParseFailure(parser, FAVORITE_ITEM_DESC_OLIVIA + validExpectedCustomerString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FAVORITE_ITEM));
 
