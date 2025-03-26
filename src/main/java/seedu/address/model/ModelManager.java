@@ -138,7 +138,7 @@ public class ModelManager implements Model {
         filteredStaffs.setPredicate(predicate);
     }
     @Override
-    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+    public void updateFilteredCustomerList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
     }

@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -223,7 +222,7 @@ public class ParserUtil {
         }
         return new CustomerId(trimmedCustomerId);
     }
-    
+
     /**
      * Parses a {@code String staffId} into a {@code StaffId}.
      * Leading and trailing whitespaces will be trimmed.
@@ -298,7 +297,7 @@ public class ParserUtil {
         }
         return new PerformanceRating(trimmedPerformanceRating);
     }
-    
+
     /**
      * Parses a {@code String boolean} into a {@code boolean}.
      * Leading and trailing whitespaces will be trimmed.

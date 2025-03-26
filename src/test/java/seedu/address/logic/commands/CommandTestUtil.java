@@ -32,6 +32,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditStaffDescriptorBuilder;
 
@@ -174,6 +175,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
     public static final EditStaffCommand.EditStaffDescriptor DESC_ALEX;
     public static final EditStaffCommand.EditStaffDescriptor DESC_BEN;
+    public static final EditCustomerCommand.EditCustomerDescriptor DESC_JAMES;
+    public static final EditCustomerCommand.EditCustomerDescriptor DESC_OLIVIA;
 
     // Drink-related constants
     public static final String VALID_NAME_LATTE = "Latte";
@@ -211,6 +214,16 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_MANAGER).withStaffId(VALID_STAFF_ID_BEN).withRole(VALID_ROLE_BEN)
                 .withShiftTiming(VALID_SHIFT_BEN).withHoursWorked(VALID_HOURS_BEN)
                 .withPerformanceRating(VALID_RATING_BEN).build();
+        DESC_JAMES = new EditCustomerDescriptorBuilder().withName(VALID_NAME_JAMES)
+            .withPhone(VALID_PHONE_JAMES).withEmail(VALID_EMAIL_JAMES).withAddress(VALID_ADDRESS_JAMES)
+            .withTags(VALID_TAG_STUDENT).withCustomerId(VALID_CUSTOMER_ID_JAMES)
+            .withRewardPoints(VALID_REWARD_POINTS_JAMES).withVisitCount(VALID_VISIT_COUNT_JAMES)
+            .withFavoriteItem(VALID_FAVORITE_ITEM_JAMES).withTotalSpent(VALID_TOTAL_SPENT_JAMES).build();
+        DESC_OLIVIA = new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA)
+            .withPhone(VALID_PHONE_OLIVIA).withEmail(VALID_EMAIL_OLIVIA).withAddress(VALID_ADDRESS_OLIVIA)
+            .withTags(VALID_TAG_NEW).withCustomerId(VALID_CUSTOMER_ID_OLIVIA)
+            .withRewardPoints(VALID_REWARD_POINTS_OLIVIA).withVisitCount(VALID_VISIT_COUNT_OLIVIA)
+            .withFavoriteItem(VALID_FAVORITE_ITEM_OLIVIA).withTotalSpent(VALID_TOTAL_SPENT_OLIVIA).build();
     }
 
     /**
@@ -283,4 +296,17 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredStaffList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showCustomerAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
+
+        Person customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
+        final String[] splitName = customer.getName().fullName.split("\\s+");
+        model.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredCustomerList().size());
+    }
 }

@@ -111,7 +111,9 @@ public class EditCustomerCommand extends Command {
      * Creates and returns a {@code Customer} with the details of
      * {@code customerToEdit} edited with {@code editCustomerDescriptor}.
      */
-    private static Customer createEditedCustomer(Customer customerToEdit, EditCustomerDescriptor editCustomerDescriptor) {
+    private static Customer createEditedCustomer(
+            Customer customerToEdit,
+            EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
@@ -121,9 +123,11 @@ public class EditCustomerCommand extends Command {
         Remark updatedRemark = customerToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
         CustomerId updatedCustomerId = editCustomerDescriptor.getCustomerId().orElse(customerToEdit.getCustomerId());
-        RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(customerToEdit.getRewardPoints());
+        RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(
+                customerToEdit.getRewardPoints());
         VisitCount updatedVisitCount = editCustomerDescriptor.getVisitCount().orElse(customerToEdit.getVisitCount());
-        FavouriteItem updatedFavoriteItem = editCustomerDescriptor.getFavoriteItem().orElse(customerToEdit.getFavoriteItem());
+        FavouriteItem updatedFavoriteItem = editCustomerDescriptor.getFavoriteItem().orElse(
+                customerToEdit.getFavoriteItem());
         TotalSpent updatedTotalSpent = editCustomerDescriptor.getTotalSpent().orElse(customerToEdit.getTotalSpent());
 
         return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
@@ -169,6 +173,10 @@ public class EditCustomerCommand extends Command {
         public EditCustomerDescriptor() {
         }
 
+        /**
+         * Copy constructor. A defensive copy of {@code tags} is used
+         * internally.
+         */
         public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
             super(toCopy);
             setCustomerId(toCopy.customerId);
