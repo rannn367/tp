@@ -1,23 +1,56 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ALEX;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.CUSTOMER_ID_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.CUSTOMER_ID_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.FAVORITE_ITEM_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.FAVORITE_ITEM_DESC_OLIVIA;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CUSTOMER_ID_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FAVORITE_ITEM_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_REWARD_POINTS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TOTAL_SPENT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_VISIT_COUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.REWARD_POINTS_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.REWARD_POINTS_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_NEW;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_STUDENT;
+import static seedu.address.logic.commands.CommandTestUtil.TOTAL_SPENT_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.TOTAL_SPENT_DESC_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CUSTOMER_ID_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CUSTOMER_ID_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FAVORITE_ITEM_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FAVORITE_ITEM_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REWARD_POINTS_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REWARD_POINTS_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NEW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_SPENT_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_SPENT_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VISIT_COUNT_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VISIT_COUNT_OLIVIA;
+import static seedu.address.logic.commands.CommandTestUtil.VISIT_COUNT_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VISIT_COUNT_DESC_OLIVIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -30,9 +63,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
@@ -48,7 +86,7 @@ public class EditCustomerCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_ALEX, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_JAMES, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCustomerCommand.MESSAGE_NOT_EDITED);
@@ -60,10 +98,10 @@ public class EditCustomerCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_ALEX, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_JAMES, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_ALEX, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_JAMES, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -74,35 +112,58 @@ public class EditCustomerCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        // invalid name
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+        // invalid phone
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        // invalid email
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+        // invalid address
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
+        // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+        // invalid customer ID
+        assertParseFailure(parser, "1" + INVALID_CUSTOMER_ID_DESC, CustomerId.MESSAGE_CONSTRAINTS);
+        // invalid reward points
+        assertParseFailure(parser, "1" + INVALID_REWARD_POINTS_DESC, RewardPoints.MESSAGE_CONSTRAINTS);
+        // invalid visit count
+        assertParseFailure(parser, "1" + INVALID_VISIT_COUNT_DESC, VisitCount.MESSAGE_CONSTRAINTS);
+        // invalid favorite item
+        assertParseFailure(parser, "1" + INVALID_FAVORITE_ITEM_DESC, FavouriteItem.MESSAGE_CONSTRAINTS);
+        // invalid total spent
+        assertParseFailure(parser, "1" + INVALID_TOTAL_SPENT_DESC, TotalSpent.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_ALEX, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_JAMES, Phone.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
+        // while parsing {@code TAG_EMPTY} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(
+                parser, "1" + TAG_DESC_STUDENT + TAG_DESC_NEW + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(
+                parser, "1" + TAG_DESC_STUDENT + TAG_EMPTY + TAG_DESC_NEW, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(
+                parser, "1" + TAG_EMPTY + TAG_DESC_STUDENT + TAG_DESC_NEW, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_ALEX + VALID_PHONE_ALEX,
+        assertParseFailure(
+                parser,
+                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_JAMES + VALID_PHONE_JAMES,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_ALEX + TAG_DESC_HUSBAND
-                + EMAIL_DESC_ALEX + ADDRESS_DESC_ALEX + NAME_DESC_ALEX + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + CUSTOMER_ID_DESC_OLIVIA + NAME_DESC_OLIVIA + PHONE_DESC_OLIVIA
+            + EMAIL_DESC_OLIVIA + ADDRESS_DESC_OLIVIA + TAG_DESC_STUDENT + TAG_DESC_NEW + REWARD_POINTS_DESC_OLIVIA
+            + VISIT_COUNT_DESC_OLIVIA + FAVORITE_ITEM_DESC_OLIVIA + TOTAL_SPENT_DESC_OLIVIA;
 
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_ALEX)
-                .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withCustomerId(VALID_CUSTOMER_ID_OLIVIA)
+            .withName(VALID_NAME_OLIVIA).withPhone(VALID_PHONE_OLIVIA).withEmail(VALID_EMAIL_OLIVIA)
+            .withAddress(VALID_ADDRESS_OLIVIA).withTags(VALID_TAG_NEW, VALID_TAG_STUDENT)
+            .withRewardPoints(VALID_REWARD_POINTS_OLIVIA).withVisitCount(VALID_VISIT_COUNT_OLIVIA)
+            .withFavouriteItem(VALID_FAVORITE_ITEM_OLIVIA).withTotalSpent(VALID_TOTAL_SPENT_OLIVIA).build();
         EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -111,10 +172,15 @@ public class EditCustomerCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_ALEX + EMAIL_DESC_ALEX;
+        String userInput = targetIndex.getOneBased()
+                + PHONE_DESC_JAMES + EMAIL_DESC_JAMES + TOTAL_SPENT_DESC_JAMES;
 
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_ALEX)
-                .withEmail(VALID_EMAIL_ALEX).build();
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder()
+                .withPhone(VALID_PHONE_JAMES)
+                .withEmail(VALID_EMAIL_JAMES)
+                .withCustomerId(VALID_CUSTOMER_ID_JAMES)
+                .withTotalSpent(VALID_TOTAL_SPENT_JAMES)
+                .build();
         EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -125,26 +191,56 @@ public class EditCustomerCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
 
         // name
-        String userInput = targetIndex.getOneBased() + NAME_DESC_ALEX;
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_ALEX).build();
+        String userInput = targetIndex.getOneBased() + NAME_DESC_JAMES;
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_JAMES).build();
         EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_ALEX;
-        descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_ALEX).build();
+        userInput = targetIndex.getOneBased() + PHONE_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_JAMES).build();
         expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_ALEX;
-        descriptor = new EditCustomerDescriptorBuilder().withEmail(VALID_EMAIL_ALEX).build();
+        userInput = targetIndex.getOneBased() + EMAIL_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withEmail(VALID_EMAIL_JAMES).build();
         expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_ALEX;
-        descriptor = new EditCustomerDescriptorBuilder().withAddress(VALID_ADDRESS_ALEX).build();
+        userInput = targetIndex.getOneBased() + ADDRESS_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withAddress(VALID_ADDRESS_JAMES).build();
+        expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // customer ID
+        userInput = targetIndex.getOneBased() + CUSTOMER_ID_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withCustomerId(VALID_CUSTOMER_ID_JAMES).build();
+        expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // reward points
+        userInput = targetIndex.getOneBased() + REWARD_POINTS_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withRewardPoints(VALID_REWARD_POINTS_JAMES).build();
+        expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // visit count
+        userInput = targetIndex.getOneBased() + VISIT_COUNT_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withVisitCount(VALID_VISIT_COUNT_JAMES).build();
+        expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // favorite item
+        userInput = targetIndex.getOneBased() + FAVORITE_ITEM_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withFavouriteItem(VALID_FAVORITE_ITEM_JAMES).build();
+        expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // total spent
+        userInput = targetIndex.getOneBased() + TOTAL_SPENT_DESC_JAMES;
+        descriptor = new EditCustomerDescriptorBuilder().withTotalSpent(VALID_TOTAL_SPENT_JAMES).build();
         expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -65,11 +65,36 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&";
+    // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a";
+    // missing '@' symbol
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo";
+    // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*";
+    // '@' not allowed in staff IDs
+    public static final String INVALID_STAFF_ID_DESC = " " + PREFIX_STAFF_ID + "S12@34";
+    // empty string not allowed for roles
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "";
+    // invalid time format
+    public static final String INVALID_SHIFT_DESC = " " + PREFIX_SHIFT_TIMING + "25pm-10pm";
+    // negative hours not allowed
+    public static final String INVALID_HOURS_DESC = " " + PREFIX_HOURS_WORKED + "-5";
+    // rating out of range (1-5)
+    public static final String INVALID_RATING_DESC = " " + PREFIX_PERFORMANCE_RATING + "6.0";
+    // '#' not allowed in customer IDs
+    public static final String INVALID_CUSTOMER_ID_DESC = " " + PREFIX_CUSTOMER_ID + "C12#45";
+    // negative reward points not allowed
+    public static final String INVALID_REWARD_POINTS_DESC = " " + PREFIX_REWARD_POINTS + "-100";
+    // negative visit count not allowed
+    public static final String INVALID_VISIT_COUNT_DESC = " " + PREFIX_VISIT_COUNT + "-1";
+    // empty string not allowed for favorite items
+    public static final String INVALID_FAVORITE_ITEM_DESC = " " + PREFIX_FAVORITE_ITEM + "";
+    // negative total spent not allowed
+    public static final String INVALID_TOTAL_SPENT_DESC = " " + PREFIX_TOTAL_SPENT + "-50.0";
 
     public static final String VALID_NAME_ALEX = "Alex Tan";
     public static final String VALID_NAME_BEN = "Ben Lim";
