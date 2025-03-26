@@ -65,6 +65,10 @@ public class MainApp extends Application {
         this.isTestMode = testMode;
     }
 
+    public boolean isTestMode() {
+        return isTestMode;
+    }
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing CafeConnect ]===========================");

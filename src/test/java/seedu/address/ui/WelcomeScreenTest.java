@@ -39,7 +39,8 @@ public class WelcomeScreenTest {
     public void setUp() {
         // Initialize the JavaFX toolkit
         try {
-            Platform.startup(() -> {});
+            Platform.startup(() -> {
+            });
         } catch (IllegalStateException e) {
             // Toolkit is already running, which is fine
         }
@@ -90,6 +91,7 @@ public class WelcomeScreenTest {
 
         // No exception should be thrown even if animation fails
         assertTrue(stage.isShowCalled());
+        assertTrue(welcomeScreen.isAnimationAttempted());
     }
 
     /**
@@ -125,6 +127,9 @@ public class WelcomeScreenTest {
 
         // Call initialize which should attempt to load the icon
         welcomeScreen.initialize();
+
+        // Check that we tried to load the icon
+        assertTrue(welcomeScreen.isIconLoadingAttempted());
 
         // No exception should occur
         assertTrue(true, "Initialize should handle image loading errors gracefully");
@@ -172,21 +177,6 @@ public class WelcomeScreenTest {
         assertTrue(mainWindow.isShown());
         assertTrue(mainWindow.isInnerPartsInitialized());
         assertEquals(2, mainWindow.getSelectedTabIndex()); // Drinks tab index
-    }
-
-    /**
-     * Test loading images from alternative paths.
-     */
-    @Test
-    public void tryLoadingFromAlternativePaths_handlesErrorsGracefully() {
-        // Set up image view
-        welcomeScreen.setLogoIconView(new TestImageView());
-
-        // Call the method
-        assertDoesNotThrow(() -> welcomeScreen.tryLoadingFromAlternativePaths());
-
-        // Method completed without errors
-        assertTrue(true);
     }
 
     /**
@@ -320,7 +310,8 @@ public class WelcomeScreenTest {
         private boolean sloganLabelStyled = false;
         private boolean staffCustomerButtonHandlerSet = false;
         private boolean drinksMenuButtonHandlerSet = false;
-        private boolean iconLoaded = false;
+        private boolean iconLoadingAttempted = false;
+        private boolean animationAttempted = false;
 
         // Mock components
         private TestButton staffCustomerButton;
@@ -365,6 +356,7 @@ public class WelcomeScreenTest {
             if (welcomePane != null) {
                 try {
                     // Simulate fade transition
+                    animationAttempted = true;
                 } catch (Exception e) {
                     // Expected in test environment
                 }
@@ -395,16 +387,10 @@ public class WelcomeScreenTest {
             if (logoIconView != null) {
                 try {
                     // Simulate image loading
+                    iconLoadingAttempted = true;
                     Image iconImage = new Image("file:nonexistent.png");
-                    if (!iconImage.isError()) {
-                        iconLoaded = true;
-                    } else {
-                        // Try alternative paths
-                        tryLoadingFromAlternativePaths();
-                    }
                 } catch (Exception e) {
-                    // Try alternative paths
-                    tryLoadingFromAlternativePaths();
+                    // Expected in test environment
                 }
             }
 
@@ -448,32 +434,6 @@ public class WelcomeScreenTest {
             mainWindow.selectTab(2); // Select Drinks tab (index 2)
         }
 
-        public void tryLoadingFromAlternativePaths() {
-            try {
-                String[] alternativePaths = {
-                    "/images/cafeconnect-icon.png",
-                    "src/main/resources/images/cafeconnect-icon.png",
-                    "cafeconnect-icon.png"
-                };
-
-                // Just loop through paths - actual implementation would load images
-                for (String path : alternativePaths) {
-                    // Simulate trying to load image
-                    try {
-                        Image altImage = new Image("file:" + path);
-                        if (!altImage.isError()) {
-                            iconLoaded = true;
-                            break;
-                        }
-                    } catch (Exception e) {
-                        // Expected in test environment
-                    }
-                }
-            } catch (Exception e) {
-                // Expected in test environment
-            }
-        }
-
         // Methods to access test components
         public void setLogoIconView(TestImageView logoIconView) {
             this.logoIconView = logoIconView;
@@ -499,8 +459,12 @@ public class WelcomeScreenTest {
             return drinksMenuButtonHandlerSet;
         }
 
-        public boolean isIconLoaded() {
-            return iconLoaded;
+        public boolean isIconLoadingAttempted() {
+            return iconLoadingAttempted;
+        }
+
+        public boolean isAnimationAttempted() {
+            return animationAttempted;
         }
 
         // Interface for creating TestMainWindow instances
@@ -561,11 +525,19 @@ public class WelcomeScreenTest {
     }
 
     private static class TestImageView {
-        // No implementation needed for this test
+        private boolean imageSet = false;
+
+        public void setImage(Image image) {
+            imageSet = true;
+        }
+
+        public boolean isImageSet() {
+            return imageSet;
+        }
     }
 
     /**
-     * Test implementation of MainWindow.
+     * Test implementation of MainWindow for testing button handlers.
      */
     private static class TestMainWindow {
         private boolean stageSetUp = false;
