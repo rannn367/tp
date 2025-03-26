@@ -208,10 +208,10 @@ public class PurchaseCommand extends Command {
         TotalSpent newTotalSpent = new TotalSpent(String.format("%.2f", updatedTotalSpent));
 
         VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount + 1));
-        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
+        FavouriteItem favouriteItem = customerToUpdate.getFavouriteItem();
 
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, newRewardPoints, visitCount, favoriteItem, newTotalSpent);
+                customerId, newRewardPoints, visitCount, favouriteItem, newTotalSpent);
     }
 
     /**
@@ -241,10 +241,10 @@ public class PurchaseCommand extends Command {
         // Create new RewardPoints and increment visit count
         RewardPoints newRewardPoints = new RewardPoints(String.valueOf(updatedRewardPoints));
         VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount + 1));
-        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
+        FavouriteItem favouriteItem = customerToUpdate.getFavouriteItem();
 
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, newRewardPoints, visitCount, favoriteItem, totalSpent);
+                customerId, newRewardPoints, visitCount, favouriteItem, totalSpent);
     }
 
     @Override
