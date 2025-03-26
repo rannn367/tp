@@ -30,7 +30,7 @@ public class CustomerBuilder {
     public static final String DEFAULT_REMARK = "Regular customer";
     public static final String DEFAULT_REWARD_POINTS = "100";
     public static final String DEFAULT_VISIT_COUNT = "5";
-    public static final String DEFAULT_FAVORITE_ITEM = "Latte";
+    public static final String DEFAULT_FAVOURITE_ITEM = "Latte";
     public static final String DEFAULT_TOTAL_SPENT = "75.50";
     public static final String DEFAULT_RATING = "5";
 
@@ -59,7 +59,7 @@ public class CustomerBuilder {
         tags = new HashSet<>();
         rewardPoints = new RewardPoints(DEFAULT_REWARD_POINTS);
         visitCount = new VisitCount(DEFAULT_VISIT_COUNT);
-        favouriteItem = new FavouriteItem(DEFAULT_FAVORITE_ITEM);
+        favouriteItem = new FavouriteItem(DEFAULT_FAVOURITE_ITEM);
         totalSpent = new TotalSpent(DEFAULT_TOTAL_SPENT);
     }
 

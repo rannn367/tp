@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -59,7 +59,7 @@ public class EditCustomerCommand extends Command {
             + "[" + PREFIX_CUSTOMER_ID + "CUSTOMER_ID] "
             + "[" + PREFIX_REWARD_POINTS + "REWARD_POINTS] "
             + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
-            + "[" + PREFIX_FAVORITE_ITEM + "FAVOURITE_ITEM] "
+            + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
             + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
