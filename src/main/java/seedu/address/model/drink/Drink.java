@@ -21,6 +21,7 @@ public class Drink {
     private static final Map<String, Drink> drinkMap = new HashMap<>();
 
     // Identity fields
+    public final String value;
     private final DrinkName drinkName;
     private final Price price;
     private final Category category;
@@ -28,8 +29,6 @@ public class Drink {
     // Optional fields - stored as transient to not affect equals/hashCode
     private transient String description;
     private transient int stock;
-    
-    public final String value;
 
     /**
      * Basic constructor with required fields only.
