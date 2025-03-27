@@ -87,12 +87,25 @@ public class MainAppTest {
      */
     @AfterAll
     public static void teardownOnce() {
+        try {
+            Path tmpConfigFile = temporaryFolder.resolve("tmpConfig.json");
+            TYPICAL_CONFIG_FILE.toFile().delete();
+            java.nio.file.Files.copy(tmpConfigFile, TYPICAL_CONFIG_FILE);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to copy over TYPICAL_CONFIG_FILE", e);
+        }
         temporaryFolder.toFile().setWritable(true);
         Platform.runLater(() -> Platform.exit());
     }
 
     @BeforeAll
     public static void initFx() {
+        try {
+            Path tmpConfigFile = temporaryFolder.resolve("tmpConfig.json");
+            java.nio.file.Files.copy(TYPICAL_CONFIG_FILE, tmpConfigFile);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to copy over TYPICAL_CONFIG_FILE", e);
+        }
         Platform.startup(() -> Thread.currentThread().setUncaughtExceptionHandler(handler));
     }
 

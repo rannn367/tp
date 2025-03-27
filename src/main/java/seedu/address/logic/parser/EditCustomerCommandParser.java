@@ -20,7 +20,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
