@@ -15,7 +15,6 @@ import seedu.address.model.drink.exceptions.DrinkNotFoundException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PerformanceRating;
@@ -183,18 +182,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String favouriteItem} into a {@code FavouriteItem}.
+     * Parses a {@code String favouriteDrink} into a {@code FavouriteDrink}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code favouriteItem} is invalid.
+     * @throws ParseException if the given {@code favouriteDrink} is invalid.
      */
-    public static FavouriteItem parseFavouriteItem(String favouriteItem) throws ParseException {
-        requireNonNull(favouriteItem);
-        String trimmedFavouriteItem = favouriteItem.trim();
-        if (!FavouriteItem.isValidFavouriteItem(trimmedFavouriteItem)) {
-            throw new ParseException(FavouriteItem.MESSAGE_CONSTRAINTS);
+    public static Drink parseFavouriteDrink(String favouriteDrink) throws ParseException {
+        requireNonNull(favouriteDrink);
+        String trimmedFavouriteDrink = favouriteDrink.trim();
+        if (!Drink.isValidDrink(trimmedFavouriteDrink)) {
+            throw new ParseException(Drink.MESSAGE_CONSTRAINTS);
         }
-        return new FavouriteItem(trimmedFavouriteItem);
+        return new Drink(trimmedFavouriteDrink);
     }
 
     /**

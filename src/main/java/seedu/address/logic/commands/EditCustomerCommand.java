@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_DRINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -26,11 +26,11 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -59,7 +59,7 @@ public class EditCustomerCommand extends Command {
             + "[" + PREFIX_CUSTOMER_ID + "CUSTOMER_ID] "
             + "[" + PREFIX_REWARD_POINTS + "REWARD_POINTS] "
             + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
-            + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
+            + "[" + PREFIX_FAVOURITE_DRINK + "FAVOURITE_DRINK] "
             + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -126,12 +126,12 @@ public class EditCustomerCommand extends Command {
         RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(
                 customerToEdit.getRewardPoints());
         VisitCount updatedVisitCount = editCustomerDescriptor.getVisitCount().orElse(customerToEdit.getVisitCount());
-        FavouriteItem updatedFavouriteItem = editCustomerDescriptor.getFavouriteItem().orElse(
-                customerToEdit.getFavouriteItem());
+        Drink updatedFavouriteDrink = editCustomerDescriptor.getFavouriteDrink().orElse(
+                customerToEdit.getFavouriteDrink());
         TotalSpent updatedTotalSpent = editCustomerDescriptor.getTotalSpent().orElse(customerToEdit.getTotalSpent());
 
         return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
-                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavouriteItem, updatedTotalSpent);
+                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavouriteDrink, updatedTotalSpent);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class EditCustomerCommand extends Command {
         private CustomerId customerId;
         private RewardPoints rewardPoints;
         private VisitCount visitCount;
-        private FavouriteItem favouriteItem;
+        private Drink favouriteDrink;
         private TotalSpent totalSpent;
 
         public EditCustomerDescriptor() {
@@ -182,14 +182,14 @@ public class EditCustomerCommand extends Command {
             setCustomerId(toCopy.customerId);
             setRewardPoints(toCopy.rewardPoints);
             setVisitCount(toCopy.visitCount);
-            setFavouriteItem(toCopy.favouriteItem);
+            setFavouriteDrink(toCopy.favouriteDrink);
             setTotalSpent(toCopy.totalSpent);
         }
 
         @Override
         public boolean isAnyFieldEdited() {
             return super.isAnyFieldEdited()
-                    || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
+                    || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favouriteDrink, totalSpent);
         }
 
         public Optional<CustomerId> getCustomerId() {
@@ -216,12 +216,12 @@ public class EditCustomerCommand extends Command {
             this.visitCount = visitCount;
         }
 
-        public Optional<FavouriteItem> getFavouriteItem() {
-            return Optional.ofNullable(favouriteItem);
+        public Optional<Drink> getFavouriteDrink() {
+            return Optional.ofNullable(favouriteDrink);
         }
 
-        public void setFavouriteItem(FavouriteItem favouriteItem) {
-            this.favouriteItem = favouriteItem;
+        public void setFavouriteDrink(Drink favouriteDrink) {
+            this.favouriteDrink = favouriteDrink;
         }
 
         public Optional<TotalSpent> getTotalSpent() {
@@ -251,7 +251,7 @@ public class EditCustomerCommand extends Command {
             return Objects.equals(customerId, otherEditCustomerDescriptor.customerId)
                     && Objects.equals(rewardPoints, otherEditCustomerDescriptor.rewardPoints)
                     && Objects.equals(visitCount, otherEditCustomerDescriptor.visitCount)
-                    && Objects.equals(favouriteItem, otherEditCustomerDescriptor.favouriteItem)
+                    && Objects.equals(favouriteDrink, otherEditCustomerDescriptor.favouriteDrink)
                     && Objects.equals(totalSpent, otherEditCustomerDescriptor.totalSpent);
         }
 
@@ -259,7 +259,7 @@ public class EditCustomerCommand extends Command {
          * Builds a string representation of the object using a {@link ToStringBuilder}.
          * This method extends the parent class's string representation by adding
          * additional fields specific to the customer entity, such as customer ID, rewardPoints,
-         * visit count, favourite item, and total spent.
+         * visit count, favourite drink, and total spent.
          *
          * @return A {@link ToStringBuilder} containing the string representation of the object.
          */
@@ -269,7 +269,7 @@ public class EditCustomerCommand extends Command {
             parentBuilder.add("customerId", customerId)
                     .add("rewardPoints", rewardPoints)
                     .add("visitCount", visitCount)
-                    .add("favouriteItem", favouriteItem)
+                    .add("favouriteDrink", favouriteDrink)
                     .add("totalSpent", totalSpent);
             return parentBuilder;
         }

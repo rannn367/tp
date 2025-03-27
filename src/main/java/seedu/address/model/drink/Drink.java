@@ -15,6 +15,11 @@ import seedu.address.model.drink.exceptions.DrinkNotFoundException;
  */
 public class Drink {
 
+    // Static variables
+    public static final String MESSAGE_CONSTRAINTS = "Drinks can take any values, and it should not be blank";
+    public static final String VALIDATION_REGEX = ".*";
+    private static final Map<String, Drink> drinkMap = new HashMap<>();
+
     // Identity fields
     private final DrinkName drinkName;
     private final Price price;
@@ -23,12 +28,7 @@ public class Drink {
     // Optional fields - stored as transient to not affect equals/hashCode
     private transient String description;
     private transient int stock;
-
-    // Static map for quick lookup
-    private static final Map<String, Drink> drinkMap = new HashMap<>();
-
-    public static final String MESSAGE_CONSTRAINTS = "Drinks can take any values, and it should not be blank";
-    public static final String VALIDATION_REGEX = ".*";
+    
     public final String value;
 
     /**
