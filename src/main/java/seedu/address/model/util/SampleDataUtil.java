@@ -9,7 +9,6 @@ import seedu.address.model.DrinkCatalog;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.drink.Category;
 import seedu.address.model.drink.Drink;
-import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.drink.DrinkName;
 import seedu.address.model.drink.Price;
 import seedu.address.model.drink.ReadOnlyDrinkCatalog;
@@ -17,7 +16,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PerformanceRating;
@@ -123,7 +121,7 @@ public class SampleDataUtil {
                     new CustomerId("C001"),
                     new RewardPoints("100"),
                     new VisitCount("12"),
-                    new FavouriteItem("oat latte with vanilla syrup"),
+                    new Drink("latte"),
                     new TotalSpent("120.3")
             ),
             new Customer(
@@ -136,7 +134,7 @@ public class SampleDataUtil {
                     new CustomerId("C002"),
                     new RewardPoints("100"),
                     new VisitCount("12"),
-                    new FavouriteItem("dog latte"),
+                    new Drink("latte"),
                     new TotalSpent("120.3")
             ),
             new Customer(
@@ -149,7 +147,7 @@ public class SampleDataUtil {
                     new CustomerId("C003"),
                     new RewardPoints("0"),
                     new VisitCount("78"),
-                    new FavouriteItem("water"),
+                    new Drink("latte"),
                     new TotalSpent("50.0")
             )
         };

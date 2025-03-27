@@ -21,7 +21,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -116,7 +115,7 @@ public class PurchaseCommand extends Command {
      * Handles a regular purchase that earns points and updates total spent.
      */
     private CommandResult handleRegularPurchase(Model model, Customer customerToUpdate,
-            Drink drink, double price) {
+            Drink drink, Price price) {
         // Calculate points to add based on purchase amount
         int pointsToAdd = calculatePointsForPurchase(price.getPrice());
 
@@ -138,9 +137,9 @@ public class PurchaseCommand extends Command {
      * Handles a redemption purchase that uses points instead of adding to total spent.
      */
     private CommandResult handleRedemption(Model model, Customer customerToUpdate,
-            Drink drink, double price) throws CommandException {
+            Drink drink, Price price) throws CommandException {
         // Calculate points needed for redemption
-        int pointsNeeded = calculatePointsForRedemption(price);
+        int pointsNeeded = calculatePointsForRedemption(price.getPrice());
         int currentPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
 
         // Check if customer has enough points
@@ -158,7 +157,7 @@ public class PurchaseCommand extends Command {
         return new CommandResult(String.format(MESSAGE_REDEMPTION_SUCCESS,
                 customerToUpdate.getName(),
                 drink.getDrinkName(),
-                price,
+                price.getPrice(),
                 pointsNeeded,
                 Integer.parseInt(updatedCustomer.getRewardPoints().value)));
     }
@@ -209,10 +208,10 @@ public class PurchaseCommand extends Command {
         TotalSpent newTotalSpent = new TotalSpent(String.format("%.2f", updatedTotalSpent));
 
         VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount + 1));
-        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
+        Drink favouriteDrink = customerToUpdate.getFavouriteDrink();
 
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, newRewardPoints, visitCount, favoriteItem, newTotalSpent);
+                customerId, newRewardPoints, visitCount, favouriteDrink, newTotalSpent);
     }
 
     /**
@@ -242,10 +241,10 @@ public class PurchaseCommand extends Command {
         // Create new RewardPoints and increment visit count
         RewardPoints newRewardPoints = new RewardPoints(String.valueOf(updatedRewardPoints));
         VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount + 1));
-        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
+        Drink favouriteDrink = customerToUpdate.getFavouriteDrink();
 
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, newRewardPoints, visitCount, favoriteItem, totalSpent);
+                customerId, newRewardPoints, visitCount, favouriteDrink, totalSpent);
     }
 
     @Override

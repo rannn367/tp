@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRINKNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_DRINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERFORMANCE_RATING;
@@ -126,7 +126,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_STUDENT = "student";
     public static final String VALID_REWARD_POINTS_JAMES = "200";
     public static final String VALID_VISIT_COUNT_JAMES = "12";
-    public static final String VALID_FAVORITE_ITEM_JAMES = "Flat White";
+    public static final String VALID_FAVOURITE_DRINK_JAMES = "Flat White";
     public static final String VALID_TOTAL_SPENT_JAMES = "155.75";
     public static final String VALID_RATING_JAMES = "5";
     public static final String VALID_CUSTOMER_ID_JAMES = "C45678";
@@ -141,7 +141,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_NEW = "new";
     public static final String VALID_REWARD_POINTS_OLIVIA = "75";
     public static final String VALID_VISIT_COUNT_OLIVIA = "3";
-    public static final String VALID_FAVORITE_ITEM_OLIVIA = "Green Tea Latte";
+    public static final String VALID_FAVOURITE_DRINK_OLIVIA = "Green Tea Latte";
     public static final String VALID_TOTAL_SPENT_OLIVIA = "42.90";
     public static final String VALID_CUSTOMER_ID_OLIVIA = "C12345";
 
@@ -162,8 +162,8 @@ public class CommandTestUtil {
     public static final String REWARD_POINTS_DESC_OLIVIA = " " + PREFIX_REWARD_POINTS + VALID_REWARD_POINTS_OLIVIA;
     public static final String VISIT_COUNT_DESC_JAMES = " " + PREFIX_VISIT_COUNT + VALID_VISIT_COUNT_JAMES;
     public static final String VISIT_COUNT_DESC_OLIVIA = " " + PREFIX_VISIT_COUNT + VALID_VISIT_COUNT_OLIVIA;
-    public static final String FAVORITE_ITEM_DESC_JAMES = " " + PREFIX_FAVORITE_ITEM + VALID_FAVORITE_ITEM_JAMES;
-    public static final String FAVORITE_ITEM_DESC_OLIVIA = " " + PREFIX_FAVORITE_ITEM + VALID_FAVORITE_ITEM_OLIVIA;
+    public static final String FAVOURITE_DRINK_DESC_JAMES = " " + PREFIX_FAVOURITE_DRINK + VALID_FAVOURITE_DRINK_JAMES;
+    public static final String FAVOURITE_DRINK_DESC_OLIVIA = " " + PREFIX_FAVOURITE_DRINK + VALID_FAVOURITE_DRINK_OLIVIA;
     public static final String TOTAL_SPENT_DESC_JAMES = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_JAMES;
     public static final String TOTAL_SPENT_DESC_OLIVIA = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_OLIVIA;
 
