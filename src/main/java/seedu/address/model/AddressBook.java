@@ -2,16 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
-import seedu.address.model.person.UniqueCustomerList;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniqueStaffList;
 
 /**
  * Wraps all data at the address-book level
@@ -20,8 +16,6 @@ import seedu.address.model.person.UniqueStaffList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniqueStaffList staffs;
-    private final UniqueCustomerList customers;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,8 +26,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        customers = new UniqueCustomerList();
-        staffs = new UniqueStaffList();
     }
 
     public AddressBook() {}
@@ -49,37 +41,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
-    /**
-     * Replaces the contents of the staff list with {@code staffs}.
-     * {@code staffs} must not contain duplicate staff members.
-     */
-    public void setStaffs(List<Staff> staffs) {
-        this.staffs.setStaffs(staffs);
-    }
-
-    /**
-     * Replaces the contents of the customer list with {@code customer}.
-     * {@code customer} must not contain duplicate customer members.
-     */
-    public void setCustomers(List<Customer> customers) {
-        this.customers.setCustomers(customers);
-    }
-
-    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-        setCustomers(newData.getCustomerList());
-        setPersons(newData.getPersonList());
-        setStaffs(newData.getStaffList());
+        persons.clear();
+        for (Person person: newData.getPersonList()) {
+            persons.add(person);
+        }
     }
 
     //// person-level operations
@@ -120,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setStaff(Staff target, Staff editedStaff) {
         requireNonNull(editedStaff);
 
-        staffs.setStaff(target, editedStaff);
+        persons.setPerson(target, editedStaff);
     }
 
     /**
@@ -132,7 +101,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireNonNull(editedCustomer);
 
-        customers.setCustomer(target, editedCustomer);
+        persons.setPerson(target, editedCustomer);
     }
 
     /**
@@ -150,15 +119,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasStaff(Staff staffMember) {
         requireNonNull(staffMember);
-        return staffs.contains(staffMember);
+        return persons.contains(staffMember);
     }
 
     public void addStaff(Staff staffMember) {
-        staffs.add(staffMember);
+        persons.add(staffMember);
     }
 
     public void removeStaff(Staff staffMember) {
-        staffs.remove(staffMember);
+        persons.remove(staffMember);
     }
 
     // Customer methods
@@ -168,11 +137,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
-        return customers.contains(customer);
+        return persons.contains(customer);
     }
 
     public void addCustomer(Customer customer) {
-        customers.add(customer);
+        persons.add(customer);
     }
 
     /**
@@ -180,7 +149,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book's customer list.
      */
     public void removeCustomer(Customer key) {
-        customers.remove(key);
+        persons.remove(key);
     }
 
     //// util methods
@@ -198,12 +167,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Staff> getStaffList() {
-        return staffs.asUnmodifiableObservableList();
+        return persons.getFilteredList(Staff.class);
     }
 
     @Override
     public ObservableList<Customer> getCustomerList() {
-        return customers.asUnmodifiableObservableList();
+        return persons.getFilteredList(Customer.class);
     }
 
     @Override

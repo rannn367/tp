@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalStaff.ALEX;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
@@ -128,16 +130,18 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniquePersonList) null));
+    public void clear_nonEmptyList_clearsAllPersons() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(BOB);
+        uniquePersonList.clear();
+        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+        assertEquals(expectedUniquePersonList, uniquePersonList);
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniquePersonList.add(ALICE);
+    public void clear_emptyList_noEffect() {
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
-        expectedUniquePersonList.add(BOB);
-        uniquePersonList.setPersons(expectedUniquePersonList);
+        uniquePersonList.clear();
         assertEquals(expectedUniquePersonList, uniquePersonList);
     }
 
@@ -171,5 +175,43 @@ public class UniquePersonListTest {
     @Test
     public void toStringMethod() {
         assertEquals(uniquePersonList.asUnmodifiableObservableList().toString(), uniquePersonList.toString());
+    }
+
+    @Test
+    public void getFilteredList_validType_returnsFilteredList() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(BOB);
+
+        FilteredList<Person> filteredList = uniquePersonList.getFilteredList(Person.class);
+        assertEquals(2, filteredList.size());
+        assertTrue(filteredList.contains(ALICE));
+        assertTrue(filteredList.contains(BOB));
+    }
+
+    @Test
+    public void getFilteredList_subtype_returnsFilteredListOfSubtype() {
+        // Assuming Staff is a subclass of Person
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(ALEX);
+
+        FilteredList<Staff> filteredList = uniquePersonList.getFilteredList(Staff.class);
+        assertEquals(1, filteredList.size());
+        assertTrue(filteredList.contains(ALEX));
+    }
+
+    @Test
+    public void getFilteredList_noMatchingType_returnsEmptyList() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(ALEX);
+
+        // Assuming Customer is a subclass of Person but no Customer instances are added
+        FilteredList<Customer> filteredList = uniquePersonList.getFilteredList(Customer.class);
+        assertTrue(filteredList.isEmpty());
+    }
+
+    @Test
+    public void getFilteredList_emptyList_returnsEmptyList() {
+        FilteredList<Person> filteredList = uniquePersonList.getFilteredList(Person.class);
+        assertTrue(filteredList.isEmpty());
     }
 }

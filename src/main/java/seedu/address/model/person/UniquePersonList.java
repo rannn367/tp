@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -39,6 +40,8 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
+     *
+     * @param toAdd the person to add
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);
@@ -79,9 +82,8 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+    public void clear() {
+        internalList.clear();
     }
 
     /**
@@ -102,6 +104,18 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns a filtered list of persons of the specified type.
+     *
+     * @param <T> the type of person
+     * @param type the class of the type of person
+     * @return the filtered list of persons of the specified type
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends Person> FilteredList<T> getFilteredList(Class<T> type) {
+        return (FilteredList<T>) asUnmodifiableObservableList().filtered(type::isInstance);
     }
 
     @Override
