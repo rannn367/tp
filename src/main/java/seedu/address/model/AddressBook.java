@@ -2,7 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
@@ -14,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
+    private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
 
     private final UniquePersonList persons;
 
@@ -45,6 +49,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
+        logger.info("Resetting data of address book");
         persons.clear();
         for (Person person: newData.getPersonList()) {
             persons.add(person);
@@ -89,6 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setStaff(Staff target, Staff editedStaff) {
         requireNonNull(editedStaff);
 
+        logger.info("Replacing staff: " + target + " with " + editedStaff);
         persons.setPerson(target, editedStaff);
     }
 
@@ -101,6 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireNonNull(editedCustomer);
 
+        logger.info("Replacing customer: " + target + " with " + editedCustomer);
         persons.setPerson(target, editedCustomer);
     }
 

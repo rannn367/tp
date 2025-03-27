@@ -5,10 +5,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -24,6 +26,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * @see Person#isSamePerson(Person)
  */
 public class UniquePersonList implements Iterable<Person> {
+    private static final Logger logger = LogsCenter.getLogger(UniquePersonList.class);
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
@@ -115,6 +118,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     @SuppressWarnings("unchecked")
     public <T extends Person> FilteredList<T> getFilteredList(Class<T> type) {
+        logger.warning("Type casting the filtered list to: " + type.getSimpleName());
         return (FilteredList<T>) asUnmodifiableObservableList().filtered(type::isInstance);
     }
 
