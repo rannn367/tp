@@ -28,6 +28,9 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
+import seedu.address.logic.parser.descriptors.EditPersonDescriptor;
+import seedu.address.logic.parser.descriptors.EditStaffDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -196,12 +199,12 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final EditStaffCommand.EditStaffDescriptor DESC_ALEX;
-    public static final EditStaffCommand.EditStaffDescriptor DESC_BEN;
-    public static final EditCustomerCommand.EditCustomerDescriptor DESC_JAMES;
-    public static final EditCustomerCommand.EditCustomerDescriptor DESC_OLIVIA;
+    public static final EditPersonDescriptor DESC_AMY;
+    public static final EditPersonDescriptor DESC_BOB;
+    public static final EditStaffDescriptor DESC_ALEX;
+    public static final EditStaffDescriptor DESC_BEN;
+    public static final EditCustomerDescriptor DESC_JAMES;
+    public static final EditCustomerDescriptor DESC_OLIVIA;
 
     // Drink-related constants
     public static final String VALID_NAME_LATTE = "Latte";

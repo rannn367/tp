@@ -61,7 +61,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
