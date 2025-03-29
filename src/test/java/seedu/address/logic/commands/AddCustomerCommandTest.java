@@ -281,7 +281,7 @@ public class AddCustomerCommandTest {
         @Override
         public boolean hasCustomer(Customer customer) {
             requireNonNull(customer);
-            return this.customer.isSameCustomer(customer);
+            return this.customer.isSamePerson(customer);
         }
     }
 
@@ -291,7 +291,7 @@ public class AddCustomerCommandTest {
         @Override
         public boolean hasCustomer(Customer customer) {
             requireNonNull(customer);
-            return customersAdded.stream().anyMatch(customer::isSameCustomer);
+            return customersAdded.stream().anyMatch(customer::isSamePerson);
         }
 
         @Override
