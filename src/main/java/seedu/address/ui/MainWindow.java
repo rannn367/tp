@@ -471,6 +471,10 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // Refresh the currently selected detail panels after any command
+            // This ensures the UI stays in sync with the model after commands like purchase
+            refreshCurrentDetailPanel();
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -484,6 +488,56 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Refreshes the currently visible detail panel based on the selected tab
+     */
+    private void refreshCurrentDetailPanel() {
+        int selectedTab = tabPane.getSelectionModel().getSelectedIndex();
+
+        switch (selectedTab) {
+        case 0: // Staff tab
+            if (lastSelectedStaff != null && staffDetailPanel != null) {
+                // Get fresh staff data from model if needed
+                staffDetailPanel.updateStaffDetails(lastSelectedStaff);
+            }
+            break;
+
+        case 1: // Customer tab
+            if (lastSelectedCustomer != null && customerDetailPanel != null) {
+                // Use customer ID for comparison instead of object equality
+                String customerId = lastSelectedCustomer.getCustomerId().toString();
+
+                // Find customer with matching ID
+                Customer updatedCustomer = null;
+                for (Customer c : logic.getFilteredCustomerList()) {
+                    if (c.getCustomerId().toString().equals(customerId)) {
+                        updatedCustomer = c;
+                        break;
+                    }
+                }
+
+                if (updatedCustomer != null) {
+                    lastSelectedCustomer = updatedCustomer; // Update our reference
+                    customerDetailPanel.updateCustomerDetails(updatedCustomer);
+                    logger.info("Updated customer details for ID: " + customerId);
+                } else {
+                    logger.warning("Could not find customer with ID: " + customerId);
+                }
+            }
+            break;
+
+        case 2: // Drinks tab
+            if (lastSelectedDrink != null && drinkDetailPanel != null) {
+                // Get fresh drink data from model if needed
+                drinkDetailPanel.updateDrinkDetails(lastSelectedDrink);
+            }
+            break;
+        default:
+            logger.warning("Unknown tab index: " + selectedTab);
+            break;
         }
     }
 
