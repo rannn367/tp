@@ -21,6 +21,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.DeleteDrinkCommand;
 import seedu.address.logic.commands.DeleteStaffCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCustomerCommand;
@@ -82,6 +83,7 @@ public class AddressBookParser {
         COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD, arguments -> new AddDrinkCommandParser().parse(arguments));
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD, arguments -> new PurchaseCommandParser().parse(arguments));
         COMMAND_MAP.put(HoursAddCommand.COMMAND_WORD, arguments -> new HoursAddCommandParser().parse(arguments));
+        COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD, arguments -> new DeleteDrinkCommandParser().parse(arguments));
     }
 
     /**
