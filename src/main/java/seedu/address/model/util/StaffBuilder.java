@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.model.util;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,6 @@ import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.StaffId;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Staff objects.
