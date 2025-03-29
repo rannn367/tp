@@ -196,6 +196,31 @@ Upon execution, `AddDrinkCommand` first queries the supplied model if it contain
 
 > **_NOTE:_** CafeConnect identifies a drink as a duplicate if its `NAME` matches (case-insensitive) with an existing drink in the catalog. Attempting to add a duplicate will result in an error.
 
+#### Deleting a drink from the catalog
+
+The delete drink feature allows users to remove drinks from the catalog by specifying the index of the drink in the displayed list.
+
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteDrinkCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/DeleteDrinkSequenceDiagram.puml" alt="DeleteDrinkSequenceDiagram" />
+
+`AddressBookParser` creates `DeleteDrinkCommandParser` to parse user input string.
+
+`DeleteDrinkCommandParser` extracts the index from the command arguments and ensures:
+- The index is a valid positive integer.
+- If the index is invalid, a `ParseException` is thrown.
+
+If the index is valid, `DeleteDrinkCommandParser` creates a new instance of `DeleteDrinkCommand` with the specified index.
+
+Upon execution, `DeleteDrinkCommand` first checks if the index is within the bounds of the filtered drink list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `DeleteDrinkCommand`:
+1. Retrieves the drink to be deleted from the filtered drink list
+2. Calls `model.deleteDrink(drinkToDelete)` to remove the drink from the catalog
+3. Returns a `CommandResult` with a success message
+
+> **_NOTE:_** CafeConnect only allows deleting drinks by index. Once a drink is deleted, it cannot be recovered unless added again manually.
+
 <br></br>
 
 ### Customer Purchase and Points System
