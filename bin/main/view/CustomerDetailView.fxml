@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.FlowPane?>
+
+<VBox styleClass="detail-panel" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <!-- No customer selected message -->
+    <Label fx:id="noSelectionMessage" text="Select a customer to view details" styleClass="section-header">
+        <VBox.margin>
+            <Insets top="20.0" />
+        </VBox.margin>
+    </Label>
+
+    <!-- Customer details content -->
+    <VBox fx:id="detailsContent" spacing="10" visible="false">
+        <!-- Header with name -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="customerNameHeader" styleClass="detail-header" />
+            <Region HBox.hgrow="ALWAYS" />
+            <!-- Buttons removed for CLI-based approach -->
+        </HBox>
+
+        <!-- Customer ID -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="ID:" styleClass="detail-label" />
+            <Label fx:id="customerId" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Phone -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Phone:" styleClass="detail-label" />
+            <Label fx:id="phone" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Email -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Email:" styleClass="detail-label" />
+            <Label fx:id="email" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Address -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Address:" styleClass="detail-label" />
+            <Label fx:id="address" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Visit Count -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Visit Count:" styleClass="detail-label" />
+            <Label fx:id="visitCount" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Total Spent -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Total Spent:" styleClass="detail-label" />
+            <Label fx:id="totalSpent" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Reward Points -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Reward Points:" styleClass="detail-label" />
+            <Label fx:id="rewardPoints" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Favourite Drink -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Favourite Drink:" styleClass="detail-label" />
+            <Label fx:id="favouriteDrink" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Remark -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Notes:" styleClass="detail-label" />
+            <Label fx:id="remark" styleClass="detail-value" />
+        </HBox>
+
+        <!-- Tags -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Tags:" styleClass="detail-label" />
+            <FlowPane fx:id="tags" />
+        </HBox>
+    </VBox>
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+</VBox>
