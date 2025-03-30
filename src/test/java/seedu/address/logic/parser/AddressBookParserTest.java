@@ -3,12 +3,10 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.Assert.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.AddDrinkCommand;
 import seedu.address.logic.commands.AddStaffCommand;
@@ -21,6 +19,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.testutil.Assert.assertThrows;
 
 public class AddressBookParserTest {
 
@@ -69,7 +68,7 @@ public class AddressBookParserTest {
     public void parseCommand_addStaff() throws Exception {
         // Full command format
         assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD + " sid/S1234 n/Alice Tan p/81234567 "
-            + "e/alice@example.com a/123, Jurong West Ave 6, #08-111"
+            + "e/alice@example.com a/123, Jurong West Ave 6, #08-111 "
             + "role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime")
                 instanceof AddStaffCommand);
     }
