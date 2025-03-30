@@ -26,10 +26,6 @@ public class DrinkDetailPanel extends UiPart<Region> {
     private Label price;
     @FXML
     private Label category;
-    @FXML
-    private Label description;
-    @FXML
-    private Label stock;
 
     /**
      * Creates a {@code DrinkDetailPanel}.
@@ -128,9 +124,6 @@ public class DrinkDetailPanel extends UiPart<Region> {
             safeSetText(price, String.format("$%.2f", drink.getPrice()));
             safeSetText(category, drink.getCategory().getCategory());
 
-            // For fields that might not exist in your model yet
-            safeSetText(description, "");
-            safeSetText(stock, "In stock");
 
         } catch (Exception e) {
             logger.warning("Error updating drink details: " + e.getMessage());

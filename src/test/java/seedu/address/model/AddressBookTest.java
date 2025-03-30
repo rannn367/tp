@@ -64,7 +64,7 @@ public class AddressBookTest {
         Staff editedBen = new StaffBuilder(BEN).withTags(VALID_TAG_FRIEND).build();
         List<Staff> newStaffs = Arrays.asList(BEN, editedBen);
 
-        // Two customers witht he same identity fields
+        // Two customers with the same identity fields
         Customer editedOlivia = new CustomerBuilder(OLIVIA).withAddress(VALID_ADDRESS_OLIVIA)
                 .withTags(VALID_TAG_STUDENT)
                 .build();

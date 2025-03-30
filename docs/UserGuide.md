@@ -42,7 +42,7 @@ If you're a café owner who types fast and needs a simple way to manage customer
 
 1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your CafeConnect Application  .
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cafeconnect.jar` command to run the application.<br>
 
@@ -214,7 +214,7 @@ Format: `customerdelete INDEX`
 * Deletes the customer at the specified `INDEX`.
 * The `INDEX` refers to the index number shown in the displayed customer list.
 * The `INDEX` **must be a positive integer** 1, 2, 3, …
-* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five applications in the displayed list).
+* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five customers in the displayed list).
 
 Examples:
 * `customerdelete 2` deletes the 2nd customer in the customer list.
@@ -248,6 +248,7 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 * `PHONE` should only contain digits, and it should be at least 3 digits long
 * `EMAIL` must be a valid email address
 * `ADDRESS` can take any value, and it should not be blank
+* `ROLE` can take any value, and it should not be blank
 * `SHIFT_TIMING` should only contain digits
 * `HOURS_WORKED` should only contain digits
 * `PERFORMANCE_RATING` can take any value, and it should not be blank
@@ -306,7 +307,7 @@ Format: `staffdelete INDEX`
 * Deletes the staff at the specified `INDEX`.
 * The `INDEX` refers to the index number shown in the displayed staff list.
 * The `INDEX` **must be a positive integer** 1, 2, 3, …
-* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five applications in the displayed list).
+* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five staff in the displayed list).
 
 Examples:
 * `staffdelete 2` deletes the 2nd staff in the address book.
@@ -412,6 +413,35 @@ These are the before and after images of the first example
     <p><i>After adding the drink</i></p>
   </div>
 </div>
+
+## Deleting a drink: `drinkdelete`
+
+Deletes the specified customer from CafeConnect.
+
+Format: `drinkdelete INDEX`
+
+* Deletes the customer at the specified `INDEX`.
+* The `INDEX` refers to the index number shown in the displayed drink list.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …
+* The `INDEX` **must be a valid index number** (e.g. 5 is not valid when there is less than five drinks in the displayed list).
+
+Examples:
+* `drinkdelete 1` deletes the 1st drink in the drink list.
+* `drinkdelete 4` when you only have three drinks returns an error message.
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_drinkdelete.png" alt="Before deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before deleting the customer</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_drinkdelete.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After deleting the customer</i></p>
+  </div>
+</div>
+
 
 ## Recording a purchase: `purchase`
 
@@ -590,5 +620,6 @@ Action | Format, Examples
 **Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` <br> e.g., `staffedit 1 p/99994567 e/newemail@example.com`
 **Add Hours** | `hoursadd ind/INDEX h/HOURS` <br> e.g., `hoursadd ind/1 h/5`
 **Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee`
+**Delete Drink** | `drinkdelete INDEX` <br> e.g., `drinkdelete 2`
 **Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` <br> e.g., `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
 **Help** | `help`

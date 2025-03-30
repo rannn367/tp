@@ -27,12 +27,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.logic.parser.descriptors.EditPersonDescriptor;
 import seedu.address.logic.parser.descriptors.EditStaffDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
@@ -336,5 +338,20 @@ public class CommandTestUtil {
         model.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCustomerList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the drink at the given {@code targetIndex} in the
+     * {@code model}'s drink catalog.
+     */
+    public static void showDrinkAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDrinkList().size());
+
+        Drink drink = model.getFilteredDrinkList().get(targetIndex.getZeroBased());
+        final String[] splitName = drink.getName().split("\\s+");
+        model.updateFilteredDrinkList(d -> Arrays.stream(splitName)
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(d.getName(), keyword)));
+
+        assertEquals(1, model.getFilteredDrinkList().size());
     }
 }
