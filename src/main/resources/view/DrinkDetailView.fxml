@@ -35,17 +35,6 @@
             <Label fx:id="category" styleClass="detail-value" />
         </HBox>
 
-        <!-- Description -->
-        <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label text="Description:" styleClass="detail-label" />
-            <Label fx:id="description" styleClass="detail-value" />
-        </HBox>
-
-        <!-- Stock -->
-        <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label text="Stock:" styleClass="detail-label" />
-            <Label fx:id="stock" styleClass="detail-value" />
-        </HBox>
     </VBox>
 
     <padding>
