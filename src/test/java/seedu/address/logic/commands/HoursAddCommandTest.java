@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -69,8 +70,10 @@ public class HoursAddCommandTest {
 
         Staff updatedStaff = staffList.get(validIndex.getZeroBased());
         int updatedHours = Integer.parseInt(updatedStaff.getHoursWorked().value) + hoursToAdd;
+        HoursWorked originalHours = updatedStaff.getHoursWorked();
+        HoursWorked updatedHoursWorked = new HoursWorked(String.valueOf(updatedHours));
 
-        assertEquals(String.format(MESSAGE_SUCCESS, updatedStaff.getName(), 40, updatedHours),
+        assertEquals(String.format(MESSAGE_SUCCESS, Messages.format(updatedStaff), originalHours, updatedHoursWorked),
                 result.getFeedbackToUser());
     }
 

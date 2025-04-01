@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -97,14 +96,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalName(Optional<Name> nameOptional) {
-        nameOptional.ifPresent(n -> this.name = n);
-        return this;
-    }
-
-    /**
      * Sets the {@code Phone} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withPhone(String phone) {
@@ -117,14 +108,6 @@ public class CustomerBuilder {
      */
     public CustomerBuilder withPhone(Phone phone) {
         this.phone = phone;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalPhone(Optional<Phone> phoneOptional) {
-        phoneOptional.ifPresent(p -> this.phone = p);
         return this;
     }
 
@@ -145,14 +128,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalEmail(Optional<Email> emailOptional) {
-        emailOptional.ifPresent(e -> this.email = e);
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withAddress(String address) {
@@ -165,14 +140,6 @@ public class CustomerBuilder {
      */
     public CustomerBuilder withAddress(Address address) {
         this.address = address;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalAddress(Optional<Address> addressOptional) {
-        addressOptional.ifPresent(a -> this.address = a);
         return this;
     }
 
@@ -193,14 +160,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code Remark} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalRemark(Optional<Remark> remarkOptional) {
-        remarkOptional.ifPresent(r -> this.remark = r);
-        return this;
-    }
-
-    /**
      * Sets the {@code Tags} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withTags(String... tags) {
@@ -213,14 +172,6 @@ public class CustomerBuilder {
      */
     public CustomerBuilder withTags(Set<Tag> tags) {
         this.tags = new HashSet<>(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Set<Tag>} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalTags(Optional<Set<Tag>> tagsOptional) {
-        tagsOptional.ifPresent(t -> this.tags = t);
         return this;
     }
 
@@ -241,14 +192,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code CustomerId} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalCustomerId(Optional<CustomerId> customerIdOptional) {
-        customerIdOptional.ifPresent(id -> this.customerId = id);
-        return this;
-    }
-
-    /**
      * Sets the {@code RewardPoints} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withRewardPoints(String rewardPoints) {
@@ -261,14 +204,6 @@ public class CustomerBuilder {
      */
     public CustomerBuilder withRewardPoints(RewardPoints rewardPoints) {
         this.rewardPoints = rewardPoints;
-        return this;
-    }
-
-    /**
-     * Sets the {@code RewardPoints} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalRewardPoints(Optional<RewardPoints> rewardPointsOptional) {
-        rewardPointsOptional.ifPresent(rp -> this.rewardPoints = rp);
         return this;
     }
 
@@ -289,14 +224,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code VisitCount} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalVisitCount(Optional<VisitCount> visitCountOptional) {
-        visitCountOptional.ifPresent(vc -> this.visitCount = vc);
-        return this;
-    }
-
-    /**
      * Sets the {@code FavouriteItem} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withFavouriteItem(String favouriteItem) {
@@ -313,14 +240,6 @@ public class CustomerBuilder {
     }
 
     /**
-     * Sets the {@code FavouriteItem} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalFavouriteItem(Optional<FavouriteItem> favouriteItemOptional) {
-        favouriteItemOptional.ifPresent(fi -> this.favouriteItem = fi);
-        return this;
-    }
-
-    /**
      * Sets the {@code TotalSpent} of the {@code Customer} that we are building.
      */
     public CustomerBuilder withTotalSpent(String totalSpent) {
@@ -333,14 +252,6 @@ public class CustomerBuilder {
      */
     public CustomerBuilder withTotalSpent(TotalSpent totalSpent) {
         this.totalSpent = totalSpent;
-        return this;
-    }
-
-    /**
-     * Sets the {@code TotalSpent} of the {@code Customer} if present in the Optional.
-     */
-    public CustomerBuilder withOptionalTotalSpent(Optional<TotalSpent> totalSpentOptional) {
-        totalSpentOptional.ifPresent(ts -> this.totalSpent = ts);
         return this;
     }
 

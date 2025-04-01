@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -71,14 +70,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} if present in the Optional.
-     */
-    public PersonBuilder withName(Optional<Name> nameOptional) {
-        nameOptional.ifPresent(n -> this.name = n);
-        return this;
-    }
-
-    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
@@ -91,14 +82,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withPhone(Phone phone) {
         this.phone = phone;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code Person} if present in the Optional.
-     */
-    public PersonBuilder withOptionalPhone(Optional<Phone> phoneOptional) {
-        phoneOptional.ifPresent(p -> this.phone = p);
         return this;
     }
 
@@ -119,14 +102,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Set<Tag>} of the {@code Person} if present in the Optional.
-     */
-    public PersonBuilder withTags(Optional<Set<Tag>> tagsOptional) {
-        tagsOptional.ifPresent(t -> this.tags = t);
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
@@ -139,14 +114,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withAddress(Address address) {
         this.address = address;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Person} if present in the Optional.
-     */
-    public PersonBuilder withOptionalAddress(Optional<Address> addressOptional) {
-        addressOptional.ifPresent(a -> this.address = a);
         return this;
     }
 
@@ -167,14 +134,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} if present in the Optional.
-     */
-    public PersonBuilder withOptionalEmail(Optional<Email> emailOptional) {
-        emailOptional.ifPresent(e -> this.email = e);
-        return this;
-    }
-
-    /**
      * Sets the {@code Remark} of the {@code Person} that we are building.
      */
     public PersonBuilder withRemark(String remark) {
@@ -187,14 +146,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withRemark(Remark remark) {
         this.remark = remark;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Remark} of the {@code Person} if present in the Optional.
-     */
-    public PersonBuilder withOptionalRemark(Optional<Remark> remarkOptional) {
-        remarkOptional.ifPresent(r -> this.remark = r);
         return this;
     }
 

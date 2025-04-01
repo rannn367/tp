@@ -102,18 +102,20 @@ public class EditCustomerCommand extends Command {
             EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
-        return new CustomerBuilder(customerToEdit)
-                .withOptionalName(editCustomerDescriptor.getName())
-                .withOptionalPhone(editCustomerDescriptor.getPhone())
-                .withOptionalEmail(editCustomerDescriptor.getEmail())
-                .withOptionalAddress(editCustomerDescriptor.getAddress())
-                .withOptionalTags(editCustomerDescriptor.getTags())
-                .withOptionalCustomerId(editCustomerDescriptor.getCustomerId())
-                .withOptionalRewardPoints(editCustomerDescriptor.getRewardPoints())
-                .withOptionalVisitCount(editCustomerDescriptor.getVisitCount())
-                .withOptionalFavouriteItem(editCustomerDescriptor.getFavouriteItem())
-                .withOptionalTotalSpent(editCustomerDescriptor.getTotalSpent())
-                .build();
+        CustomerBuilder customerBuilder = new CustomerBuilder(customerToEdit);
+
+        editCustomerDescriptor.getName().ifPresent(customerBuilder::withName);
+        editCustomerDescriptor.getPhone().ifPresent(customerBuilder::withPhone);
+        editCustomerDescriptor.getEmail().ifPresent(customerBuilder::withEmail);
+        editCustomerDescriptor.getAddress().ifPresent(customerBuilder::withAddress);
+        editCustomerDescriptor.getTags().ifPresent(customerBuilder::withTags);
+        editCustomerDescriptor.getCustomerId().ifPresent(customerBuilder::withCustomerId);
+        editCustomerDescriptor.getRewardPoints().ifPresent(customerBuilder::withRewardPoints);
+        editCustomerDescriptor.getVisitCount().ifPresent(customerBuilder::withVisitCount);
+        editCustomerDescriptor.getFavouriteItem().ifPresent(customerBuilder::withFavouriteItem);
+        editCustomerDescriptor.getTotalSpent().ifPresent(customerBuilder::withTotalSpent);
+
+        return customerBuilder.build();
     }
 
     @Override

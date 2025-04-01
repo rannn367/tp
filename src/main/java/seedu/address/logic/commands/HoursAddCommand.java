@@ -7,10 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Staff;
+import seedu.address.model.util.StaffBuilder;
 
 /**
  * Adds hours to a staff member's total hours worked.
@@ -24,7 +26,7 @@ public class HoursAddCommand extends Command {
             + PREFIX_HOURS + "<hours>\n"
             + "Example: " + COMMAND_WORD + " ind/1 h/5";
 
-    public static final String MESSAGE_SUCCESS = "Updated hours for %s: %d -> %d";
+    public static final String MESSAGE_SUCCESS = "Updated hours for %1$s: %s -> %s";
     public static final String MESSAGE_INVALID_INDEX = "Invalid staff index.";
     public static final String MESSAGE_INVALID_HOURS = "Hours must be a non-negative integer.";
 
@@ -54,19 +56,28 @@ public class HoursAddCommand extends Command {
         }
 
         Staff staffToUpdate = lastShownList.get(targetIndex.getZeroBased());
+        Staff updatedStaff = createEditedStaff(staffToUpdate, hoursToAdd);
+
+        model.setStaff(staffToUpdate, updatedStaff);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedStaff),
+                staffToUpdate.getHoursWorked(), updatedStaff.getHoursWorked()));
+    }
+
+    /**
+     * Creates a new Staff object with updated hours worked.
+     * This method is used to create a new Staff object with the updated hours worked.
+     *
+     * @param staffToUpdate The Staff object to be updated.
+     * @return A new Staff object with updated hours worked.
+     */
+    private static Staff createEditedStaff(Staff staffToUpdate, int hoursToAdd) {
         int currentHours = Integer.parseInt(staffToUpdate.getHoursWorked().value);
         int newHours = currentHours + hoursToAdd;
         HoursWorked updatedHoursWorked = new HoursWorked(String.valueOf(newHours));
-        Staff updatedStaff = new Staff(
-                staffToUpdate.getName(), staffToUpdate.getPhone(), staffToUpdate.getEmail(),
-                staffToUpdate.getAddress(), staffToUpdate.getRemark(), staffToUpdate.getTags(),
-                staffToUpdate.getStaffId(), staffToUpdate.getRole(), staffToUpdate.getShiftTiming(),
-                updatedHoursWorked, staffToUpdate.getPerformanceRating()
-        );
 
-        model.setStaff(staffToUpdate, updatedStaff);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedStaff.getName(),
-                currentHours, newHours));
+        StaffBuilder staffBuilder = new StaffBuilder(staffToUpdate);
+        staffBuilder.withHoursWorked(updatedHoursWorked);
+        return staffBuilder.build();
     }
 
     @Override

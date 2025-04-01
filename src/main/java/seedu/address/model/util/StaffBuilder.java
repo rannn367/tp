@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -96,14 +95,6 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalName(Optional<Name> nameOptional) {
-        nameOptional.ifPresent(n -> this.name = n);
-        return this;
-    }
-
-    /**
      * Sets the {@code Phone} of the {@code Staff} that we are building.
      */
     public StaffBuilder withPhone(String phone) {
@@ -116,14 +107,6 @@ public class StaffBuilder {
      */
     public StaffBuilder withPhone(Phone phone) {
         this.phone = phone;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalPhone(Optional<Phone> phoneOptional) {
-        phoneOptional.ifPresent(p -> this.phone = p);
         return this;
     }
 
@@ -144,14 +127,6 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalEmail(Optional<Email> emailOptional) {
-        emailOptional.ifPresent(e -> this.email = e);
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Staff} that we are building.
      */
     public StaffBuilder withAddress(String address) {
@@ -164,14 +139,6 @@ public class StaffBuilder {
      */
     public StaffBuilder withAddress(Address address) {
         this.address = address;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalAddress(Optional<Address> addressOptional) {
-        addressOptional.ifPresent(a -> this.address = a);
         return this;
     }
 
@@ -192,14 +159,6 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code Remark} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalRemark(Optional<Remark> remarkOptional) {
-        remarkOptional.ifPresent(r -> this.remark = r);
-        return this;
-    }
-
-    /**
      * Sets the {@code Tags} of the {@code Staff} that we are building.
      */
     public StaffBuilder withTags(Set<Tag> tags) {
@@ -212,14 +171,6 @@ public class StaffBuilder {
      */
     public StaffBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Tags} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalTags(Optional<Set<Tag>> tagsOptional) {
-        tagsOptional.ifPresent(t -> this.tags = t);
         return this;
     }
 
@@ -240,14 +191,6 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code StaffId} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalStaffId(Optional<StaffId> staffIdOptional) {
-        staffIdOptional.ifPresent(id -> this.staffId = id);
-        return this;
-    }
-
-    /**
      * Sets the {@code Role} of the {@code Staff} that we are building.
      */
     public StaffBuilder withRole(String role) {
@@ -260,14 +203,6 @@ public class StaffBuilder {
      */
     public StaffBuilder withRole(Role role) {
         this.role = role;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Role} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalRole(Optional<Role> roleOptional) {
-        roleOptional.ifPresent(r -> this.role = r);
         return this;
     }
 
@@ -288,14 +223,6 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code ShiftTiming} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalShiftTiming(Optional<ShiftTiming> shiftTimingOptional) {
-        shiftTimingOptional.ifPresent(st -> this.shiftTiming = st);
-        return this;
-    }
-
-    /**
      * Sets the {@code HoursWorked} of the {@code Staff} that we are building.
      */
     public StaffBuilder withHoursWorked(String hoursWorked) {
@@ -312,14 +239,6 @@ public class StaffBuilder {
     }
 
     /**
-     * Sets the {@code HoursWorked} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalHoursWorked(Optional<HoursWorked> hoursWorkedOptional) {
-        hoursWorkedOptional.ifPresent(hw -> this.hoursWorked = hw);
-        return this;
-    }
-
-    /**
      * Sets the {@code PerformanceRating} of the {@code Staff} that we are building.
      */
     public StaffBuilder withPerformanceRating(String performanceRating) {
@@ -332,14 +251,6 @@ public class StaffBuilder {
      */
     public StaffBuilder withPerformanceRating(PerformanceRating performanceRating) {
         this.performanceRating = performanceRating;
-        return this;
-    }
-
-    /**
-     * Sets the {@code PerformanceRating} of the {@code Staff} if present in the Optional.
-     */
-    public StaffBuilder withOptionalPerformanceRating(Optional<PerformanceRating> performanceRatingOptional) {
-        performanceRatingOptional.ifPresent(pr -> this.performanceRating = pr);
         return this;
     }
 
