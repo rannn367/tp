@@ -57,7 +57,7 @@ public class EditStaffCommand extends Command {
     private final EditStaffDescriptor editStaffDescriptor;
 
     /**
-     * @param index of the staff in the filtered staff list to edit
+     * @param index               of the staff in the filtered staff list to edit
      * @param editStaffDescriptor details to edit the staff with
      */
     public EditStaffCommand(Index index, EditStaffDescriptor editStaffDescriptor) {
@@ -98,16 +98,36 @@ public class EditStaffCommand extends Command {
 
         StaffBuilder staffBuilder = new StaffBuilder(staffToEdit);
 
-        editStaffDescriptor.getName().ifPresent(staffBuilder::withName);
-        editStaffDescriptor.getPhone().ifPresent(staffBuilder::withPhone);
-        editStaffDescriptor.getEmail().ifPresent(staffBuilder::withEmail);
-        editStaffDescriptor.getAddress().ifPresent(staffBuilder::withAddress);
-        editStaffDescriptor.getTags().ifPresent(staffBuilder::withTags);
-        editStaffDescriptor.getStaffId().ifPresent(staffBuilder::withStaffId);
-        editStaffDescriptor.getRole().ifPresent(staffBuilder::withRole);
-        editStaffDescriptor.getShiftTiming().ifPresent(staffBuilder::withShiftTiming);
-        editStaffDescriptor.getHoursWorked().ifPresent(staffBuilder::withHoursWorked);
-        editStaffDescriptor.getPerformanceRating().ifPresent(staffBuilder::withPerformanceRating);
+        staffBuilder = editStaffDescriptor.getName()
+                .map(staffBuilder::withName)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getPhone()
+                .map(staffBuilder::withPhone)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getEmail()
+                .map(staffBuilder::withEmail)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getAddress()
+                .map(staffBuilder::withAddress)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getTags()
+                .map(staffBuilder::withTags)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getStaffId()
+                .map(staffBuilder::withStaffId)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getRole()
+                .map(staffBuilder::withRole)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getShiftTiming()
+                .map(staffBuilder::withShiftTiming)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getHoursWorked()
+                .map(staffBuilder::withHoursWorked)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getPerformanceRating()
+                .map(staffBuilder::withPerformanceRating)
+                .orElse(staffBuilder);
 
         return staffBuilder.build();
     }

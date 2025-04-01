@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -18,6 +19,8 @@ import seedu.address.model.tag.Tag;
  * @param <SELF> The type of the concrete builder class.
  */
 public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder<T, SELF>> {
+
+    public final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
@@ -64,6 +67,15 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
     }
 
     /**
+     * Returns the error message for a missing field.
+     * @param fieldName The name of the field that is missing.
+     * @return The error message indicating the missing field.
+     */
+    public String getErrorMessage(String fieldName) {
+        return String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldName);
+    }
+
+    /**
      * Creates a new builder instance with updated fields.
      */
     protected abstract SELF createBuilder(
@@ -79,9 +91,16 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
      *
      * @param name The name to set.
      * @return A new builder instance with the updated name.
+     * @throws IllegalValueException if name is invalid.
      */
-    public SELF withName(String name) {
-        return createBuilder(new Name(name), this.phone, this.email, this.address, this.remark, this.tags);
+    public SELF withName(String name) throws IllegalValueException {
+        if (name == null) {
+            throw new IllegalValueException(getErrorMessage(Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return withName(new Name(name));
     }
 
     /**
@@ -99,9 +118,16 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
      *
      * @param phone The phone number to set.
      * @return A new builder instance with the updated phone number.
+     * @throws IllegalValueException if phone is invalid.
      */
-    public SELF withPhone(String phone) {
-        return createBuilder(this.name, new Phone(phone), this.email, this.address, this.remark, this.tags);
+    public SELF withPhone(String phone) throws IllegalValueException {
+        if (phone == null) {
+            throw new IllegalValueException(getErrorMessage(Phone.class.getSimpleName()));
+        }
+        if (!Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        return withPhone(new Phone(phone));
     }
 
     /**
@@ -119,9 +145,16 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
      *
      * @param email The email to set.
      * @return A new builder instance with the updated email.
+     * @throws IllegalValueException if email is invalid.
      */
-    public SELF withEmail(String email) {
-        return createBuilder(this.name, this.phone, new Email(email), this.address, this.remark, this.tags);
+    public SELF withEmail(String email) throws IllegalValueException {
+        if (email == null) {
+            throw new IllegalValueException(getErrorMessage(Email.class.getSimpleName()));
+        }
+        if (!Email.isValidEmail(email)) {
+            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        }
+        return withEmail(new Email(email));
     }
 
     /**
@@ -139,9 +172,16 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
      *
      * @param address The address to set.
      * @return A new builder instance with the updated address.
+     * @throws IllegalValueException if address is invalid.
      */
-    public SELF withAddress(String address) {
-        return createBuilder(this.name, this.phone, this.email, new Address(address), this.remark, this.tags);
+    public SELF withAddress(String address) throws IllegalValueException {
+        if (address == null) {
+            throw new IllegalValueException(getErrorMessage(Address.class.getSimpleName()));
+        }
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+        return withAddress(new Address(address));
     }
 
     /**
@@ -159,9 +199,16 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
      *
      * @param remark The remark to set.
      * @return A new builder instance with the updated remark.
+     * @throws IllegalValueException if remark is invalid.
      */
-    public SELF withRemark(String remark) {
-        return createBuilder(this.name, this.phone, this.email, this.address, new Remark(remark), this.tags);
+    public SELF withRemark(String remark) throws IllegalValueException {
+        if (remark == null) {
+            throw new IllegalValueException(getErrorMessage(Remark.class.getSimpleName()));
+        }
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        return withRemark(new Remark(remark));
     }
 
     /**
@@ -189,10 +236,22 @@ public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder
      *
      * @param tags The tags to assign, given as strings.
      * @return A new builder instance with the updated tags.
+     * @throws IllegalValueException if any tag is invalid.
      */
-    public SELF withTags(String... tags) {
+    public SELF withTags(String... tags) throws IllegalValueException {
+        if (tags == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "Tags"));
+        }
+
         Set<Tag> tagSet = new HashSet<>();
         for (String tag : tags) {
+            if (tag == null) {
+                throw new IllegalValueException(getErrorMessage(Tag.class.getSimpleName()));
+            }
+            if (!Tag.isValidTagName(tag)) {
+                throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+            }
             tagSet.add(new Tag(tag));
         }
         return createBuilder(this.name, this.phone, this.email, this.address, this.remark, tagSet);
