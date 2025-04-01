@@ -15,11 +15,11 @@ public class TypicalAddressBook {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Customer customer : TypicalCustomers.getTypicalCustomers()) {
-            ab.addCustomer(customer);
-        }
         for (Staff staff : TypicalStaff.getTypicalStaff()) {
             ab.addStaff(staff);
+        }
+        for (Customer customer : TypicalCustomers.getTypicalCustomers()) {
+            ab.addCustomer(customer);
         }
         return ab;
     }
