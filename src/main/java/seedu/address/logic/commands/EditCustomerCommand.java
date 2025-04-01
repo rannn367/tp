@@ -15,29 +15,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerId;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
-import seedu.address.model.person.RewardPoints;
-import seedu.address.model.person.TotalSpent;
-import seedu.address.model.person.VisitCount;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.util.CustomerBuilder;
 
 /**
  * Edits the details of an existing customer in the address book.
@@ -98,7 +84,7 @@ public class EditCustomerCommand extends Command {
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
 
-        if (!customerToEdit.isSameCustomer(editedCustomer) && model.hasCustomer(editedCustomer)) {
+        if (!customerToEdit.isSamePerson(editedCustomer) && model.hasCustomer(editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
 
@@ -116,22 +102,20 @@ public class EditCustomerCommand extends Command {
             EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
-        Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
-        Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
-        Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
-        Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
-        Remark updatedRemark = customerToEdit.getRemark(); // edit command does not allow editing remarks
-        Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
-        CustomerId updatedCustomerId = editCustomerDescriptor.getCustomerId().orElse(customerToEdit.getCustomerId());
-        RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(
-                customerToEdit.getRewardPoints());
-        VisitCount updatedVisitCount = editCustomerDescriptor.getVisitCount().orElse(customerToEdit.getVisitCount());
-        FavouriteItem updatedFavouriteItem = editCustomerDescriptor.getFavouriteItem().orElse(
-                customerToEdit.getFavouriteItem());
-        TotalSpent updatedTotalSpent = editCustomerDescriptor.getTotalSpent().orElse(customerToEdit.getTotalSpent());
+        CustomerBuilder customerBuilder = new CustomerBuilder(customerToEdit);
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
-                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavouriteItem, updatedTotalSpent);
+        editCustomerDescriptor.getName().ifPresent(customerBuilder::withName);
+        editCustomerDescriptor.getPhone().ifPresent(customerBuilder::withPhone);
+        editCustomerDescriptor.getEmail().ifPresent(customerBuilder::withEmail);
+        editCustomerDescriptor.getAddress().ifPresent(customerBuilder::withAddress);
+        editCustomerDescriptor.getTags().ifPresent(customerBuilder::withTags);
+        editCustomerDescriptor.getCustomerId().ifPresent(customerBuilder::withCustomerId);
+        editCustomerDescriptor.getRewardPoints().ifPresent(customerBuilder::withRewardPoints);
+        editCustomerDescriptor.getVisitCount().ifPresent(customerBuilder::withVisitCount);
+        editCustomerDescriptor.getFavouriteItem().ifPresent(customerBuilder::withFavouriteItem);
+        editCustomerDescriptor.getTotalSpent().ifPresent(customerBuilder::withTotalSpent);
+
+        return customerBuilder.build();
     }
 
     @Override
@@ -155,123 +139,5 @@ public class EditCustomerCommand extends Command {
                 .add("index", index)
                 .add("editCustomerDescriptor", editCustomerDescriptor)
                 .toString();
-    }
-
-    /**
-     * Stores the details to edit the customer with. Each non-empty field value
-     * will replace the corresponding field value of the customer.
-     */
-    public static class EditCustomerDescriptor extends EditPersonDescriptor {
-
-        // Customer-specific fields
-        private CustomerId customerId;
-        private RewardPoints rewardPoints;
-        private VisitCount visitCount;
-        private FavouriteItem favouriteItem;
-        private TotalSpent totalSpent;
-
-        public EditCustomerDescriptor() {
-        }
-
-        /**
-         * Copy constructor. A defensive copy of {@code tags} is used
-         * internally.
-         */
-        public EditCustomerDescriptor(EditCustomerDescriptor toCopy) {
-            super(toCopy);
-            setCustomerId(toCopy.customerId);
-            setRewardPoints(toCopy.rewardPoints);
-            setVisitCount(toCopy.visitCount);
-            setFavouriteItem(toCopy.favouriteItem);
-            setTotalSpent(toCopy.totalSpent);
-        }
-
-        @Override
-        public boolean isAnyFieldEdited() {
-            return super.isAnyFieldEdited()
-                    || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
-        }
-
-        public Optional<CustomerId> getCustomerId() {
-            return Optional.ofNullable(customerId);
-        }
-
-        public void setCustomerId(CustomerId customerId) {
-            this.customerId = customerId;
-        }
-
-        public Optional<RewardPoints> getRewardPoints() {
-            return Optional.ofNullable(rewardPoints);
-        }
-
-        public void setRewardPoints(RewardPoints rewardPoints) {
-            this.rewardPoints = rewardPoints;
-        }
-
-        public Optional<VisitCount> getVisitCount() {
-            return Optional.ofNullable(visitCount);
-        }
-
-        public void setVisitCount(VisitCount visitCount) {
-            this.visitCount = visitCount;
-        }
-
-        public Optional<FavouriteItem> getFavouriteItem() {
-            return Optional.ofNullable(favouriteItem);
-        }
-
-        public void setFavouriteItem(FavouriteItem favouriteItem) {
-            this.favouriteItem = favouriteItem;
-        }
-
-        public Optional<TotalSpent> getTotalSpent() {
-            return Optional.ofNullable(totalSpent);
-        }
-
-        public void setTotalSpent(TotalSpent totalSpent) {
-            this.totalSpent = totalSpent;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditCustomerDescriptor)) {
-                return false;
-            }
-
-            if (!super.equals(other)) {
-                return false;
-            }
-
-            EditCustomerDescriptor otherEditCustomerDescriptor = (EditCustomerDescriptor) other;
-            return Objects.equals(customerId, otherEditCustomerDescriptor.customerId)
-                    && Objects.equals(rewardPoints, otherEditCustomerDescriptor.rewardPoints)
-                    && Objects.equals(visitCount, otherEditCustomerDescriptor.visitCount)
-                    && Objects.equals(favouriteItem, otherEditCustomerDescriptor.favouriteItem)
-                    && Objects.equals(totalSpent, otherEditCustomerDescriptor.totalSpent);
-        }
-
-        /**
-         * Builds a string representation of the object using a {@link ToStringBuilder}.
-         * This method extends the parent class's string representation by adding
-         * additional fields specific to the customer entity, such as customer ID, rewardPoints,
-         * visit count, favourite item, and total spent.
-         *
-         * @return A {@link ToStringBuilder} containing the string representation of the object.
-         */
-        @Override
-        public ToStringBuilder toStringBuilder() {
-            ToStringBuilder parentBuilder = super.toStringBuilder();
-            parentBuilder.add("customerId", customerId)
-                    .add("rewardPoints", rewardPoints)
-                    .add("visitCount", visitCount)
-                    .add("favouriteItem", favouriteItem)
-                    .add("totalSpent", totalSpent);
-            return parentBuilder;
-        }
     }
 }

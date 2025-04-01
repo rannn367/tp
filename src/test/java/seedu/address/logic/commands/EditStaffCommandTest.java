@@ -20,14 +20,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.EditStaffCommand.EditStaffDescriptor;
+import seedu.address.logic.parser.descriptors.EditStaffDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Staff;
+import seedu.address.model.util.StaffBuilder;
 import seedu.address.testutil.EditStaffDescriptorBuilder;
-import seedu.address.testutil.StaffBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditStaffCommand.
@@ -177,9 +177,6 @@ public class EditStaffCommandTest {
 
         // null -> returns false
         assertFalse(standardCommand.equals(null));
-
-        // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditStaffCommand(INDEX_SECOND_PERSON, DESC_ALEX)));

@@ -28,9 +28,9 @@ import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.StaffBuilder;
+import seedu.address.model.util.CustomerBuilder;
+import seedu.address.model.util.PersonBuilder;
+import seedu.address.model.util.StaffBuilder;
 
 public class AddressBookTest {
 
@@ -55,17 +55,19 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
 
-        // Two staffs with the same identity fields
-        Staff editedBen = new StaffBuilder(BEN).withTags(VALID_TAG_FRIEND).build();
+        Staff editedBen = new StaffBuilder(BEN)
+                .withTags(VALID_TAG_FRIEND)
+                .build();
         List<Staff> newStaffs = Arrays.asList(BEN, editedBen);
 
-        // Two customers witht he same identity fields
-        Customer editedOlivia = new CustomerBuilder(OLIVIA).withAddress(VALID_ADDRESS_OLIVIA)
+        Customer editedOlivia = new CustomerBuilder(OLIVIA)
+                .withAddress(VALID_ADDRESS_OLIVIA)
                 .withTags(VALID_TAG_STUDENT)
                 .build();
         List<Customer> newCustomers = Arrays.asList(OLIVIA, editedOlivia);
@@ -196,7 +198,7 @@ public class AddressBookTest {
         AddressBookStub(Collection<Person> persons, Collection<Staff> staff, Collection<Customer> customer) {
             this.persons.setAll(persons);
             this.staffs.setAll(staff);
-            this.customers.setAll(customers);
+            this.customers.setAll(customer);
         }
 
         @Override

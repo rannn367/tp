@@ -27,7 +27,7 @@ import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
-import seedu.address.testutil.StaffBuilder;
+import seedu.address.model.util.StaffBuilder;
 
 public class AddStaffCommandTest {
 
@@ -281,7 +281,7 @@ public class AddStaffCommandTest {
         @Override
         public boolean hasStaff(Staff staffMember) {
             requireNonNull(staffMember);
-            return this.staff.isSameStaff(staffMember);
+            return this.staff.isSamePerson(staffMember);
         }
     }
 
@@ -291,7 +291,7 @@ public class AddStaffCommandTest {
         @Override
         public boolean hasStaff(Staff staffMember) {
             requireNonNull(staffMember);
-            return staffAdded.stream().anyMatch(staffMember::isSameStaff);
+            return staffAdded.stream().anyMatch(staffMember::isSamePerson);
         }
 
         @Override
