@@ -194,7 +194,8 @@ public class CommandTestUtil {
     public static final String VISIT_COUNT_DESC_JAMES = " " + PREFIX_VISIT_COUNT + VALID_VISIT_COUNT_JAMES;
     public static final String VISIT_COUNT_DESC_OLIVIA = " " + PREFIX_VISIT_COUNT + VALID_VISIT_COUNT_OLIVIA;
     public static final String FAVOURITE_DRINK_DESC_JAMES = " " + PREFIX_FAVOURITE_DRINK + VALID_FAVOURITE_DRINK_JAMES;
-    public static final String FAVOURITE_DRINK_DESC_OLIVIA = " " + PREFIX_FAVOURITE_DRINK + VALID_FAVOURITE_DRINK_OLIVIA;
+    public static final String FAVOURITE_DRINK_DESC_OLIVIA = " " + PREFIX_FAVOURITE_DRINK 
+            + VALID_FAVOURITE_DRINK_OLIVIA;
     public static final String TOTAL_SPENT_DESC_JAMES = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_JAMES;
     public static final String TOTAL_SPENT_DESC_OLIVIA = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_OLIVIA;
 
@@ -348,9 +349,9 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDrinkList().size());
 
         Drink drink = model.getFilteredDrinkList().get(targetIndex.getZeroBased());
-        final String[] splitName = drink.getName().split("\\s+");
+        final String[] splitName = drink.getDrinkName().getDrinkName().split("\\s+");
         model.updateFilteredDrinkList(d -> Arrays.stream(splitName)
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(d.getName(), keyword)));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(d.getDrinkName().getDrinkName(), keyword)));
 
         assertEquals(1, model.getFilteredDrinkList().size());
     }

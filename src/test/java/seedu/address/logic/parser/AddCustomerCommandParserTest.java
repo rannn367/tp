@@ -73,7 +73,8 @@ public class AddCustomerCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         String userInput = NAME_DESC_JAMES + PHONE_DESC_JAMES + EMAIL_DESC_JAMES + ADDRESS_DESC_JAMES
-                + CUSTOMER_ID_DESC_JAMES + REWARD_POINTS_DESC_JAMES + VISIT_COUNT_DESC_JAMES + FAVOURITE_DRINK_DESC_JAMES
+                + CUSTOMER_ID_DESC_JAMES + REWARD_POINTS_DESC_JAMES 
+                + VISIT_COUNT_DESC_JAMES + FAVOURITE_DRINK_DESC_JAMES
                 + TOTAL_SPENT_DESC_JAMES + TAG_DESC_STUDENT;
 
         AddCustomerCommand expectedCommand = new AddCustomerCommand(

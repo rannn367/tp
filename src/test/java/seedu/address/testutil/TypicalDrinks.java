@@ -24,9 +24,12 @@ public class TypicalDrinks {
     public static final Drink BLACK_TEA = new Drink(new DrinkName("Black Tea"), new Price(3.00), new Category("Tea"));
     public static final Drink EARL_GREY = new Drink(new DrinkName("Earl Grey"), new Price(3.50), new Category("Tea"));
     public static final Drink CHAMOMILE = new Drink(new DrinkName("Chamomile"), new Price(3.50), new Category("Tea"));
-    public static final Drink ORANGE_JUICE = new Drink(new DrinkName("Orange Juice"), new Price(4.00), new Category("Cold Drinks"));
-    public static final Drink APPLE_JUICE = new Drink(new DrinkName("Apple Juice"), new Price(4.00), new Category("Cold Drinks"));
-    public static final Drink ICED_COFFEE = new Drink(new DrinkName("Iced Coffee"), new Price(4.50), new Category("Cold Drinks"));
+    public static final Drink ORANGE_JUICE = new Drink(new DrinkName("Orange Juice"), new Price(4.00), 
+            new Category("Cold Drinks"));
+    public static final Drink APPLE_JUICE = new Drink(new DrinkName("Apple Juice"), new Price(4.00), 
+            new Category("Cold Drinks"));
+    public static final Drink ICED_COFFEE = new Drink(new DrinkName("Iced Coffee"), new Price(4.50), 
+            new Category("Cold Drinks"));
 
     // Drinks with unusual properties for testing edge cases
     public static final Drink EXPENSIVE_SPECIALTY = new Drink("Special Reserve Coffee", 15.00, "Specialty");

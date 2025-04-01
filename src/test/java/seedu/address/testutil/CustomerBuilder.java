@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
@@ -15,7 +16,6 @@ import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.drink.Drink;
 
 /**
  * A utility class to help with building Customer objects.

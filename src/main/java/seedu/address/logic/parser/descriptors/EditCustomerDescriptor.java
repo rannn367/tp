@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.CustomerId;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.RewardPoints;
 import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
@@ -21,7 +21,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
     private CustomerId customerId;
     private RewardPoints rewardPoints;
     private VisitCount visitCount;
-    private FavouriteItem favouriteItem;
+    private Drink favouriteDrink;
     private TotalSpent totalSpent;
 
     public EditCustomerDescriptor() {
@@ -36,14 +36,14 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
         setCustomerId(toCopy.customerId);
         setRewardPoints(toCopy.rewardPoints);
         setVisitCount(toCopy.visitCount);
-        setFavouriteItem(toCopy.favouriteItem);
+        setFavouriteDrink(toCopy.favouriteDrink);
         setTotalSpent(toCopy.totalSpent);
     }
 
     @Override
     public boolean isAnyFieldEdited() {
         return super.isAnyFieldEdited()
-                || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
+                || CollectionUtil.isAnyNonNull(customerId, rewardPoints, visitCount, favouriteDrink, totalSpent);
     }
 
     public Optional<CustomerId> getCustomerId() {
@@ -70,12 +70,12 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
         this.visitCount = visitCount;
     }
 
-    public Optional<FavouriteItem> getFavouriteItem() {
-        return Optional.ofNullable(favouriteItem);
+    public Optional<Drink> getFavouriteDrink() {
+        return Optional.ofNullable(favouriteDrink);
     }
 
-    public void setFavouriteItem(FavouriteItem favouriteItem) {
-        this.favouriteItem = favouriteItem;
+    public void setFavouriteDrink(Drink favouriteDrink) {
+        this.favouriteDrink = favouriteDrink;
     }
 
     public Optional<TotalSpent> getTotalSpent() {
@@ -105,7 +105,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
         return Objects.equals(customerId, otherEditCustomerDescriptor.customerId)
                 && Objects.equals(rewardPoints, otherEditCustomerDescriptor.rewardPoints)
                 && Objects.equals(visitCount, otherEditCustomerDescriptor.visitCount)
-                && Objects.equals(favouriteItem, otherEditCustomerDescriptor.favouriteItem)
+                && Objects.equals(favouriteDrink, otherEditCustomerDescriptor.favouriteDrink)
                 && Objects.equals(totalSpent, otherEditCustomerDescriptor.totalSpent);
     }
 
@@ -114,7 +114,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
      * This method extends the parent class's string representation by adding
      * additional fields specific to the customer entity, such as customer ID,
      * rewardPoints,
-     * visit count, favourite item, and total spent.
+     * visit count, favourite drink, and total spent.
      *
      * @return A {@link ToStringBuilder} containing the string representation of the
      *         object.
@@ -125,7 +125,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
         parentBuilder.add("customerId", customerId)
                 .add("rewardPoints", rewardPoints)
                 .add("visitCount", visitCount)
-                .add("favouriteItem", favouriteItem)
+                .add("favouriteDrink", favouriteDrink)
                 .add("totalSpent", totalSpent);
         return parentBuilder;
     }
