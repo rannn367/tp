@@ -177,8 +177,10 @@ public class CommandTestUtil {
     public static final String VALID_CUSTOMER_ID_OLIVIA = "C12345";
 
     // Command string descriptors
-    public static final String CUSTOMER_ID_DESC_OLIVIA = " " + PREFIX_CUSTOMER_ID + VALID_CUSTOMER_ID_OLIVIA;
-    public static final String CUSTOMER_ID_DESC_JAMES = " " + PREFIX_CUSTOMER_ID + VALID_CUSTOMER_ID_JAMES;
+    public static final String CUSTOMER_ID_DESC_OLIVIA = " " + PREFIX_CUSTOMER_ID
+            + VALID_CUSTOMER_ID_OLIVIA;
+    public static final String CUSTOMER_ID_DESC_JAMES = " " + PREFIX_CUSTOMER_ID
+            + VALID_CUSTOMER_ID_JAMES;
     public static final String NAME_DESC_JAMES = " " + PREFIX_NAME + VALID_NAME_JAMES;
     public static final String NAME_DESC_OLIVIA = " " + PREFIX_NAME + VALID_NAME_OLIVIA;
     public static final String PHONE_DESC_JAMES = " " + PREFIX_PHONE + VALID_PHONE_JAMES;
@@ -189,15 +191,22 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_OLIVIA = " " + PREFIX_ADDRESS + VALID_ADDRESS_OLIVIA;
     public static final String TAG_DESC_STUDENT = " " + PREFIX_TAG + VALID_TAG_STUDENT;
     public static final String TAG_DESC_NEW = " " + PREFIX_TAG + VALID_TAG_NEW;
-    public static final String REWARD_POINTS_DESC_JAMES = " " + PREFIX_REWARD_POINTS + VALID_REWARD_POINTS_JAMES;
-    public static final String REWARD_POINTS_DESC_OLIVIA = " " + PREFIX_REWARD_POINTS + VALID_REWARD_POINTS_OLIVIA;
-    public static final String VISIT_COUNT_DESC_JAMES = " " + PREFIX_VISIT_COUNT + VALID_VISIT_COUNT_JAMES;
-    public static final String VISIT_COUNT_DESC_OLIVIA = " " + PREFIX_VISIT_COUNT + VALID_VISIT_COUNT_OLIVIA;
-    public static final String FAVOURITE_DRINK_DESC_JAMES = " " + PREFIX_FAVOURITE_DRINK + VALID_FAVOURITE_DRINK_JAMES;
-    public static final String FAVOURITE_DRINK_DESC_OLIVIA = " " + PREFIX_FAVOURITE_DRINK 
+    public static final String REWARD_POINTS_DESC_JAMES = " " + PREFIX_REWARD_POINTS
+            + VALID_REWARD_POINTS_JAMES;
+    public static final String REWARD_POINTS_DESC_OLIVIA = " " + PREFIX_REWARD_POINTS
+            + VALID_REWARD_POINTS_OLIVIA;
+    public static final String VISIT_COUNT_DESC_JAMES = " " + PREFIX_VISIT_COUNT
+            + VALID_VISIT_COUNT_JAMES;
+    public static final String VISIT_COUNT_DESC_OLIVIA = " " + PREFIX_VISIT_COUNT
+            + VALID_VISIT_COUNT_OLIVIA;
+    public static final String FAVOURITE_DRINK_DESC_JAMES = " " + PREFIX_FAVOURITE_DRINK
+            + VALID_FAVOURITE_DRINK_JAMES;
+    public static final String FAVOURITE_DRINK_DESC_OLIVIA = " " + PREFIX_FAVOURITE_DRINK
             + VALID_FAVOURITE_DRINK_OLIVIA;
-    public static final String TOTAL_SPENT_DESC_JAMES = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_JAMES;
-    public static final String TOTAL_SPENT_DESC_OLIVIA = " " + PREFIX_TOTAL_SPENT + VALID_TOTAL_SPENT_OLIVIA;
+    public static final String TOTAL_SPENT_DESC_JAMES = " " + PREFIX_TOTAL_SPENT
+            + VALID_TOTAL_SPENT_JAMES;
+    public static final String TOTAL_SPENT_DESC_OLIVIA = " " + PREFIX_TOTAL_SPENT
+            + VALID_TOTAL_SPENT_OLIVIA;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
