@@ -5,82 +5,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.AddCustomerCommand;
+import seedu.address.logic.commands.AddDrinkCommand;
+import seedu.address.logic.commands.AddStaffCommand;
+import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.DeleteDrinkCommand;
+import seedu.address.logic.commands.DeleteStaffCommand;
+import seedu.address.logic.commands.EditCustomerCommand;
+import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HoursAddCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RemarkCommand;
-import seedu.address.logic.parser.descriptors.EditPersonDescriptor;
+import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Remark;
-import seedu.address.model.util.PersonBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
-    }
-
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
-    }
-
-    @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    }
-
-    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -90,40 +39,82 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    public void parseCommand_addCustomer() throws Exception {
+        // Full command format
+        assertTrue(parser.parseCommand(AddCustomerCommand.COMMAND_WORD + " cid/C001 n/John Doe p/98765432 "
+            + "e/john@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular")
+                instanceof AddCustomerCommand);
     }
 
     @Test
-    public void parseCommand_remark() throws Exception {
-        final Remark remark = new Remark("Some remark.");
-        RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark);
-        assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, remark), command);
+    public void parseCommand_addCustomerShortcut() throws Exception {
+        // Shortcut command format
+        assertTrue(parser.parseCommand(AddCustomerCommand.COMMAND_WORD_SHORTCUT + " C0102:Charlie:97285712")
+                instanceof AddCustomerCommand);
     }
 
     @Test
-    public void parseCommand_hoursAdd() throws Exception {
-        // Correct format: hoursadd <index> <hours>
-        HoursAddCommand command = (HoursAddCommand) parser.parseCommand(
-                HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "8");
-        assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 8), command);
-
-        // Another valid test case with different hours
-        command = (HoursAddCommand) parser.parseCommand(
-                HoursAddCommand.COMMAND_WORD + " " + PREFIX_INDEX + "1 " + PREFIX_HOURS + "10");
-        assertEquals(new HoursAddCommand(INDEX_FIRST_PERSON, 10), command);
+    public void parseCommand_editCustomer() throws Exception {
+        assertTrue(parser.parseCommand(EditCustomerCommand.COMMAND_WORD + " 1 n/Jane Doe")
+                instanceof EditCustomerCommand);
     }
 
     @Test
-    public void parseCommand_hoursAddInvalidInputThrowsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                HoursAddCommand.MESSAGE_USAGE), ()
-                -> parser.parseCommand(HoursAddCommand.COMMAND_WORD + " 1 " + PREFIX_HOURS + "-5"));
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        HoursAddCommand.MESSAGE_USAGE), ()
-                -> parser.parseCommand(HoursAddCommand.COMMAND_WORD + " abc " + PREFIX_HOURS + "8"));
+    public void parseCommand_deleteCustomer() throws Exception {
+        assertTrue(parser.parseCommand(DeleteCustomerCommand.COMMAND_WORD + " 2")
+                instanceof DeleteCustomerCommand);
+    }
+
+    @Test
+    public void parseCommand_addStaff() throws Exception {
+        // Full command format
+        assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD + " sid/S1234 n/Alice Tan p/81234567 "
+            + "e/alice@example.com a/123, Jurong West Ave 6, #08-111 "
+            + "role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime")
+                instanceof AddStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_addStaffShortcut() throws Exception {
+        // Shortcut command format
+        assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD_SHORTCUT + " S0102:Ali:98291029")
+                instanceof AddStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_editStaff() throws Exception {
+        assertTrue(parser.parseCommand(EditStaffCommand.COMMAND_WORD + " 1 p/99994567 e/newemail@example.com")
+                instanceof EditStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteStaff() throws Exception {
+        assertTrue(parser.parseCommand(DeleteStaffCommand.COMMAND_WORD + " 2")
+                instanceof DeleteStaffCommand);
+    }
+
+
+    @Test
+    public void parseCommand_addDrink() throws Exception {
+        assertTrue(parser.parseCommand(AddDrinkCommand.COMMAND_WORD + " n/Iced Latte p/4.50 c/Coffee")
+                instanceof AddDrinkCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteDrink() throws Exception {
+        assertTrue(parser.parseCommand(DeleteDrinkCommand.COMMAND_WORD + " 2")
+                instanceof DeleteDrinkCommand);
+    }
+
+    @Test
+    public void parseCommand_purchase() throws Exception {
+        // Simple purchase command
+        assertTrue(parser.parseCommand(PurchaseCommand.COMMAND_WORD + " 1 n/Espresso")
+                instanceof PurchaseCommand);
+
+        // Purchase with redeem option
+        assertTrue(parser.parseCommand(PurchaseCommand.COMMAND_WORD + " 2 n/Cappuccino redeem/true")
+                instanceof PurchaseCommand);
     }
 
     @Test
@@ -137,62 +128,37 @@ public class AddressBookParserTest {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 
-    // New tests for the fuzzy matching functionality
+    // Tests for the fuzzy matching functionality
 
     @Test
     public void parseCommand_typoWithCloseLevenshteinDistance_suggestsCorrectCommand() {
         // Test close typos that should be caught by Levenshtein distance (≤ 2)
         try {
-            parser.parseCommand("ad");
+            parser.parseCommand("stafadd");
             assertTrue(false, "Expected ParseException was not thrown");
         } catch (ParseException e) {
-            assertTrue(e.getMessage().contains("Did you mean 'add'?"));
+            assertTrue(e.getMessage().contains("Did you mean 'staffadd'?"));
         }
 
         try {
-            parser.parseCommand("delte");
-            assertTrue(false, "Expected ParseException was not thrown");
-        } catch (ParseException e) {
-            assertTrue(e.getMessage().contains("Did you mean 'delete'?"));
-        }
-
-        try {
-            parser.parseCommand("lisr");
-            assertTrue(false, "Expected ParseException was not thrown");
-        } catch (ParseException e) {
-            assertTrue(e.getMessage().contains("Did you mean 'list'?"));
-        }
-
-        try {
-            parser.parseCommand("cler");
-            assertTrue(false, "Expected ParseException was not thrown");
-        } catch (ParseException e) {
-            assertTrue(e.getMessage().contains("Did you mean 'clear'?"));
-        }
-    }
-
-    @Test
-    public void parseCommand_typoWithTokenSetRatioMatch_suggestsCorrectCommand() {
-        // Test typos that should be caught by token set ratio (≥ 80%)
-        try {
-            parser.parseCommand("hlep");
+            parser.parseCommand("hlp");
             assertTrue(false, "Expected ParseException was not thrown");
         } catch (ParseException e) {
             assertTrue(e.getMessage().contains("Did you mean 'help'?"));
         }
 
         try {
-            parser.parseCommand("edti");
+            parser.parseCommand("customerdelet");
             assertTrue(false, "Expected ParseException was not thrown");
         } catch (ParseException e) {
-            assertTrue(e.getMessage().contains("Did you mean 'edit'?"));
+            assertTrue(e.getMessage().contains("Did you mean 'customerdelete'?"));
         }
 
         try {
-            parser.parseCommand("fnid");
+            parser.parseCommand("purcase");
             assertTrue(false, "Expected ParseException was not thrown");
         } catch (ParseException e) {
-            assertTrue(e.getMessage().contains("Did you mean 'find'?"));
+            assertTrue(e.getMessage().contains("Did you mean 'purchase'?"));
         }
     }
 
