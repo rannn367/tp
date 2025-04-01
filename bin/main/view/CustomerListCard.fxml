@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" styleClass="person-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox spacing="2">
+        <!-- Customer name and ID -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="id" styleClass="cell-id" />
+            <Label fx:id="customerName" styleClass="cell-name" text="Customer Name" />
+        </HBox>
+
+        <!-- Basic details -->
+        <Label fx:id="customerId" styleClass="cell-details" text="ID: ABC123" />
+        <Label fx:id="phone" styleClass="cell-details" text="Phone: 99999999" />
+        <Label fx:id="email" styleClass="cell-details" text="Email: name@example.com" />
+
+        <!-- Additional details -->
+        <HBox spacing="10">
+            <Label fx:id="visitCount" styleClass="cell-details" text="Visits: 10" />
+            <Label fx:id="totalSpent" styleClass="cell-details" text="Total: $100.00" />
+        </HBox>
+
+        <!-- Tags -->
+        <FlowPane fx:id="tags" styleClass="cell-tags" />
+    </VBox>
+    <padding>
+        <Insets bottom="5" left="5" right="5" top="5" />
+    </padding>
+</HBox>

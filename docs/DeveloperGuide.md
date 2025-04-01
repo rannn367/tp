@@ -162,13 +162,116 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Staff Management System
 
-_{Implementation details for the Staff Management System will be added here}_
+#### Add a staff to the addressbook
+
+<puml src="diagrams/AddStaffSequenceDiagram.puml" alt="AddStaffSequenceDiagram" />
+
+`AddressBookParser` creates an instance of `AddStaffCommandParser` to parse the user input string.
+
+`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.  
+It ensures that:
+- The **ID prefix** `sid/` must contain a valid staff ID.
+- The **phone prefix** `p/` must contain a valid phone number.
+- The **email prefix** `e/` must contain a valid email address.
+- The **address prefix** `a/` must contain a non-blank address.
+- The **role prefix** `role/` must contain a non-empty role.
+- The **shift prefix** `shift/` must contain a non-empty shift.
+- The **hours prefix** `hours/` must contain a non-negative integer.
+- The **rating prefix** `rating/` must contain a valid positive decimal value.
+- The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
+
+If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
+
+---
+
+`AddStaffCommand` stores the staff to be added, represented as a `Staff` instance.
+
+Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) name is found, it adds the new staff member to the catalog.
+
+> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `NAME` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
+
+#### Deleting a staff from the catalog
+
+The delete staff feature allows users to remove staff from the catalog by specifying the staff's index in the displayed list.
+
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteStaffCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/DeleteStaffSequenceDiagram.puml" alt="DeleteStaffSequenceDiagram" />
+
+`AddressBookParser` creates `DeleteStaffCommandParser` to parse user input string.
+
+`DeleteStaffCommandParser` extracts the index from the command arguments and ensures:
+- The index is a valid positive integer.
+- If the index is invalid, a `ParseException` is thrown.
+
+If the index is valid, `DeleteStaffCommandParser` creates a new instance of `DeleteStaffCommand` with the specified index.
+
+Upon execution, `DeleteStaffCommand` first checks if the index is within the bounds of the filtered staff list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `DeleteStaffCommand`:
+1. Retrieves the staff to be deleted from the filtered staff list.
+2. Calls `model.deleteStaff(staffToDelete)` to remove the staff from the catalog.
+3. Returns a `CommandResult` with a success message.
+
+> **_NOTE:_** CafeConnect only allows deleting staff by index. Once a staff member is deleted, they cannot be recovered unless added again manually.
 
 <br></br>
 
 ### Customer Management System
 
-_{Implementation details for the Customer Management System will be added here}_
+#### Add a customer to the addressbook
+
+<puml src="diagrams/AddCustomerSequenceDiagram.puml" alt="AddCustomerSequenceDiagram" />
+
+`AddressBookParser` creates an instance of `AddCustomerCommandParser` to parse the user input string.
+
+`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.  
+It ensures that:
+- The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
+- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
+- The **email prefix** `e/` must contain a valid email address.
+- The **address prefix** `a/` can take any value, but it cannot be blank.
+- The **reward points prefix** `rp/` must contain only digits.
+- The **visit count prefix** `vc/` must contain only digits.
+- The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
+- The **total spent prefix** `ts/` must contain only digits representing the amount in dollars.
+- The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
+
+If any of these constraints are violated, `AddCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddCustomerCommand` based on the user input.
+
+---
+
+`AddCustomerCommand` stores the customer to be added, represented as a `Customer` instance.
+
+Upon execution, `AddCustomerCommand` first checks the model for duplicate customers. If no existing customer with a matching (case-insensitive) name is found, it adds the new customer to the customer list.
+
+> **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `NAME` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
+
+#### Deleting a customer from the catalog
+
+The delete customer feature allows users to remove customers from the catalog by specifying the customer's index in the displayed list.
+
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteCustomerCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/DeleteCustomerSequenceDiagram.puml" alt="DeleteCustomerSequenceDiagram" />
+
+`AddressBookParser` creates `DeleteCustomerCommandParser` to parse user input string.
+
+`DeleteCustomerCommandParser` extracts the index from the command arguments and ensures:
+- The index is a valid positive integer.
+- If the index is invalid, a `ParseException` is thrown.
+
+If the index is valid, `DeleteCustomerCommandParser` creates a new instance of `DeleteCustomerCommand` with the specified index.
+
+Upon execution, `DeleteCustomerCommand` first checks if the index is within the bounds of the filtered customer list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `DeleteCustomerCommand`:
+1. Retrieves the customer to be deleted from the filtered customer list.
+2. Calls `model.deleteCustomer(customerToDelete)` to remove the customer from the catalog.
+3. Returns a `CommandResult` with a success message.
+
+> **_NOTE:_** CafeConnect only allows deleting customers by index. Once a customer is deleted, they cannot be recovered unless added again manually.
 
 <br></br>
 
@@ -195,6 +298,31 @@ If any of the above constraints are violated, `AddDrinkCommandParser` throws a `
 Upon execution, `AddDrinkCommand` first queries the supplied model if it contains a duplicate drink. If no duplicate drink exists (based on case-insensitive name matching), then `AddDrinkCommand` adds the drink into the drink catalog.
 
 > **_NOTE:_** CafeConnect identifies a drink as a duplicate if its `NAME` matches (case-insensitive) with an existing drink in the catalog. Attempting to add a duplicate will result in an error.
+
+#### Deleting a drink from the catalog
+
+The delete drink feature allows users to remove drinks from the catalog by specifying the index of the drink in the displayed list.
+
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteDrinkCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/DeleteDrinkSequenceDiagram.puml" alt="DeleteDrinkSequenceDiagram" />
+
+`AddressBookParser` creates `DeleteDrinkCommandParser` to parse user input string.
+
+`DeleteDrinkCommandParser` extracts the index from the command arguments and ensures:
+- The index is a valid positive integer.
+- If the index is invalid, a `ParseException` is thrown.
+
+If the index is valid, `DeleteDrinkCommandParser` creates a new instance of `DeleteDrinkCommand` with the specified index.
+
+Upon execution, `DeleteDrinkCommand` first checks if the index is within the bounds of the filtered drink list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `DeleteDrinkCommand`:
+1. Retrieves the drink to be deleted from the filtered drink list
+2. Calls `model.deleteDrink(drinkToDelete)` to remove the drink from the catalog
+3. Returns a `CommandResult` with a success message
+
+> **_NOTE:_** CafeConnect only allows deleting drinks by index. Once a drink is deleted, it cannot be recovered unless added again manually.
 
 <br></br>
 
