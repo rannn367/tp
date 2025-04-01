@@ -13,12 +13,14 @@ import static seedu.address.testutil.TypicalStaff.ALEX;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.util.CustomerBuilder;
 
 public class UniquePersonListTest {
@@ -45,8 +47,8 @@ public class UniquePersonListTest {
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(JAMES);
         Person editedJames = new CustomerBuilder(JAMES)
-                .withAddress(VALID_ADDRESS_OLIVIA)
-                .withTags(VALID_TAG_HUSBAND)
+                .withAddress(new Address(VALID_ADDRESS_OLIVIA))
+                .withTags(Set.of(new Tag(VALID_TAG_HUSBAND)))
                 .build();
         assertTrue(uniquePersonList.contains(editedJames));
     }
@@ -90,8 +92,8 @@ public class UniquePersonListTest {
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(JAMES);
         Person editedJames = new CustomerBuilder(JAMES)
-                .withAddress(VALID_ADDRESS_OLIVIA)
-                .withTags(VALID_TAG_HUSBAND)
+                .withAddress(new Address(VALID_ADDRESS_OLIVIA))
+                .withTags(Set.of(new Tag(VALID_TAG_HUSBAND)))
                 .build();
         uniquePersonList.setPerson(JAMES, editedJames);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
@@ -205,7 +207,6 @@ public class UniquePersonListTest {
 
     @Test
     public void getFilteredList_noMatchingType_returnsEmptyList() {
-        uniquePersonList.add(JAMES);
         uniquePersonList.add(ALEX);
 
         // Assuming Customer is a subclass of Person but no Customer instances are added

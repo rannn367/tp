@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedStaff.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.model.util.StaffBuilder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStaff.ALEX;
 
@@ -17,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.StaffId;
 
 public class JsonAdaptedStaffTest {
     private static final String INVALID_NAME = "J@ck";
@@ -83,10 +84,6 @@ public class JsonAdaptedStaffTest {
     @Test
     public void toModelType_validStaffDetails_returnsStaff() throws Exception {
         JsonAdaptedStaff staff = new JsonAdaptedStaff(ALEX);
-        Staff expected = ALEX;
-        Staff actual = staff.toModelType();
-        System.out.println("Expected: " + expected);
-        System.out.println("Actual: " + actual);
         assertEquals(ALEX, staff.toModelType());
     }
 
@@ -140,7 +137,7 @@ public class JsonAdaptedStaffTest {
         JsonAdaptedStaff staff = new JsonAdaptedStaff(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_REMARK, VALID_TAGS, null, VALID_ROLE, VALID_SHIFT_TIMING,
                 VALID_HOURS_WORKED, VALID_PERFORMANCE_RATING);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "Staff ID");
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, StaffId.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, staff::toModelType);
     }
 

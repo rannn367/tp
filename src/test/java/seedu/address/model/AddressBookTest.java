@@ -16,15 +16,18 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.util.CustomerBuilder;
 import seedu.address.model.util.StaffBuilder;
 
@@ -52,13 +55,13 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         Staff editedBen = new StaffBuilder(BEN)
-                .withTags(VALID_TAG_FRIEND)
+                .withTags(Set.of(new Tag(VALID_TAG_FRIEND)))
                 .build();
         List<Staff> newStaffs = Arrays.asList(BEN, editedBen);
 
         Customer editedOlivia = new CustomerBuilder(OLIVIA)
-                .withAddress(VALID_ADDRESS_OLIVIA)
-                .withTags(VALID_TAG_STUDENT)
+                .withAddress(new Address(VALID_ADDRESS_OLIVIA))
+                .withTags(Set.of(new Tag(VALID_TAG_STUDENT)))
                 .build();
         List<Customer> newCustomers = Arrays.asList(OLIVIA, editedOlivia);
 
@@ -90,7 +93,7 @@ public class AddressBookTest {
     @Test
     public void setStaff_validStaff_success() {
         addressBook.addStaff(BEN);
-        Staff editedBen = new StaffBuilder(BEN).withTags(VALID_TAG_FRIEND).build();
+        Staff editedBen = new StaffBuilder(BEN).withTags(Set.of(new Tag(VALID_TAG_FRIEND))).build();
         addressBook.setStaff(BEN, editedBen);
         assertTrue(addressBook.hasStaff(editedBen));
     }

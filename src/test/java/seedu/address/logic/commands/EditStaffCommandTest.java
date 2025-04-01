@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEN;
@@ -19,6 +20,7 @@ import static seedu.address.testutil.TypicalStaff.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.descriptors.EditStaffDescriptor;
 import seedu.address.model.AddressBook;
@@ -30,7 +32,8 @@ import seedu.address.model.util.StaffBuilder;
 import seedu.address.testutil.EditStaffDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditStaffCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for
+ * EditStaffCommand.
  */
 public class EditStaffCommandTest {
 
@@ -43,11 +46,10 @@ public class EditStaffCommandTest {
         EditStaffCommand editStaffCommand = new EditStaffCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(
-            EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff)
-        );
+                EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new UserPrefs(), getTypicalDrinkCatalog());
+                new UserPrefs(), getTypicalDrinkCatalog());
         expectedModel.setStaff(model.getFilteredStaffList().get(0), editedStaff);
 
         assertCommandSuccess(editStaffCommand, model, expectedMessage, expectedModel);
@@ -58,38 +60,39 @@ public class EditStaffCommandTest {
         Index indexLastStaff = Index.fromOneBased(model.getFilteredStaffList().size());
         Staff lastStaff = model.getFilteredStaffList().get(indexLastStaff.getZeroBased());
 
-        StaffBuilder staffInList = new StaffBuilder(lastStaff);
-        Staff editedStaff = staffInList.withName(VALID_NAME_BEN).withPhone(VALID_PHONE_BEN)
-                .withTags(VALID_TAG_HUSBAND).build();
+        try {
+            StaffBuilder staffInList = new StaffBuilder(lastStaff);
+            Staff editedStaff = staffInList.withName(VALID_NAME_BEN).withPhone(VALID_PHONE_BEN)
+                    .withTags(VALID_TAG_HUSBAND).build();
 
-        EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_BEN)
-                .withPhone(VALID_PHONE_BEN).withTags(VALID_TAG_HUSBAND).build();
-        EditStaffCommand editStaffCommand = new EditStaffCommand(indexLastStaff, descriptor);
+            EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_BEN)
+                    .withPhone(VALID_PHONE_BEN).withTags(VALID_TAG_HUSBAND).build();
+            EditStaffCommand editStaffCommand = new EditStaffCommand(indexLastStaff, descriptor);
 
-        String expectedMessage = String.format(
-            EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff)
-        );
+            String expectedMessage = String.format(
+                    EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new UserPrefs(), getTypicalDrinkCatalog());
-        expectedModel.setStaff(lastStaff, editedStaff);
+            Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                    new UserPrefs(), getTypicalDrinkCatalog());
+            expectedModel.setStaff(lastStaff, editedStaff);
 
-        assertCommandSuccess(editStaffCommand, model, expectedMessage, expectedModel);
+            assertCommandSuccess(editStaffCommand, model, expectedMessage, expectedModel);
+        } catch (IllegalValueException e) {
+            fail("Illegal value exception thrown: " + e.getMessage());
+        }
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditStaffCommand editStaffCommand = new EditStaffCommand(
-            INDEX_FIRST_PERSON, new EditStaffDescriptor()
-        );
+                INDEX_FIRST_PERSON, new EditStaffDescriptor());
         Staff editedStaff = model.getFilteredStaffList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(
-            EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff)
-        );
+                EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new UserPrefs(), getTypicalDrinkCatalog());
+                new UserPrefs(), getTypicalDrinkCatalog());
 
         assertCommandSuccess(editStaffCommand, model, expectedMessage, expectedModel);
     }
@@ -97,21 +100,23 @@ public class EditStaffCommandTest {
     @Test
     public void execute_filteredList_success() {
         showStaffAtIndex(model, INDEX_FIRST_PERSON);
+        try {
+            Staff staffInFilteredList = model.getFilteredStaffList().get(INDEX_FIRST_PERSON.getZeroBased());
+            Staff editedStaff = new StaffBuilder(staffInFilteredList).withName(VALID_NAME_BEN).build();
+            EditStaffCommand editStaffCommand = new EditStaffCommand(INDEX_FIRST_PERSON,
+                    new EditStaffDescriptorBuilder().withName(VALID_NAME_BEN).build());
 
-        Staff staffInFilteredList = model.getFilteredStaffList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Staff editedStaff = new StaffBuilder(staffInFilteredList).withName(VALID_NAME_BEN).build();
-        EditStaffCommand editStaffCommand = new EditStaffCommand(INDEX_FIRST_PERSON,
-                new EditStaffDescriptorBuilder().withName(VALID_NAME_BEN).build());
+            String expectedMessage = String.format(
+                    EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff));
 
-        String expectedMessage = String.format(
-            EditStaffCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff)
-        );
+            Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                    new UserPrefs(), getTypicalDrinkCatalog());
+            expectedModel.setStaff(model.getFilteredStaffList().get(0), editedStaff);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new UserPrefs(), getTypicalDrinkCatalog());
-        expectedModel.setStaff(model.getFilteredStaffList().get(0), editedStaff);
-
-        assertCommandSuccess(editStaffCommand, model, expectedMessage, expectedModel);
+            assertCommandSuccess(editStaffCommand, model, expectedMessage, expectedModel);
+        } catch (IllegalValueException e) {
+            fail("Illegal value exception thrown: " + e.getMessage());
+        }
     }
 
     @Test
@@ -160,8 +165,6 @@ public class EditStaffCommandTest {
 
         assertCommandFailure(editStaffCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
-
-
 
     @Test
     public void equals() {

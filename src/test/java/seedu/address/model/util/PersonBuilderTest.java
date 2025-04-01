@@ -3,8 +3,10 @@ package seedu.address.model.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ public class PersonBuilderTest {
     private static final String TEST_EMAIL = "test@example.com";
     private static final String TEST_ADDRESS = "Test Address, #01-01";
     private static final String TEST_REMARK = "Test Remark";
-    private static final String[] TEST_TAGS = {"test", "important"};
+    private static final String[] TEST_TAGS = { "test", "important" };
 
     @Test
     public void build_defaultValues_returnsPersonWithDefaultValues() {
@@ -40,12 +42,14 @@ public class PersonBuilderTest {
     @Test
     public void build_withAllStringParameters_returnsPersonWithExpectedValues() {
         Person person = new TestPersonBuilder()
-                .withName(TEST_NAME)
-                .withPhone(TEST_PHONE)
-                .withEmail(TEST_EMAIL)
-                .withAddress(TEST_ADDRESS)
-                .withRemark(TEST_REMARK)
-                .withTags(TEST_TAGS)
+                .withName(new Name(TEST_NAME))
+                .withPhone(new Phone(TEST_PHONE))
+                .withEmail(new Email(TEST_EMAIL))
+                .withAddress(new Address(TEST_ADDRESS))
+                .withRemark(new Remark(TEST_REMARK))
+                .withTags(Arrays.stream(TEST_TAGS)
+                        .map(Tag::new)
+                        .collect(Collectors.toSet()))
                 .build();
 
         assertEquals(TEST_NAME, person.getName().fullName);
@@ -91,12 +95,14 @@ public class PersonBuilderTest {
     @Test
     public void build_withPersonCopy_returnsEqualPerson() {
         Person original = new TestPersonBuilder()
-                .withName(TEST_NAME)
-                .withPhone(TEST_PHONE)
-                .withEmail(TEST_EMAIL)
-                .withAddress(TEST_ADDRESS)
-                .withRemark(TEST_REMARK)
-                .withTags(TEST_TAGS)
+                .withName(new Name(TEST_NAME))
+                .withPhone(new Phone(TEST_PHONE))
+                .withEmail(new Email(TEST_EMAIL))
+                .withAddress(new Address(TEST_ADDRESS))
+                .withRemark(new Remark(TEST_REMARK))
+                .withTags(Arrays.stream(TEST_TAGS)
+                        .map(Tag::new)
+                        .collect(Collectors.toSet()))
                 .build();
 
         TestPersonBuilder copiedBuilder = new TestPersonBuilder(original);
@@ -116,22 +122,24 @@ public class PersonBuilderTest {
         TestPersonBuilder builder = new TestPersonBuilder();
 
         // Test each setter method individually
-        Person namePerson = builder.withName(TEST_NAME).build();
+        Person namePerson = builder.withName(new Name(TEST_NAME)).build();
         assertEquals(TEST_NAME, namePerson.getName().fullName);
 
-        Person phonePerson = builder.withPhone(TEST_PHONE).build();
+        Person phonePerson = builder.withPhone(new Phone(TEST_PHONE)).build();
         assertEquals(TEST_PHONE, phonePerson.getPhone().value);
 
-        Person emailPerson = builder.withEmail(TEST_EMAIL).build();
+        Person emailPerson = builder.withEmail(new Email(TEST_EMAIL)).build();
         assertEquals(TEST_EMAIL, emailPerson.getEmail().value);
 
-        Person addressPerson = builder.withAddress(TEST_ADDRESS).build();
+        Person addressPerson = builder.withAddress(new Address(TEST_ADDRESS)).build();
         assertEquals(TEST_ADDRESS, addressPerson.getAddress().value);
 
-        Person remarkPerson = builder.withRemark(TEST_REMARK).build();
+        Person remarkPerson = builder.withRemark(new Remark(TEST_REMARK)).build();
         assertEquals(TEST_REMARK, remarkPerson.getRemark().value);
 
-        Person tagsPerson = builder.withTags(TEST_TAGS).build();
+        Person tagsPerson = builder.withTags(Arrays.stream(TEST_TAGS)
+                .map(Tag::new)
+                .collect(Collectors.toSet())).build();
         Set<Tag> expectedTags = SampleDataUtil.getTagSet(TEST_TAGS);
         assertEquals(expectedTags, tagsPerson.getTags());
     }
@@ -170,15 +178,15 @@ public class PersonBuilderTest {
         TestPersonBuilder builder = new TestPersonBuilder();
 
         Person person1 = builder
-                .withName("Person One")
-                .withEmail("one@example.com")
-                .withPhone("11111111")
+                .withName(new Name("Person One"))
+                .withEmail(new Email("one@example.com"))
+                .withPhone(new Phone("11111111"))
                 .build();
 
         Person person2 = builder
-                .withName("Person Two")
-                .withEmail("two@example.com")
-                .withPhone("22222222")
+                .withName(new Name("Person Two"))
+                .withEmail(new Email("two@example.com"))
+                .withPhone(new Phone("22222222"))
                 .build();
 
         // Verify that person2 has the modified values

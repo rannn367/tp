@@ -3,8 +3,10 @@ package seedu.address.model.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,17 +56,19 @@ public class StaffBuilderTest {
     @Test
     public void build_withAllStringParameters_returnsStaffWithExpectedValues() {
         Staff staff = new StaffBuilder()
-                .withName(TEST_NAME)
-                .withPhone(TEST_PHONE)
-                .withEmail(TEST_EMAIL)
-                .withAddress(TEST_ADDRESS)
-                .withRemark(TEST_REMARK)
-                .withStaffId(TEST_STAFF_ID)
-                .withRole(TEST_ROLE)
-                .withShiftTiming(TEST_SHIFT_TIMING)
-                .withHoursWorked(TEST_HOURS_WORKED)
-                .withPerformanceRating(TEST_PERFORMANCE_RATING)
-                .withTags(TEST_TAGS)
+                .withName(new Name(TEST_NAME))
+                .withPhone(new Phone(TEST_PHONE))
+                .withEmail(new Email(TEST_EMAIL))
+                .withAddress(new Address(TEST_ADDRESS))
+                .withRemark(new Remark(TEST_REMARK))
+                .withStaffId(new StaffId(TEST_STAFF_ID))
+                .withRole(new Role(TEST_ROLE))
+                .withShiftTiming(new ShiftTiming(TEST_SHIFT_TIMING))
+                .withHoursWorked(new HoursWorked(TEST_HOURS_WORKED))
+                .withPerformanceRating(new PerformanceRating(TEST_PERFORMANCE_RATING))
+                .withTags(Arrays.stream(TEST_TAGS)
+                        .map(Tag::new)
+                        .collect(Collectors.toSet()))
                 .build();
 
         assertEquals(TEST_NAME, staff.getName().fullName);
@@ -130,17 +134,19 @@ public class StaffBuilderTest {
     @Test
     public void build_withStaffCopy_returnsEqualStaff() {
         Staff original = new StaffBuilder()
-                .withName(TEST_NAME)
-                .withPhone(TEST_PHONE)
-                .withEmail(TEST_EMAIL)
-                .withAddress(TEST_ADDRESS)
-                .withRemark(TEST_REMARK)
-                .withStaffId(TEST_STAFF_ID)
-                .withRole(TEST_ROLE)
-                .withShiftTiming(TEST_SHIFT_TIMING)
-                .withHoursWorked(TEST_HOURS_WORKED)
-                .withPerformanceRating(TEST_PERFORMANCE_RATING)
-                .withTags(TEST_TAGS)
+                .withName(new Name(TEST_NAME))
+                .withPhone(new Phone(TEST_PHONE))
+                .withEmail(new Email(TEST_EMAIL))
+                .withAddress(new Address(TEST_ADDRESS))
+                .withRemark(new Remark(TEST_REMARK))
+                .withStaffId(new StaffId(TEST_STAFF_ID))
+                .withRole(new Role(TEST_ROLE))
+                .withShiftTiming(new ShiftTiming(TEST_SHIFT_TIMING))
+                .withHoursWorked(new HoursWorked(TEST_HOURS_WORKED))
+                .withPerformanceRating(new PerformanceRating(TEST_PERFORMANCE_RATING))
+                .withTags(Arrays.stream(TEST_TAGS)
+                        .map(Tag::new)
+                        .collect(Collectors.toSet()))
                 .build();
 
         StaffBuilder copiedBuilder = new StaffBuilder(original);
@@ -165,34 +171,34 @@ public class StaffBuilderTest {
         StaffBuilder builder = new StaffBuilder();
 
         // Test each setter method individually
-        Staff nameStaff = builder.withName(TEST_NAME).build();
+        Staff nameStaff = builder.withName(new Name(TEST_NAME)).build();
         assertEquals(TEST_NAME, nameStaff.getName().fullName);
 
-        Staff phoneStaff = builder.withPhone(TEST_PHONE).build();
+        Staff phoneStaff = builder.withPhone(new Phone(TEST_PHONE)).build();
         assertEquals(TEST_PHONE, phoneStaff.getPhone().value);
 
-        Staff emailStaff = builder.withEmail(TEST_EMAIL).build();
+        Staff emailStaff = builder.withEmail(new Email(TEST_EMAIL)).build();
         assertEquals(TEST_EMAIL, emailStaff.getEmail().value);
 
-        Staff addressStaff = builder.withAddress(TEST_ADDRESS).build();
+        Staff addressStaff = builder.withAddress(new Address(TEST_ADDRESS)).build();
         assertEquals(TEST_ADDRESS, addressStaff.getAddress().value);
 
-        Staff remarkStaff = builder.withRemark(TEST_REMARK).build();
+        Staff remarkStaff = builder.withRemark(new Remark(TEST_REMARK)).build();
         assertEquals(TEST_REMARK, remarkStaff.getRemark().value);
 
-        Staff staffIdStaff = builder.withStaffId(TEST_STAFF_ID).build();
+        Staff staffIdStaff = builder.withStaffId(new StaffId(TEST_STAFF_ID)).build();
         assertEquals(TEST_STAFF_ID, staffIdStaff.getStaffId().value);
 
-        Staff roleStaff = builder.withRole(TEST_ROLE).build();
+        Staff roleStaff = builder.withRole(new Role(TEST_ROLE)).build();
         assertEquals(TEST_ROLE, roleStaff.getRole().value);
 
-        Staff shiftTimingStaff = builder.withShiftTiming(TEST_SHIFT_TIMING).build();
+        Staff shiftTimingStaff = builder.withShiftTiming(new ShiftTiming(TEST_SHIFT_TIMING)).build();
         assertEquals(TEST_SHIFT_TIMING, shiftTimingStaff.getShiftTiming().value);
 
-        Staff hoursWorkedStaff = builder.withHoursWorked(TEST_HOURS_WORKED).build();
+        Staff hoursWorkedStaff = builder.withHoursWorked(new HoursWorked(TEST_HOURS_WORKED)).build();
         assertEquals(TEST_HOURS_WORKED, hoursWorkedStaff.getHoursWorked().value);
 
-        Staff performanceRatingStaff = builder.withPerformanceRating(TEST_PERFORMANCE_RATING).build();
+        Staff performanceRatingStaff = builder.withPerformanceRating(new PerformanceRating(TEST_PERFORMANCE_RATING)).build();
         assertEquals(TEST_PERFORMANCE_RATING, performanceRatingStaff.getPerformanceRating().value);
     }
 
@@ -246,15 +252,15 @@ public class StaffBuilderTest {
         StaffBuilder builder = new StaffBuilder();
 
         Staff staff1 = builder
-                .withName("Staff One")
-                .withEmail("staff1@example.com")
-                .withStaffId("S1001")
+                .withName(new Name("Staff One"))
+                .withEmail(new Email("staff1@example.com"))
+                .withStaffId(new StaffId("S1001"))
                 .build();
 
         Staff staff2 = builder
-                .withName("Staff Two")
-                .withEmail("staff2@example.com")
-                .withStaffId("S1002")
+                .withName(new Name("Staff Two"))
+                .withEmail(new Email("staff2@example.com"))
+                .withStaffId(new StaffId("S1002"))
                 .build();
 
         // Verify that staff2 has the modified values
