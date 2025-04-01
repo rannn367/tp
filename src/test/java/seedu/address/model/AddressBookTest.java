@@ -3,16 +3,13 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_OLIVIA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCustomers.JAMES;
 import static seedu.address.testutil.TypicalCustomers.OLIVIA;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalStaff.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStaff.BEN;
 
 import java.util.Arrays;
@@ -29,7 +26,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.util.CustomerBuilder;
-import seedu.address.model.util.PersonBuilder;
 import seedu.address.model.util.StaffBuilder;
 
 public class AddressBookTest {
@@ -55,12 +51,6 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        Person editedAlice = new PersonBuilder(ALICE)
-                .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-
         Staff editedBen = new StaffBuilder(BEN)
                 .withTags(VALID_TAG_FRIEND)
                 .build();
@@ -72,7 +62,7 @@ public class AddressBookTest {
                 .build();
         List<Customer> newCustomers = Arrays.asList(OLIVIA, editedOlivia);
 
-        AddressBookStub newData = new AddressBookStub(newPersons, newStaffs, newCustomers);
+        AddressBookStub newData = new AddressBookStub(newStaffs, newCustomers);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -80,25 +70,6 @@ public class AddressBookTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
@@ -195,10 +166,15 @@ public class AddressBookTest {
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Staff> staff, Collection<Customer> customer) {
-            this.persons.setAll(persons);
-            this.staffs.setAll(staff);
-            this.customers.setAll(customer);
+        AddressBookStub(Collection<Staff> staff, Collection<Customer> customer) {
+            for (Staff s : staff) {
+                this.staffs.add(s);
+                this.persons.add(s);
+            }
+            for (Customer c : customer) {
+                this.customers.add(c);
+                this.persons.add(c);
+            }
         }
 
         @Override
