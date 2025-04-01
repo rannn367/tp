@@ -27,7 +27,7 @@ public class PersonBuilderTest {
 
     @Test
     public void build_defaultValues_returnsPersonWithDefaultValues() {
-        Person person = new PersonBuilder().build();
+        Person person = new TestPersonBuilder().build();
 
         assertEquals(PersonBuilder.DEFAULT_NAME, person.getName().fullName);
         assertEquals(PersonBuilder.DEFAULT_PHONE, person.getPhone().value);
@@ -39,7 +39,7 @@ public class PersonBuilderTest {
 
     @Test
     public void build_withAllStringParameters_returnsPersonWithExpectedValues() {
-        Person person = new PersonBuilder()
+        Person person = new TestPersonBuilder()
                 .withName(TEST_NAME)
                 .withPhone(TEST_PHONE)
                 .withEmail(TEST_EMAIL)
@@ -71,7 +71,7 @@ public class PersonBuilderTest {
             tags.add(new Tag(tagName));
         }
 
-        Person person = new PersonBuilder()
+        Person person = new TestPersonBuilder()
                 .withName(name)
                 .withPhone(phone)
                 .withEmail(email)
@@ -90,7 +90,7 @@ public class PersonBuilderTest {
 
     @Test
     public void build_withPersonCopy_returnsEqualPerson() {
-        Person original = new PersonBuilder()
+        Person original = new TestPersonBuilder()
                 .withName(TEST_NAME)
                 .withPhone(TEST_PHONE)
                 .withEmail(TEST_EMAIL)
@@ -99,7 +99,7 @@ public class PersonBuilderTest {
                 .withTags(TEST_TAGS)
                 .build();
 
-        PersonBuilder copiedBuilder = new PersonBuilder(original);
+        TestPersonBuilder copiedBuilder = new TestPersonBuilder(original);
         Person copy = copiedBuilder.build();
 
         assertEquals(original, copy);
@@ -113,7 +113,7 @@ public class PersonBuilderTest {
 
     @Test
     public void individualSetters_stringParameters_setCorrectly() {
-        PersonBuilder builder = new PersonBuilder();
+        TestPersonBuilder builder = new TestPersonBuilder();
 
         // Test each setter method individually
         Person namePerson = builder.withName(TEST_NAME).build();
@@ -138,7 +138,7 @@ public class PersonBuilderTest {
 
     @Test
     public void individualSetters_objectParameters_setCorrectly() {
-        PersonBuilder builder = new PersonBuilder();
+        TestPersonBuilder builder = new TestPersonBuilder();
 
         Name name = new Name(TEST_NAME);
         Person namePerson = builder.withName(name).build();
@@ -167,7 +167,7 @@ public class PersonBuilderTest {
 
     @Test
     public void buildMultiplePersons_withChaining_returnsDistinctPersons() {
-        PersonBuilder builder = new PersonBuilder();
+        TestPersonBuilder builder = new TestPersonBuilder();
 
         Person person1 = builder
                 .withName("Person One")

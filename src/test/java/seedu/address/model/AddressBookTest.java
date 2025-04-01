@@ -9,8 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCustomers.JAMES;
 import static seedu.address.testutil.TypicalCustomers.OLIVIA;
-import static seedu.address.testutil.TypicalStaff.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStaff.BEN;
+import static seedu.address.testutil.TypicalStaff.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
