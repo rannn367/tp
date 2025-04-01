@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -53,6 +54,14 @@ public class JsonAdaptedStaff extends JsonAdaptedPerson<Staff> {
         performanceRating = source.getPerformanceRating().value;
     }
 
+    /**
+     * Modifies the given {@code StaffBuilder} with the values from this {@code JsonAdaptedStaff}.
+     * This is used to create a new {@code Staff} object.
+     *
+     * @param personBuilder the {@code StaffBuilder} to modify
+     * @return the modified {@code StaffBuilder}
+     * @throws IllegalValueException if there were any data constraints violated in the adapted staff.
+     */
     public StaffBuilder modifyBuilder(StaffBuilder personBuilder) throws IllegalValueException {
         super.modifyBuilder(personBuilder);
         return personBuilder.withStaffId(staffId)

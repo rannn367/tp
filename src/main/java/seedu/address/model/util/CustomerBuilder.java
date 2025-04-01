@@ -17,7 +17,8 @@ import seedu.address.model.person.VisitCount;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building Customer objects.
+ * A utility class to help with building {@code Customer} objects.
+ * Provides methods to set various attributes of a {@code Customer}.
  */
 public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
 
@@ -39,6 +40,9 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
     private final FavouriteItem favouriteItem;
     private final TotalSpent totalSpent;
 
+    /**
+     * Constructs a {@code CustomerBuilder} with default values.
+     */
     public CustomerBuilder() {
         super(new Name(DEFAULT_NAME),
                 new Phone(DEFAULT_PHONE),
@@ -53,8 +57,11 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
         this.totalSpent = new TotalSpent(DEFAULT_TOTAL_SPENT);
     }
 
+    /**
+     * Constructs a {@code CustomerBuilder} with the specified attributes.
+     */
     private CustomerBuilder(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
-                            CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount, 
+                            CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount,
                             FavouriteItem favouriteItem, TotalSpent totalSpent) {
         super(name, phone, email, address, remark, tags);
         this.customerId = customerId;
@@ -64,8 +71,19 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
         this.totalSpent = totalSpent;
     }
 
+    /**
+     * Constructs a {@code CustomerBuilder} by copying attributes from an existing {@code Customer}.
+     *
+     * @param customer The customer to copy attributes from.
+     */
     public CustomerBuilder(Customer customer) {
-        super(customer.getName(), customer.getPhone(), customer.getEmail(), customer.getAddress(), customer.getRemark(), customer.getTags());
+        super(
+                customer.getName(),
+                customer.getPhone(),
+                customer.getEmail(),
+                customer.getAddress(),
+                customer.getRemark(),
+                customer.getTags());
         this.customerId = customer.getCustomerId();
         this.rewardPoints = customer.getRewardPoints();
         this.visitCount = customer.getVisitCount();
@@ -73,60 +91,198 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
         this.totalSpent = customer.getTotalSpent();
     }
 
+    /**
+     * Creates a new {@code CustomerBuilder} with updated basic attributes.
+     *
+     * @return A new {@code CustomerBuilder} instance.
+     */
     @Override
-    protected CustomerBuilder createBuilder(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
-        return new CustomerBuilder(name, phone, email, address, remark, tags, this.customerId, this.rewardPoints, 
-                                    this.visitCount, this.favouriteItem, this.totalSpent);
+    protected CustomerBuilder createBuilder(
+            Name name,
+            Phone phone,
+            Email email,
+            Address address,
+            Remark remark,
+            Set<Tag> tags) {
+        return new CustomerBuilder(
+                name,
+                phone,
+                email,
+                address,
+                remark,
+                tags,
+                this.customerId,
+                this.rewardPoints,
+                this.visitCount,
+                this.favouriteItem,
+                this.totalSpent);
     }
 
-    protected CustomerBuilder createBuilder(CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount, 
-                                            FavouriteItem favouriteItem, TotalSpent totalSpent) {
-        return new CustomerBuilder(this.name, this.phone, this.email, this.address, this.remark, this.tags, 
-                                    customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
+    /**
+     * Creates a new {@code CustomerBuilder} with updated customer-specific attributes.
+     *
+     * @return A new {@code CustomerBuilder} instance.
+     */
+    protected CustomerBuilder createBuilder(CustomerId customerId,
+                                            RewardPoints rewardPoints,
+                                            VisitCount visitCount,
+                                            FavouriteItem favouriteItem,
+                                            TotalSpent totalSpent) {
+        return new CustomerBuilder(this.name,
+                this.phone,
+                this.email,
+                this.address,
+                this.remark,
+                this.tags,
+                customerId,
+                rewardPoints,
+                visitCount,
+                favouriteItem,
+                totalSpent);
     }
 
+    /**
+     * Sets the {@code CustomerId} of the customer being built.
+     *
+     * @param customerId The customer ID to set.
+     * @return A new {@code CustomerBuilder} instance with the updated customer ID.
+     */
     public CustomerBuilder withCustomerId(String customerId) {
-        return createBuilder(new CustomerId(customerId), this.rewardPoints, this.visitCount, this.favouriteItem, this.totalSpent);
+        return createBuilder(
+                new CustomerId(customerId),
+                this.rewardPoints,
+                this.visitCount,
+                this.favouriteItem,
+                this.totalSpent
+        );
     }
 
+    /**
+     * Sets the {@code CustomerId} of the customer being built.
+     *
+     * @param customerId The customer ID to set.
+     * @return A new {@code CustomerBuilder} instance with the updated customer ID.
+     */
     public CustomerBuilder withCustomerId(CustomerId customerId) {
-        return createBuilder(customerId, this.rewardPoints, this.visitCount, this.favouriteItem, this.totalSpent);
+        return createBuilder(
+                customerId,
+                this.rewardPoints,
+                this.visitCount,
+                this.favouriteItem,
+                this.totalSpent
+        );
     }
-    
+
+    /**
+     * Sets the {@code RewardPoints} of the customer being built.
+     *
+     * @param rewardPoints The reward points to set.
+     * @return A new {@code CustomerBuilder} instance with the updated reward points.
+     */
     public CustomerBuilder withRewardPoints(String rewardPoints) {
-        return createBuilder(this.customerId, new RewardPoints(rewardPoints), this.visitCount, this.favouriteItem, this.totalSpent);
+        return createBuilder(
+                this.customerId,
+                new RewardPoints(rewardPoints),
+                this.visitCount,
+                this.favouriteItem,
+                this.totalSpent
+        );
     }
-    
+
+    /**
+     * Sets the {@code RewardPoints} of the customer being built.
+     *
+     * @param rewardPoints The reward points to set.
+     * @return A new {@code CustomerBuilder} instance with the updated reward points.
+     */
     public CustomerBuilder withRewardPoints(RewardPoints rewardPoints) {
         return createBuilder(this.customerId, rewardPoints, this.visitCount, this.favouriteItem, this.totalSpent);
     }
 
-    
+    /**
+     * Sets the {@code VisitCount} of the customer being built.
+     *
+     * @param visitCount The visit count to set.
+     * @return A new {@code CustomerBuilder} instance with the updated visit count.
+     */
     public CustomerBuilder withVisitCount(String visitCount) {
-        return createBuilder(this.customerId, this.rewardPoints, new VisitCount(visitCount), this.favouriteItem, this.totalSpent);
+        return createBuilder(this.customerId,
+                this.rewardPoints,
+                new VisitCount(visitCount),
+                this.favouriteItem,
+                this.totalSpent);
     }
 
+    /**
+     * Sets the {@code VisitCount} of the customer being built.
+     *
+     * @param visitCount The visit count to set.
+     * @return A new {@code CustomerBuilder} instance with the updated visit count.
+     */
     public CustomerBuilder withVisitCount(VisitCount visitCount) {
-        return createBuilder(this.customerId, this.rewardPoints, visitCount, this.favouriteItem, this.totalSpent);
+        return createBuilder(this.customerId,
+                this.rewardPoints,
+                visitCount,
+                this.favouriteItem,
+                this.totalSpent);
     }
-    
+
+    /**
+     * Sets the {@code FavouriteItem} of the customer being built.
+     *
+     * @param favouriteItem The favourite item to set.
+     * @return A new {@code CustomerBuilder} instance with the updated favourite item.
+     */
     public CustomerBuilder withFavouriteItem(String favouriteItem) {
-        return createBuilder(this.customerId, this.rewardPoints, this.visitCount, new FavouriteItem(favouriteItem), this.totalSpent);
+        return createBuilder(this.customerId,
+                this.rewardPoints,
+                this.visitCount,
+                new FavouriteItem(favouriteItem),
+                this.totalSpent);
     }
-    
+
+    /**
+     * Sets the {@code FavouriteItem} of the customer being built.
+     *
+     * @param favouriteItem The favourite item to set.
+     * @return A new {@code CustomerBuilder} instance with the updated favourite item.
+     */
     public CustomerBuilder withFavouriteItem(FavouriteItem favouriteItem) {
         return createBuilder(this.customerId, this.rewardPoints, this.visitCount, favouriteItem, this.totalSpent);
     }
 
-    public CustomerBuilder withTotalSpent(String totalSpent) {
-        return createBuilder(this.customerId, this.rewardPoints, this.visitCount, this.favouriteItem, new TotalSpent(totalSpent));
-    }
-    
-    public CustomerBuilder withTotalSpent(TotalSpent totalSpent) {
-        return createBuilder(this.customerId, this.rewardPoints, this.visitCount, this.favouriteItem, totalSpent);
-    }
     /**
-     * Builds the customer with the information altogether.
+     * Sets the {@code TotalSpent} of the customer being built.
+     *
+     * @param totalSpent The total amount spent to set.
+     * @return A new {@code CustomerBuilder} instance with the updated total spent.
+     */
+    public CustomerBuilder withTotalSpent(String totalSpent) {
+        return createBuilder(this.customerId,
+                this.rewardPoints,
+                this.visitCount,
+                this.favouriteItem,
+                new TotalSpent(totalSpent));
+    }
+
+    /**
+     * Sets the {@code TotalSpent} of the customer being built.
+     *
+     * @param totalSpent The total amount spent to set.
+     * @return A new {@code CustomerBuilder} instance with the updated total spent.
+     */
+    public CustomerBuilder withTotalSpent(TotalSpent totalSpent) {
+        return createBuilder(this.customerId,
+                this.rewardPoints,
+                this.visitCount,
+                this.favouriteItem,
+                totalSpent);
+    }
+
+    /**
+     * Builds and returns a {@code Customer} object with the current attributes.
+     *
+     * @return A {@code Customer} object.
      */
     public Customer build() {
         return new Customer(name, phone, email, address, remark, tags,

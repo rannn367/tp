@@ -59,7 +59,18 @@ public abstract class JsonAdaptedPerson<T extends Person> {
                 .collect(Collectors.toList()));
     }
 
-    public PersonBuilder<?, ?> modifyBuilder(PersonBuilder<? extends Person, ? extends PersonBuilder<?, ?>> personBuilder) throws IllegalValueException {
+    /**
+     * Modifies a builder to create a {@code Person} based on the data in this class.
+     * This method is used to adapt the data from this class into a {@code PersonBuilder}.
+     * This allows for generic handling of different types of persons (e.g., Staff, Customer).
+     *
+     * @param personBuilder the person builder to modify
+     * @return the modified person builder
+     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     */
+    public PersonBuilder<?, ?> modifyBuilder(
+            PersonBuilder<? extends T, ? extends PersonBuilder<?, ?>> personBuilder
+    ) throws IllegalValueException {
         final Set<Tag> modelTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
             modelTags.add(tag.toModelType());
