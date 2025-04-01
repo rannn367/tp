@@ -2,10 +2,12 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -139,6 +141,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting CafeConnect " + MainApp.VERSION);
+
+
+        primaryStage.getIcons().add(
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/favicon.png")))
+        );
 
         // Skip welcome screen in test mode to avoid resource loading issues
         if (isTestMode) {
