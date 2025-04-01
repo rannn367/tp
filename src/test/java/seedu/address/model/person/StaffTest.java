@@ -26,7 +26,10 @@ public class StaffTest {
         assertTrue(ALEX.isSamePerson(ALEX));
 
         // Different staffId, same name, different phone, rest same -> returns false
-        Staff editedBen = new StaffBuilder(BEN).withStaffId(new StaffId("S1005")).withPhone(new Phone("91234567")).build();
+        Staff editedBen = new StaffBuilder(BEN)
+                .withStaffId(new StaffId("S1005"))
+                .withPhone(new Phone("91234567"))
+                .build();
         assertFalse(BEN.isSamePerson(editedBen));
     }
 
@@ -46,7 +49,6 @@ public class StaffTest {
     public void isSamePerson_nullStaff_returnsFalse() {
         assertFalse(BEN.isSamePerson(null)); // null -> should return false
     }
-
 
     @Test
     public void equals() {

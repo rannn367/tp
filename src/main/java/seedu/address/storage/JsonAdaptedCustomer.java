@@ -25,11 +25,11 @@ public class JsonAdaptedCustomer extends JsonAdaptedPerson<Customer> {
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedCustomer(@JsonProperty("name") String name, 
+    public JsonAdaptedCustomer(@JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, 
+                             @JsonProperty("email") String email,
                              @JsonProperty("address") String address,
-                             @JsonProperty("remark") String remark, 
+                             @JsonProperty("remark") String remark,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                              @JsonProperty("customerId") String customerId,
                              @JsonProperty("rewardPoints") String rewardPoints,

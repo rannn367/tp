@@ -198,7 +198,8 @@ public class StaffBuilderTest {
         Staff hoursWorkedStaff = builder.withHoursWorked(new HoursWorked(TEST_HOURS_WORKED)).build();
         assertEquals(TEST_HOURS_WORKED, hoursWorkedStaff.getHoursWorked().value);
 
-        Staff performanceRatingStaff = builder.withPerformanceRating(new PerformanceRating(TEST_PERFORMANCE_RATING)).build();
+        Staff performanceRatingStaff = builder.withPerformanceRating(
+                new PerformanceRating(TEST_PERFORMANCE_RATING)).build();
         assertEquals(TEST_PERFORMANCE_RATING, performanceRatingStaff.getPerformanceRating().value);
     }
 

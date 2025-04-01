@@ -64,11 +64,11 @@ public class EditCustomerCommandTest {
         try {
             Customer editedCustomer = customerInList.withName(VALID_NAME_OLIVIA).withPhone(VALID_PHONE_OLIVIA)
                     .withTags(VALID_TAG_HUSBAND).build();
-    
+
             EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA)
                     .withPhone(VALID_PHONE_OLIVIA).withTags(VALID_TAG_HUSBAND).build();
             EditCustomerCommand editCustomerCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
-    
+
             String expectedMessage = String.format(
                 EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, Messages.format(editedCustomer)
             );
@@ -76,7 +76,7 @@ public class EditCustomerCommandTest {
             Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new UserPrefs(), getTypicalDrinkCatalog());
             expectedModel.setCustomer(lastCustomer, editedCustomer);
-    
+
             assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
         } catch (IllegalValueException e) {
             fail("Illegal value exception thrown: " + e.getMessage());

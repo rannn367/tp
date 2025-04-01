@@ -20,13 +20,12 @@ import seedu.address.model.tag.Tag;
  */
 public abstract class PersonBuilder<T extends Person, SELF extends PersonBuilder<T, SELF>> {
 
-    public final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "She likes aardvarks.";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     protected final Name name;
     protected final Phone phone;

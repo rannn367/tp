@@ -168,7 +168,7 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddressBookParser` creates an instance of `AddStaffCommandParser` to parse the user input string.
 
-`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.  
+`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
 It ensures that:
 - The **ID prefix** `sid/` must contain a valid staff ID.
 - The **phone prefix** `p/` must contain a valid phone number.
@@ -225,7 +225,7 @@ If the index is valid, `DeleteStaffCommand`:
 
 `AddressBookParser` creates an instance of `AddCustomerCommandParser` to parse the user input string.
 
-`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.  
+`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.
 It ensures that:
 - The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
@@ -544,19 +544,19 @@ Use case ends.
 * 4a. Provided name format is invalid.
 
   * 4a1. System shows an error message.
-  
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided phone number is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Role description exceeds character limit.
 
   * 4c1. System shows an error message.
-  
+
   * 4c2. Use case resumes at step 2.
 
 * 4d. Staff member with the same name and phone number already exists.
@@ -568,17 +568,17 @@ Use case ends.
 * 4e. Staff member with the same name but different phone number exists.
 
   * 4e1. System prompts to confirm if phone number should be updated.
-  
+
   * 4e2. Café owner chooses not to update.
-  
+
   Use case ends.
-  
+
   * 4e3. Café owner chooses to update.
-  
+
     * System updates phone number.
-    
+
     * System confirms update.
-    
+
   Use case ends.
 
 **Use case: Delete a Staff Member**
@@ -692,7 +692,7 @@ Use case ends.
 * 4b. Provided points value is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Reward with the same name already exists.

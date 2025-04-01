@@ -33,7 +33,7 @@ public class TestPersonBuilder extends PersonBuilder<TestPerson, TestPersonBuild
     /**
      * Creates a {@code TestPersonBuilder} with the data of {@code person}.
      * Every field must be present and not null.
-     *`
+     *
      * @param person The person to copy data from.
      */
     public TestPersonBuilder(Person person) {
@@ -42,7 +42,11 @@ public class TestPersonBuilder extends PersonBuilder<TestPerson, TestPersonBuild
     }
 
     @Override
-    protected TestPersonBuilder createBuilder(Name name, Phone phone, Email email, Address address, Remark remark,
+    protected TestPersonBuilder createBuilder(Name name,
+            Phone phone,
+            Email email,
+            Address address,
+            Remark remark,
             Set<Tag> tags) {
         return new TestPersonBuilder(name, phone, email, address, remark, tags);
     }

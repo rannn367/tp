@@ -22,8 +22,6 @@ import seedu.address.model.tag.Tag;
  */
 public class StaffBuilder extends PersonBuilder<Staff, StaffBuilder> {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
-
     public static final String DEFAULT_NAME = "John Doe";
     public static final String DEFAULT_PHONE = "12345678";
     public static final String DEFAULT_EMAIL = "johndoe@example.com";
@@ -34,6 +32,7 @@ public class StaffBuilder extends PersonBuilder<Staff, StaffBuilder> {
     public static final String DEFAULT_SHIFT_TIMING = "8am-4pm";
     public static final String DEFAULT_HOURS_WORKED = "40";
     public static final String DEFAULT_PERFORMANCE_RATING = "4.5";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
 
     protected final StaffId staffId;
     protected final Role role;

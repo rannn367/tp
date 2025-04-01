@@ -16,8 +16,8 @@ import seedu.address.model.person.Role;
 import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.StaffId;
-import seedu.address.model.util.StaffBuilder;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.StaffBuilder;
 
 /**
  * A utility class containing a list of {@code Staff} objects to be used in

@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCustomers.JAMES;
-import static seedu.address.testutil.TypicalCustomers.OLIVIA;
-import static seedu.address.testutil.TypicalStaff.ALEX;
 
 import java.io.IOException;
 import java.nio.file.Path;

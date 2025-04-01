@@ -23,8 +23,6 @@ import seedu.address.model.tag.Tag;
  */
 public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
 
-    public final String MISSING_FIELD_MESSAGE_FORMAT = "Customer's %s field is missing!";
-
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
@@ -36,12 +34,13 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
     public static final String DEFAULT_FAVOURITE_ITEM = "Latte";
     public static final String DEFAULT_TOTAL_SPENT = "75.50";
     public static final String DEFAULT_RATING = "5";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Customer's %s field is missing!";
 
-    private final CustomerId customerId;
-    private final RewardPoints rewardPoints;
-    private final VisitCount visitCount;
-    private final FavouriteItem favouriteItem;
-    private final TotalSpent totalSpent;
+    protected final CustomerId customerId;
+    protected final RewardPoints rewardPoints;
+    protected final VisitCount visitCount;
+    protected final FavouriteItem favouriteItem;
+    protected final TotalSpent totalSpent;
 
     /**
      * Constructs a {@code CustomerBuilder} with default values.
@@ -63,7 +62,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
     /**
      * Constructs a {@code CustomerBuilder} with the specified attributes.
      */
-    private CustomerBuilder(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
+    protected CustomerBuilder(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
             CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount,
             FavouriteItem favouriteItem, TotalSpent totalSpent) {
         super(name, phone, email, address, remark, tags);
