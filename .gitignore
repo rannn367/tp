@@ -25,3 +25,4 @@ docs/_markbind/logs/
 
 # Config files for VScode IDE
 .vscode
+*.class
