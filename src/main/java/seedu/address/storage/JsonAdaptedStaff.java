@@ -14,8 +14,6 @@ import seedu.address.model.util.StaffBuilder;
  */
 public class JsonAdaptedStaff extends JsonAdaptedPerson<Staff> {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
-
     // Staff-specific fields
     private final String staffId;
     private final String role;
@@ -63,7 +61,7 @@ public class JsonAdaptedStaff extends JsonAdaptedPerson<Staff> {
      * @throws IllegalValueException if there were any data constraints violated in the adapted staff.
      */
     public StaffBuilder modifyBuilder(StaffBuilder personBuilder) throws IllegalValueException {
-        super.modifyBuilder(personBuilder);
+        personBuilder = super.modifyBuilder(personBuilder);
         return personBuilder.withStaffId(staffId)
                 .withRole(role)
                 .withShiftTiming(shiftTiming)

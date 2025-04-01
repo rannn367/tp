@@ -19,8 +19,6 @@ import seedu.address.model.util.PersonBuilder;
  */
 public abstract class JsonAdaptedPerson<T extends Person> {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-
     private final String name;
     private final String phone;
     private final String email;
@@ -68,9 +66,7 @@ public abstract class JsonAdaptedPerson<T extends Person> {
      * @return the modified person builder
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public PersonBuilder<?, ?> modifyBuilder(
-            PersonBuilder<? extends T, ? extends PersonBuilder<?, ?>> personBuilder
-    ) throws IllegalValueException {
+    public <B extends PersonBuilder<T, B>> B modifyBuilder(B personBuilder) throws IllegalValueException {
         final Set<Tag> modelTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
             modelTags.add(tag.toModelType());
