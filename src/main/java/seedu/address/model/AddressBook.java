@@ -194,7 +194,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return getCustomerList().equals(otherAddressBook.getCustomerList())
+                && getStaffList().equals(otherAddressBook.getStaffList());
     }
 
     @Override

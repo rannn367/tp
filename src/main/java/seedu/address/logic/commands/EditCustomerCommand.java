@@ -102,20 +102,40 @@ public class EditCustomerCommand extends Command {
             EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
-        CustomerBuilder customerBuilder = new CustomerBuilder(customerToEdit);
+        CustomerBuilder builder = new CustomerBuilder(customerToEdit);
 
-        editCustomerDescriptor.getName().ifPresent(customerBuilder::withName);
-        editCustomerDescriptor.getPhone().ifPresent(customerBuilder::withPhone);
-        editCustomerDescriptor.getEmail().ifPresent(customerBuilder::withEmail);
-        editCustomerDescriptor.getAddress().ifPresent(customerBuilder::withAddress);
-        editCustomerDescriptor.getTags().ifPresent(customerBuilder::withTags);
-        editCustomerDescriptor.getCustomerId().ifPresent(customerBuilder::withCustomerId);
-        editCustomerDescriptor.getRewardPoints().ifPresent(customerBuilder::withRewardPoints);
-        editCustomerDescriptor.getVisitCount().ifPresent(customerBuilder::withVisitCount);
-        editCustomerDescriptor.getFavouriteItem().ifPresent(customerBuilder::withFavouriteItem);
-        editCustomerDescriptor.getTotalSpent().ifPresent(customerBuilder::withTotalSpent);
+        builder = editCustomerDescriptor.getName()
+                .map(builder::withName)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getPhone()
+                .map(builder::withPhone)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getEmail()
+                .map(builder::withEmail)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getAddress()
+                .map(builder::withAddress)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getTags()
+                .map(builder::withTags)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getCustomerId()
+                .map(builder::withCustomerId)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getRewardPoints()
+                .map(builder::withRewardPoints)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getVisitCount()
+                .map(builder::withVisitCount)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getFavouriteItem()
+                .map(builder::withFavouriteItem)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getTotalSpent()
+                .map(builder::withTotalSpent)
+                .orElse(builder);
 
-        return customerBuilder.build();
+        return builder.build();
     }
 
     @Override

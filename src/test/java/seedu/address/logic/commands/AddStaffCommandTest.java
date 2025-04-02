@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.drink.Drink;
 import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 import seedu.address.model.util.StaffBuilder;
@@ -60,8 +61,8 @@ public class AddStaffCommandTest {
 
     @Test
     public void equals() {
-        Staff alex = new StaffBuilder().withName("Alex").build();
-        Staff bob = new StaffBuilder().withName("Bob").build();
+        Staff alex = new StaffBuilder().withName(new Name("Alex")).build();
+        Staff bob = new StaffBuilder().withName(new Name("Bob")).build();
         AddStaffCommand addAlexCommand = new AddStaffCommand(alex);
         AddStaffCommand addBobCommand = new AddStaffCommand(bob);
 
