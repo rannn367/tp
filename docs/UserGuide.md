@@ -174,6 +174,10 @@ These are the before and after images of the first example
   </div>
 </div>
 
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
+
 ## Adding a customer: `customeradd` or `c` (shortcut)
 
 An extension of the customeradd command above, useful when there is a need to input customer information quickly into the system.
@@ -261,6 +265,10 @@ These are the before and after images of the first example
   </div>
 </div>
 
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
+
 ## Finding a customer: `customerfind`
 
 Finds and lists all customers in the customer list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
@@ -322,6 +330,9 @@ These are the before and after images of the first example
     <p><i>After adding the staff</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Adding a staff: `staffadd` or `s` (shortcut)
 
@@ -409,6 +420,9 @@ These are the before and after images of the first example
     <p><i>After editing staff details</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Finding a staff: `stafffind`
 
@@ -463,6 +477,9 @@ These are the before and after images of the first example
     <p><i>After adding the drink</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Deleting a drink: `drinkdelete`
 
@@ -545,6 +562,9 @@ These are the before and after images of a redemption purchase using the second 
     <p><i>After redemption purchase (points deducted, total spent unchanged)</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ### Exiting the program : `exit`
 
