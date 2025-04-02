@@ -261,6 +261,33 @@ These are the before and after images of the first example
   </div>
 </div>
 
+## Finding a customer: `customerfind`
+
+Finds and lists all customers in the customer list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
+
+Format: `customerfind KEYWORD [MORE_KEYWORDS]...`
+
+* The search will return all customers whose names contain at least one of the given keywords.
+* The keywords do not need to match the full name exactly; partial matches within the name are included.
+* The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+
+Examples:
+* `customerfind Alice` finds and lists all customers whose names contain `Alice`.
+* `customerfind John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
+
+These are the before and after images of the second example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_customerfind.png" alt="Before searching for a customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before searching for a customer</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_customerfind.png" alt="After searching for a customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After searching for a customer</i></p>
+  </div>
+</div>
+
 
 ## Adding a staff: `staffadd` or `s`
 
@@ -383,6 +410,32 @@ These are the before and after images of the first example
   </div>
 </div>
 
+## Finding a staff: `stafffind`
+
+Finds and lists all staffs in the staff list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
+
+Format: `stafffind KEYWORD [MORE_KEYWORDS]...`
+
+* The search will return all staffs whose names contain at least one of the given keywords.
+* The keywords do not need to match the full name exactly; partial matches within the name are included.
+* The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+
+Examples:
+* `stafffind Alice` finds and lists all staffs whose names contain `Alice`.
+* `stafffind John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
+
+These are the before and after images of the second example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_stafffind.png" alt="Before searching for a staff" style="max-width: 100%; height: auto;"/>
+    <p><i>Before searching for a staff</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_stafffind.png" alt="After searching for a staff" style="max-width: 100%; height: auto;"/>
+    <p><i>After searching for a staff</i></p>
+  </div>
+</div>
 
 ## Adding a drink: `drinkadd`
 
