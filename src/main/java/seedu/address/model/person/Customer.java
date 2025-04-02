@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -14,8 +16,10 @@ import seedu.address.model.tag.Tag;
  */
 public class Customer extends Person {
 
+    private static final Logger logger = Logger.getLogger(Customer.class.getName());
+    
     // Customer-specific fields
-    private final CustomerId customerId; // Customer id
+    private final CustomerId customerId; // Unique identifier for customer
     private final RewardPoints rewardPoints; // Current reward points balance
     private final VisitCount visitCount; // Number of times customer has visited
     private final FavouriteItem favouriteItem; // Customer's most ordered item
@@ -30,6 +34,12 @@ public class Customer extends Person {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
 
+        if (customerId == null || rewardPoints == null || visitCount == null || favouriteItem == null
+                || totalSpent == null) {
+            logger.log(Level.SEVERE, "Attempted to create Customer with null attributes");
+            throw new IllegalArgumentException("Customer attributes cannot be null");
+        }
+        
         this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
