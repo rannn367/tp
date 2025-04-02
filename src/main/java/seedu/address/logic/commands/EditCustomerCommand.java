@@ -15,7 +15,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -23,18 +22,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerId;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
-import seedu.address.model.person.RewardPoints;
-import seedu.address.model.person.TotalSpent;
-import seedu.address.model.person.VisitCount;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.util.CustomerBuilder;
 
 /**
  * Edits the details of an existing customer in the address book.
@@ -113,22 +102,20 @@ public class EditCustomerCommand extends Command {
             EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
-        Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
-        Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
-        Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
-        Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
-        Remark updatedRemark = customerToEdit.getRemark(); // edit command does not allow editing remarks
-        Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
-        CustomerId updatedCustomerId = editCustomerDescriptor.getCustomerId().orElse(customerToEdit.getCustomerId());
-        RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(
-                customerToEdit.getRewardPoints());
-        VisitCount updatedVisitCount = editCustomerDescriptor.getVisitCount().orElse(customerToEdit.getVisitCount());
-        FavouriteItem updatedFavouriteItem = editCustomerDescriptor.getFavouriteItem().orElse(
-                customerToEdit.getFavouriteItem());
-        TotalSpent updatedTotalSpent = editCustomerDescriptor.getTotalSpent().orElse(customerToEdit.getTotalSpent());
+        CustomerBuilder customerBuilder = new CustomerBuilder(customerToEdit);
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
-                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavouriteItem, updatedTotalSpent);
+        editCustomerDescriptor.getName().ifPresent(customerBuilder::withName);
+        editCustomerDescriptor.getPhone().ifPresent(customerBuilder::withPhone);
+        editCustomerDescriptor.getEmail().ifPresent(customerBuilder::withEmail);
+        editCustomerDescriptor.getAddress().ifPresent(customerBuilder::withAddress);
+        editCustomerDescriptor.getTags().ifPresent(customerBuilder::withTags);
+        editCustomerDescriptor.getCustomerId().ifPresent(customerBuilder::withCustomerId);
+        editCustomerDescriptor.getRewardPoints().ifPresent(customerBuilder::withRewardPoints);
+        editCustomerDescriptor.getVisitCount().ifPresent(customerBuilder::withVisitCount);
+        editCustomerDescriptor.getFavouriteItem().ifPresent(customerBuilder::withFavouriteItem);
+        editCustomerDescriptor.getTotalSpent().ifPresent(customerBuilder::withTotalSpent);
+
+        return customerBuilder.build();
     }
 
     @Override
