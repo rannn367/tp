@@ -6,10 +6,10 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_DRINK_DISPLAYED_INDEX
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDrinkAtIndex;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DRINK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DRINK;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

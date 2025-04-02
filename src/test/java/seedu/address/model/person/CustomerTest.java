@@ -26,7 +26,7 @@ public class CustomerTest {
         assertTrue(JAMES.isSamePerson(JAMES));
 
         // Different phone, rest same -> returns false
-        Customer editedJames = new CustomerBuilder(JAMES).withPhone("91234567").build();
+        Customer editedJames = new CustomerBuilder(JAMES).withPhone(new Phone("91234567")).build();
         assertFalse(JAMES.isSamePerson(editedJames));
     }
 
@@ -38,7 +38,7 @@ public class CustomerTest {
 
     @Test
     public void hashCode_differentCustomer_returnsDifferentHashCode() {
-        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints("999").build();
+        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints(new RewardPoints("999")).build();
         assertNotEquals(JAMES.hashCode(), editedJames.hashCode()); // Different reward points -> different hashcode
     }
 
@@ -60,7 +60,7 @@ public class CustomerTest {
         assertFalse(JAMES.equals(null));
 
         // different customerId -> returns false
-        Customer editedJames = new CustomerBuilder(JAMES).withCustomerId("C1003").build();
+        Customer editedJames = new CustomerBuilder(JAMES).withCustomerId(new CustomerId("C1003")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different type -> returns false
@@ -70,19 +70,19 @@ public class CustomerTest {
         assertFalse(JAMES.equals(OLIVIA));
 
         // different reward points -> returns false
-        editedJames = new CustomerBuilder(JAMES).withRewardPoints("1000").build();
+        editedJames = new CustomerBuilder(JAMES).withRewardPoints(new RewardPoints("1000")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different visit count -> returns false
-        editedJames = new CustomerBuilder(JAMES).withVisitCount("20").build();
+        editedJames = new CustomerBuilder(JAMES).withVisitCount(new VisitCount("20")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different favourite item -> returns false
-        editedJames = new CustomerBuilder(JAMES).withFavouriteItem("Espresso").build();
+        editedJames = new CustomerBuilder(JAMES).withFavouriteItem(new FavouriteItem("Espresso")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different total spent -> returns false
-        editedJames = new CustomerBuilder(JAMES).withTotalSpent("999.99").build();
+        editedJames = new CustomerBuilder(JAMES).withTotalSpent(new TotalSpent("999.99")).build();
         assertFalse(JAMES.equals(editedJames));
 
 

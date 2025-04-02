@@ -158,7 +158,7 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddressBookParser` creates an instance of `AddStaffCommandParser` to parse the user input string.
 
-`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.  
+`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
 It ensures that:
 - The **ID prefix** `sid/` must contain a valid staff ID.
 - The **phone prefix** `p/` must contain a valid phone number.
@@ -216,7 +216,7 @@ If the index is valid, `DeleteStaffCommand`:
 
 `AddressBookParser` creates an instance of `AddCustomerCommandParser` to parse the user input string.
 
-`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.  
+`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.
 It ensures that:
 - The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
