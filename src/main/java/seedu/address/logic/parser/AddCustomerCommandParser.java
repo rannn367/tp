@@ -51,7 +51,7 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
         String trimmedArgs = args.trim();
 
         // Fast add format: <customerId>:<name>:<phone>
-        if (trimmedArgs.matches("^[^\\s:]+:[^\\s:]+:[^\\s:]+$")) {
+        if (trimmedArgs.matches("^[^\\s:]+:.+:[^\\s:]+$")) {
             String[] customerInfo = trimmedArgs.split(":");
 
             if (customerInfo.length != 3) {
