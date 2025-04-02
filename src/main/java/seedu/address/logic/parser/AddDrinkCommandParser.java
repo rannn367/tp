@@ -33,6 +33,7 @@ public class AddDrinkCommandParser implements Parser<AddDrinkCommand> {
         String name = argMultimap.getValue(PREFIX_NAME).get();
 
         double price;
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_CATEGORY, PREFIX_PRICE);
         try {
             price = Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get());
             if (price <= 0) {
@@ -41,7 +42,7 @@ public class AddDrinkCommandParser implements Parser<AddDrinkCommand> {
         } catch (NumberFormatException e) {
             throw new ParseException("Price must be a valid number");
         }
-
+        
         String category = argMultimap.getValue(PREFIX_CATEGORY).get();
 
         Drink drink = new Drink(name, price, category);
