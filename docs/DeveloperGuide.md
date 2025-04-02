@@ -176,9 +176,9 @@ If any of these constraints are violated, `AddStaffCommandParser` throws a `Pars
 
 `AddStaffCommand` stores the staff to be added, represented as a `Staff` instance.
 
-Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) name is found, it adds the new staff member to the catalog.
+Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the catalog.
 
-> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `NAME` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
+> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
 
 #### Deleting a staff from the catalog
 
@@ -235,9 +235,9 @@ If any of these constraints are violated, `AddCustomerCommandParser` throws a `P
 
 `AddCustomerCommand` stores the customer to be added, represented as a `Customer` instance.
 
-Upon execution, `AddCustomerCommand` first checks the model for duplicate customers. If no existing customer with a matching (case-insensitive) name is found, it adds the new customer to the customer list.
+Upon execution, `AddCustomerCommand` first checks the model for duplicate customers. If no existing customer with a matching (case-insensitive) customer id is found, it adds the new customer to the customer list.
 
-> **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `NAME` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
+> **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `CID` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
 
 #### Deleting a customer from the catalog
 
