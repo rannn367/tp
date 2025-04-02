@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -39,7 +39,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
     protected final CustomerId customerId;
     protected final RewardPoints rewardPoints;
     protected final VisitCount visitCount;
-    protected final FavouriteItem favouriteItem;
+    protected final Drink favouriteDrink;
     protected final TotalSpent totalSpent;
 
     /**
@@ -55,7 +55,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
         this.customerId = new CustomerId(DEFAULT_CUSTOMER_ID);
         this.rewardPoints = new RewardPoints(DEFAULT_REWARD_POINTS);
         this.visitCount = new VisitCount(DEFAULT_VISIT_COUNT);
-        this.favouriteItem = new FavouriteItem(DEFAULT_FAVOURITE_ITEM);
+        this.favouriteDrink = new Drink(DEFAULT_FAVOURITE_ITEM);
         this.totalSpent = new TotalSpent(DEFAULT_TOTAL_SPENT);
     }
 
@@ -64,12 +64,12 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
      */
     protected CustomerBuilder(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
             CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount,
-            FavouriteItem favouriteItem, TotalSpent totalSpent) {
+            Drink favouriteDrink, TotalSpent totalSpent) {
         super(name, phone, email, address, remark, tags);
         this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
-        this.favouriteItem = favouriteItem;
+        this.favouriteDrink = favouriteDrink;
         this.totalSpent = totalSpent;
     }
 
@@ -90,7 +90,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
         this.customerId = customer.getCustomerId();
         this.rewardPoints = customer.getRewardPoints();
         this.visitCount = customer.getVisitCount();
-        this.favouriteItem = customer.getFavouriteItem();
+        this.favouriteDrink = customer.getFavouriteDrink();
         this.totalSpent = customer.getTotalSpent();
     }
 
@@ -117,7 +117,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
                 this.customerId,
                 this.rewardPoints,
                 this.visitCount,
-                this.favouriteItem,
+                this.favouriteDrink,
                 this.totalSpent);
     }
 
@@ -130,7 +130,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
     protected CustomerBuilder createBuilder(CustomerId customerId,
             RewardPoints rewardPoints,
             VisitCount visitCount,
-            FavouriteItem favouriteItem,
+            Drink favouriteDrink,
             TotalSpent totalSpent) {
         return new CustomerBuilder(this.name,
                 this.phone,
@@ -141,7 +141,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
                 customerId,
                 rewardPoints,
                 visitCount,
-                favouriteItem,
+                favouriteDrink,
                 totalSpent);
     }
 
@@ -180,7 +180,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
      */
     public CustomerBuilder withCustomerId(CustomerId customerId) {
         return createBuilder(customerId, this.rewardPoints, this.visitCount,
-                this.favouriteItem, this.totalSpent);
+                this.favouriteDrink, this.totalSpent);
     }
 
     /**
@@ -210,7 +210,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
      */
     public CustomerBuilder withRewardPoints(RewardPoints rewardPoints) {
         return createBuilder(this.customerId, rewardPoints, this.visitCount,
-                this.favouriteItem, this.totalSpent);
+                this.favouriteDrink, this.totalSpent);
     }
 
     /**
@@ -238,37 +238,37 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
      */
     public CustomerBuilder withVisitCount(VisitCount visitCount) {
         return createBuilder(this.customerId, this.rewardPoints, visitCount,
-                this.favouriteItem, this.totalSpent);
+                this.favouriteDrink, this.totalSpent);
     }
 
     /**
-     * Sets the {@code FavouriteItem} of the customer being built.
+     * Sets the {@code Drink} of the customer being built.
      *
-     * @param favouriteItem The favourite item to set.
+     * @param favouriteDrink The favourite item to set.
      * @return A new {@code CustomerBuilder} instance with the updated favourite
      *         item.
-     * @throws IllegalValueException if favouriteItem is invalid.
+     * @throws IllegalValueException if favouriteDrink is invalid.
      */
-    public CustomerBuilder withFavouriteItem(String favouriteItem) throws IllegalValueException {
-        if (favouriteItem == null) {
-            throw new IllegalValueException(getErrorMessage(FavouriteItem.class.getSimpleName()));
+    public CustomerBuilder withFavouriteDrink(String favouriteDrink) throws IllegalValueException {
+        if (favouriteDrink == null) {
+            throw new IllegalValueException(getErrorMessage(Drink.class.getSimpleName()));
         }
-        if (!FavouriteItem.isValidFavouriteItem(favouriteItem)) {
-            throw new IllegalValueException(FavouriteItem.MESSAGE_CONSTRAINTS);
+        if (!Drink.isValidDrink(favouriteDrink)) {
+            throw new IllegalValueException(Drink.MESSAGE_CONSTRAINTS);
         }
-        return withFavouriteItem(new FavouriteItem(favouriteItem));
+        return withFavouriteDrink(new Drink(favouriteDrink));
     }
 
     /**
-     * Sets the {@code FavouriteItem} of the customer being built.
+     * Sets the {@code FavouriteDrink} of the customer being built.
      *
-     * @param favouriteItem The favourite item to set.
+     * @param favouriteDrink The favourite item to set.
      * @return A new {@code CustomerBuilder} instance with the updated favourite
      *         item.
      */
-    public CustomerBuilder withFavouriteItem(FavouriteItem favouriteItem) {
+    public CustomerBuilder withFavouriteDrink(Drink favouriteDrink) {
         return createBuilder(this.customerId, this.rewardPoints, this.visitCount,
-                favouriteItem, this.totalSpent);
+                favouriteDrink, this.totalSpent);
     }
 
     /**
@@ -296,7 +296,7 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
      */
     public CustomerBuilder withTotalSpent(TotalSpent totalSpent) {
         return createBuilder(this.customerId, this.rewardPoints, this.visitCount,
-                this.favouriteItem, totalSpent);
+                this.favouriteDrink, totalSpent);
     }
 
     /**
@@ -306,6 +306,6 @@ public class CustomerBuilder extends PersonBuilder<Customer, CustomerBuilder> {
      */
     public Customer build() {
         return new Customer(name, phone, email, address, remark, tags,
-                customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
+                customerId, rewardPoints, visitCount, favouriteDrink, totalSpent);
     }
 }

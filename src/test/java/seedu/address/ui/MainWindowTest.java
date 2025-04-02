@@ -26,7 +26,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PerformanceRating;
@@ -227,11 +226,11 @@ public class MainWindowTest {
         CustomerId customerId = new CustomerId("C001");
         RewardPoints rewardPoints = new RewardPoints("150");
         VisitCount visitCount = new VisitCount("15");
-        FavouriteItem favouriteItem = new FavouriteItem("Latte");
+        Drink favouriteDrink = new Drink("Latte");
         TotalSpent totalSpent = new TotalSpent("250.50");
 
         Customer customer = new Customer(name, phone, email, address, remark, tags,
-                customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
+                customerId, rewardPoints, visitCount, favouriteDrink, totalSpent);
 
         // Call handleCustomerSelection
         mainWindow.handleCustomerSelection(customer);

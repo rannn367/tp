@@ -1,13 +1,8 @@
 package seedu.address.model.drink;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-
-import seedu.address.model.drink.exceptions.DrinkNotFoundException;
 
 /**
  * Represents a Drink in the café management system.
@@ -18,7 +13,6 @@ public class Drink {
     // Static variables
     public static final String MESSAGE_CONSTRAINTS = "Drinks can take any values, and it should not be blank";
     public static final String VALIDATION_REGEX = ".*";
-    private static final Map<String, Drink> drinkMap = new HashMap<>();
 
     // Identity fields
     public final String value;
@@ -43,11 +37,10 @@ public class Drink {
         this.drinkName = drinkName;
         this.price = price;
         this.category = category;
+
         // Default values for optional fields
         this.description = "";
         this.stock = 0;
-        // Add to the static map
-        drinkMap.put(drinkName.toString().toLowerCase(), this);
 
         this.value = drinkName.toString();
     }
@@ -68,8 +61,6 @@ public class Drink {
         this.category = category;
         this.description = description != null ? description : "";
         this.stock = stock;
-        // Add to the static map
-        drinkMap.put(drinkName.toString().toLowerCase(), this);
 
         this.value = drinkName.toString();
     }
@@ -86,6 +77,16 @@ public class Drink {
     }
 
     /**
+     * // TODO: ensure that each drinkName is mapped to a list of accepted drink classes.
+     * Constructor with required fields as strings.
+     *
+     * @param drinkName The name of the drink.
+     */
+    public Drink(String drinkName) {
+        this(drinkName, 1, "Unknown");
+    }
+
+    /**
      * Constructor with all fields including optional ones, with required fields as strings and double.
      *
      * @param drinkName The name of the drink.
@@ -96,26 +97,6 @@ public class Drink {
      */
     public Drink(String drinkName, double price, String category, String description, int stock) {
         this(new DrinkName(drinkName), new Price(price), new Category(category), description, stock);
-    }
-
-    /**
-     * Constructs a {@code Drink} object using the given drink name.
-     * It looks up the drink details from the {@code drinkMap}.
-     *
-     * @param drinkName The name of the drink to look up.
-     * @throws NullPointerException if {@code drinkName} is null.
-     * @throws DrinkNotFoundException if the drink with the specified name is not found in the map.
-     */
-    public Drink(String drinkName) {
-        requireNonNull(drinkName);
-        Drink foundDrink = drinkMap.get(drinkName.toLowerCase());
-        if (foundDrink == null) {
-            throw new DrinkNotFoundException();
-        }
-        this.drinkName = foundDrink.getDrinkName();
-        this.price = foundDrink.getPrice();
-        this.category = foundDrink.getCategory();
-        this.value = foundDrink.value;
     }
 
     public DrinkName getDrinkName() {

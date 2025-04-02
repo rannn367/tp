@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.drink.Drink;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -33,7 +33,7 @@ public class CustomerBuilderTest {
     private static final String TEST_CUSTOMER_ID = "C2000";
     private static final String TEST_REWARD_POINTS = "150";
     private static final String TEST_VISIT_COUNT = "10";
-    private static final String TEST_FAVOURITE_ITEM = "Mocha";
+    private static final String TEST_FAVOURITE_DRINK = "Mocha";
     private static final String TEST_TOTAL_SPENT = "99.99";
     private static final String[] TEST_TAGS = {"test", "premium"};
 
@@ -49,7 +49,7 @@ public class CustomerBuilderTest {
         assertEquals(CustomerBuilder.DEFAULT_CUSTOMER_ID, customer.getCustomerId().value);
         assertEquals(CustomerBuilder.DEFAULT_REWARD_POINTS, customer.getRewardPoints().value);
         assertEquals(CustomerBuilder.DEFAULT_VISIT_COUNT, customer.getVisitCount().value);
-        assertEquals(CustomerBuilder.DEFAULT_FAVOURITE_ITEM, customer.getFavouriteItem().value);
+        assertEquals(CustomerBuilder.DEFAULT_FAVOURITE_ITEM, customer.getFavouriteDrink().value);
         assertEquals(CustomerBuilder.DEFAULT_TOTAL_SPENT, customer.getTotalSpent().value);
     }
 
@@ -64,7 +64,7 @@ public class CustomerBuilderTest {
                 .withCustomerId(new CustomerId(TEST_CUSTOMER_ID))
                 .withRewardPoints(new RewardPoints(TEST_REWARD_POINTS))
                 .withVisitCount(new VisitCount(TEST_VISIT_COUNT))
-                .withFavouriteItem(new FavouriteItem(TEST_FAVOURITE_ITEM))
+                .withFavouriteDrink(new Drink(TEST_FAVOURITE_DRINK))
                 .withTotalSpent(new TotalSpent(TEST_TOTAL_SPENT))
                 .withTags(Arrays.stream(TEST_TAGS)
                         .map(Tag::new)
@@ -79,7 +79,7 @@ public class CustomerBuilderTest {
         assertEquals(TEST_CUSTOMER_ID, customer.getCustomerId().value);
         assertEquals(TEST_REWARD_POINTS, customer.getRewardPoints().value);
         assertEquals(TEST_VISIT_COUNT, customer.getVisitCount().value);
-        assertEquals(TEST_FAVOURITE_ITEM, customer.getFavouriteItem().value);
+        assertEquals(TEST_FAVOURITE_DRINK, customer.getFavouriteDrink().value);
         assertEquals(TEST_TOTAL_SPENT, customer.getTotalSpent().value);
 
         // Verify tags
@@ -97,7 +97,7 @@ public class CustomerBuilderTest {
         CustomerId customerId = new CustomerId(TEST_CUSTOMER_ID);
         RewardPoints rewardPoints = new RewardPoints(TEST_REWARD_POINTS);
         VisitCount visitCount = new VisitCount(TEST_VISIT_COUNT);
-        FavouriteItem favouriteItem = new FavouriteItem(TEST_FAVOURITE_ITEM);
+        Drink favouriteDrink = new Drink(TEST_FAVOURITE_DRINK);
         TotalSpent totalSpent = new TotalSpent(TEST_TOTAL_SPENT);
         Set<Tag> tags = new HashSet<>();
         for (String tagName : TEST_TAGS) {
@@ -113,7 +113,7 @@ public class CustomerBuilderTest {
                 .withCustomerId(customerId)
                 .withRewardPoints(rewardPoints)
                 .withVisitCount(visitCount)
-                .withFavouriteItem(favouriteItem)
+                .withFavouriteDrink(favouriteDrink)
                 .withTotalSpent(totalSpent)
                 .withTags(tags)
                 .build();
@@ -126,7 +126,7 @@ public class CustomerBuilderTest {
         assertEquals(customerId, customer.getCustomerId());
         assertEquals(rewardPoints, customer.getRewardPoints());
         assertEquals(visitCount, customer.getVisitCount());
-        assertEquals(favouriteItem, customer.getFavouriteItem());
+        assertEquals(favouriteDrink, customer.getFavouriteDrink());
         assertEquals(totalSpent, customer.getTotalSpent());
         assertEquals(tags, customer.getTags());
     }
@@ -142,7 +142,7 @@ public class CustomerBuilderTest {
                 .withCustomerId(new CustomerId(TEST_CUSTOMER_ID))
                 .withRewardPoints(new RewardPoints(TEST_REWARD_POINTS))
                 .withVisitCount(new VisitCount(TEST_VISIT_COUNT))
-                .withFavouriteItem(new FavouriteItem(TEST_FAVOURITE_ITEM))
+                .withFavouriteDrink(new Drink(TEST_FAVOURITE_DRINK))
                 .withTotalSpent(new TotalSpent(TEST_TOTAL_SPENT))
                 .withTags(Arrays.stream(TEST_TAGS)
                         .map(Tag::new)
@@ -161,7 +161,7 @@ public class CustomerBuilderTest {
         assertEquals(original.getCustomerId(), copy.getCustomerId());
         assertEquals(original.getRewardPoints(), copy.getRewardPoints());
         assertEquals(original.getVisitCount(), copy.getVisitCount());
-        assertEquals(original.getFavouriteItem(), copy.getFavouriteItem());
+        assertEquals(original.getFavouriteDrink(), copy.getFavouriteDrink());
         assertEquals(original.getTotalSpent(), copy.getTotalSpent());
         assertEquals(original.getTags(), copy.getTags());
     }
@@ -195,8 +195,8 @@ public class CustomerBuilderTest {
         Customer visitCountCustomer = builder.withVisitCount(new VisitCount(TEST_VISIT_COUNT)).build();
         assertEquals(TEST_VISIT_COUNT, visitCountCustomer.getVisitCount().value);
 
-        Customer favouriteItemCustomer = builder.withFavouriteItem(new FavouriteItem(TEST_FAVOURITE_ITEM)).build();
-        assertEquals(TEST_FAVOURITE_ITEM, favouriteItemCustomer.getFavouriteItem().value);
+        Customer favouriteDrinkCustomer = builder.withFavouriteDrink(new Drink(TEST_FAVOURITE_DRINK)).build();
+        assertEquals(TEST_FAVOURITE_DRINK, favouriteDrinkCustomer.getFavouriteDrink().value);
 
         Customer totalSpentCustomer = builder.withTotalSpent(new TotalSpent(TEST_TOTAL_SPENT)).build();
         assertEquals(TEST_TOTAL_SPENT, totalSpentCustomer.getTotalSpent().value);
@@ -238,9 +238,9 @@ public class CustomerBuilderTest {
         Customer visitCountCustomer = builder.withVisitCount(visitCount).build();
         assertEquals(visitCount, visitCountCustomer.getVisitCount());
 
-        FavouriteItem favouriteItem = new FavouriteItem(TEST_FAVOURITE_ITEM);
-        Customer favouriteItemCustomer = builder.withFavouriteItem(favouriteItem).build();
-        assertEquals(favouriteItem, favouriteItemCustomer.getFavouriteItem());
+        Drink favouriteDrink = new Drink(TEST_FAVOURITE_DRINK);
+        Customer favouriteDrinkCustomer = builder.withFavouriteDrink(favouriteDrink).build();
+        assertEquals(favouriteDrink, favouriteDrinkCustomer.getFavouriteDrink());
 
         TotalSpent totalSpent = new TotalSpent(TEST_TOTAL_SPENT);
         Customer totalSpentCustomer = builder.withTotalSpent(totalSpent).build();
