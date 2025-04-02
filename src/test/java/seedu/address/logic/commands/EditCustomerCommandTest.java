@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_JAMES;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_OLIVIA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_OLIVIA;
@@ -19,6 +20,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.model.AddressBook;
@@ -26,7 +28,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Customer;
-import seedu.address.testutil.CustomerBuilder;
+import seedu.address.model.util.CustomerBuilder;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
 /**
@@ -59,22 +61,26 @@ public class EditCustomerCommandTest {
         Customer lastCustomer = model.getFilteredCustomerList().get(indexLastCustomer.getZeroBased());
 
         CustomerBuilder customerInList = new CustomerBuilder(lastCustomer);
-        Customer editedCustomer = customerInList.withName(VALID_NAME_OLIVIA).withPhone(VALID_PHONE_OLIVIA)
-                .withTags(VALID_TAG_HUSBAND).build();
+        try {
+            Customer editedCustomer = customerInList.withName(VALID_NAME_OLIVIA).withPhone(VALID_PHONE_OLIVIA)
+                    .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA)
-                .withPhone(VALID_PHONE_OLIVIA).withTags(VALID_TAG_HUSBAND).build();
-        EditCustomerCommand editCustomerCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
+            EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA)
+                    .withPhone(VALID_PHONE_OLIVIA).withTags(VALID_TAG_HUSBAND).build();
+            EditCustomerCommand editCustomerCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
 
-        String expectedMessage = String.format(
-            EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, Messages.format(editedCustomer)
-        );
+            String expectedMessage = String.format(
+                EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, Messages.format(editedCustomer)
+            );
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new UserPrefs(), getTypicalDrinkCatalog());
-        expectedModel.setCustomer(lastCustomer, editedCustomer);
+            Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs(), getTypicalDrinkCatalog());
+            expectedModel.setCustomer(lastCustomer, editedCustomer);
 
-        assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
+            assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
+        } catch (IllegalValueException e) {
+            fail("Illegal value exception thrown: " + e.getMessage());
+        }
     }
 
     @Test
@@ -97,21 +103,24 @@ public class EditCustomerCommandTest {
     @Test
     public void execute_filteredList_success() {
         showCustomerAtIndex(model, INDEX_FIRST_PERSON);
+        try {
+            Customer customerInFilteredList = model.getFilteredCustomerList().get(INDEX_FIRST_PERSON.getZeroBased());
+            Customer editedCustomer = new CustomerBuilder(customerInFilteredList).withName(VALID_NAME_OLIVIA).build();
+            EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON,
+                    new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA).build());
 
-        Customer customerInFilteredList = model.getFilteredCustomerList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Customer editedCustomer = new CustomerBuilder(customerInFilteredList).withName(VALID_NAME_OLIVIA).build();
-        EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON,
-                new EditCustomerDescriptorBuilder().withName(VALID_NAME_OLIVIA).build());
+            String expectedMessage = String.format(
+                EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, Messages.format(editedCustomer)
+            );
 
-        String expectedMessage = String.format(
-            EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, Messages.format(editedCustomer)
-        );
+            Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs(), getTypicalDrinkCatalog());
+            expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new UserPrefs(), getTypicalDrinkCatalog());
-        expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
-
-        assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
+            assertCommandSuccess(editCustomerCommand, model, expectedMessage, expectedModel);
+        } catch (IllegalValueException e) {
+            fail("Illegal value exception thrown: " + e.getMessage());
+        }
     }
 
     @Test

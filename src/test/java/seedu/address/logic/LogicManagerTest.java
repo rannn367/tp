@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,11 +28,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Customer;
+import seedu.address.model.util.CustomerBuilder;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonDrinkCatalogStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.CustomerBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -147,12 +149,16 @@ public class LogicManagerTest {
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add customer command
-        String addCustomerCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        Customer expectedCustomer = new CustomerBuilder(JAMES).withTags().build();
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.addCustomer(expectedCustomer);
-        assertCommandFailure(addCustomerCommand, CommandException.class, expectedMessage, expectedModel);
+        try {
+            // Triggers the saveAddressBook method by executing an add customer command
+            String addCustomerCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                    + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+            Customer expectedCustomer = new CustomerBuilder(JAMES).withTags().build();
+            ModelManager expectedModel = new ModelManager();
+            expectedModel.addCustomer(expectedCustomer);
+            assertCommandFailure(addCustomerCommand, CommandException.class, expectedMessage, expectedModel);
+        } catch (IllegalValueException err) {
+            fail("Illegal value exception thrown: " + err.getMessage());
+        }
     }
 }

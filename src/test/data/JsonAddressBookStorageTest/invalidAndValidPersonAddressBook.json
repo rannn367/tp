@@ -1,15 +1,27 @@
 {
-  "persons": [ {
+  "staff": [ {
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",
     "address": "4th street",
-    "remark": "friend"
+    "remark": "friend",
+    "tags" : [ ],
+    "staffId" : "S003",
+    "role" : "Chef",
+    "shiftTiming" : "Evening Shift",
+    "hoursWorked" : "25",
+    "performanceRating" : "4.5"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
     "address": "4th street",
-    "remark": "not friend"
+    "remark": "not friend",
+    "tags" : [ ],
+    "staffId" : "S003",
+    "role" : "Chef",
+    "shiftTiming" : "Evening Shift",
+    "hoursWorked" : "25",
+    "performanceRating" : "4.5"
   } ]
 }

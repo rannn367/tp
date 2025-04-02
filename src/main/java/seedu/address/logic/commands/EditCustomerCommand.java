@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_DRINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
@@ -15,7 +14,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -23,18 +21,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.descriptors.EditCustomerDescriptor;
 import seedu.address.model.Model;
-import seedu.address.model.drink.Drink;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerId;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
-import seedu.address.model.person.RewardPoints;
-import seedu.address.model.person.TotalSpent;
-import seedu.address.model.person.VisitCount;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.util.CustomerBuilder;
 
 /**
  * Edits the details of an existing customer in the address book.
@@ -44,25 +32,24 @@ public class EditCustomerCommand extends Command {
     public static final String COMMAND_WORD = "customeredit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the customer identified "
-            + "by the index number used in the displayed customer list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_REMARK + "REMARK] "
-            + "[" + PREFIX_CUSTOMER_ID + "CUSTOMER_ID] "
-            + "[" + PREFIX_REWARD_POINTS + "REWARD_POINTS] "
-            + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
-            + "[" + PREFIX_FAVOURITE_DRINK + "FAVOURITE_DRINK] "
-            + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "janedoe@example.com "
-            + PREFIX_TAG + "VIP "
-            + PREFIX_TOTAL_SPENT + "1000";
+        + "by the index number used in the displayed customer list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_CUSTOMER_ID + "CUSTOMER_ID] "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_REWARD_POINTS + "REWARD_POINTS] "
+        + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
+        + "[" + PREFIX_FAVOURITE_DRINK + "FAVOURITE_DRINK] "
+        + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
+        + "[" + PREFIX_TAG + "TAG]... "
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "janedoe@example.com "
+        + PREFIX_TAG + "VIP "
+        + PREFIX_TOTAL_SPENT + "1000";
 
     public static final String MESSAGE_EDIT_CUSTOMER_SUCCESS = "Edited Customer: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -113,22 +100,40 @@ public class EditCustomerCommand extends Command {
             EditCustomerDescriptor editCustomerDescriptor) {
         assert customerToEdit != null;
 
-        Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
-        Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
-        Email updatedEmail = editCustomerDescriptor.getEmail().orElse(customerToEdit.getEmail());
-        Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
-        Remark updatedRemark = customerToEdit.getRemark(); // edit command does not allow editing remarks
-        Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
-        CustomerId updatedCustomerId = editCustomerDescriptor.getCustomerId().orElse(customerToEdit.getCustomerId());
-        RewardPoints updatedRewardPoints = editCustomerDescriptor.getRewardPoints().orElse(
-                customerToEdit.getRewardPoints());
-        VisitCount updatedVisitCount = editCustomerDescriptor.getVisitCount().orElse(customerToEdit.getVisitCount());
-        Drink updatedFavouriteDrink = editCustomerDescriptor.getFavouriteDrink().orElse(
-                customerToEdit.getFavouriteDrink());
-        TotalSpent updatedTotalSpent = editCustomerDescriptor.getTotalSpent().orElse(customerToEdit.getTotalSpent());
+        CustomerBuilder builder = new CustomerBuilder(customerToEdit);
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
-                updatedCustomerId, updatedRewardPoints, updatedVisitCount, updatedFavouriteDrink, updatedTotalSpent);
+        builder = editCustomerDescriptor.getName()
+                .map(builder::withName)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getPhone()
+                .map(builder::withPhone)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getEmail()
+                .map(builder::withEmail)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getAddress()
+                .map(builder::withAddress)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getTags()
+                .map(builder::withTags)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getCustomerId()
+                .map(builder::withCustomerId)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getRewardPoints()
+                .map(builder::withRewardPoints)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getVisitCount()
+                .map(builder::withVisitCount)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getFavouriteDrink()
+                .map(builder::withFavouriteDrink)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getTotalSpent()
+                .map(builder::withTotalSpent)
+                .orElse(builder);
+
+        return builder.build();
     }
 
     @Override

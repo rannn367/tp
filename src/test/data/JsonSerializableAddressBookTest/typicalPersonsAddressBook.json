@@ -1,53 +1,59 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "remark" : "",
-    "tags" : [ "friends" ]
-  }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "remark" : "",
-    "tags" : [ "owesMoney", "friends" ]
-  }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
-    "remark" : "",
-    "tags" : [ ]
-  }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "remark" : "",
-    "tags" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "remark" : "",
-    "tags" : [ ]
-  }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "remark" : "",
-    "tags" : [ ]
-  }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
-    "remark" : "",
-    "tags" : [ ]
-  } ]
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalAddressBook#getTypicalAddressBook()",
+  "staff": [
+    {
+      "name": "Alex Tan",
+      "phone": "91234567",
+      "email": "alex.tan@example.com",
+      "address": "456, Bukit Timah Road, #12-34",
+      "staffId": "S1001",
+      "role": "Barista",
+      "shiftTiming": "8am-4pm",
+      "remark": "No remarks",
+      "hoursWorked": "40",
+      "performanceRating": "4.5",
+      "tags": ["teamplayer"]
+    },
+    {
+      "name": "Ben Chua",
+      "phone": "98765432",
+      "email": "ben.chua@example.com",
+      "address": "789, Orchard Road, #22-56",
+      "staffId": "S1002",
+      "role": "Cashier",
+      "remark": "No remarks",
+      "shiftTiming": "4pm-12am",
+      "hoursWorked": "38",
+      "performanceRating": "4.2",
+      "tags": ["punctual"]
+    }
+  ],
+  "customers": [
+    {
+      "name": "James Wilson",
+      "customerId": "C10012",
+      "address": "45 Orchard Road, #12-34",
+      "email": "james@example.com",
+      "phone": "91234789",
+      "remark": "Prefers decaf",
+      "rewardPoints": "200",
+      "visitCount": "12",
+      "favouriteItem": "Flat White",
+      "totalSpent": "155.75",
+      "tags": ["regular", "student"]
+    },
+    {
+      "name": "Olivia Chen",
+      "customerId": "C12345",
+      "address": "88 Sunset Drive, #05-10",
+      "email": "olivia@example.com",
+      "phone": "82345678",
+      "remark": "Birthday in March",
+      "rewardPoints": "75",
+      "visitCount": "3",
+      "favouriteItem": "Green Tea Latte",
+      "totalSpent": "42.90",
+      "tags": ["new", "student"]
+    }
+  ]
 }

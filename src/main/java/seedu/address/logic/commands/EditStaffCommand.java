@@ -14,7 +14,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -22,18 +21,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.descriptors.EditStaffDescriptor;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.HoursWorked;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.PerformanceRating;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
-import seedu.address.model.person.Role;
-import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
-import seedu.address.model.person.StaffId;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.util.StaffBuilder;
 
 /**
  * Edits the details of an existing staff in the address book.
@@ -68,7 +57,7 @@ public class EditStaffCommand extends Command {
     private final EditStaffDescriptor editStaffDescriptor;
 
     /**
-     * @param index of the staff in the filtered staff list to edit
+     * @param index               of the staff in the filtered staff list to edit
      * @param editStaffDescriptor details to edit the staff with
      */
     public EditStaffCommand(Index index, EditStaffDescriptor editStaffDescriptor) {
@@ -107,21 +96,40 @@ public class EditStaffCommand extends Command {
     private static Staff createEditedStaff(Staff staffToEdit, EditStaffDescriptor editStaffDescriptor) {
         assert staffToEdit != null;
 
-        Name updatedName = editStaffDescriptor.getName().orElse(staffToEdit.getName());
-        Phone updatedPhone = editStaffDescriptor.getPhone().orElse(staffToEdit.getPhone());
-        Email updatedEmail = editStaffDescriptor.getEmail().orElse(staffToEdit.getEmail());
-        Address updatedAddress = editStaffDescriptor.getAddress().orElse(staffToEdit.getAddress());
-        Remark updatedRemark = staffToEdit.getRemark(); // edit command does not allow editing remarks
-        Set<Tag> updatedTags = editStaffDescriptor.getTags().orElse(staffToEdit.getTags());
-        StaffId updatedStaffId = editStaffDescriptor.getStaffId().orElse(staffToEdit.getStaffId());
-        Role updatedRole = editStaffDescriptor.getRole().orElse(staffToEdit.getRole());
-        ShiftTiming updatedShiftTiming = editStaffDescriptor.getShiftTiming().orElse(staffToEdit.getShiftTiming());
-        HoursWorked updatedHoursWorked = editStaffDescriptor.getHoursWorked().orElse(staffToEdit.getHoursWorked());
-        PerformanceRating updatedPerformanceRating = editStaffDescriptor.getPerformanceRating()
-                .orElse(staffToEdit.getPerformanceRating());
+        StaffBuilder staffBuilder = new StaffBuilder(staffToEdit);
 
-        return new Staff(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags,
-                updatedStaffId, updatedRole, updatedShiftTiming, updatedHoursWorked, updatedPerformanceRating);
+        staffBuilder = editStaffDescriptor.getName()
+                .map(staffBuilder::withName)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getPhone()
+                .map(staffBuilder::withPhone)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getEmail()
+                .map(staffBuilder::withEmail)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getAddress()
+                .map(staffBuilder::withAddress)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getTags()
+                .map(staffBuilder::withTags)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getStaffId()
+                .map(staffBuilder::withStaffId)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getRole()
+                .map(staffBuilder::withRole)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getShiftTiming()
+                .map(staffBuilder::withShiftTiming)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getHoursWorked()
+                .map(staffBuilder::withHoursWorked)
+                .orElse(staffBuilder);
+        staffBuilder = editStaffDescriptor.getPerformanceRating()
+                .map(staffBuilder::withPerformanceRating)
+                .orElse(staffBuilder);
+
+        return staffBuilder.build();
     }
 
     @Override

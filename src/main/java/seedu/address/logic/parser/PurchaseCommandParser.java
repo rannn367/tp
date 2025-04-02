@@ -37,6 +37,8 @@ public class PurchaseCommandParser implements Parser<PurchaseCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PurchaseCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DRINKNAME, PREFIX_REDEEM);
+
         String drinkName = argMultimap.getValue(PREFIX_DRINKNAME).get();
         boolean isRedemption = false;
 

@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalStaff.BEN;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.StaffBuilder;
+import seedu.address.model.util.StaffBuilder;
 
 public class StaffTest {
 
@@ -26,7 +26,10 @@ public class StaffTest {
         assertTrue(ALEX.isSamePerson(ALEX));
 
         // Different staffId, same name, different phone, rest same -> returns false
-        Staff editedBen = new StaffBuilder(BEN).withStaffId("S1005").withPhone("91234567").build();
+        Staff editedBen = new StaffBuilder(BEN)
+                .withStaffId(new StaffId("S1005"))
+                .withPhone(new Phone("91234567"))
+                .build();
         assertFalse(BEN.isSamePerson(editedBen));
     }
 
@@ -38,7 +41,7 @@ public class StaffTest {
 
     @Test
     public void hashCode_differentStaff_returnsDifferentHashCode() {
-        Staff editedBen = new StaffBuilder(BEN).withStaffId("S9999").build();
+        Staff editedBen = new StaffBuilder(BEN).withStaffId(new StaffId("S9999")).build();
         assertNotEquals(BEN.hashCode(), editedBen.hashCode()); // Different staffId -> different hashcode
     }
 
@@ -46,7 +49,6 @@ public class StaffTest {
     public void isSamePerson_nullStaff_returnsFalse() {
         assertFalse(BEN.isSamePerson(null)); // null -> should return false
     }
-
 
     @Test
     public void equals() {
@@ -67,23 +69,23 @@ public class StaffTest {
         assertFalse(ALEX.equals(BEN));
 
         // different staffId -> returns false
-        Staff editedAlex = new StaffBuilder(ALEX).withStaffId("S1003").build();
+        Staff editedAlex = new StaffBuilder(ALEX).withStaffId(new StaffId("S1003")).build();
         assertFalse(ALEX.equals(editedAlex));
 
         // different role -> returns false
-        editedAlex = new StaffBuilder(ALEX).withRole("Manager").build();
+        editedAlex = new StaffBuilder(ALEX).withRole(new Role("Manager")).build();
         assertFalse(ALEX.equals(editedAlex));
 
         // different shiftTiming -> returns false
-        editedAlex = new StaffBuilder(ALEX).withShiftTiming("10am-6pm").build();
+        editedAlex = new StaffBuilder(ALEX).withShiftTiming(new ShiftTiming("10am-6pm")).build();
         assertFalse(ALEX.equals(editedAlex));
 
         // different hoursWorked -> returns false
-        editedAlex = new StaffBuilder(ALEX).withHoursWorked("45").build();
+        editedAlex = new StaffBuilder(ALEX).withHoursWorked(new HoursWorked("45")).build();
         assertFalse(ALEX.equals(editedAlex));
 
         // different performanceRating -> returns false
-        editedAlex = new StaffBuilder(ALEX).withPerformanceRating("4.8").build();
+        editedAlex = new StaffBuilder(ALEX).withPerformanceRating(new PerformanceRating("4.8")).build();
         assertFalse(ALEX.equals(editedAlex));
     }
 

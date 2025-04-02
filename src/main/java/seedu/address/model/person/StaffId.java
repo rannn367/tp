@@ -15,7 +15,7 @@ public class StaffId {
     /*
      * The Staff ID must start with an uppercase 'S' followed by at least one digit.
      */
-    public static final String VALIDATION_REGEX = "S\\d+";
+    public static final String VALIDATION_REGEX = "(?i)s\\d+";
 
     public final String value;
 
@@ -27,7 +27,7 @@ public class StaffId {
     public StaffId(String staffId) {
         requireNonNull(staffId);
         checkArgument(isValidStaffId(staffId), MESSAGE_CONSTRAINTS);
-        value = staffId;
+        value = staffId.substring(0, 1).toUpperCase() + staffId.substring(1);
     }
 
     /**

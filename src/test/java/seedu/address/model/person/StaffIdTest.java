@@ -29,7 +29,6 @@ public class StaffIdTest {
         assertFalse(StaffId.isValidStaffId(" ")); // spaces only
         assertFalse(StaffId.isValidStaffId("S")); // missing digits
         assertFalse(StaffId.isValidStaffId("1234")); // missing 'S' prefix
-        assertFalse(StaffId.isValidStaffId("s1001")); // lowercase 's'
         assertFalse(StaffId.isValidStaffId("S10A1")); // non-numeric characters after 'S'
 
         // valid staff IDs
