@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.HoursWorked;
@@ -19,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class to help with building Staff objects.
  */
-public class StaffBuilder {
+public class StaffBuilder extends PersonBuilder<Staff, StaffBuilder> {
 
     public static final String DEFAULT_NAME = "John Doe";
     public static final String DEFAULT_PHONE = "12345678";
@@ -31,232 +32,248 @@ public class StaffBuilder {
     public static final String DEFAULT_SHIFT_TIMING = "8am-4pm";
     public static final String DEFAULT_HOURS_WORKED = "40";
     public static final String DEFAULT_PERFORMANCE_RATING = "4.5";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Staff's %s field is missing!";
 
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-    private Remark remark;
-    private Set<Tag> tags;
-    private StaffId staffId;
-    private Role role;
-    private ShiftTiming shiftTiming;
-    private HoursWorked hoursWorked;
-    private PerformanceRating performanceRating;
+    protected final StaffId staffId;
+    protected final Role role;
+    protected final ShiftTiming shiftTiming;
+    protected final HoursWorked hoursWorked;
+    protected final PerformanceRating performanceRating;
 
     /**
      * Creates a {@code StaffBuilder} with the default details.
      */
     public StaffBuilder() {
-        name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        remark = new Remark(DEFAULT_REMARK);
-        tags = new HashSet<>();
-        staffId = new StaffId(DEFAULT_STAFF_ID);
-        role = new Role(DEFAULT_ROLE);
-        shiftTiming = new ShiftTiming(DEFAULT_SHIFT_TIMING);
-        hoursWorked = new HoursWorked(DEFAULT_HOURS_WORKED);
-        performanceRating = new PerformanceRating(DEFAULT_PERFORMANCE_RATING);
+        super(new Name(DEFAULT_NAME),
+                new Phone(DEFAULT_PHONE),
+                new Email(DEFAULT_EMAIL),
+                new Address(DEFAULT_ADDRESS),
+                new Remark(DEFAULT_REMARK),
+                new HashSet<>());
+        this.staffId = new StaffId(DEFAULT_STAFF_ID);
+        this.role = new Role(DEFAULT_ROLE);
+        this.shiftTiming = new ShiftTiming(DEFAULT_SHIFT_TIMING);
+        this.hoursWorked = new HoursWorked(DEFAULT_HOURS_WORKED);
+        this.performanceRating = new PerformanceRating(DEFAULT_PERFORMANCE_RATING);
     }
 
     /**
-     * Initializes the StaffBuilder with the data of {@code staffToCopy}.
+     * Creates a {@code StaffBuilder} with the given details.
+     * Every field must be present and not null.
+     *
+     * @param name              The name of the staff.
+     * @param phone             The phone number of the staff.
+     * @param email             The email of the staff.
+     * @param address           The address of the staff.
+     * @param remark            The remark of the staff.
+     * @param tags              The tags of the staff.
+     * @param staffId           The staff ID of the staff.
+     * @param role              The role of the staff.
+     * @param shiftTiming       The shift timing of the staff.
+     * @param hoursWorked       The hours worked by the staff.
+     * @param performanceRating The performance rating of the staff.
      */
-    public StaffBuilder(Staff staffToCopy) {
-        name = staffToCopy.getName();
-        phone = staffToCopy.getPhone();
-        email = staffToCopy.getEmail();
-        address = staffToCopy.getAddress();
-        remark = staffToCopy.getRemark();
-        tags = new HashSet<>(staffToCopy.getTags());
-        staffId = staffToCopy.getStaffId();
-        role = staffToCopy.getRole();
-        shiftTiming = staffToCopy.getShiftTiming();
-        hoursWorked = staffToCopy.getHoursWorked();
-        performanceRating = staffToCopy.getPerformanceRating();
+    protected StaffBuilder(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
+            StaffId staffId, Role role, ShiftTiming shiftTiming, HoursWorked hoursWorked,
+            PerformanceRating performanceRating) {
+        super(name, phone, email, address, remark, tags);
+        this.staffId = staffId;
+        this.role = role;
+        this.shiftTiming = shiftTiming;
+        this.hoursWorked = hoursWorked;
+        this.performanceRating = performanceRating;
     }
 
     /**
-     * Sets the {@code Name} of the {@code Staff} that we are building.
+     * Creates a {@code StaffBuilder} with the details of the given {@code Staff}.
+     *
+     * @param staff The staff to copy details from.
      */
-    public StaffBuilder withName(String name) {
-        this.name = new Name(name);
-        return this;
+    public StaffBuilder(Staff staff) {
+        super(
+                staff.getName(),
+                staff.getPhone(),
+                staff.getEmail(),
+                staff.getAddress(),
+                staff.getRemark(),
+                staff.getTags());
+        this.staffId = staff.getStaffId();
+        this.role = staff.getRole();
+        this.shiftTiming = staff.getShiftTiming();
+        this.hoursWorked = staff.getHoursWorked();
+        this.performanceRating = staff.getPerformanceRating();
+    }
+
+    @Override
+    protected StaffBuilder createBuilder(
+            Name name,
+            Phone phone,
+            Email email,
+            Address address,
+            Remark remark,
+            Set<Tag> tags) {
+        return new StaffBuilder(name, phone, email, address, remark, tags, this.staffId, this.role,
+                this.shiftTiming, this.hoursWorked, this.performanceRating);
+    }
+
+    protected StaffBuilder createBuilder(StaffId staffId, Role role, ShiftTiming shiftTiming,
+            HoursWorked hoursWorked, PerformanceRating performanceRating) {
+        return new StaffBuilder(this.name, this.phone, this.email, this.address, this.remark, this.tags,
+                staffId, role, shiftTiming, hoursWorked, performanceRating);
     }
 
     /**
-     * Sets the {@code Name} of the {@code Staff} that we are building.
+     * Returns the error message for a missing field.
+     * @param fieldName The name of the field that is missing.
+     * @return The error message indicating the missing field.
      */
-    public StaffBuilder withName(Name name) {
-        this.name = name;
-        return this;
+    @Override
+    public String getErrorMessage(String fieldName) {
+        return String.format(MISSING_FIELD_MESSAGE_FORMAT, fieldName);
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Staff} that we are building.
+     * Sets the staff ID for the staff being built.
+     *
+     * @param staffId The staff ID to set.
+     * @return A new StaffBuilder instance with the updated staff ID.
+     * @throws IllegalValueException if staffId is invalid.
      */
-    public StaffBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
-        return this;
+    public StaffBuilder withStaffId(String staffId) throws IllegalValueException {
+        if (staffId == null) {
+            throw new IllegalValueException(getErrorMessage(StaffId.class.getSimpleName()));
+        }
+        if (!StaffId.isValidStaffId(staffId)) {
+            throw new IllegalValueException(StaffId.MESSAGE_CONSTRAINTS);
+        }
+        return withStaffId(new StaffId(staffId));
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withPhone(Phone phone) {
-        this.phone = phone;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withEmail(Email email) {
-        this.email = email;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withAddress(Address address) {
-        this.address = address;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Remark} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withRemark(String remark) {
-        this.remark = new Remark(remark);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Remark} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withRemark(Remark remark) {
-        this.remark = remark;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Tags} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withTags(Set<Tag> tags) {
-        this.tags = new HashSet<>(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Tags} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code StaffId} of the {@code Staff} that we are building.
-     */
-    public StaffBuilder withStaffId(String staffId) {
-        this.staffId = new StaffId(staffId);
-        return this;
-    }
-
-    /**
-     * Sets the {@code StaffId} of the {@code Staff} that we are building.
+     * Sets the staff ID for the staff being built.
+     *
+     * @param staffId The staff ID to set.
+     * @return A new StaffBuilder instance with the updated staff ID.
      */
     public StaffBuilder withStaffId(StaffId staffId) {
-        this.staffId = staffId;
-        return this;
+        return createBuilder(staffId, this.role, this.shiftTiming,
+                this.hoursWorked, this.performanceRating);
     }
 
     /**
-     * Sets the {@code Role} of the {@code Staff} that we are building.
+     * Sets the role for the staff being built.
+     *
+     * @param role The role to set.
+     * @return A new StaffBuilder instance with the updated role.
      */
-    public StaffBuilder withRole(String role) {
-        this.role = new Role(role);
-        return this;
+    public StaffBuilder withRole(String role) throws IllegalValueException {
+        if (role == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
+        }
+        if (!Role.isValidRole(role)) {
+            throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
+        }
+        return withRole(new Role(role));
     }
 
     /**
-     * Sets the {@code Role} of the {@code Staff} that we are building.
+     * Sets the role for the staff being built.
+     *
+     * @param role The role to set.
+     * @return A new StaffBuilder instance with the updated role.
      */
     public StaffBuilder withRole(Role role) {
-        this.role = role;
-        return this;
+        return createBuilder(this.staffId, role, this.shiftTiming, this.hoursWorked, this.performanceRating);
     }
 
     /**
-     * Sets the {@code ShiftTiming} of the {@code Staff} that we are building.
+     * Sets the shift timing for the staff being built.
+     *
+     * @param shiftTiming The shift timing to set.
+     * @return A new StaffBuilder instance with the updated shift timing.
+     * @throws IllegalValueException if shiftTiming is invalid.
      */
-    public StaffBuilder withShiftTiming(String shiftTiming) {
-        this.shiftTiming = new ShiftTiming(shiftTiming);
-        return this;
+    public StaffBuilder withShiftTiming(String shiftTiming) throws IllegalValueException {
+        if (shiftTiming == null) {
+            throw new IllegalValueException(getErrorMessage(ShiftTiming.class.getSimpleName()));
+        }
+        if (!ShiftTiming.isValidShiftTiming(shiftTiming)) {
+            throw new IllegalValueException(ShiftTiming.MESSAGE_CONSTRAINTS);
+        }
+        return withShiftTiming(new ShiftTiming(shiftTiming));
     }
 
     /**
-     * Sets the {@code ShiftTiming} of the {@code Staff} that we are building.
+     * Sets the shift timing for the staff being built.
+     *
+     * @param shiftTiming The shift timing to set.
+     * @return A new StaffBuilder instance with the updated shift timing.
      */
     public StaffBuilder withShiftTiming(ShiftTiming shiftTiming) {
-        this.shiftTiming = shiftTiming;
-        return this;
+        return createBuilder(this.staffId, this.role, shiftTiming,
+                this.hoursWorked, this.performanceRating);
     }
 
     /**
-     * Sets the {@code HoursWorked} of the {@code Staff} that we are building.
+     * Sets the hours worked for the staff being built.
+     *
+     * @param hoursWorked The hours worked to set.
+     * @return A new StaffBuilder instance with the updated hours worked.
+     * @throws IllegalValueException if hoursWorked is invalid.
      */
-    public StaffBuilder withHoursWorked(String hoursWorked) {
-        this.hoursWorked = new HoursWorked(hoursWorked);
-        return this;
+    public StaffBuilder withHoursWorked(String hoursWorked) throws IllegalValueException {
+        if (hoursWorked == null) {
+            throw new IllegalValueException(getErrorMessage(HoursWorked.class.getSimpleName()));
+        }
+        if (!HoursWorked.isValidHoursWorked(hoursWorked)) {
+            throw new IllegalValueException(HoursWorked.MESSAGE_CONSTRAINTS);
+        }
+        return withHoursWorked(new HoursWorked(hoursWorked));
     }
 
     /**
-     * Sets the {@code HoursWorked} of the {@code Staff} that we are building.
+     * Sets the hours worked for the staff being built.
+     *
+     * @param hoursWorked The hours worked to set.
+     * @return A new StaffBuilder instance with the updated hours worked.
      */
     public StaffBuilder withHoursWorked(HoursWorked hoursWorked) {
-        this.hoursWorked = hoursWorked;
-        return this;
+        return createBuilder(this.staffId, this.role, this.shiftTiming,
+                hoursWorked, this.performanceRating);
     }
 
     /**
-     * Sets the {@code PerformanceRating} of the {@code Staff} that we are building.
+     * Sets the performance rating for the staff being built.
+     *
+     * @param performanceRating The performance rating to set.
+     * @return A new StaffBuilder instance with the updated performance rating.
+     * @throws IllegalValueException if performanceRating is invalid.
      */
-    public StaffBuilder withPerformanceRating(String performanceRating) {
-        this.performanceRating = new PerformanceRating(performanceRating);
-        return this;
+    public StaffBuilder withPerformanceRating(String performanceRating) throws IllegalValueException {
+        if (performanceRating == null) {
+            throw new IllegalValueException(getErrorMessage(PerformanceRating.class.getSimpleName()));
+        }
+        if (!PerformanceRating.isValidPerformanceRating(performanceRating)) {
+            throw new IllegalValueException(PerformanceRating.MESSAGE_CONSTRAINTS);
+        }
+        return withPerformanceRating(new PerformanceRating(performanceRating));
     }
 
     /**
-     * Sets the {@code PerformanceRating} of the {@code Staff} that we are building.
+     * Sets the performance rating for the staff being built.
+     *
+     * @param performanceRating The performance rating to set.
+     * @return A new StaffBuilder instance with the updated performance rating.
      */
     public StaffBuilder withPerformanceRating(PerformanceRating performanceRating) {
-        this.performanceRating = performanceRating;
-        return this;
+        return createBuilder(this.staffId, this.role, this.shiftTiming,
+                this.hoursWorked, performanceRating);
     }
 
     /**
      * Builds the staff with the information altogether.
      */
+    @Override
     public Staff build() {
         return new Staff(name, phone, email, address, remark, tags,
                 staffId, role, shiftTiming, hoursWorked, performanceRating);

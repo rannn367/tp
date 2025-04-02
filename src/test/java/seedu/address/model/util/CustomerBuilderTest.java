@@ -3,8 +3,10 @@ package seedu.address.model.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,17 +56,19 @@ public class CustomerBuilderTest {
     @Test
     public void build_withAllStringParameters_returnsCustomerWithExpectedValues() {
         Customer customer = new CustomerBuilder()
-                .withName(TEST_NAME)
-                .withPhone(TEST_PHONE)
-                .withEmail(TEST_EMAIL)
-                .withAddress(TEST_ADDRESS)
-                .withRemark(TEST_REMARK)
-                .withCustomerId(TEST_CUSTOMER_ID)
-                .withRewardPoints(TEST_REWARD_POINTS)
-                .withVisitCount(TEST_VISIT_COUNT)
-                .withFavouriteItem(TEST_FAVOURITE_ITEM)
-                .withTotalSpent(TEST_TOTAL_SPENT)
-                .withTags(TEST_TAGS)
+                .withName(new Name(TEST_NAME))
+                .withPhone(new Phone(TEST_PHONE))
+                .withEmail(new Email(TEST_EMAIL))
+                .withAddress(new Address(TEST_ADDRESS))
+                .withRemark(new Remark(TEST_REMARK))
+                .withCustomerId(new CustomerId(TEST_CUSTOMER_ID))
+                .withRewardPoints(new RewardPoints(TEST_REWARD_POINTS))
+                .withVisitCount(new VisitCount(TEST_VISIT_COUNT))
+                .withFavouriteItem(new FavouriteItem(TEST_FAVOURITE_ITEM))
+                .withTotalSpent(new TotalSpent(TEST_TOTAL_SPENT))
+                .withTags(Arrays.stream(TEST_TAGS)
+                        .map(Tag::new)
+                        .collect(Collectors.toSet()))
                 .build();
 
         assertEquals(TEST_NAME, customer.getName().fullName);
@@ -130,17 +134,19 @@ public class CustomerBuilderTest {
     @Test
     public void build_withCustomerCopy_returnsEqualCustomer() {
         Customer original = new CustomerBuilder()
-                .withName(TEST_NAME)
-                .withPhone(TEST_PHONE)
-                .withEmail(TEST_EMAIL)
-                .withAddress(TEST_ADDRESS)
-                .withRemark(TEST_REMARK)
-                .withCustomerId(TEST_CUSTOMER_ID)
-                .withRewardPoints(TEST_REWARD_POINTS)
-                .withVisitCount(TEST_VISIT_COUNT)
-                .withFavouriteItem(TEST_FAVOURITE_ITEM)
-                .withTotalSpent(TEST_TOTAL_SPENT)
-                .withTags(TEST_TAGS)
+                .withName(new Name(TEST_NAME))
+                .withPhone(new Phone(TEST_PHONE))
+                .withEmail(new Email(TEST_EMAIL))
+                .withAddress(new Address(TEST_ADDRESS))
+                .withRemark(new Remark(TEST_REMARK))
+                .withCustomerId(new CustomerId(TEST_CUSTOMER_ID))
+                .withRewardPoints(new RewardPoints(TEST_REWARD_POINTS))
+                .withVisitCount(new VisitCount(TEST_VISIT_COUNT))
+                .withFavouriteItem(new FavouriteItem(TEST_FAVOURITE_ITEM))
+                .withTotalSpent(new TotalSpent(TEST_TOTAL_SPENT))
+                .withTags(Arrays.stream(TEST_TAGS)
+                        .map(Tag::new)
+                        .collect(Collectors.toSet()))
                 .build();
 
         CustomerBuilder copiedBuilder = new CustomerBuilder(original);
@@ -165,34 +171,34 @@ public class CustomerBuilderTest {
         CustomerBuilder builder = new CustomerBuilder();
 
         // Test each setter method individually
-        Customer nameCustomer = builder.withName(TEST_NAME).build();
+        Customer nameCustomer = builder.withName(new Name(TEST_NAME)).build();
         assertEquals(TEST_NAME, nameCustomer.getName().fullName);
 
-        Customer phoneCustomer = builder.withPhone(TEST_PHONE).build();
+        Customer phoneCustomer = builder.withPhone(new Phone(TEST_PHONE)).build();
         assertEquals(TEST_PHONE, phoneCustomer.getPhone().value);
 
-        Customer emailCustomer = builder.withEmail(TEST_EMAIL).build();
+        Customer emailCustomer = builder.withEmail(new Email(TEST_EMAIL)).build();
         assertEquals(TEST_EMAIL, emailCustomer.getEmail().value);
 
-        Customer addressCustomer = builder.withAddress(TEST_ADDRESS).build();
+        Customer addressCustomer = builder.withAddress(new Address(TEST_ADDRESS)).build();
         assertEquals(TEST_ADDRESS, addressCustomer.getAddress().value);
 
-        Customer remarkCustomer = builder.withRemark(TEST_REMARK).build();
+        Customer remarkCustomer = builder.withRemark(new Remark(TEST_REMARK)).build();
         assertEquals(TEST_REMARK, remarkCustomer.getRemark().value);
 
-        Customer customerIdCustomer = builder.withCustomerId(TEST_CUSTOMER_ID).build();
+        Customer customerIdCustomer = builder.withCustomerId(new CustomerId(TEST_CUSTOMER_ID)).build();
         assertEquals(TEST_CUSTOMER_ID, customerIdCustomer.getCustomerId().value);
 
-        Customer rewardPointsCustomer = builder.withRewardPoints(TEST_REWARD_POINTS).build();
+        Customer rewardPointsCustomer = builder.withRewardPoints(new RewardPoints(TEST_REWARD_POINTS)).build();
         assertEquals(TEST_REWARD_POINTS, rewardPointsCustomer.getRewardPoints().value);
 
-        Customer visitCountCustomer = builder.withVisitCount(TEST_VISIT_COUNT).build();
+        Customer visitCountCustomer = builder.withVisitCount(new VisitCount(TEST_VISIT_COUNT)).build();
         assertEquals(TEST_VISIT_COUNT, visitCountCustomer.getVisitCount().value);
 
-        Customer favouriteItemCustomer = builder.withFavouriteItem(TEST_FAVOURITE_ITEM).build();
+        Customer favouriteItemCustomer = builder.withFavouriteItem(new FavouriteItem(TEST_FAVOURITE_ITEM)).build();
         assertEquals(TEST_FAVOURITE_ITEM, favouriteItemCustomer.getFavouriteItem().value);
 
-        Customer totalSpentCustomer = builder.withTotalSpent(TEST_TOTAL_SPENT).build();
+        Customer totalSpentCustomer = builder.withTotalSpent(new TotalSpent(TEST_TOTAL_SPENT)).build();
         assertEquals(TEST_TOTAL_SPENT, totalSpentCustomer.getTotalSpent().value);
     }
 
@@ -246,15 +252,15 @@ public class CustomerBuilderTest {
         CustomerBuilder builder = new CustomerBuilder();
 
         Customer customer1 = builder
-                .withName("Customer One")
-                .withEmail("one@example.com")
-                .withCustomerId("C1001")
+                .withName(new Name("Customer One"))
+                .withEmail(new Email("one@example.com"))
+                .withCustomerId(new CustomerId("C1001"))
                 .build();
 
         Customer customer2 = builder
-                .withName("Customer Two")
-                .withEmail("two@example.com")
-                .withCustomerId("C1002")
+                .withName(new Name("Customer Two"))
+                .withEmail(new Email("two@example.com"))
+                .withCustomerId(new CustomerId("C1002"))
                 .build();
 
         // Verify that customer2 has the modified values
