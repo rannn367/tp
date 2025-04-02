@@ -1,0 +1,27 @@
+{
+  "staff": [ {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "remark" : "",
+    "tags": [ "friends" ],
+    "staffId" : "S003",
+    "role" : "Chef",
+    "shiftTiming" : "Evening Shift",
+    "hoursWorked" : "25",
+    "performanceRating" : "4.5"
+  }, {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "pauline@example.com",
+    "address": "4th street",
+    "remark" : "",
+    "tags" : [ ],
+    "staffId" : "S003",
+    "role" : "Chef",
+    "shiftTiming" : "Evening Shift",
+    "hoursWorked" : "25",
+    "performanceRating" : "4.5"
+  } ]
+}
