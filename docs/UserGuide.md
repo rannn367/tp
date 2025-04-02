@@ -12,7 +12,7 @@ Hello and welcome to **CaféConnect**! Thanks for choosing us to help manage you
 
 ### Efficient Café Management
 Think of **CaféConnect** like your café’s personal assistant. Whether you're adding a customer's details or checking who’s working today, everything is just a quick command away. No need to waste time scrolling through contacts or digging through papers, everything you need is right in front of you, ready to go.
-
+## Overview of User Guide
 ### What CaféConnect Can Do for You
 1. Customer Management
 * **Add customer details:** Use customeradd to quickly input customer preferences, allergies, and favourite orders. You’ll remember your regulars and what they like, and they’ll appreciate the personal touch you bring every time.
@@ -68,7 +68,6 @@ If you're a café owner who types fast and needs a simple way to manage customer
    * Add, edit, and delete staff members
    * Add, edit, and delete customers
    * Record purchases for customers
-   * Track staff working hours
 
 4. The Drinks Menu section shows the initial drink catalog:
 
@@ -233,9 +232,38 @@ These are the before and after images of the first example
   </div>
 </div>
 
-### Editing customer details `[coming in v1.4]`
+## Editing customer details: `customeredit`
 
-_Details coming soon ..._
+Edits the details of an existing customer in the customer list.
+
+Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`
+
+* Edits the customer at the specified `INDEX`.
+* The `INDEX` refers to the index number shown in the displayed customer list.
+* The `INDEX` **must be a positive integer** 1, 2, 3, …
+* The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
+* At least one of the optional fields must be provided.
+* Existing values will be overwritten by the input values.
+* When editing tags, the existing tags of the customer will be removed i.e., adding of tags is not cumulative.
+* You can remove all the customer's tags by typing `t/` without specifying any tags after it.
+
+Examples:
+* `customeredit 1 p/99994567 e/newemail@example.com` edits the phone number and email address of the 1st customer to be `99994567` and `newemail@example.com` respectively.
+* `customeredit 2 n/Betsy Crower rp/5000 t/` edits the name of the 2nd staff to be `Betsy Crower`, changes the staff ID to `S002`, and clears all existing tags.
+
+These are the before and after images of the first example
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/before_customeredit.png" alt="Before editing customer details" style="max-width: 100%; height: auto;"/>
+    <p><i>Before editing staff details</i></p>
+  </div>
+  <div style="text-align: center; max-width: 48%;">
+    <img src="images/UG_Ui_Images/after_customeredit.png" alt="After editing customer details" style="max-width: 100%; height: auto;"/>
+    <p><i>After editing staff details</i></p>
+  </div>
+</div>
+
 
 ## Adding a staff: `staffadd` or `s`
 
@@ -358,34 +386,6 @@ These are the before and after images of the first example
   </div>
 </div>
 
-## Adding hours worked for a staff: `hoursadd`
-
-Adds number of hours worked for a staff.
-
-Format: `hoursadd ind/<INDEX> h/<HOURS>`
-
-* Records a purchase for the customer at the specified `INDEX`.
-* The `INDEX` refers to the index number shown in the displayed staff list.
-* The `INDEX` **must be a positive integer** 1, 2, 3, …
-* The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
-* `HOURS` is the desired number of hours to add to the staff's total hours worked.
-
-Examples:
-* `hoursadd ind/1 h/5` adds 5 hours worked to the 1st staff in the list.
-* `hoursadd ind/9 h/5` when you have less than 9 staff returns an error.
-
-These are the before and after images of the first example
-
-<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
-  <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_hoursadd.png" alt="Before deleting the customer" style="max-width: 100%; height: auto;"/>
-    <p><i>Before adding hours worked for the staff</i></p>
-  </div>
-  <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_hoursadd.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
-    <p><i>After adding hours worked for the staff</i></p>
-  </div>
-</div>
 
 ## Adding a drink: `drinkadd`
 
@@ -591,7 +591,7 @@ Ans: Currently, CafeConnect doesn't support direct importing from spreadsheet fi
 
 #### Q12: How do I track staff working hours?
 
-Ans: Use the `hoursadd ind/INDEX h/HOURS` command to add worked hours to a staff member's record. The hours will be added to their current total.
+Ans: Use the `staffedit` command to edit worked hours to a staff member's record.
 
 #### Q13: Can I edit a customer's visit count directly?
 
@@ -618,7 +618,6 @@ Action | Format, Examples
 **Add Staff (Shortcut)** | `s <STAFF_ID>:<NAME>:<PHONE>` <br> e.g., `s S0102:Ali:98291029`
 **Delete Staff** | `staffdelete INDEX` <br> e.g., `staffdelete 2`
 **Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` <br> e.g., `staffedit 1 p/99994567 e/newemail@example.com`
-**Add Hours** | `hoursadd ind/INDEX h/HOURS` <br> e.g., `hoursadd ind/1 h/5`
 **Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee`
 **Delete Drink** | `drinkdelete INDEX` <br> e.g., `drinkdelete 2`
 **Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` <br> e.g., `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`

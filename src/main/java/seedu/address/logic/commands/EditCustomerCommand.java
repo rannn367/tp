@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
@@ -33,25 +32,24 @@ public class EditCustomerCommand extends Command {
     public static final String COMMAND_WORD = "customeredit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the customer identified "
-            + "by the index number used in the displayed customer list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_REMARK + "REMARK] "
-            + "[" + PREFIX_CUSTOMER_ID + "CUSTOMER_ID] "
-            + "[" + PREFIX_REWARD_POINTS + "REWARD_POINTS] "
-            + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
-            + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
-            + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "janedoe@example.com "
-            + PREFIX_TAG + "VIP "
-            + PREFIX_TOTAL_SPENT + "1000";
+        + "by the index number used in the displayed customer list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_CUSTOMER_ID + "CUSTOMER_ID] "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_REWARD_POINTS + "REWARD_POINTS] "
+        + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
+        + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
+        + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
+        + "[" + PREFIX_TAG + "TAG]... "
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "janedoe@example.com "
+        + PREFIX_TAG + "VIP "
+        + PREFIX_TOTAL_SPENT + "1000";
 
     public static final String MESSAGE_EDIT_CUSTOMER_SUCCESS = "Edited Customer: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
