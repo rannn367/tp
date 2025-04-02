@@ -26,7 +26,10 @@ public class CustomerTest {
         assertTrue(JAMES.isSamePerson(JAMES));
 
         // Different phone, rest same -> returns false
-        Customer editedJames = new CustomerBuilder(JAMES).withPhone(new Phone("91234567")).build();
+        Customer editedJames = new CustomerBuilder(JAMES)
+                .withCustomerId(new CustomerId("C1005"))
+                .withPhone(new Phone("91234567"))
+                .build();
         assertFalse(JAMES.isSamePerson(editedJames));
     }
 
