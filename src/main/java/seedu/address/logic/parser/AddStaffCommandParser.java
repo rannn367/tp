@@ -52,7 +52,7 @@ public class AddStaffCommandParser implements Parser<AddStaffCommand> {
         String trimmedArgs = args.trim();
 
         // Fast add format: <staffId>:<name>:<phone>
-        if (trimmedArgs.matches("^[^\\s:]+:[^\\s:]+:[^\\s:]+$")) {
+        if (trimmedArgs.matches("^[^\\s:]+:.+:[^\\s:]+$")) {
             String[] staffInfo = trimmedArgs.split(":");
 
             if (staffInfo.length != 3) {
