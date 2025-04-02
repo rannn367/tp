@@ -45,6 +45,8 @@ public class Customer extends Person {
         this.visitCount = visitCount;
         this.favouriteItem = favouriteItem;
         this.totalSpent = totalSpent;
+
+        logger.log(Level.INFO, "Created new Customer: {0}", this);
     }
 
     public CustomerId getCustomerId() {
@@ -84,9 +86,13 @@ public class Customer extends Person {
             return false;
         }
 
-        // Compare using phone as unique identifier
+        // Compare using customerId as unique identifier
         Customer otherCustomer = (Customer) otherPerson;
-        return otherCustomer.getPhone().equals(getPhone());
+        
+        boolean isSame = otherCustomer.getCustomerId().equals(getCustomerId());
+        logger.log(Level.FINE, "Comparing Staff IDs: {0} and {1}, Result: {2}",
+                new Object[]{this.customerId, otherCustomer.customerId, isSame});
+        return isSame;
     }
 
     /**
@@ -103,12 +109,16 @@ public class Customer extends Person {
         }
 
         Customer otherCustomer = (Customer) other;
-        return super.equals(otherCustomer) // Calls the equality check from Person
+        boolean isEqual = super.equals(otherCustomer) // Calls the equality check from Person
                 && rewardPoints.equals(otherCustomer.rewardPoints)
                 && visitCount.equals(otherCustomer.visitCount)
                 && favouriteItem.equals(otherCustomer.favouriteItem)
                 && totalSpent.equals(otherCustomer.totalSpent)
                 && customerId.equals(otherCustomer.customerId);
+                
+        logger.log(Level.FINE, "Comparing Customer objects: {0} and {1}, Result: {2}",
+                new Object[]{this, otherCustomer, isEqual});
+        return isEqual;
     }
 
     @Override
