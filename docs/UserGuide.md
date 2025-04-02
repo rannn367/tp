@@ -11,24 +11,24 @@
 Hello and welcome to **CaféConnect**! Thanks for choosing us to help manage your café. We know running a café is no easy task. We know running a café is no walk in the park; from managing customer orders, handling staff schedules, and keeping everything running smoothly, it’s easy to feel like you’re juggling too much. But with **CaféConnect**, we make it simpler, so you can spend less time stressing and more time doing what you do best—serving great food and drinks.
 
 ### Efficient Café Management
-Think of **CaféConnect** like your café’s personal assistant. Whether you're adding a customer's details or checking who’s working today, everything is just a quick command away. No need to waste time scrolling through contacts or digging through papers, everything you need is right in front of you, ready to go.
+Think of **CaféConnect** like your café’s personal assistant. Whether you're adding a customer's details or checking who’s working today, everything is just a quick command away. No need to waste time scrolling through contacts or digging through papers—everything you need is right in front of you, ready to go.
+
 ## Overview of User Guide
 ### What CaféConnect Can Do for You
 1. Customer Management
-* **Add customer details:** Use customeradd to quickly input customer preferences, allergies, and favourite orders. You’ll remember your regulars and what they like, and they’ll appreciate the personal touch you bring every time.
+* **Add customer details:** Use `customeradd` to quickly input customer preferences, allergies, and favourite orders. You’ll remember your regulars and what they like, and they’ll appreciate the personal touch you bring every time.
 * **Build customer loyalty:** The more you know about your customers, the better you can serve them. Keep track of their preferences, and they’ll keep coming back for more!
 2. Staff Management
-* **Effortlessly manage staff:** Use staffadd to add new staff members and store their roles and contact details. It’s all in one place, so you won’t have to worry about sifting through paper notes or trying to remember who’s working which shift.
+* **Effortlessly manage staff:** Use `staffadd` to add new staff members and store their roles and contact details. It’s all in one place, so you won’t have to worry about sifting through paper notes or trying to remember who’s working which shift.
 * **Stay organised:** With all the staff details in one system, you can easily check who’s on shift and who’s available. No more confusion during the busy hours.
 
 ### Why Choose CaféConnect?
 
-**CaféConnect** is like the swiss army knife of café management. Whether it’s adding customer info or organising staff, it’s quick, easy, and efficient. You won’t waste time clicking through complicated contact books or trying to find the right spreadsheet. Just use the command line, and you’ll get what you need in seconds. No fuss, no headache.
+**CaféConnect** is like the Swiss Army knife of café management. Whether it’s adding customer info or organising staff, it’s quick, easy, and efficient. You won’t waste time clicking through complicated contact books or trying to find the right spreadsheet. Just use the command line, and you’ll get what you need in seconds. No fuss, no headache.
 
 ### Overview of Target Users
 
-If you're a café owner who types fast and needs a simple way to manage customer details and staff, CafeConnect is for you! We know running a café can be hectic, so we designed CafeConnect to help you stay organised with just a few quick commands.
-
+If you're a café owner who types fast and needs a simple way to manage customer details and staff, **CaféConnect** is for you! We know running a café can be hectic, so we designed **CaféConnect** to help you stay organised with just a few quick commands.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -37,25 +37,25 @@ If you're a café owner who types fast and needs a simple way to manage customer
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` or above installed on your computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your CafeConnect Application  .
+1. Copy the file to the folder you want to use as the _home folder_ for your **CaféConnect** application.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cafeconnect.jar` command to run the application.<br>
 
-   The CafeConnect home screen will appear in a few seconds, displaying the application title and navigation options.
+   The **CaféConnect** home screen will appear in a few seconds, displaying the application title and navigation options.
 
    <div style="text-align: center; max-width: 80%; margin: 0 auto;">
      <img src="images/UG_Ui_Images/welcome_screen.png" alt="CafeConnect Welcome Screen" style="max-width: 100%; height: auto;"/>
-     <p><i>CafeConnect Welcome Screen</i></p>
+     <p><i>CaféConnect Welcome Screen</i></p>
    </div>
 
 2. From the home screen, you have two navigation options:
-   * Click on **Staff & Customer Management** to access staff and customer data directly
-   * Click on **Drinks Menu** to view and manage the drink catalog directly
+   * Click on **Staff & Customer Management** to access staff and customer data directly.
+   * Click on **Drinks Menu** to view and manage the drink catalog directly.
 
 3. The Staff & Customer Management section shows the initial staff data:
 
@@ -65,9 +65,9 @@ If you're a café owner who types fast and needs a simple way to manage customer
    </div>
 
    This section allows you to:
-   * Add, edit, and delete staff members
-   * Add, edit, and delete customers
-   * Record purchases for customers
+   * Add, edit, and delete staff members.
+   * Add, edit, and delete customers.
+   * Record purchases for customers.
 
 4. The Drinks Menu section shows the initial drink catalog:
 
@@ -77,31 +77,28 @@ If you're a café owner who types fast and needs a simple way to manage customer
    </div>
 
    This section allows you to:
-   * View all drinks in the catalog
-   * Add new drinks to the menu
-   * Categorize drinks by type
-
+   * View all drinks in the catalog.
+   * Add new drinks to the menu.
+   * Categorize drinks by type.
 
 Note: The application comes with sample data to help you get started.
 
-
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `help` : Opens the help window with command guide.
+   * `help` : Opens the help window with the command guide.
 
-   * `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 rp/150 vc/8 fi/Cappuccino ts/120` : Adds a customer named `John Doe` to CafeConnect.
+   * `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 rp/150 vc/8 fi/Cappuccino ts/120` : Adds a customer named `John Doe` to **CaféConnect**.
 
-   * `staffadd sid/S1001 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5` : Adds a staff member named `Alice Tan` to CafeConnect.
+   * `staffadd sid/S1001 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5` : Adds a staff member named `Alice Tan` to **CaféConnect**.
 
-   * `purchase ind/1 n/Espresso` : Records a purchase of Espresso for the 1st customer in the list.
+   * `purchase 1 n/Espresso` : Records a purchase of Espresso for the 1st customer in the list.
 
    * `customerdelete 3` : Deletes the 3rd customer shown in the current customer list.
 
    * `c C0102:Charlie:97285712` : Quickly adds a customer using the shortcut command.
 
    * `exit` : Exits the app.
-
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -111,7 +108,7 @@ Note: The application comes with sample data to help you get started.
 
 <box type="info" seamless>
 
-**Notes about the command format in CafeConnect:**<br>
+**Notes about the command format in CaféConnect:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `customeradd cid/CUSTOMER_ID`, `CUSTOMER_ID` is a parameter which can be used as `customeradd cid/C001`.
@@ -138,7 +135,7 @@ Note: The application comes with sample data to help you get started.
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -206,7 +203,7 @@ These are the before and after images of the first example
 
 ## Deleting a customer: `customerdelete`
 
-Deletes the specified customer from CafeConnect.
+Deletes the specified customer from CaféConnect.
 
 Format: `customerdelete INDEX`
 
@@ -416,7 +413,7 @@ These are the before and after images of the first example
 
 ## Deleting a drink: `drinkdelete`
 
-Deletes the specified customer from CafeConnect.
+Deletes the specified customer from CaféConnect.
 
 Format: `drinkdelete INDEX`
 
@@ -504,11 +501,11 @@ Format: `exit`
 
 ### Saving the data
 
-CafeConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CaféConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-CafeConnect data are saved automatically in the following JSON files:
+CaféConnect data are saved automatically in the following JSON files:
 - Address book data: `[JAR file location]/data/addressbook.json`
 - Drink catalog data: `[JAR file location]/data/drinkcatalog.json`
 - User preferences: `[JAR file location]/preferences.json`
@@ -519,8 +516,8 @@ Advanced users are welcome to update data directly by editing these data files.
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to any data file makes its format invalid, CafeConnect will discard all data in that file and start with an empty data file at the next run. Hence, it is recommended to take a backup of the files before editing them.<br>
-Furthermore, certain edits can cause CafeConnect to behave in unexpected ways (e.g., if a value entered is outside the acceptable range for the address book, drink catalog, or user preferences). Therefore, edit the data files only if you are confident that you can update them correctly.
+If your changes to any data file makes its format invalid, CaféConnect will discard all data in that file and start with an empty data file at the next run. Hence, it is recommended to take a backup of the files before editing them.<br>
+Furthermore, certain edits can cause CaféConnect to behave in unexpected ways (e.g., if a value entered is outside the acceptable range for the address book, drink catalog, or user preferences). Therefore, edit the data files only if you are confident that you can update them correctly.
 </box>
 
 
@@ -529,22 +526,22 @@ Furthermore, certain edits can cause CafeConnect to behave in unexpected ways (e
 
 ## FAQ
 
-Get your questions or doubts about CafeConnect's functionality and details answered here. If you have further questions, you can contact us through our email <font color="#dd0000">cafeconnect@gmail.com</font>.
+Get your questions or doubts about CaféConnect's functionality and details answered here. If you have further questions, you can contact us through our email <font color="#dd0000">cafeconnect@gmail.com</font>.
 
 #### Q1: Where is the data for the application stored?
 
-Ans: CafeConnect's data is saved automatically as JSON files `[JAR file location]/data/addressbook.json` for customer and staff data, `[JAR file location]/data/drinkcatalog.json` for drink catalog data, and `[JAR file location]/preferences.json` for user preferences. You can make a backup of these files if you wish to.
+Ans: CaféConnect's data is saved automatically as JSON files `[JAR file location]/data/addressbook.json` for customer and staff data, `[JAR file location]/data/drinkcatalog.json` for drink catalog data, and `[JAR file location]/preferences.json` for user preferences. You can make a backup of these files if you wish to.
 
 #### Q2: How do I transfer my data to another computer?
 
-Ans: Install CafeConnect on the other computer. Then copy and replace the following files from your current installation to the new one:
+Ans: Install CaféConnect on the other computer. Then copy and replace the following files from your current installation to the new one:
 - `[JAR file location]/data/addressbook.json` (for customer and staff data)
 - `[JAR file location]/data/drinkcatalog.json` (for drink catalog data)
 - `[JAR file location]/preferences.json` (for user preferences)
 
 #### Q3: Can I edit the data files directly?
 
-Ans: You are strongly encouraged to **not** edit the JSON data files directly. You can use the commands as mentioned above to manage any data. Should the changes made to the data files cause the format to be invalid, CafeConnect will discard all data and start with an empty data file. It is highly recommended to make a copy of the data files before editing them.
+Ans: You are strongly encouraged to **not** edit the JSON data files directly. You can use the commands as mentioned above to manage any data. Should the changes made to the data files cause the format to be invalid, CaféConnect will discard all data and start with an empty data file. It is highly recommended to make a copy of the data files before editing them.
 
 Users should only edit the data files only if they are confident in updating them correctly.
 
@@ -563,7 +560,7 @@ Ans: Currently, customers earn 10 points for every $1 spent on purchases. Points
 
 #### Q6: Will my customer's reward points expire?
 
-Ans: CafeConnect doesn't have a built-in expiration for reward points. Points accumulate indefinitely until used.
+Ans: CaféConnect doesn't have a built-in expiration for reward points. Points accumulate indefinitely until used.
 
 #### Q7: What happens if I try to record a purchase for a drink that's not in the catalog?
 
@@ -587,7 +584,7 @@ These shortcuts allow you to quickly add basic information, which you can later 
 
 #### Q11: Can I import existing customer data from CSV or Excel files?
 
-Ans: Currently, CafeConnect doesn't support direct importing from spreadsheet files. You'll need to enter customer and staff data manually.
+Ans: Currently, CaféConnect doesn't support direct importing from spreadsheet files. You'll need to enter customer and staff data manually.
 
 #### Q12: How do I track staff working hours?
 
