@@ -3,34 +3,33 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_OLIVIA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCustomers.JAMES;
 import static seedu.address.testutil.TypicalCustomers.OLIVIA;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStaff.BEN;
+import static seedu.address.testutil.TypicalStaff.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.CustomerBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.StaffBuilder;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.CustomerBuilder;
+import seedu.address.model.util.StaffBuilder;
 
 public class AddressBookTest {
 
@@ -55,22 +54,18 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Staff editedBen = new StaffBuilder(BEN)
+                .withTags(Set.of(new Tag(VALID_TAG_FRIEND)))
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-
-        // Two staffs with the same identity fields
-        Staff editedBen = new StaffBuilder(BEN).withTags(VALID_TAG_FRIEND).build();
         List<Staff> newStaffs = Arrays.asList(BEN, editedBen);
 
-        // Two customers witht he same identity fields
-        Customer editedOlivia = new CustomerBuilder(OLIVIA).withAddress(VALID_ADDRESS_OLIVIA)
-                .withTags(VALID_TAG_STUDENT)
+        Customer editedOlivia = new CustomerBuilder(OLIVIA)
+                .withAddress(new Address(VALID_ADDRESS_OLIVIA))
+                .withTags(Set.of(new Tag(VALID_TAG_STUDENT)))
                 .build();
         List<Customer> newCustomers = Arrays.asList(OLIVIA, editedOlivia);
 
-        AddressBookStub newData = new AddressBookStub(newPersons, newStaffs, newCustomers);
+        AddressBookStub newData = new AddressBookStub(newStaffs, newCustomers);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -78,25 +73,6 @@ public class AddressBookTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
@@ -117,7 +93,7 @@ public class AddressBookTest {
     @Test
     public void setStaff_validStaff_success() {
         addressBook.addStaff(BEN);
-        Staff editedBen = new StaffBuilder(BEN).withTags(VALID_TAG_FRIEND).build();
+        Staff editedBen = new StaffBuilder(BEN).withTags(Set.of(new Tag(VALID_TAG_FRIEND))).build();
         addressBook.setStaff(BEN, editedBen);
         assertTrue(addressBook.hasStaff(editedBen));
     }
@@ -193,10 +169,15 @@ public class AddressBookTest {
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Staff> staff, Collection<Customer> customer) {
-            this.persons.setAll(persons);
-            this.staffs.setAll(staff);
-            this.customers.setAll(customers);
+        AddressBookStub(Collection<Staff> staff, Collection<Customer> customer) {
+            for (Staff s : staff) {
+                this.staffs.add(s);
+                this.persons.add(s);
+            }
+            for (Customer c : customer) {
+                this.customers.add(c);
+                this.persons.add(c);
+            }
         }
 
         @Override

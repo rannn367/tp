@@ -15,7 +15,7 @@ public class CustomerId {
     /*
      * The Customer ID must start with an uppercase 'C' followed by at least one digit.
      */
-    public static final String VALIDATION_REGEX = "C\\d+";
+    public static final String VALIDATION_REGEX = "(?i)c\\d+";
 
     public final String value;
 
@@ -27,7 +27,7 @@ public class CustomerId {
     public CustomerId(String customerId) {
         requireNonNull(customerId);
         checkArgument(isValidCustomerId(customerId), MESSAGE_CONSTRAINTS);
-        value = customerId;
+        value = customerId.substring(0, 1).toUpperCase() + customerId.substring(1);
     }
 
     /**

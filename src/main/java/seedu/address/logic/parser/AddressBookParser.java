@@ -13,24 +13,20 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddCustomerCommand;
+import seedu.address.logic.commands.AddDrinkCommand;
 import seedu.address.logic.commands.AddStaffCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.DeleteDrinkCommand;
 import seedu.address.logic.commands.DeleteStaffCommand;
-import seedu.address.logic.commands.DrinkAddCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HoursAddCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PurchaseCommand;
-import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -52,14 +48,7 @@ public class AddressBookParser {
     private static final Map<String, ThrowingFunction<String, Command, ParseException>> COMMAND_MAP = new HashMap<>();
 
     static {
-        COMMAND_MAP.put(
-            AddCommand.COMMAND_WORD, arguments -> new AddCommandParser().parse(arguments));
-        COMMAND_MAP.put(EditCommand.COMMAND_WORD, arguments -> new EditCommandParser().parse(arguments));
-        COMMAND_MAP.put(DeleteCommand.COMMAND_WORD, arguments -> new DeleteCommandParser().parse(arguments));
-        COMMAND_MAP.put(ClearCommand.COMMAND_WORD, arguments -> new ClearCommand());
-        COMMAND_MAP.put(FindCommand.COMMAND_WORD, arguments -> new FindCommandParser().parse(arguments));
-        COMMAND_MAP.put(RemarkCommand.COMMAND_WORD, arguments -> new RemarkCommandParser().parse(arguments));
-        COMMAND_MAP.put(ListCommand.COMMAND_WORD, arguments -> new ListCommand());
+
         COMMAND_MAP.put(ExitCommand.COMMAND_WORD, arguments -> new ExitCommand());
         COMMAND_MAP.put(HelpCommand.COMMAND_WORD, arguments -> new HelpCommand());
         COMMAND_MAP.put(
@@ -69,16 +58,22 @@ public class AddressBookParser {
         COMMAND_MAP.put(
             EditStaffCommand.COMMAND_WORD, arguments -> new EditStaffCommandParser().parse(arguments));
         COMMAND_MAP.put(
+            FindStaffCommand.COMMAND_WORD, arguments -> new FindStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
             DeleteStaffCommand.COMMAND_WORD, arguments -> new DeleteStaffCommandParser().parse(arguments));
         COMMAND_MAP.put(
             AddCustomerCommand.COMMAND_WORD, arguments -> new AddCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(
             AddCustomerCommand.COMMAND_WORD_SHORTCUT, arguments -> new AddCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(
+            EditCustomerCommand.COMMAND_WORD, arguments -> new EditCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            FindCustomerCommand.COMMAND_WORD, arguments -> new FindCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(
             DeleteCustomerCommand.COMMAND_WORD, arguments -> new DeleteCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(DrinkAddCommand.COMMAND_WORD, arguments -> new DrinkAddCommandParser().parse(arguments));
+        COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD, arguments -> new AddDrinkCommandParser().parse(arguments));
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD, arguments -> new PurchaseCommandParser().parse(arguments));
-        COMMAND_MAP.put(HoursAddCommand.COMMAND_WORD, arguments -> new HoursAddCommandParser().parse(arguments));
+        COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD, arguments -> new DeleteDrinkCommandParser().parse(arguments));
     }
 
     /**
@@ -190,7 +185,6 @@ public class AddressBookParser {
                 }
             }
         }
-
         return dp[a.length()][b.length()];
     }
 }

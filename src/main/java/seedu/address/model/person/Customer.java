@@ -18,7 +18,7 @@ public class Customer extends Person {
     private final CustomerId customerId; // Customer id
     private final RewardPoints rewardPoints; // Current reward points balance
     private final VisitCount visitCount; // Number of times customer has visited
-    private final FavouriteItem favoriteItem; // Customer's most ordered item
+    private final FavouriteItem favouriteItem; // Customer's most ordered item
     private final TotalSpent totalSpent; // Total amount spent by customer
 
     /**
@@ -26,14 +26,14 @@ public class Customer extends Person {
      */
     public Customer(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags,
                     CustomerId customerId, RewardPoints rewardPoints, VisitCount visitCount,
-                    FavouriteItem favoriteItem, TotalSpent totalSpent) {
+                    FavouriteItem favouriteItem, TotalSpent totalSpent) {
         super(name, phone, email, address, remark, tags);
-        requireAllNonNull(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
+        requireAllNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
 
         this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
-        this.favoriteItem = favoriteItem;
+        this.favouriteItem = favouriteItem;
         this.totalSpent = totalSpent;
     }
 
@@ -49,8 +49,8 @@ public class Customer extends Person {
         return visitCount;
     }
 
-    public FavouriteItem getFavoriteItem() {
-        return favoriteItem;
+    public FavouriteItem getFavouriteItem() {
+        return favouriteItem;
     }
 
     public TotalSpent getTotalSpent() {
@@ -61,16 +61,21 @@ public class Customer extends Person {
      * Returns true if both customers have the same identity fields.
      * This defines a weaker notion of equality between two customers.
      */
-    public boolean isSameCustomer(Customer otherCustomer) {
-        if (otherCustomer == this) {
+    public boolean isSamePerson(Person otherPerson) {
+        if (otherPerson == this) {
             return true;
         }
 
-        if (otherCustomer == null) {
+        if (otherPerson == null) {
             return false;
         }
 
-        // Using phone number as unique identifier for customers
+        if (!(otherPerson instanceof Customer)) {
+            return false;
+        }
+
+        // Compare using phone as unique identifier
+        Customer otherCustomer = (Customer) otherPerson;
         return otherCustomer.getPhone().equals(getPhone());
     }
 
@@ -91,14 +96,14 @@ public class Customer extends Person {
         return super.equals(otherCustomer) // Calls the equality check from Person
                 && rewardPoints.equals(otherCustomer.rewardPoints)
                 && visitCount.equals(otherCustomer.visitCount)
-                && favoriteItem.equals(otherCustomer.favoriteItem)
+                && favouriteItem.equals(otherCustomer.favouriteItem)
                 && totalSpent.equals(otherCustomer.totalSpent)
                 && customerId.equals(otherCustomer.customerId);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + Objects.hash(customerId, rewardPoints, visitCount, favoriteItem, totalSpent);
+        return super.hashCode() + Objects.hash(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
     }
 
     @Override
@@ -112,7 +117,7 @@ public class Customer extends Person {
                 .add("tags", getTags())
                 .add("rewardPoints", rewardPoints)
                 .add("visitCount", visitCount)
-                .add("favoriteItem", favoriteItem)
+                .add("favouriteItem", favouriteItem)
                 .add("totalSpent", totalSpent)
                 .toString();
     }

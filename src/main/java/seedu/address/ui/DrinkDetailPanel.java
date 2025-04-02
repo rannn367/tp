@@ -26,10 +26,6 @@ public class DrinkDetailPanel extends UiPart<Region> {
     private Label price;
     @FXML
     private Label category;
-    @FXML
-    private Label description;
-    @FXML
-    private Label stock;
 
     /**
      * Creates a {@code DrinkDetailPanel}.
@@ -121,16 +117,13 @@ public class DrinkDetailPanel extends UiPart<Region> {
 
             // Set the header (this is the most crucial part)
             if (drinkNameHeader != null) {
-                drinkNameHeader.setText(drink.getName());
+                drinkNameHeader.setText(drink.getPrintableName());
             }
 
             // Update all fields with null safety
-            safeSetText(price, String.format("$%.2f", drink.getPrice()));
-            safeSetText(category, drink.getCategory());
+            safeSetText(price, drink.getPrintablePrice());
+            safeSetText(category, drink.getPrintableCategory());
 
-            // For fields that might not exist in your model yet
-            safeSetText(description, "");
-            safeSetText(stock, "In stock");
 
         } catch (Exception e) {
             logger.warning("Error updating drink details: " + e.getMessage());

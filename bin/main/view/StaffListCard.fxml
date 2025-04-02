@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" styleClass="person-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox spacing="2">
+        <!-- Staff name and ID -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="id" styleClass="cell-id" />
+            <Label fx:id="staffName" styleClass="cell-name" text="Staff Name" />
+        </HBox>
+
+        <!-- Basic details -->
+        <Label fx:id="staffId" styleClass="cell-details" text="ID: ST001" />
+        <Label fx:id="phone" styleClass="cell-details" text="Phone: 99999999" />
+        <Label fx:id="email" styleClass="cell-details" text="Email: staff@example.com" />
+
+        <!-- Staff-specific details -->
+        <Label fx:id="role" styleClass="cell-details" text="Role: Barista" />
+        <Label fx:id="shiftTiming" styleClass="cell-details" text="Shift: Morning" />
+
+        <!-- Tags -->
+        <FlowPane fx:id="tags" styleClass="cell-tags" />
+    </VBox>
+    <padding>
+        <Insets bottom="5" left="5" right="5" top="5" />
+    </padding>
+</HBox>

@@ -12,6 +12,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -54,28 +57,49 @@ public class AddStaffCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
     public static final String MESSAGE_DUPLICATE_STAFF = "This staff member already exists in the address book";
 
+    private static final Logger logger = Logger.getLogger(AddStaffCommand.class.getName());
+
     private final Staff toAdd;
 
     /**
-     * Creates an AddStaffCommand to add the specified {@code Staff}
+     * Creates an AddStaffCommand to add the specified {@code Staff}.
+     *
+     * @param staff The staff member to be added.
+     * @throws NullPointerException if the provided staff is null.
      */
     public AddStaffCommand(Staff staff) {
-        requireNonNull(staff);
-        toAdd = staff;
+        requireNonNull(staff, "Staff cannot be null.");
+        this.toAdd = staff;
     }
 
+    /**
+     * Executes the command to add a staff member to the address book.
+     *
+     * @param model The model in which the staff member is added.
+     * @return The result of executing the command.
+     * @throws CommandException If the staff member already exists in the address book.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+        requireNonNull(model, "Model cannot be null.");
+        logger.log(Level.INFO, "Executing AddStaffCommand for staff: {0}", toAdd);
 
         if (model.hasStaff(toAdd)) {
+            logger.log(Level.WARNING, "Attempted to add duplicate staff: {0}", toAdd);
             throw new CommandException(MESSAGE_DUPLICATE_STAFF);
         }
 
         model.addStaff(toAdd);
+        logger.log(Level.INFO, "Successfully added staff: {0}", toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
+    /**
+     * Checks if this command is equal to another object.
+     *
+     * @param other The other object to compare.
+     * @return True if both are equivalent, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -90,6 +114,11 @@ public class AddStaffCommand extends Command {
         return toAdd.equals(otherAddStaffCommand.toAdd);
     }
 
+    /**
+     * Returns a string representation of the AddStaffCommand.
+     *
+     * @return A string representation of the object.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)

@@ -4,13 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVORITE_ITEM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -25,6 +28,10 @@ public class AddCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "customeradd";
     public static final String COMMAND_WORD_SHORTCUT = "c";
+    public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book";
+
+    private static final Logger logger = Logger.getLogger(AddCustomerCommand.class.getName());
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
             + "Parameters: "
@@ -35,46 +42,62 @@ public class AddCustomerCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_REWARD_POINTS + "REWARD_POINTS "
             + PREFIX_VISIT_COUNT + "VISIT_COUNT "
-            + PREFIX_FAVORITE_ITEM + "FAVORITE_ITEM "
+            + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM "
             + PREFIX_TOTAL_SPENT + "TOTAL_SPENT "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_CUSTOMER_ID + "C1234 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_REWARD_POINTS + "150 "
             + PREFIX_VISIT_COUNT + "8 "
-            + PREFIX_FAVORITE_ITEM + "Cappuccino "
+            + PREFIX_FAVOURITE_ITEM + "Cappuccino "
             + PREFIX_TOTAL_SPENT + "120.50 "
             + PREFIX_TAG + "regular "
             + PREFIX_TAG + "vip";
 
-    public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book";
-
     private final Customer toAdd;
 
     /**
-     * Creates an AddCustomerCommand to add the specified {@code Customer}
+     * Creates an AddCustomerCommand to add the specified {@code Customer}.
+     *
+     * @param customer The customer to be added.
      */
     public AddCustomerCommand(Customer customer) {
         requireNonNull(customer);
         toAdd = customer;
     }
 
+    /**
+     * Executes the command to add a customer to the address book.
+     *
+     * @param model The model in which the customer is added.
+     * @return The result of executing the command.
+     * @throws CommandException If the customer already exists in the address book.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.log(Level.INFO, "Executing AddCustomerCommand with customer: {0}", toAdd);
 
         if (model.hasCustomer(toAdd)) {
+            logger.log(Level.WARNING, "Attempted to add duplicate customer: {0}", toAdd);
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
 
         model.addCustomer(toAdd);
+        logger.log(Level.INFO, "Successfully added customer: {0}", toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
+    /**
+     * Checks if this command is equal to another object.
+     *
+     * @param other The other object to compare.
+     * @return True if both are equivalent, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -89,6 +112,11 @@ public class AddCustomerCommand extends Command {
         return toAdd.equals(otherAddCustomerCommand.toAdd);
     }
 
+    /**
+     * Returns a string representation of the AddCustomerCommand.
+     *
+     * @return A string representation of the object.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)

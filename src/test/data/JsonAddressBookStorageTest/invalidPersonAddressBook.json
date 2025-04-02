@@ -1,8 +1,14 @@
 {
-  "persons": [ {
+  "staff": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "tags" : [ ],
+    "staffId" : "S003",
+    "role" : "Chef",
+    "shiftTiming" : "Evening Shift",
+    "hoursWorked" : "25",
+    "performanceRating" : "4.5"
   } ]
 }

@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -13,6 +15,8 @@ import seedu.address.model.tag.Tag;
  * Inherits from Person and adds staff-specific attributes.
  */
 public class Staff extends Person {
+
+    private static final Logger logger = Logger.getLogger(Staff.class.getName());
 
     // Staff-specific fields
     private final StaffId staffId; // Unique identifier for staff
@@ -29,11 +33,19 @@ public class Staff extends Person {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(staffId, role, shiftTiming, hoursWorked, performanceRating);
 
+        if (staffId == null || role == null || shiftTiming == null || hoursWorked == null
+                || performanceRating == null) {
+            logger.log(Level.SEVERE, "Attempted to create Staff with null attributes");
+            throw new IllegalArgumentException("Staff attributes cannot be null");
+        }
+
         this.staffId = staffId;
         this.role = role;
         this.shiftTiming = shiftTiming;
         this.hoursWorked = hoursWorked;
         this.performanceRating = performanceRating;
+
+        logger.log(Level.INFO, "Created new Staff: {0}", this);
     }
 
     public StaffId getStaffId() {
@@ -57,20 +69,28 @@ public class Staff extends Person {
     }
 
     /**
-     * Returns true if both staff members have the same staff ID.
+     * Returns true if both staff members have the same staffId.
      * This defines a weaker notion of equality between two staff members.
      */
-    public boolean isSameStaff(Staff otherStaff) {
-        if (otherStaff == this) {
+    public boolean isSamePerson(Person otherPerson) {
+        if (otherPerson == this) {
             return true;
         }
 
-        if (otherStaff == null) {
+        if (otherPerson == null) {
             return false;
         }
 
-        // Compare using staffId, name, or any unique field
-        return otherStaff.getStaffId().equals(getStaffId());
+        if (!(otherPerson instanceof Staff)) {
+            return false;
+        }
+
+        // Compare using staffId as unique identifier
+        Staff otherStaff = (Staff) otherPerson;
+        boolean isSame = otherStaff.getStaffId().equals(getStaffId());
+        logger.log(Level.FINE, "Comparing Staff IDs: {0} and {1}, Result: {2}",
+                new Object[]{this.staffId, otherStaff.staffId, isSame});
+        return isSame;
     }
 
     /**
@@ -87,12 +107,16 @@ public class Staff extends Person {
         }
 
         Staff otherStaff = (Staff) other;
-        return super.equals(otherStaff) // Calls the equality check from Person
+        boolean isEqual = super.equals(otherStaff) // Calls the equality check from Person
                 && staffId.equals(otherStaff.staffId)
                 && role.equals(otherStaff.role)
                 && shiftTiming.equals(otherStaff.shiftTiming)
                 && hoursWorked.equals(otherStaff.hoursWorked)
                 && performanceRating.equals(otherStaff.performanceRating);
+
+        logger.log(Level.FINE, "Comparing Staff objects: {0} and {1}, Result: {2}",
+                new Object[]{this, otherStaff, isEqual});
+        return isEqual;
     }
 
     @Override
@@ -115,5 +139,4 @@ public class Staff extends Person {
                 .add("performanceRating", getPerformanceRating())
                 .toString();
     }
-
 }

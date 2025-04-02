@@ -1,10 +1,10 @@
 ---
   layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+    title: "Developer Guide"
+    pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# CafeConnect Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,8 +13,8 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
+CafeConnect is based on the AddressBook-Level3 project created by the SE-EDU initiative
+It incorporates the following third-party libraries: JavaFX, Jackson, JUnit5.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -24,7 +24,6 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
-
 ### Architecture
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
@@ -35,7 +34,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -50,9 +49,11 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `customerdelete 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
+
+> **_NOTE:_** The sequence diagram shows a simplified execution of the `DeleteCustomerCommand`.
 
 Each of the four main components (also shown in the diagram above),
 
@@ -64,46 +65,44 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 <puml src="diagrams/ComponentManagers.puml" width="300" />
 
 The sections below give more details of each component.
-
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The **UI** consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StaffListPanel`, `DrinkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The **UI** component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The **UI** component:
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
+* Depends on classes in the `Model` component, as it displays `Customer`, `Staff`, and `Drink` objects residing in the `Model`.
+* Contains a tabbed interface allowing users to switch between staff management, customer records, and the drink catalog.
+* Features visual elements like charts to display customer metrics and sales data when requested.
 
-* executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
-* keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
-
+The `HelpWindow` component is shown when you execute a help command. It contains a link to the detailed user and developer guide on this CafeConnect documentation website.
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
 <puml src="diagrams/LogicClassDiagram.puml" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("customerdelete 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeleteCustomerSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `customerdelete 1` Command" />
 
-<box type="info" seamless>
-
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</box>
+> **_NOTE:_** The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCustomerCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCustomerCommand`) which is executed by the `LogicManager`.
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a staff).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -113,30 +112,26 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
-
+* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCustomerCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
-
+<puml src="diagrams/ModelClassDiagram.puml" width="850" height="1500" />
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores CaféConnect data i.e., all `Person`, `Staff`, `Customer` and `Drink` objects (which are contained in a `UniquePersonList`, `UniqueStaffList`, `UniqueCustomerList` and `UniqueDrinkList` objects).
+* stores the currently 'selected' `Person`, `Staff`, `Customer` or `DrinkList` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>`, `ObservableList<Staff>`, `ObservableList<Customer>` and `ObservableList<Drink>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+> **_NOTE:_** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
 </box>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
@@ -151,111 +146,294 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Staff Management System
 
-#### Proposed Implementation
+#### Adding a staff to the addressbook
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+<puml src="diagrams/AddStaffSequenceDiagram.puml" alt="AddStaffSequenceDiagram" />
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+`AddressBookParser` creates an instance of `AddStaffCommandParser` to parse the user input string.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
+It ensures that:
+- The **ID prefix** `sid/` must contain a valid staff ID.
+- The **phone prefix** `p/` must contain a valid phone number.
+- The **email prefix** `e/` must contain a valid email address.
+- The **address prefix** `a/` must contain a non-blank address.
+- The **role prefix** `role/` must contain a non-empty role.
+- The **shift prefix** `shift/` must contain a non-empty shift.
+- The **hours prefix** `hours/` must contain a non-negative integer.
+- The **rating prefix** `rating/` must contain a valid positive decimal value.
+- The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+---
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+`AddStaffCommand` stores the staff to be added, represented as a `Staff` instance.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the catalog.
 
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+#### Deleting a staff from the catalog
 
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+The delete staff feature allows users to remove staff from the catalog by specifying the staff's index in the displayed list.
 
-<box type="info" seamless>
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteStaffCommandParser` to create the appropriate command object.
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<puml src="diagrams/DeleteStaffSequenceDiagram.puml" alt="DeleteStaffSequenceDiagram" />
 
-</box>
+`AddressBookParser` creates `DeleteStaffCommandParser` to parse user input string.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+`DeleteStaffCommandParser` extracts the index from the command arguments and ensures:
+- The **Index** is a valid positive integer.
 
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+If the index is invalid, `DeleteStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `DeleteStaffCommand` based on the user input.
 
+---
 
-<box type="info" seamless>
+Upon execution, `DeleteStaffCommand` first checks if the index is within the bounds of the filtered staff list. If the index is out of bounds, a `CommandException` is thrown.
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+If the index is valid, `DeleteStaffCommand`:
+1. Retrieves the staff to be deleted from the filtered staff list.
+2. Calls `model.deleteStaff(staffToDelete)` to remove the staff from the catalog.
+3. Returns a `CommandResult` with a success message.
 
-</box>
+> **_NOTE:_** CafeConnect only allows deleting staff by index. Once a staff member is deleted, they cannot be recovered unless added again manually.
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+#### Editing a staff's details
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+The edit staff feature allows users to modify the details of an existing staff member by specifying the staff's index in the displayed list and the new details.
 
-<box type="info" seamless>
+The implementation follows the command pattern, where `AddressBookParser` identifies the command type and delegates to `EditStaffCommandParser` to create the appropriate command object.
 
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<puml src="diagrams/EditStaffSequenceDiagram.puml" alt="EditStaffSequenceDiagram" />
 
-</box>
+`AddressBookParser` creates `EditStaffCommandParser` to parse the user input string.
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
+`EditStaffCommandParser` extracts the index and provided fields from the command arguments and ensures:
+- The **Index** is a valid positive integer.
+- At least one field is provided for editing.
 
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
+If the input is invalid, `EditStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `EditStaffCommand` based on the user input.
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+---
 
-<box type="info" seamless>
+Upon execution, `EditStaffCommand` first checks if the index is within the bounds of the filtered staff list. If the index is out of bounds, a CommandException is thrown.
 
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the index is valid, `EditStaffCommand`:
+1. Retrieves the staff member to be modified from the list.
+2. Extracts the updated details from `EditStaffDescriptor`.
+3. Constructs a new `Staff` instance using `StaffBuilder`.
+4. Checks for duplicate staff entries in the system and throws a `CommandException` if a duplicate is found.
+5. Updates the model with the modified staff information.
+6. Returns a `CommandResult` confirming the successful edit.
 
-</box>
+<br></br>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+### Customer Management System
 
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
+#### Adding a customer to the addressbook
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+<puml src="diagrams/AddCustomerSequenceDiagram.puml" alt="AddCustomerSequenceDiagram" />
 
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
+`AddressBookParser` creates an instance of `AddCustomerCommandParser` to parse the user input string.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.
+It ensures that:
+- The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
+- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
+- The **email prefix** `e/` must contain a valid email address.
+- The **address prefix** `a/` can take any value, but it cannot be blank.
+- The **reward points prefix** `rp/` must contain only digits.
+- The **visit count prefix** `vc/` must contain only digits.
+- The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
+- The **total spent prefix** `ts/` must contain only digits representing the amount in dollars.
+- The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
+If any of these constraints are violated, `AddCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddCustomerCommand` based on the user input.
 
-#### Design considerations:
+---
 
-**Aspect: How undo & redo executes:**
+`AddCustomerCommand` stores the customer to be added, represented as a `Customer` instance.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+Upon execution, `AddCustomerCommand` first checks the model for duplicate customers. If no existing customer with a matching (case-insensitive) customer id is found, it adds the new customer to the customer list.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+> **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `CID` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
 
-_{more aspects and alternatives to be added}_
+#### Deleting a customer from the catalog
 
-### \[Proposed\] Data archiving
+The delete customer feature allows users to remove customers from the catalog by specifying the customer's index in the displayed list.
 
-_{Explain here how the data archiving feature will be implemented}_
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteCustomerCommandParser` to create the appropriate command object.
 
+<puml src="diagrams/DeleteCustomerSequenceDiagram.puml" alt="DeleteCustomerSequenceDiagram" />
 
+`AddressBookParser` creates `DeleteCustomerCommandParser` to parse user input string.
+
+`DeleteCustomerCommandParser` extracts the index from the command arguments and ensures:
+- The **Index** is a valid positive integer.
+
+If the index is invalid, `DeleteCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `DeleteCustomerCommand` based on the user input.
+
+---
+
+Upon execution, `DeleteCustomerCommand` first checks if the index is within the bounds of the filtered customer list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `DeleteCustomerCommand`:
+1. Retrieves the customer to be deleted from the filtered customer list.
+2. Calls `model.deleteCustomer(customerToDelete)` to remove the customer from the catalog.
+3. Returns a `CommandResult` with a success message.
+
+> **_NOTE:_** CafeConnect only allows deleting customers by index. Once a customer is deleted, they cannot be recovered unless added again manually.
+
+<br></br>
+
+### Drink Management System
+
+#### Adding a drink to the catalog
+
+<puml src="diagrams/AddDrinkSequenceDiagram.puml" alt="AddDrinkSequenceDiagram" />
+
+`AddressBookParser` creates an instance of `AddDrinkCommandParser` to parse the user input string.
+
+`AddDrinkCommandParser` first extracts values corresponding to the prefixes `n/`, `p/`and `c/`.
+
+It ensures that:
+- The **name prefix** `n/` must contain a valid drink name.
+- The **price prefix** `p/` must contain a valid positive decimal value.
+- The **category prefix** `c/` must contain a non-empty category name.
+
+If any of these constraints are violated, `AddDrinkCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddDrinkCommand` based on the user input.
+
+---
+
+`AddDrinkCommand` stores the drink to be added, represented as a `Drink` instance.
+
+Upon execution, `AddDrinkCommand` first checks the model for duplicate drinks. If no existing drink with a matching (case-insensitive) name is found, it adds the new drink to the catalog.
+
+> **_NOTE:_** CafeConnect identifies a drink as a duplicate if its `NAME` matches (case-insensitive) with an existing drink in the catalog. Attempting to add a duplicate will result in an error.
+
+#### Deleting a drink from the catalog
+
+The delete drink feature allows users to remove drinks from the catalog by specifying the drink's index in the displayed list.
+
+The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteDrinkCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/DeleteDrinkSequenceDiagram.puml" alt="DeleteDrinkSequenceDiagram" />
+
+`AddressBookParser` creates `DeleteDrinkCommandParser` to parse user input string.
+
+`DeleteDrinkCommandParser` extracts the index from the command arguments and ensures:
+- The **Index** is a valid positive integer.
+
+If the index is invalid, `DeleteDrinkCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `DeleteDrinkCommand` based on the user input.
+
+---
+
+Upon execution, `DeleteDrinkCommand` first checks if the index is within the bounds of the filtered drink list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `DeleteDrinkCommand`:
+1. Retrieves the drink to be deleted from the filtered drink list.
+2. Calls `model.deleteDrink(drinkToDelete)` to remove the drink from the catalog.
+3. Returns a `CommandResult` with a success message.
+
+> **_NOTE:_** CafeConnect only allows deleting drinks by index. Once a drink is deleted, it cannot be recovered unless added again manually.
+
+<br></br>
+
+### Customer Purchase and Points System
+
+#### Recording a customer purchase
+
+<puml src="diagrams/PurchaseSequenceDiagram.puml" alt="PurchaseSequenceDiagram" />
+
+`AddressBookParser` creates an instance of `PurchaseCommandParser` to parse the user input string.
+
+`PurchaseCommandParser` first extracts values corresponding to the index, the prefix `n/`, and the prefix `redeem/`.
+
+It ensures that:
+- The **customer index** must be a valid positive integer.
+- The **drink name prefix** `n/` must refer to an existing drink in the catalog.
+- The **redemption prefix** `redeem/`, if provided, must be either "true" or "false".
+
+If any of these constraints are violated, `PurchaseCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `PurchaseCommand` based on the user input.
+
+---
+
+`PurchaseCommand` stores the customer index, drink name, and redemption status.
+
+Upon execution, `PurchaseCommand` first retrieves the customer at the specified index and searches for the drink in the catalog by name. It then processes the purchase based on the redemption status:
+
+1. For regular purchases:
+   - Calculates reward points (10 points per dollar)
+   - Updates the customer's total spent
+   - Updates the customer's reward points
+   - Increments the visit count
+2. For point redemptions:
+   - Verifies the customer has sufficient points
+   - Calculates points needed (100 points per dollar)
+   - Deducts points from the customer
+   - Keeps total spent unchanged
+   - Increments the visit count
+
+> **_NOTE:_** The points calculation follows a fixed rate of 10 points per dollar spent. Redemption follows a rate of 100 points equivalent to $1 in drink value.
+
+<br></br>
+
+### Quick Command Shortcuts
+
+The implementation of shortcut commands (`c` for customers and `s` for staff) provides an efficient way to add new entries with minimal typing.
+
+<puml src="diagrams/ShortcutCommandSequenceDiagram.puml" alt="ShortcutCommandSequenceDiagram" />
+
+`AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
+- `c` routes to the customer shortcut handler
+- `s` routes to the staff shortcut handler
+
+The shortcut format follows a pattern of `ID:NAME:PHONE` with colon separators.
+
+Upon receiving a shortcut command, the parser:
+1. Splits the input at the colon separators
+2. Validates that exactly three components are present
+3. Creates a new entity with the provided values and default values for other fields
+4. Adds the entity to the appropriate list
+
+> **_NOTE:_** Shortcut commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
+
+<br></br>
+
+### Data Storage and Persistence
+
+CaféConnect uses JSON-based storage to persist data across application restarts. The storage implementation separates different entity types into distinct files:
+
+- `addressbook.json`: Stores staff and customer data
+- `drinkcatalog.json`: Stores drink catalog data
+- `preferences.json`: Stores user preferences like window size and position
+
+<puml src="diagrams/StorageSequenceDiagram.puml" alt="StorageSequenceDiagram" />
+
+When saving data, the following sequence occurs:
+1. A command that modifies data is executed
+2. The model is updated with the changes
+3. The storage manager is notified to save the changes
+4. The appropriate storage component serializes the data to JSON
+5. The JSON data is written to the file system
+
+On application startup, the reverse process occurs:
+1. The storage manager attempts to read data from the JSON files
+2. If successful, the data is deserialized into model objects
+3. If any file is missing or corrupted, a new empty data structure is created
+
+> **_NOTE:_** CafeConnect implements data backup and recovery mechanisms. If a data file is corrupted, the application attempts to back it up before creating a new empty data structure.
+
+<br></br>
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -265,88 +443,9 @@ _{Explain here how the data archiving feature will be implemented}_
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
-
-### Product scope
-
-**Target user profile**:
-
-![github](images/Persona.png)
-* Name: Amelia Tan
-* Age: 34 years
-* Gender: Female
-* Business Type: Independent café owner of a single-location café "Brew Haven"
-* Team Size: Small team (5–20 staff members)
-* Customer Base: 100–300 regular customers
-* Pain Points:
-  * Struggles with scattered information (handwritten notes, spreadsheets, physical loyalty cards)
-  * Finds it hard to keep track of customer preferences, allergies, birthdays, and visit history 
-  * Needs a better way to manage staff shifts, roles, and contact details
-  * Deals with frequent equipment breakdowns without a proper maintenance log
-  * Wants to streamline supplier management and order frequency tracking
-* Technical Comfort:
-  * Prefers desktop apps over web or mobile solutions for stability and performance
-  * Comfortable with a Command Line Interface (CLI) for fast data entry and retrieval
-  * Types fast and prefers keyboard shortcuts over mouse interactions
-  * Reasonably tech-savvy but values an intuitive and easy-to-learn system
-* Work Style:
-  * Juggles multiple roles — customer service, staff management, inventory, and maintenance
-  * Values efficiency and quick access to information to avoid disruptions during peak hours
-  * Wants to delegate responsibilities without losing oversight
-* Goals:
-  * Build strong customer loyalty by remembering personal preferences and rewarding regulars
-  * Minimize downtime caused by equipment failures through proper maintenance tracking
-  * Streamline supplier coordination and avoid last-minute shortages
-  * Maintain a well-organized staff schedule with clear roles and availability
-
-**Value proposition**: manage customers, staff, suppliers, and maintenance faster and more efficiently than a typical mouse/GUI-driven app, all in one centralized system tailored for a fast-paced café environment.
-
-
-### User stories
-
-Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
-
-| Priority | As a …​     | I want to …​                                                     | So that I can…​                                                     |
-|----------|-------------|------------------------------------------------------------------|---------------------------------------------------------------------|
-| `* * *`  | café owner  | add a staff member's phone number                                | contact them when needed.                                           |
-| `* * *`  | café owner  | delete a staff member's phone number                             | keep my contact list updated.                                       |
-| `* * *`  | café owner  | view a list of all staff phone numbers                           | quickly find and reach them.                                        |
-| `* * *`  | café owner  | search for a staff member by name to retrieve their phone number | quickly find the right contact.                                     |
-| `* * *`  | café owner  | view a list of supplier emails                                   | map stock requests to specific emails.                              |
-| `* * *`  | café owner  | view a list of current stock                                     | know when to reorder stock.                                         |
-| `* * *`  | café owner  | add a repair technician's phone number                           | contact them quickly when needed.                                   |
-| `* * *`  | café owner  | delete a repair technician's phone number                        | keep my contact list updated.                                       |
-| `* * *`  | café owner  | add a repair technician's email address                          | reach them via email if required.                                   |
-| `* * *`  | café owner  | delete a repair technician's email address                       | remove outdated contact information.                                |
-| `* * *`  | café owner  | view a list of all repair technician's contact details           | find and contact them easily.                                       |
-| `* * *`  | café owner  | search for a repair technician by name                           | retrieve their contact information efficiently.                     |
-| `* * *`  | café owner  | tag repair technicians based on their expertise                  | easily identify the right person for a specific issue.              |
-| `* * *`  | café owner  | store notes on past repair services for each technician          | track maintenance history and avoid repeated issues.                |
-| `* * *`  | café owner  | set reminders for regular maintenance appointments               | proactively prevent equipment failures.                             |
-| `* *`    | café owner  | set up autofill fields for frequently entered data               | avoid repetitive typing.                                            |
-| `* *`    | café owner  | enable autofill for supplier names                               | avoid having to type them repeatedly when creating orders.          |
-| `* *`    | café owner  | enable autofill for supplier email addresses                     | quickly send stock requests without re-entering details.            |
-| `* *`    | café owner  | enable autofill for supplier phone numbers                       | contact them without needing to look up their details every time.   |
-| `* *`    | café owner  | enable autofill for commonly ordered stock items                 | quickly add them to an order form.                                  |
-| `* *`    | café owner  | enable autofill for standard pricing of stock items              | avoid manually entering expected costs.                             |
-| `* *`    | café owner  | enable autofill for my café's business details                   | avoid having to repeatedly enter them when placing orders.          |
-| `* *`    | café owner  | edit or update saved autofill fields                             | ensure information remains accurate.                                |
-| `*`      | café owner  | disable autofill fields                                          | enter information manually when necessary.                          |
-| `* *`    | café owner  | view a list of all autofill fields I have set up                 | manage them easily.                                                 |
-| `* *`    | café owner  | delete autofill entries for outdated suppliers or items          | prevent storing unnecessary data.                                   |
-| `*`      | café owner  | categorize autofill fields                                       | organize frequently entered data more efficiently.                  |
-| `* *`    | café owner  | enable autofill suggestions when entering data                   | choose from previously used values instead of typing them manually. |
-| `* * *`  | café owner  | add new customers                                                | track their purchase history.                                       |
-| `* * *`  | café owner  | record a drink ordered by a customer in their account            | record the history the customer has with us.                        |
-| `* * *`  | café owner  | track the data on the types of drinks the customer orders        | tell when a customer has a favourite drink.                         |
-| `* * *`  | café owner  | add to a list of supplier emails                                 | keep track of each supplier contact.                                |
-| `* * *`  | café owner  | delete from list of supplier emails                              | keep the list updated.                                              |
-
-
-*{More to be added}*
 
 ### Use cases
 
@@ -356,35 +455,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Café owner requests to add a new staff member. 
-2. System prompts for staff details: name, phone number, and role. 
-3. Café owner provides the required details. 
-4. System validates the input. 
-5. System adds the new staff member. 
+1. Café owner requests to add a new staff member.
+2. System prompts for staff details: name, phone number, and role.
+3. Café owner provides the required details.
+4. System validates the input.
+5. System adds the new staff member.
 6. System confirms the addition.
-Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 4a. Provided name format is invalid. 
+* 4a. Provided name format is invalid.
 
-  * 4a1. System shows an error message. 
-  
+  * 4a1. System shows an error message.
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided phone number is invalid.
 
-  * 4b1. System shows an error message. 
-  
+  * 4b1. System shows an error message.
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Role description exceeds character limit.
 
   * 4c1. System shows an error message.
-  
+
   * 4c2. Use case resumes at step 2.
 
-* 4d. Staff member with the same name and phone number already exists. 
+* 4d. Staff member with the same name and phone number already exists.
 
   * 4d1. System shows a duplication error message.
 
@@ -393,17 +492,17 @@ Use case ends.
 * 4e. Staff member with the same name but different phone number exists.
 
   * 4e1. System prompts to confirm if phone number should be updated.
-  
+
   * 4e2. Café owner chooses not to update.
-  
-  Use case ends. 
-  
+
+  Use case ends.
+
   * 4e3. Café owner chooses to update.
-  
+
     * System updates phone number.
-    
+
     * System confirms update.
-    
+
   Use case ends.
 
 **Use case: Delete a Staff Member**
@@ -414,7 +513,7 @@ Use case ends.
 
 2. System prompts for the staff member's name.
 
-3. Café owner provides the staff member’s name.
+3. Café owner provides the staff member's name.
 
 4. System checks if the staff member exists.
 
@@ -466,9 +565,9 @@ Use case ends.
 
 1. Café owner requests to search for a staff member by name.
 
-2. System prompts for the staff member’s name.
+2. System prompts for the staff member's name.
 
-3. Café owner provides the staff member’s name.
+3. Café owner provides the staff member's name.
 
 4. System searches for matching staff members.
 
@@ -508,16 +607,16 @@ Use case ends.
 Use case ends.
 
 **Extensions**
-* 4a. Provided reward name format is invalid. 
+* 4a. Provided reward name format is invalid.
 
-  * 4a1. System shows an error message. 
+  * 4a1. System shows an error message.
 
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided points value is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Reward with the same name already exists.
@@ -548,13 +647,13 @@ Use case ends.
 * 4a. Reward not found.
 
   * 4a1. System shows an error message.
-  
+
     Use case ends.
 
 * 4b. Provided points value is invalid.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 **Use case: Track Customer Points**
@@ -569,17 +668,17 @@ Use case ends.
 
 4. System validates the input.
 
-5. System updates the customer’s points balance.
+5. System updates the customer's points balance.
 
 6. System confirms the update.
 
 Use case ends.
 
 **Extensions**
-* 4a. Provided customer name format is invalid. 
+* 4a. Provided customer name format is invalid.
 
   * 4a1. System shows an error message.
-    
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided points value is invalid.
@@ -591,17 +690,17 @@ Use case ends.
 * 4c. Customer not found.
 
   * 4c1. System shows an error message.
-  
+
     Use case ends.
 
 * 4d. Multiple customers with the same name are found.
 
   * 4d1. System prompts for a unique identifier (e.g., phone number).
-  
+
   * 4d2. Café owner provides the identifier.
-  
+
   * 4d3. System validates and updates the correct entry.
-  
+
   * 4d4. System confirms the update.
 
     Use case ends.
@@ -634,26 +733,26 @@ Use case ends.
 * 4b. Reward not found.
 
   * 4b1. System shows an error message.
-  
+
     Use case ends.
 
 * 5a. Customer does not have enough points.
 
   * 5a1. System shows an insufficient points message.
-  
+
     Use case ends.
 
 **Use case: View Customer Visit History**
 
 **MSS**
 
-1. Café owner requests to view a customer’s visit history.
+1. Café owner requests to view a customer's visit history.
 
-2. System prompts for the customer’s name.
+2. System prompts for the customer's name.
 
-3. Café owner provides the customer’s name.
+3. Café owner provides the customer's name.
 
-4. System retrieves and displays the customer’s visit history.
+4. System retrieves and displays the customer's visit history.
 
 Use case ends.
 
@@ -661,7 +760,7 @@ Use case ends.
 * 4a. Customer not found.
 
   * 4a1. System shows an error message.
-  
+
     Use case ends.
 
 * 4b. Customer has no recorded visits.
@@ -690,13 +789,13 @@ Use case ends.
 * 2a. Provided date format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. No sales data found for the given date.
 
   * 3a1. System shows a message indicating no recorded transactions.
-  
+
     Use case ends.
 
 **Use case: Generate Customer Insights Report**
@@ -717,19 +816,19 @@ Use case ends.
 * 2a. Provided customer name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 2b. No data available for the requested report.
 
   * 2b1. System shows a message indicating lack of data.
-  
+
     Use case ends.
 
 * 3a. Customer not found.
 
   * 3a1. System shows an error message.
-  
+
     Use case ends.
 
 **Use case: Monitor Stock Levels**
@@ -750,19 +849,19 @@ Use case ends.
 * 2a. Provided item name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 2b. Item not found in inventory.
 
   * 2b1. System shows an error message.
-  
+
     Use case ends.
 
 * 2c. Provided threshold value is invalid.
 
   * 2c1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. Stock level is below the threshold.
@@ -775,11 +874,11 @@ Use case ends.
 
 **MSS**
 
-1. Café owner requests to view a customer’s reward points.
+1. Café owner requests to view a customer's reward points.
 
 2. System validates the customer name.
 
-3. System retrieves and displays the customer’s reward points and eligible rewards.
+3. System retrieves and displays the customer's reward points and eligible rewards.
 
 Use case ends.
 
@@ -787,24 +886,24 @@ Use case ends.
 * 2a. Provided customer name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. Customer not found.
 
   * 3a1. System shows an error message.
-  
+
     Use case ends.
 
 **Use case: View Customer Order History**
 
 **MSS**
 
-1. Café owner requests to view a customer’s order history.
+1. Café owner requests to view a customer's order history.
 
 2. System validates the customer name.
 
-3. System retrieves and displays the customer’s past orders.
+3. System retrieves and displays the customer's past orders.
 
 Use case ends.
 
@@ -812,13 +911,13 @@ Use case ends.
 * 2a. Provided customer name format is invalid.
 
   * 2a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3a. Customer not found.
 
   * 3a1. System shows an error message.
-  
+
     Use case ends.
 
 * 3b. No past orders found for the customer.
@@ -849,25 +948,25 @@ Use case ends.
 * 4a. Provided customer name format is invalid.
 
   * 4a1. System shows an error message.
-  
+
   * 4a2. Use case resumes at step 2.
 
 * 4b. Provided rating is out of the accepted range.
 
   * 4b1. System shows an error message.
-  
+
   * 4b2. Use case resumes at step 2.
 
 * 4c. Feedback message exceeds character limit.
 
   * 4c1. System shows an error message.
-  
+
   * 4c2. Use case resumes at step 2.
 
 * 4d. Customer not found.
 
   * 4d1. System shows an error message.
-  
+
     Use case ends.
 
 **Use case: Add a Supplier Email**
@@ -891,9 +990,9 @@ Use case ends.
 * 4a. Provided name format is invalid.
 
   * 4a1. System shows an error message.
-  
+
   * 4a2. Use case resumes at step 2.
-  
+
 * 4b. Provided email format is invalid.
 
   * 4b1. System shows an error message.
@@ -905,27 +1004,27 @@ Use case ends.
   * 4c1. System shows a duplication error message.
 
     Use case ends.
-    
+
 * 4d. Supplier with the same name but a different email exists.
-  
+
   * 4d1. System prompts to confirm if email should be updated.
-    
+
   * 4d2. Café owner chooses not to update.
-    
+
     Use case ends.
-    
+
   * 4d3. Café owner chooses to update.
-    
+
     * System updates the email.
-      
+
     * System confirms the update.
-      
+
     Use case ends.
 
 * 4e. Required fields are missing.
-    
+
   * 4e1. System shows an error message.
-      
+
   * 4e2. Use case resumes at step 2.
 
 **Use case: Delete a Supplier Email**
@@ -944,7 +1043,7 @@ Use case ends.
 
 6. System confirms the deletion.
 
-Use case ends. 
+Use case ends.
 
 **Extensions**
 
@@ -953,34 +1052,17 @@ Use case ends.
   * 4a1. System shows an error message.
 
     Use case ends.
-  
+
 * 4b. Multiple suppliers with the same name are found.
 
   * 4b1. System prompts for the email.
-  
+
   * 4b2. Café owner provides the email.
-  
+
   * 4b3. System validates and deletes the correct entry.
-  
+
   * 4b4. System confirms the deletion.
-  
-    Use case ends.
 
-**Use case: View Supplier Email List**
-**MSS**
-
-1. Café owner requests to view the supplier email list.
-
-2. System retrieves and displays the list of suppliers.
-
-Use case ends.
-
-**Extensions**
-
-* 2a. The supplier list is empty.
-
-  * 2a1. System shows a message indicating no suppliers are found.
-  
     Use case ends.
 
 **Use case: View Supplier Email List**
@@ -994,151 +1076,243 @@ Use case ends.
 Use case ends.
 
 **Extensions**
+
 * 2a. The supplier list is empty.
 
   * 2a1. System shows a message indicating no suppliers are found.
 
     Use case ends.
-
 ### Non-Functional Requirements
 
 1. Performance & Scalability
 
-   * The application should be able to handle up to 1000 persons without noticeable sluggishness in performance for typical usage. 
-   
-   * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for contacts. 
-   
-   * The startup time should be no more than 2 seconds on a modern consumer-grade computer. 
-   
-   * The application should consume no more than 200MB of RAM during normal operation with 1000 persons stored.
+  * The application should be able to handle up to 1000 total entries (staff, customers, and drinks combined) without noticeable sluggishness in performance.
 
-3. Compatibility & Portability
-   
-   * The application should be compatible with Java 17 or above and run on any mainstream OS (Windows, Linux, macOS, Unix).
-   
-   * The application should be usable on both 32-bit and 64-bit architectures.
-   
-   * The system should be self-contained and should not require an internet connection for core functionalities.
-   
+  * The system should respond to user actions within 1 second for typical operations like adding, deleting, or searching for customers and staff.
+
+  * The startup time should be no more than 2 seconds on a modern consumer-grade computer.
+
+  * The application should consume no more than 200MB of RAM during normal operation with 1000 total entries.
+
+2. Compatibility & Portability
+
+  * The application should be compatible with Java 11 or above and run on any mainstream OS (Windows, Linux, macOS).
+
+  * The application should work consistently across different screen resolutions and window sizes.
+
+  * The system should be self-contained and should not require an internet connection or external databases.
+
 3. Usability & Accessibility
 
-   * A user with above-average typing speed for regular English text should be able to accomplish most tasks faster using commands than using the mouse.
-   
-   * The user interface should be intuitive enough for users who are not IT-savvy.
-   
-   * The application should provide clear and actionable error messages when a user makes an incorrect input.
-   
+  * A café owner with basic typing skills should be able to accomplish most tasks faster using commands than using a mouse-driven interface.
+
+  * The tabbed interface should provide intuitive separation between staff management, customer records, and the drink catalog.
+
+  * The application should provide clear, contextual error messages when a user makes an incorrect input.
+
+  * Command shortcuts (like `c` and `s`) should make frequent operations more efficient.
+
 4. Reliability & Robustness
 
-   * The system should not crash or freeze when an invalid command is entered.
-   
-   * User data should be persisted safely to prevent accidental loss due to application crashes.
-   
-   * The system should be able to recover gracefully from unexpected failures (e.g., power loss, abrupt shutdowns).
-   
+  * The system should not crash or freeze when an invalid command is entered.
+
+  * Customer, staff, and drink data should be persisted safely to prevent accidental loss due to application crashes.
+
+  * The application should validate all inputs to prevent data corruption.
+
+  * The system should be able to recover gracefully from unexpected failures (e.g., power loss, abrupt shutdowns).
+
 5. Security & Privacy
 
-   * The system should not expose private contact details unless explicitly permitted by the user.
-   
-   * The application should ensure that only authorized users can access certain functionalities if applicable.
+  * The system should store customer and staff contact information securely.
+
+  * The application should not expose private data unnecessarily in logs or error messages.
 
 6. Maintainability & Extensibility
 
-   * The codebase should be modular and well-structured, allowing easy addition of new features without affecting existing ones.
-   
-   * The system should be easily maintainable, with clear documentation for developers.
+  * The codebase should maintain separation between the UI, Logic, Model, and Storage components.
 
-7. Compliance & Constraints
+  * New commands and features should be able to be added without modifying existing code.
 
-   * The application should follow standard software development best practices, ensuring reliability and efficiency. 
-   
-   * The application should not exceed a total package size of 100MB to ensure ease of distribution and comply with Constraint-File-Size.
+  * The command structure should be consistent to make the application easier to learn and extend.
 
+7. Domain-Specific Requirements
+
+  * The reward points system should accurately track customer loyalty across multiple visits.
+
+  * The application should support point redemption with clear feedback about points used and remaining.
+
+  * Staff performance metrics should be maintainable and viewable.
 ### Glossary
 
-* Mainstream OS: Operating systems commonly used by the majority of users, including Windows, Linux, Unix, and macOS.
+* **Mainstream OS**: Operating systems commonly used by the majority of users, including Windows, Linux, Unix, and macOS.
 
-* Private contact detail: A contact detail that is not meant to be shared with others, such as a personal phone number, home address, or private email.
+* **Private contact detail**: A contact detail that is not meant to be shared with others, such as a personal phone number, home address, or private email.
 
-* Typical usage: Standard operations performed within the application, including adding, editing, deleting, and searching for contacts, assuming a user base of up to 1000 persons.
+* **Typical usage**: Standard operations performed within the application, including adding, editing, deleting, and searching for contacts, assuming a user base of up to 1000 persons.
 
-* Command-based interaction: A method of input where users type textual commands to execute actions instead of using a graphical user interface (GUI).
+* **Command-based interaction**: A method of input where users type textual commands to execute actions instead of using a graphical user interface (GUI).
 
-* Graphical User Interface (GUI): A visual interface that allows users to interact with the system through elements like buttons, forms, and icons instead of typing commands.
+* **Graphical User Interface (GUI)**: A visual interface that allows users to interact with the system through elements like buttons, forms, and icons instead of typing commands.
 
-* Error message: A message displayed by the system when a user enters an invalid input or an operation cannot be completed, providing clear guidance on how to correct the issue.
+* **Error message**: A message displayed by the system when a user enters an invalid input or an operation cannot be completed, providing clear guidance on how to correct the issue.
 
-* Modern consumer-grade computer: A personal computer with at least a quad-core processor and 8GB of RAM, manufactured within the last five years.
+* **Modern consumer-grade computer**: A personal computer with at least a quad-core processor and 8GB of RAM, manufactured within the last five years.
 
-* Modular codebase: A structured code design where different components can be modified, replaced, or extended independently without affecting the overall system.
+* **Modular codebase**: A structured code design where different components can be modified, replaced, or extended independently without affecting the overall system.
 
-* Persisted data: Information that is stored and retained across application restarts, ensuring that user data is not lost when the application is closed.
+* **Persisted data**: Information that is stored and retained across application restarts, ensuring that user data is not lost when the application is closed.
 
-* Startup time: The time taken from launching the application to when it is fully ready for user interaction.
+* **Startup time**: The time taken from launching the application to when it is fully ready for user interaction.
 
-* Authorized user: A user who has been granted specific permissions to access certain functionalities within the system.
+* **Authorized user**: A user who has been granted specific permissions to access certain functionalities within the system.
 
-* Self-contained application: An application that does not require external dependencies or an internet connection for its core features to function.
+* **Self-contained application**: An application that does not require external dependencies or an internet connection for its core features to function.
 
-* Scalability: The system’s ability to maintain performance and responsiveness even as the user base or data size increases.
+* **Scalability**: The system's ability to maintain performance and responsiveness even as the user base or data size increases.
 
-* Undo/Redo functionality: A feature that allows users to reverse or reapply their last action, improving usability and error recovery.
+* **Undo/Redo functionality**: A feature that allows users to reverse or reapply their last action, improving usability and error recovery.
 
-* Extensibility: The ability to add new features or enhance existing ones without major rework of the system.
+* **Extensibility**: The ability to add new features or enhance existing ones without major rework of the system.
 
-* Logging and audit trail: A system feature that records user actions and system events for security, debugging, or compliance purposes.
-
---------------------------------------------------------------------------------------------------------------------
-
+* **Logging and audit trail**: A system feature that records user actions and system events for security, debugging, or compliance purposes.
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
-<box type="info" seamless>
-
-**Note:** These instructions only provide a starting point for testers to work on;
+> **_NOTE:_**  These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
-</box>
-
-### Launch and shutdown
+### Launch
 
 1. Initial launch
+  1. Download the jar file and copy into an empty folder
+  2. Run  `java -jar cafeconnect.jar` in a terminal.<br>
+     Expected: The welcome window appears with buttons to navigate to view staff/customers or drink menu. The window size may not be optimum.
 
-   1. Download the jar file and copy into an empty folder
+2. Saving window preferences
+  1. After clicking on either of the two buttons, resize the window to an optimum size.<br>
+     Move the window to a different location. Close the window.
+  2. Re-launch the app by double-clicking the jar file.<br>
+     Expected: The most recent window size and location is retained.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+### Help Window
 
-1. Saving window preferences
+1. Opening help window via Command Line
+  1. Prerequisites: Help window is not open
+  2. Test case: `help`<br>
+     Expected: Help window opens.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+2. Opening help window via Tool bar
+  1. Prerequisites: Help window is not open
+  2. Test case: Click the `Help` menu, then click on the `Help` option<br>
+     Expected: Help window opens.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+3. Interacting the help window
+  1. Prerequisites: Help window is now open
+  2. Test case: Scroll through content<br>
+     Expected: Help window content scrolls properly.
 
-1. _{ more test cases …​ }_
+4. Closing the help window
+  1. Prerequisites: Help window is open
+  2. Test case: Click on the close button on the help window<br>
+     Expected: Help window closes.
 
-### Deleting a person
+### Managing Customers
 
-1. Deleting a person while all persons are being shown
+1. Adding a customer
+  1. Prerequisites: The exact customer details shouldn't already be in the list
+  2. Test case: `customeradd cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
+     Expected: A new customer is successfully added with the specified details. The status message confirms the addition.
+  3. Test case: `customeradd cid/C001 n/Duplicate Customer p/12345678 e/dup@example.com a/Duplicate Address rp/0 vc/0 fi/Coffee ts/0`<br>
+     Expected: No customer is added. Error details about duplicate customer ID shown in the status message.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+2. Adding a customer using shortcut
+  1. Prerequisites: The customer ID shouldn't already exist in the list
+  2. Test case: `c C099:John Smith:98761234`<br>
+     Expected: A new customer is added with the specified ID, name, and phone number. Default values are used for other fields.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+3. Deleting a customer
+  1. Prerequisites: At least one customer in the list
+  2. Test case: `customerdelete 1`<br>
+     Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
+  3. Test case: `customerdelete 0`<br>
+     Expected: No customer is deleted. Error details shown in the status message about invalid index.
+  4. Other incorrect delete commands to try: `customerdelete`, `customerdelete x`, `customerdelete 999` (where x is non-numeric and 999 is larger than the list size)<br>
+     Expected: Error message indicating invalid index.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+4. Editing a customer
+  1. Prerequisites: At least one customer in the list
+  2. Test case: `customeredit 1 rp/500 vc/6`<br>
+     Expected: The reward points and visit count for the first customer is updated. Status message confirms the update.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+### Managing Staff
 
-1. _{ more test cases …​ }_
+1. Adding a staff member
+  1. Prerequisites: The exact staff details shouldn't already be in the list
+  2. Test case: `staffadd sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
+     Expected: A new staff member is successfully added with the specified details. The status message confirms the addition.
 
-### Saving data
+2. Adding a staff member using shortcut
+  1. Prerequisites: The staff ID shouldn't already exist in the list
+  2. Test case: `s S099:Jane Doe:90001234`<br>
+     Expected: A new staff member is added with the specified ID, name, and phone number. Default values are used for other fields.
+
+3. Deleting a staff member
+  1. Prerequisites: At least one staff member in the list
+  2. Test case: `staffdelete 1 `<br>
+     Expected: First staff member is deleted from the list. Details of the deleted staff shown in the status message.
+
+4. Editing a staff member
+  1. Prerequisites: At least one staff member in the list
+  2. Test case: `staffedit 1 p/98956743 role/manager`<br>
+     Expected: The phone number and role for the first staff member is updated. Status message confirms the update.
+
+### Managing Drinks and Purchases
+
+1. Adding a drink to the catalog
+  1. Prerequisites: The exact drink name shouldn't already be in the catalog
+  2. Test case: `drinkadd n/Green Tea p/3.50 c/Tea`<br>
+     Expected: A new drink is successfully added to the catalog. The status message confirms the addition.
+
+2. Recording a purchase
+  1. Prerequisites: At least one customer and one drink in the catalog
+  2. Test case: `purchase 1 n/Espresso`<br>
+     Expected: Purchase is recorded for the first customer. Their reward points, visit count, and total spent are updated. Status message confirms the purchase details.
+
+3. Redeeming points for a purchase
+  1. Prerequisites: At least one customer with sufficient reward points and one drink in the catalog
+  2. Test case: `purchase 1 n/Cappuccino redeem/true`<br>
+     Expected: Points are redeemed for the purchase. Customer's reward points decrease, visit count increases, and total spent remains unchanged. Status message confirms the redemption.
+  3. Test case: `purchase 1 n/Expensive Drink redeem/true` (where the customer doesn't have enough points)<br>
+     Expected: No redemption is made. Error message indicates insufficient points.
+
+### Tab Navigation
+
+1. Switching between tabs
+  1. Test case: Click on the "Staff" tab<br>
+     Expected: The staff list is displayed.
+  2. Test case: Click on the "Customers" tab<br>
+     Expected: The customer list is displayed.
+  3. Test case: Click on the "Drinks Menu" tab<br>
+     Expected: The drinks catalog is displayed.
+
+### Exiting the Application
+
+1. Exiting via command
+  1. Test case: `exit`<br>
+     Expected: Application closes and all data is saved.
+
+2. Exiting via window controls
+  1. Test case: Click on the X button at the top-right of the window<br>
+     Expected: Application closes and all data is saved.
+
+### Saving Data
 
 1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+  1. Test case: Delete the addressbook.json file manually, then restart the application<br>
+     Expected: Application starts with an empty customer and staff list, but creates a new addressbook.json file.
+  2. Test case: Delete the drinkcatalog.json file manually, then restart the application<br>
+     Expected: Application starts with an empty drink catalog, but creates a new drinkcatalog.json file.
+  3. Test case: Corrupt the addressbook.json file by adding invalid JSON, then restart the application<br>
+     Expected: Application starts with an empty customer and staff list, backing up the corrupted file.

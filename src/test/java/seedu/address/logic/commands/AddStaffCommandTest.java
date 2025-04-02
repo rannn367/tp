@@ -25,9 +25,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.drink.Drink;
 import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
-import seedu.address.testutil.StaffBuilder;
+import seedu.address.model.util.StaffBuilder;
 
 public class AddStaffCommandTest {
 
@@ -60,8 +61,8 @@ public class AddStaffCommandTest {
 
     @Test
     public void equals() {
-        Staff alex = new StaffBuilder().withName("Alex").build();
-        Staff bob = new StaffBuilder().withName("Bob").build();
+        Staff alex = new StaffBuilder().withName(new Name("Alex")).build();
+        Staff bob = new StaffBuilder().withName(new Name("Bob")).build();
         AddStaffCommand addAlexCommand = new AddStaffCommand(alex);
         AddStaffCommand addBobCommand = new AddStaffCommand(bob);
 
@@ -196,7 +197,7 @@ public class AddStaffCommandTest {
         }
 
         @Override
-        public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        public void updateFilteredCustomerList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -281,7 +282,7 @@ public class AddStaffCommandTest {
         @Override
         public boolean hasStaff(Staff staffMember) {
             requireNonNull(staffMember);
-            return this.staff.isSameStaff(staffMember);
+            return this.staff.isSamePerson(staffMember);
         }
     }
 
@@ -291,7 +292,7 @@ public class AddStaffCommandTest {
         @Override
         public boolean hasStaff(Staff staffMember) {
             requireNonNull(staffMember);
-            return staffAdded.stream().anyMatch(staffMember::isSameStaff);
+            return staffAdded.stream().anyMatch(staffMember::isSamePerson);
         }
 
         @Override

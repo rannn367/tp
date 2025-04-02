@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalCustomers.OLIVIA;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.CustomerBuilder;
+import seedu.address.model.util.CustomerBuilder;
 
 public class CustomerTest {
 
@@ -21,13 +21,13 @@ public class CustomerTest {
     }
 
     @Test
-    public void isSameCustomer() {
+    public void isSamePerson() {
         // same object -> returns true
-        assertTrue(JAMES.isSameCustomer(JAMES));
+        assertTrue(JAMES.isSamePerson(JAMES));
 
         // Different phone, rest same -> returns false
-        Customer editedJames = new CustomerBuilder(JAMES).withPhone("91234567").build();
-        assertFalse(JAMES.isSameCustomer(editedJames));
+        Customer editedJames = new CustomerBuilder(JAMES).withPhone(new Phone("91234567")).build();
+        assertFalse(JAMES.isSamePerson(editedJames));
     }
 
     @Test
@@ -38,13 +38,13 @@ public class CustomerTest {
 
     @Test
     public void hashCode_differentCustomer_returnsDifferentHashCode() {
-        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints("999").build();
+        Customer editedJames = new CustomerBuilder(JAMES).withRewardPoints(new RewardPoints("999")).build();
         assertNotEquals(JAMES.hashCode(), editedJames.hashCode()); // Different reward points -> different hashcode
     }
 
     @Test
-    public void isSameCustomer_nullCustomer_returnsFalse() {
-        assertFalse(OLIVIA.isSameCustomer(null)); // null -> should return false
+    public void isSamePerson_nullCustomer_returnsFalse() {
+        assertFalse(OLIVIA.isSamePerson(null)); // null -> should return false
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CustomerTest {
         assertFalse(JAMES.equals(null));
 
         // different customerId -> returns false
-        Customer editedJames = new CustomerBuilder(JAMES).withCustomerId("C1003").build();
+        Customer editedJames = new CustomerBuilder(JAMES).withCustomerId(new CustomerId("C1003")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different type -> returns false
@@ -70,19 +70,19 @@ public class CustomerTest {
         assertFalse(JAMES.equals(OLIVIA));
 
         // different reward points -> returns false
-        editedJames = new CustomerBuilder(JAMES).withRewardPoints("1000").build();
+        editedJames = new CustomerBuilder(JAMES).withRewardPoints(new RewardPoints("1000")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different visit count -> returns false
-        editedJames = new CustomerBuilder(JAMES).withVisitCount("20").build();
+        editedJames = new CustomerBuilder(JAMES).withVisitCount(new VisitCount("20")).build();
         assertFalse(JAMES.equals(editedJames));
 
-        // different favorite item -> returns false
-        editedJames = new CustomerBuilder(JAMES).withFavoriteItem("Espresso").build();
+        // different favourite item -> returns false
+        editedJames = new CustomerBuilder(JAMES).withFavouriteItem(new FavouriteItem("Espresso")).build();
         assertFalse(JAMES.equals(editedJames));
 
         // different total spent -> returns false
-        editedJames = new CustomerBuilder(JAMES).withTotalSpent("999.99").build();
+        editedJames = new CustomerBuilder(JAMES).withTotalSpent(new TotalSpent("999.99")).build();
         assertFalse(JAMES.equals(editedJames));
 
 
@@ -95,7 +95,7 @@ public class CustomerTest {
                 + "phone=" + JAMES.getPhone() + ", email=" + JAMES.getEmail()
                 + ", address=" + JAMES.getAddress() + ", tags=" + JAMES.getTags()
                 + ", rewardPoints=" + JAMES.getRewardPoints() + ", visitCount=" + JAMES.getVisitCount()
-                + ", favoriteItem=" + JAMES.getFavoriteItem() + ", totalSpent=" + JAMES.getTotalSpent()
+                + ", favouriteItem=" + JAMES.getFavouriteItem() + ", totalSpent=" + JAMES.getTotalSpent()
                 + "}";
         assertEquals(expected, JAMES.toString());
     }

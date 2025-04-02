@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.drink.Price;
+
 /**
  * Represents a Customer's Total Spent in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTotalSpent(String)}
@@ -33,6 +35,17 @@ public class TotalSpent {
     }
 
     /**
+     * Increments the total spent by the given price.
+     *
+     * @param price the price to add to the total spent
+     * @return a new TotalSpent object with the updated value
+     */
+    public TotalSpent incrementSpent(Price price) {
+        double newTotalSpent = Double.parseDouble(value) + price.getPrice();
+        return new TotalSpent(String.format("%.2f", newTotalSpent));
+    }
+
+    /**
      * Returns true if the given string is a valid total spent value with 1 or 2 decimal places.
      */
     public static boolean isValidTotalSpent(String test) {
@@ -50,7 +63,7 @@ public class TotalSpent {
 
     @Override
     public String toString() {
-        return value;
+        return String.format("$%.2f", Double.parseDouble(value));
     }
 
     @Override

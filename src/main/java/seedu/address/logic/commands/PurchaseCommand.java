@@ -2,11 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRINKNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REDEEM;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -14,21 +15,15 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.drink.Drink;
-import seedu.address.model.person.Address;
+import seedu.address.model.drink.Price;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerId;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.FavouriteItem;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
 import seedu.address.model.person.RewardPoints;
-import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.util.CustomerBuilder;
 
 /**
  * Records a purchase for a customer, updating their total spent and reward points.
+ * Can also redeem reward points for a purchase if the redeem flag is set.
  */
 public class PurchaseCommand extends Command {
 
@@ -36,30 +31,42 @@ public class PurchaseCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records a purchase for a customer "
         + "identified by the index number in the displayed customer list.\n"
-        + "Parameters: ind/INDEX n/DRINK_NAME\n"
-        + "Example: " + COMMAND_WORD + " ind/1 n/ICED LATTE";
+        + "Parameters: INDEX " + PREFIX_DRINKNAME + "DRINK_NAME [" + PREFIX_REDEEM + "true]\n"
+        + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE\n"
+        + "Example (with redemption): " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE "
+        + PREFIX_REDEEM + "true";
 
     public static final String MESSAGE_PURCHASE_SUCCESS = "Purchase recorded for %1$s.\n"
-        + "Drink: %2$s, Price: $%3$.2f\n"
+        + "Drink: %2$s, Price: %3$s\n"
         + "Points earned: %4$d, New total points: %5$d\n"
         + "New total spent: $%6$.2f";
 
+    public static final String MESSAGE_REDEMPTION_SUCCESS = "Points redeemed for %1$s.\n"
+        + "Drink: %2$s, Price: %3$s\n"
+        + "Points used: %4$d, Remaining points: %5$d";
+
     public static final String MESSAGE_DRINK_NOT_FOUND = "Drink '%1$s' not found in the catalog.";
 
-    // Points conversion rate - for every $1 spent, customer earns this many points
-    private static final int POINTS_PER_DOLLAR = 10;
+    public static final String MESSAGE_INSUFFICIENT_POINTS = "Insufficient points for redemption. "
+        + "Required: %1$d, Available: %2$d";
 
     private final Index customerIndex;
     private final String drinkName;
+    private final boolean isRedemption;
 
     /**
      * Creates a PurchaseCommand to record a purchase of the specified {@code drinkName}
      * for customer at specified {@code customerIndex}
+     *
+     * @param customerIndex The index of the customer in the filtered customer list
+     * @param drinkName The name of the drink to purchase
+     * @param isRedemption Whether this purchase should use reward points
      */
-    public PurchaseCommand(Index customerIndex, String drinkName) {
+    public PurchaseCommand(Index customerIndex, String drinkName, boolean isRedemption) {
         requireAllNonNull(customerIndex, drinkName);
         this.customerIndex = customerIndex;
         this.drinkName = drinkName;
+        this.isRedemption = isRedemption;
     }
 
     @Override
@@ -76,7 +83,7 @@ public class PurchaseCommand extends Command {
 
         // Find the drink in the catalog
         Optional<Drink> drinkOptional = model.getFilteredDrinkList().stream()
-                .filter(d -> d.getName().equalsIgnoreCase(drinkName))
+                .filter(d -> d.getName().equalsNameIgnoreCase(drinkName))
                 .findFirst();
 
         if (!drinkOptional.isPresent()) {
@@ -84,12 +91,24 @@ public class PurchaseCommand extends Command {
         }
 
         Drink drink = drinkOptional.get();
-        double price = drink.getPrice();
+        Price price = drink.getPrice();
 
+        if (isRedemption) {
+            return handleRedemption(model, customerToUpdate, drink, price);
+        } else {
+            return handleRegularPurchase(model, customerToUpdate, drink, price);
+        }
+    }
+
+    /**
+     * Handles a regular purchase that earns points and updates total spent.
+     */
+    private CommandResult handleRegularPurchase(Model model, Customer customerToUpdate,
+            Drink drink, Price price) {
         // Calculate points to add based on purchase amount
-        int pointsToAdd = calculatePointsForPurchase(price);
+        int pointsToAdd = price.calculatePointsForPurchase();
 
-        Customer updatedCustomer = createUpdatedCustomer(customerToUpdate, price, pointsToAdd);
+        Customer updatedCustomer = createUpdatedCustomerForPurchase(customerToUpdate, price, pointsToAdd);
 
         model.setCustomer(customerToUpdate, updatedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
@@ -104,48 +123,68 @@ public class PurchaseCommand extends Command {
     }
 
     /**
-     * Calculates reward points to add based on purchase amount.
-     * Points are awarded at a rate of POINTS_PER_DOLLAR for each dollar spent.
+     * Handles a redemption purchase that uses points instead of adding to total spent.
      */
-    private int calculatePointsForPurchase(double amount) {
-        return (int) Math.floor(amount * POINTS_PER_DOLLAR);
+    private CommandResult handleRedemption(Model model, Customer customerToUpdate,
+            Drink drink, Price price) throws CommandException {
+        // Calculate points needed for redemption
+        int pointsNeeded = price.calculatePointsForRedemption();
+        int currentPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
+
+        // Check if customer has enough points
+        if (currentPoints < pointsNeeded) {
+            throw new CommandException(String.format(MESSAGE_INSUFFICIENT_POINTS,
+                    pointsNeeded, currentPoints));
+        }
+
+        // Create updated customer with reduced points but same total spent
+        Customer updatedCustomer = createUpdatedCustomerForRedemption(customerToUpdate, pointsNeeded);
+
+        model.setCustomer(customerToUpdate, updatedCustomer);
+        model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+
+        return new CommandResult(String.format(MESSAGE_REDEMPTION_SUCCESS,
+                customerToUpdate.getName(),
+                drink.getName(),
+                price,
+                pointsNeeded,
+                Integer.parseInt(updatedCustomer.getRewardPoints().value)));
     }
 
     /**
      * Creates and returns a {@code Customer} with the details of {@code customerToUpdate}
-     * with updated total spent and reward points.
+     * with updated total spent and reward points for a regular purchase.
      */
-    private static Customer createUpdatedCustomer(Customer customerToUpdate, double purchaseAmount, int pointsToAdd) {
+    private static Customer createUpdatedCustomerForPurchase(Customer customerToUpdate,
+            Price purchaseAmount, int pointsToAdd) {
         assert customerToUpdate != null;
 
-        Name name = customerToUpdate.getName();
-        Phone phone = customerToUpdate.getPhone();
-        Email email = customerToUpdate.getEmail();
-        Address address = customerToUpdate.getAddress();
-        Remark remark = customerToUpdate.getRemark();
-        Set<Tag> tags = customerToUpdate.getTags();
-        CustomerId customerId = customerToUpdate.getCustomerId();
-
-        // Retrieve current reward points and total spent values
         int currentRewardPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
-        double currentTotalSpent = Double.parseDouble(customerToUpdate.getTotalSpent().value);
         int currentVisitCount = Integer.parseInt(customerToUpdate.getVisitCount().value);
 
-        // Calculate updated values
-        int updatedRewardPoints = currentRewardPoints + pointsToAdd;
-        double updatedTotalSpent = currentTotalSpent + purchaseAmount;
-
-        // Create new RewardPoints and TotalSpent objects
-        RewardPoints newRewardPoints = new RewardPoints(String.valueOf(updatedRewardPoints));
-        TotalSpent newTotalSpent = new TotalSpent(String.format("%.2f", updatedTotalSpent));
-
-        VisitCount visitCount = new VisitCount(String.valueOf(currentVisitCount + 1));
-        FavouriteItem favoriteItem = customerToUpdate.getFavoriteItem();
-
-        return new Customer(name, phone, email, address, remark, tags,
-                customerId, newRewardPoints, visitCount, favoriteItem, newTotalSpent);
+        return new CustomerBuilder(customerToUpdate)
+                .withRewardPoints(new RewardPoints(String.valueOf(currentRewardPoints + pointsToAdd)))
+                .withTotalSpent(customerToUpdate.getTotalSpent().incrementSpent(purchaseAmount))
+                .withVisitCount(new VisitCount(String.valueOf(currentVisitCount + 1)))
+                .build();
     }
 
+    /**
+     * Creates and returns a {@code Customer} with the details of {@code customerToUpdate}
+     * with reduced reward points for a redemption.
+     * Total spent remains unchanged, but visit count is incremented.
+     */
+    private static Customer createUpdatedCustomerForRedemption(Customer customerToUpdate, int pointsToDeduct) {
+        assert customerToUpdate != null;
+
+        int currentRewardPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
+        int currentVisitCount = Integer.parseInt(customerToUpdate.getVisitCount().value);
+
+        return new CustomerBuilder(customerToUpdate)
+                .withRewardPoints(new RewardPoints(String.valueOf(currentRewardPoints - pointsToDeduct)))
+                .withVisitCount(new VisitCount(String.valueOf(currentVisitCount + 1)))
+                .build();
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -159,7 +198,8 @@ public class PurchaseCommand extends Command {
 
         PurchaseCommand otherCommand = (PurchaseCommand) other;
         return customerIndex.equals(otherCommand.customerIndex)
-                && drinkName.equalsIgnoreCase(otherCommand.drinkName);
+                && drinkName.equalsIgnoreCase(otherCommand.drinkName)
+                && isRedemption == otherCommand.isRedemption;
     }
 
     @Override
@@ -167,6 +207,7 @@ public class PurchaseCommand extends Command {
         return new ToStringBuilder(this)
                 .add("customerIndex", customerIndex)
                 .add("drinkName", drinkName)
+                .add("isRedemption", isRedemption)
                 .toString();
     }
 }

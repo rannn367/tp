@@ -25,9 +25,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.drink.Drink;
 import seedu.address.model.drink.ReadOnlyDrinkCatalog;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Staff;
-import seedu.address.testutil.CustomerBuilder;
+import seedu.address.model.util.CustomerBuilder;
 
 public class AddCustomerCommandTest {
 
@@ -60,8 +61,8 @@ public class AddCustomerCommandTest {
 
     @Test
     public void equals() {
-        Customer james = new CustomerBuilder().withName("James Wilson").build();
-        Customer olivia = new CustomerBuilder().withName("Olivia Chen").build();
+        Customer james = new CustomerBuilder().withName(new Name("James Wilson")).build();
+        Customer olivia = new CustomerBuilder().withName(new Name("Olivia Chen")).build();
         AddCustomerCommand addJamesCommand = new AddCustomerCommand(james);
         AddCustomerCommand addOliviaCommand = new AddCustomerCommand(olivia);
 
@@ -196,7 +197,7 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        public void updateFilteredCustomerList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -281,7 +282,7 @@ public class AddCustomerCommandTest {
         @Override
         public boolean hasCustomer(Customer customer) {
             requireNonNull(customer);
-            return this.customer.isSameCustomer(customer);
+            return this.customer.isSamePerson(customer);
         }
     }
 
@@ -291,7 +292,7 @@ public class AddCustomerCommandTest {
         @Override
         public boolean hasCustomer(Customer customer) {
             requireNonNull(customer);
-            return customersAdded.stream().anyMatch(customer::isSameCustomer);
+            return customersAdded.stream().anyMatch(customer::isSamePerson);
         }
 
         @Override

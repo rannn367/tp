@@ -18,7 +18,6 @@ public class CustomerIdTest {
         assertThrows(IllegalArgumentException.class, () -> new CustomerId(""));
         assertThrows(IllegalArgumentException.class, () -> new CustomerId("1001"));
         assertThrows(IllegalArgumentException.class, () -> new CustomerId("C"));
-        assertThrows(IllegalArgumentException.class, () -> new CustomerId("c1001"));
         assertThrows(IllegalArgumentException.class, () -> new CustomerId("CABC"));
     }
 
@@ -34,7 +33,6 @@ public class CustomerIdTest {
         // Invalid cases
         assertEquals(false, CustomerId.isValidCustomerId(""));
         assertEquals(false, CustomerId.isValidCustomerId("C"));
-        assertEquals(false, CustomerId.isValidCustomerId("c1001"));
         assertEquals(false, CustomerId.isValidCustomerId("1001"));
         assertEquals(false, CustomerId.isValidCustomerId("CABC"));
 

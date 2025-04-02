@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalCustomers.JAMES;
+import static seedu.address.testutil.TypicalCustomers.OLIVIA;
 import static seedu.address.testutil.TypicalDrinks.LATTE;
 import static seedu.address.testutil.TypicalDrinks.getTypicalDrinkCatalog;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalStaff.ALEX;
 
 import java.nio.file.Path;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.drink.DrinkCatalog;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.Assert;
@@ -32,7 +31,7 @@ public class ModelManagerTest {
     @BeforeEach
     public void setUp() {
         modelManager = new ModelManager();
-        addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        addressBook = new AddressBookBuilder().withPerson(JAMES).withPerson(OLIVIA).build();
         userPrefs = new UserPrefs();
         drinkCatalog = new DrinkCatalog();
     }
@@ -112,10 +111,10 @@ public class ModelManagerTest {
     @Test
     public void hasPerson_nullOrNonExistentPerson_handledCorrectly() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(JAMES));
 
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        modelManager.addPerson(JAMES);
+        assertTrue(modelManager.hasPerson(JAMES));
     }
 
     @Test
@@ -169,7 +168,7 @@ public class ModelManagerTest {
 
         // Filtered list comparison
         ModelManager filteredModelManager = new ModelManager(addressBook, userPrefs, getTypicalDrinkCatalog());
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = JAMES.getName().fullName.split("\\s+");
         filteredModelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
 
         assertFalse(initialModelManager.equals(filteredModelManager));
