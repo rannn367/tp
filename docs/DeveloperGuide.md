@@ -206,6 +206,34 @@ If the index is valid, `DeleteStaffCommand`:
 
 > **_NOTE:_** CafeConnect only allows deleting staff by index. Once a staff member is deleted, they cannot be recovered unless added again manually.
 
+#### Editing a staff's details
+
+The edit staff feature allows users to modify the details of an existing staff member by specifying the staff's index in the displayed list and the new details.
+
+The implementation follows the command pattern, where `AddressBookParser` identifies the command type and delegates to `EditStaffCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/EditStaffSequenceDiagram.puml" alt="EditStaffSequenceDiagram" />
+
+`AddressBookParser` creates `EditStaffCommandParser` to parse the user input string.
+
+`EditStaffCommandParser` extracts the index and provided fields from the command arguments and ensures:
+- The **Index** is a valid positive integer.
+- At least one field is provided for editing.
+
+If the input is invalid, `EditStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `EditStaffCommand` based on the user input.
+
+---
+
+Upon execution, `EditStaffCommand` first checks if the index is within the bounds of the filtered staff list. If the index is out of bounds, a CommandException is thrown.
+
+If the index is valid, `EditStaffCommand`:
+1. Retrieves the staff member to be modified from the list.
+2. Extracts the updated details from `EditStaffDescriptor`.
+3. Constructs a new `Staff` instance using `StaffBuilder`.
+4. Checks for duplicate staff entries in the system and throws a `CommandException` if a duplicate is found.
+5. Updates the model with the modified staff information.
+6. Returns a `CommandResult` confirming the successful edit.
+
 <br></br>
 
 ### Customer Management System
@@ -276,6 +304,7 @@ If the index is valid, `DeleteCustomerCommand`:
 `AddressBookParser` creates an instance of `AddDrinkCommandParser` to parse the user input string.
 
 `AddDrinkCommandParser` first extracts values corresponding to the prefixes `n/`, `p/`and `c/`.  
+
 It ensures that:
 - The **name prefix** `n/` must contain a valid drink name.
 - The **price prefix** `p/` must contain a valid positive decimal value.
@@ -328,6 +357,7 @@ If the index is valid, `DeleteDrinkCommand`:
 `AddressBookParser` creates an instance of `PurchaseCommandParser` to parse the user input string.
 
 `PurchaseCommandParser` first extracts values corresponding to the index, the prefix `n/`, and the prefix `redeem/`.  
+
 It ensures that:
 - The **customer index** must be a valid positive integer.
 - The **drink name prefix** `n/` must refer to an existing drink in the catalog.
