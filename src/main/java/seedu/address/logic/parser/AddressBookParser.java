@@ -23,6 +23,8 @@ import seedu.address.logic.commands.DeleteStaffCommand;
 import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -56,6 +58,8 @@ public class AddressBookParser {
         COMMAND_MAP.put(
             EditStaffCommand.COMMAND_WORD, arguments -> new EditStaffCommandParser().parse(arguments));
         COMMAND_MAP.put(
+            FindStaffCommand.COMMAND_WORD, arguments -> new FindStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
             DeleteStaffCommand.COMMAND_WORD, arguments -> new DeleteStaffCommandParser().parse(arguments));
         COMMAND_MAP.put(
             AddCustomerCommand.COMMAND_WORD, arguments -> new AddCustomerCommandParser().parse(arguments));
@@ -63,6 +67,8 @@ public class AddressBookParser {
             AddCustomerCommand.COMMAND_WORD_SHORTCUT, arguments -> new AddCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(
             EditCustomerCommand.COMMAND_WORD, arguments -> new EditCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+            FindCustomerCommand.COMMAND_WORD, arguments -> new FindCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(
             DeleteCustomerCommand.COMMAND_WORD, arguments -> new DeleteCustomerCommandParser().parse(arguments));
         COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD, arguments -> new AddDrinkCommandParser().parse(arguments));

@@ -7,6 +7,10 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCustomerCommand;
@@ -18,9 +22,12 @@ import seedu.address.logic.commands.DeleteStaffCommand;
 import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class AddressBookParserTest {
 
@@ -60,6 +67,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_findCustomer() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindCustomerCommand command = (FindCustomerCommand) parser.parseCommand(
+                FindCustomerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCustomerCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_deleteCustomer() throws Exception {
         assertTrue(parser.parseCommand(DeleteCustomerCommand.COMMAND_WORD + " 2")
                 instanceof DeleteCustomerCommand);
@@ -85,6 +100,14 @@ public class AddressBookParserTest {
     public void parseCommand_editStaff() throws Exception {
         assertTrue(parser.parseCommand(EditStaffCommand.COMMAND_WORD + " 1 p/99994567 e/newemail@example.com")
                 instanceof EditStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_findStaff() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindStaffCommand command = (FindStaffCommand) parser.parseCommand(
+                FindStaffCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindStaffCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
