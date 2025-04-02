@@ -72,6 +72,6 @@ public class TotalSpentTest {
     @Test
     public void toString_testValue() {
         TotalSpent totalSpent = new TotalSpent("5.5");
-        assertTrue(totalSpent.toString().equals("5.5"));
+        assertTrue(totalSpent.toString().equals("$5.50"));
     }
 }
