@@ -248,9 +248,9 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 * `PHONE` should only contain digits, and it should be at least 3 digits long
 * `EMAIL` must be a valid email address
 * `ADDRESS` can take any value, and it should not be blank
-* `SHIFT_TIMING` should only contain digits
+* `SHIFT_TIMING` can take any value, and it should not be blank
 * `HOURS_WORKED` should only contain digits
-* `PERFORMANCE_RATING` can take any value, and it should not be blank
+* `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive)
 * `TAG` can take any value, optional field
 
 Examples:
