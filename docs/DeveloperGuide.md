@@ -13,8 +13,8 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
+CafeConnect is based on the AddressBook-Level3 project created by the SE-EDU initiative
+It incorporates the following third-party libraries: JavaFX, Jackson, JUnit5.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -152,7 +152,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Staff Management System
 
-#### Add a staff to the addressbook
+#### Adding a staff to the addressbook
 
 <puml src="diagrams/AddStaffSequenceDiagram.puml" alt="AddStaffSequenceDiagram" />
 
@@ -176,9 +176,9 @@ If any of these constraints are violated, `AddStaffCommandParser` throws a `Pars
 
 `AddStaffCommand` stores the staff to be added, represented as a `Staff` instance.
 
-Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) name is found, it adds the new staff member to the catalog.
+Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the catalog.
 
-> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `NAME` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
+> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
 
 #### Deleting a staff from the catalog
 
@@ -191,10 +191,11 @@ The implementation follows the command pattern where `AddressBookParser` identif
 `AddressBookParser` creates `DeleteStaffCommandParser` to parse user input string.
 
 `DeleteStaffCommandParser` extracts the index from the command arguments and ensures:
-- The index is a valid positive integer.
-- If the index is invalid, a `ParseException` is thrown.
+- The **Index** is a valid positive integer.
 
-If the index is valid, `DeleteStaffCommandParser` creates a new instance of `DeleteStaffCommand` with the specified index.
+If the index is invalid, `DeleteStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `DeleteStaffCommand` based on the user input.
+
+---
 
 Upon execution, `DeleteStaffCommand` first checks if the index is within the bounds of the filtered staff list. If the index is out of bounds, a `CommandException` is thrown.
 
@@ -209,7 +210,7 @@ If the index is valid, `DeleteStaffCommand`:
 
 ### Customer Management System
 
-#### Add a customer to the addressbook
+#### Adding a customer to the addressbook
 
 <puml src="diagrams/AddCustomerSequenceDiagram.puml" alt="AddCustomerSequenceDiagram" />
 
@@ -234,9 +235,9 @@ If any of these constraints are violated, `AddCustomerCommandParser` throws a `P
 
 `AddCustomerCommand` stores the customer to be added, represented as a `Customer` instance.
 
-Upon execution, `AddCustomerCommand` first checks the model for duplicate customers. If no existing customer with a matching (case-insensitive) name is found, it adds the new customer to the customer list.
+Upon execution, `AddCustomerCommand` first checks the model for duplicate customers. If no existing customer with a matching (case-insensitive) customer id is found, it adds the new customer to the customer list.
 
-> **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `NAME` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
+> **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `CID` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
 
 #### Deleting a customer from the catalog
 
@@ -249,10 +250,11 @@ The implementation follows the command pattern where `AddressBookParser` identif
 `AddressBookParser` creates `DeleteCustomerCommandParser` to parse user input string.
 
 `DeleteCustomerCommandParser` extracts the index from the command arguments and ensures:
-- The index is a valid positive integer.
-- If the index is invalid, a `ParseException` is thrown.
+- The **Index** is a valid positive integer.
 
-If the index is valid, `DeleteCustomerCommandParser` creates a new instance of `DeleteCustomerCommand` with the specified index.
+If the index is invalid, `DeleteCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `DeleteCustomerCommand` based on the user input.
+
+---
 
 Upon execution, `DeleteCustomerCommand` first checks if the index is within the bounds of the filtered customer list. If the index is out of bounds, a `CommandException` is thrown.
 
@@ -267,31 +269,31 @@ If the index is valid, `DeleteCustomerCommand`:
 
 ### Drink Management System
 
-The implementation of the drink management system follows the convention of normal commands, where `AddressBookParser` is responsible for parsing user input strings into executable commands.
-
 #### Adding a drink to the catalog
 
 <puml src="diagrams/AddDrinkSequenceDiagram.puml" alt="AddDrinkSequenceDiagram" />
 
-`AddressBookParser` creates `AddDrinkCommandParser` to parse user input string.
+`AddressBookParser` creates an instance of `AddDrinkCommandParser` to parse the user input string.
 
-`AddDrinkCommandParser` first obtains the values corresponding to the prefixes `n/`, `p/`, and `c/`.
-`AddDrinkCommandParser` ensures that:
-- The name prefix `n/` must contain a valid drink name.
-- The price prefix `p/` must contain a valid positive decimal value.
-- The category prefix `c/` must contain a non-empty category name.
+`AddDrinkCommandParser` first extracts values corresponding to the prefixes `n/`, `p/`and `c/`.  
+It ensures that:
+- The **name prefix** `n/` must contain a valid drink name.
+- The **price prefix** `p/` must contain a valid positive decimal value.
+- The **category prefix** `c/` must contain a non-empty category name.
 
-If any of the above constraints are violated, `AddDrinkCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddDrinkCommand` that corresponds to the user input.
+If any of these constraints are violated, `AddDrinkCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddDrinkCommand` based on the user input.
 
-`AddDrinkCommand` comprises of the drink to be added, which is an instance of `Drink`.
+---
 
-Upon execution, `AddDrinkCommand` first queries the supplied model if it contains a duplicate drink. If no duplicate drink exists (based on case-insensitive name matching), then `AddDrinkCommand` adds the drink into the drink catalog.
+`AddDrinkCommand` stores the drink to be added, represented as a `Drink` instance.
+
+Upon execution, `AddDrinkCommand` first checks the model for duplicate drinks. If no existing drink with a matching (case-insensitive) name is found, it adds the new drink to the catalog.
 
 > **_NOTE:_** CafeConnect identifies a drink as a duplicate if its `NAME` matches (case-insensitive) with an existing drink in the catalog. Attempting to add a duplicate will result in an error.
 
 #### Deleting a drink from the catalog
 
-The delete drink feature allows users to remove drinks from the catalog by specifying the index of the drink in the displayed list.
+The delete drink feature allows users to remove drinks from the catalog by specifying the drink's index in the displayed list.
 
 The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteDrinkCommandParser` to create the appropriate command object.
 
@@ -300,17 +302,18 @@ The implementation follows the command pattern where `AddressBookParser` identif
 `AddressBookParser` creates `DeleteDrinkCommandParser` to parse user input string.
 
 `DeleteDrinkCommandParser` extracts the index from the command arguments and ensures:
-- The index is a valid positive integer.
-- If the index is invalid, a `ParseException` is thrown.
+- The **Index** is a valid positive integer.
 
-If the index is valid, `DeleteDrinkCommandParser` creates a new instance of `DeleteDrinkCommand` with the specified index.
+If the index is invalid, `DeleteDrinkCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `DeleteDrinkCommand` based on the user input.
+
+---
 
 Upon execution, `DeleteDrinkCommand` first checks if the index is within the bounds of the filtered drink list. If the index is out of bounds, a `CommandException` is thrown.
 
 If the index is valid, `DeleteDrinkCommand`:
-1. Retrieves the drink to be deleted from the filtered drink list
-2. Calls `model.deleteDrink(drinkToDelete)` to remove the drink from the catalog
-3. Returns a `CommandResult` with a success message
+1. Retrieves the drink to be deleted from the filtered drink list.
+2. Calls `model.deleteDrink(drinkToDelete)` to remove the drink from the catalog.
+3. Returns a `CommandResult` with a success message.
 
 > **_NOTE:_** CafeConnect only allows deleting drinks by index. Once a drink is deleted, it cannot be recovered unless added again manually.
 
@@ -318,38 +321,37 @@ If the index is valid, `DeleteDrinkCommand`:
 
 ### Customer Purchase and Points System
 
-The implementation of the purchase command follows the convention of normal commands, where `AddressBookParser` is responsible for parsing user input strings into executable commands.
+#### Recording a customer purchase
 
 <puml src="diagrams/PurchaseSequenceDiagram.puml" alt="PurchaseSequenceDiagram" />
 
-`AddressBookParser` creates `PurchaseCommandParser` to parse user input string.
+`AddressBookParser` creates an instance of `PurchaseCommandParser` to parse the user input string.
 
-`PurchaseCommandParser` obtains:
-- The index of the customer from the preamble
-- The drink name from the prefix `n/`
-- The optional redemption flag from the prefix `redeem/`
+`PurchaseCommandParser` first extracts values corresponding to the index, the prefix `n/`, and the prefix `redeem/`.  
+It ensures that:
+- The **customer index** must be a valid positive integer.
+- The **drink name prefix** `n/` must refer to an existing drink in the catalog.
+- The **redemption prefix** `redeem/`, if provided, must be either "true" or "false".
 
-`PurchaseCommandParser` ensures that:
-- The index is a valid positive integer
-- The drink name exists
-- The redemption flag, if present, is either "true" or "false"
+If any of these constraints are violated, `PurchaseCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `PurchaseCommand` based on the user input.
 
-If any of the above constraints are violated, `PurchaseCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `PurchaseCommand` with the customer index, drink name, and redemption status.
+---
 
-Upon execution, `PurchaseCommand` performs the following steps:
-1. Retrieves the customer at the specified index
-2. Searches for the drink in the catalog by name
-3. For regular purchases:
-  - Calculates reward points (10 points per dollar)
-  - Updates the customer's total spent
-  - Updates the customer's reward points
-  - Increments the visit count
-4. For point redemptions:
-  - Verifies the customer has sufficient points
-  - Calculates points needed (100 points per dollar)
-  - Deducts points from the customer
-  - Keeps total spent unchanged
-  - Increments the visit count
+`PurchaseCommand` stores the customer index, drink name, and redemption status.
+
+Upon execution, `PurchaseCommand` first retrieves the customer at the specified index and searches for the drink in the catalog by name. It then processes the purchase based on the redemption status:
+
+1. For regular purchases:
+   - Calculates reward points (10 points per dollar)
+   - Updates the customer's total spent
+   - Updates the customer's reward points
+   - Increments the visit count
+2. For point redemptions:
+   - Verifies the customer has sufficient points
+   - Calculates points needed (100 points per dollar)
+   - Deducts points from the customer
+   - Keeps total spent unchanged
+   - Increments the visit count
 
 > **_NOTE:_** The points calculation follows a fixed rate of 10 points per dollar spent. Redemption follows a rate of 100 points equivalent to $1 in drink value.
 
@@ -374,32 +376,6 @@ Upon receiving a shortcut command, the parser:
 4. Adds the entity to the appropriate list
 
 > **_NOTE:_** Shortcut commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
-
-<br></br>
-
-### Hours Tracking for Staff
-
-The implementation of the hours tracking system allows café owners to record staff working hours.
-
-<puml src="diagrams/HoursAddSequenceDiagram.puml" alt="HoursAddSequenceDiagram" />
-
-`AddressBookParser` creates `HoursAddCommandParser` to parse user input string.
-
-`HoursAddCommandParser` obtains:
-- The index of the staff member from the prefix `ind/`
-- The hours to add from the prefix `h/`
-
-`HoursAddCommandParser` ensures that:
-- The index is a valid positive integer
-- The hours value is a valid positive integer
-
-Upon execution, `HoursAddCommand`:
-1. Retrieves the staff member at the specified index
-2. Adds the new hours to the existing hours worked
-3. Creates an updated staff record with the new hours
-4. Replaces the old staff record with the updated one
-
-> **_NOTE:_** The hours tracking system is cumulative, with each `hoursadd` command adding to the staff member's existing hours rather than replacing them.
 
 <br></br>
 
@@ -1235,6 +1211,11 @@ testers are expected to do more *exploratory* testing.
   4. Other incorrect delete commands to try: `customerdelete`, `customerdelete x`, `customerdelete 999` (where x is non-numeric and 999 is larger than the list size)<br>
      Expected: Error message indicating invalid index.
 
+4. Editing a customer
+  1. Prerequisites: At least one customer in the list
+  2. Test case: `customeredit 1 rp/500 vc/6`<br>
+     Expected: The reward points and visit count for the first customer is updated. Status message confirms the update.
+
 ### Managing Staff
 
 1. Adding a staff member
@@ -1249,13 +1230,13 @@ testers are expected to do more *exploratory* testing.
 
 3. Deleting a staff member
   1. Prerequisites: At least one staff member in the list
-  2. Test case: `staffdelete 1`<br>
+  2. Test case: `staffdelete 1 `<br>
      Expected: First staff member is deleted from the list. Details of the deleted staff shown in the status message.
 
-4. Adding hours worked
+4. Editing a staff member
   1. Prerequisites: At least one staff member in the list
-  2. Test case: `hoursadd ind/1 h/5`<br>
-     Expected: The hours worked for the first staff member is increased by 5 hours. Status message confirms the update.
+  2. Test case: `staffedit 1 p/98956743 role/manager`<br>
+     Expected: The phone number and role for the first staff member is updated. Status message confirms the update.
 
 ### Managing Drinks and Purchases
 
