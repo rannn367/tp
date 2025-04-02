@@ -147,7 +147,7 @@ Adds a customer to the customer list with required details such as customer ID, 
 
 Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
 
-* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
+* `CUSTOMER_ID` should start with a 'C' (case insensitive) followed by digits, e.g., C1001, c1001
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
 * `PHONE` should only contain digits, and it should be at least 3 digits long
 * `EMAIL` must be a valid email address.
@@ -173,6 +173,10 @@ These are the before and after images of the first example
     <p><i>After adding the customer</i></p>
   </div>
 </div>
+
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Adding a customer: `customeradd` or `c` (shortcut)
 
@@ -261,6 +265,10 @@ These are the before and after images of the first example
   </div>
 </div>
 
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
+
 ## Finding a customer: `customerfind`
 
 Finds and lists all customers in the customer list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
@@ -295,7 +303,7 @@ Adds a staff to the staff list with required details such as staff ID, name, pho
 
 Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
 
-* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001
+* `STAFF_ID` should start with a 'S' (case insensitive) followed by digits, e.g., S1001, s1001
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
 * `PHONE` should only contain digits, and it should be at least 3 digits long
 * `EMAIL` must be a valid email address
@@ -322,6 +330,9 @@ These are the before and after images of the first example
     <p><i>After adding the staff</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Adding a staff: `staffadd` or `s` (shortcut)
 
@@ -409,6 +420,9 @@ These are the before and after images of the first example
     <p><i>After editing staff details</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Finding a staff: `stafffind`
 
@@ -463,6 +477,9 @@ These are the before and after images of the first example
     <p><i>After adding the drink</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ## Deleting a drink: `drinkdelete`
 
@@ -545,6 +562,9 @@ These are the before and after images of a redemption purchase using the second 
     <p><i>After redemption purchase (points deducted, total spent unchanged)</i></p>
   </div>
 </div>
+<box type="info" seamless>
+Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
+</box>
 
 ### Exiting the program : `exit`
 
