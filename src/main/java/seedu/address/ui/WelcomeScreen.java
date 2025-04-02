@@ -67,6 +67,7 @@ public class WelcomeScreen extends UiPart<Region> {
         // Set minimum dimensions
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(600);
+        primaryStage.setResizable(false);
 
         // Create scene
         Scene scene = new Scene(getRoot());
