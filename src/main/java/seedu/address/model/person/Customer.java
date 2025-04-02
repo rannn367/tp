@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 public class Customer extends Person {
 
     private static final Logger logger = Logger.getLogger(Customer.class.getName());
-    
+
     // Customer-specific fields
     private final CustomerId customerId; // Unique identifier for customer
     private final RewardPoints rewardPoints; // Current reward points balance
@@ -39,7 +39,7 @@ public class Customer extends Person {
             logger.log(Level.SEVERE, "Attempted to create Customer with null attributes");
             throw new IllegalArgumentException("Customer attributes cannot be null");
         }
-        
+
         this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
@@ -88,7 +88,7 @@ public class Customer extends Person {
 
         // Compare using customerId as unique identifier
         Customer otherCustomer = (Customer) otherPerson;
-        
+
         boolean isSame = otherCustomer.getCustomerId().equals(getCustomerId());
         logger.log(Level.FINE, "Comparing Staff IDs: {0} and {1}, Result: {2}",
                 new Object[]{this.customerId, otherCustomer.customerId, isSame});
@@ -115,7 +115,7 @@ public class Customer extends Person {
                 && favouriteItem.equals(otherCustomer.favouriteItem)
                 && totalSpent.equals(otherCustomer.totalSpent)
                 && customerId.equals(otherCustomer.customerId);
-                
+
         logger.log(Level.FINE, "Comparing Customer objects: {0} and {1}, Result: {2}",
                 new Object[]{this, otherCustomer, isEqual});
         return isEqual;
