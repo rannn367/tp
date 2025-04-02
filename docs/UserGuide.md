@@ -147,7 +147,7 @@ Adds a customer to the customer list with required details such as customer ID, 
 
 Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
 
-* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
+* `CUSTOMER_ID` should start with a 'C' (case insensitive) followed by digits, e.g., C1001, c1001
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
 * `PHONE` should only contain digits, and it should be at least 3 digits long
 * `EMAIL` must be a valid email address.
@@ -295,7 +295,7 @@ Adds a staff to the staff list with required details such as staff ID, name, pho
 
 Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
 
-* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001
+* `STAFF_ID` should start with a 'S' (case insensitive) followed by digits, e.g., S1001, s1001
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
 * `PHONE` should only contain digits, and it should be at least 3 digits long
 * `EMAIL` must be a valid email address
