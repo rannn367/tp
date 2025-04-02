@@ -304,6 +304,7 @@ If the index is valid, `DeleteCustomerCommand`:
 `AddressBookParser` creates an instance of `AddDrinkCommandParser` to parse the user input string.
 
 `AddDrinkCommandParser` first extracts values corresponding to the prefixes `n/`, `p/`and `c/`.  
+
 It ensures that:
 - The **name prefix** `n/` must contain a valid drink name.
 - The **price prefix** `p/` must contain a valid positive decimal value.
@@ -356,6 +357,7 @@ If the index is valid, `DeleteDrinkCommand`:
 `AddressBookParser` creates an instance of `PurchaseCommandParser` to parse the user input string.
 
 `PurchaseCommandParser` first extracts values corresponding to the index, the prefix `n/`, and the prefix `redeem/`.  
+
 It ensures that:
 - The **customer index** must be a valid positive integer.
 - The **drink name prefix** `n/` must refer to an existing drink in the catalog.
