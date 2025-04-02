@@ -63,7 +63,7 @@ public class TotalSpent {
 
     @Override
     public String toString() {
-        return value;
+        return String.format("$%.2f", Double.parseDouble(value));
     }
 
     @Override
