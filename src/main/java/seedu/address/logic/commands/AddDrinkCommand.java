@@ -5,6 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRINKNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,6 +19,8 @@ import seedu.address.model.drink.Drink;
 public class AddDrinkCommand extends Command {
 
     public static final String COMMAND_WORD = "drinkadd";
+    public static final String MESSAGE_SUCCESS = "New drink added: %1$s";
+    public static final String MESSAGE_DUPLICATE_DRINK = "This drink already exists in the drink catalog";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a drink to the drink catalog. "
             + "Parameters: "
@@ -27,31 +32,48 @@ public class AddDrinkCommand extends Command {
             + PREFIX_PRICE + "4.50 "
             + PREFIX_CATEGORY + "Coffee";
 
-    public static final String MESSAGE_SUCCESS = "New drink added: %1$s";
-    public static final String MESSAGE_DUPLICATE_DRINK = "This drink already exists in the drink catalog";
-
+    private static final Logger logger = Logger.getLogger(AddDrinkCommand.class.getName());
     private final Drink toAdd;
 
     /**
-     * Creates a AddDrinkCommand to add the specified {@code Drink}
+     * Creates an AddDrinkCommand to add the specified {@code Drink}.
+     *
+     * @param drink The drink to be added.
+     * @throws NullPointerException if the provided drink is null.
      */
     public AddDrinkCommand(Drink drink) {
-        requireNonNull(drink);
-        toAdd = drink;
+        requireNonNull(drink, "Drink cannot be null.");
+        this.toAdd = drink;
     }
 
+    /**
+     * Executes the command to add a drink to the drink catalog.
+     *
+     * @param model The model in which the drink is added.
+     * @return The result of executing the command.
+     * @throws CommandException If the drink already exists in the catalog.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+        requireNonNull(model, "Model cannot be null.");
+        logger.log(Level.INFO, "Executing AddDrinkCommand with drink: {0}", toAdd);
 
         if (model.hasDrink(toAdd)) {
+            logger.log(Level.WARNING, "Attempted to add duplicate drink: {0}", toAdd);
             throw new CommandException(MESSAGE_DUPLICATE_DRINK);
         }
 
         model.addDrink(toAdd);
+        logger.log(Level.INFO, "Successfully added drink: {0}", toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Checks if this command is equal to another object.
+     *
+     * @param other The other object to compare.
+     * @return True if both are equivalent, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -66,6 +88,11 @@ public class AddDrinkCommand extends Command {
         return toAdd.equals(otherAddDrinkCommand.toAdd);
     }
 
+    /**
+     * Returns a string representation of the AddDrinkCommand.
+     *
+     * @return A string representation of the object.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)
