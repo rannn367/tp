@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import java.util.List;
 
@@ -88,7 +87,6 @@ public class EditStaffCommand extends Command {
         }
 
         model.setStaff(staffToEdit, editedStaff);
-        model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStaff)));
     }
 

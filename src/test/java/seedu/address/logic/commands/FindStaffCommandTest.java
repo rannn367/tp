@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_STAFF_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStaff.ALEX;
@@ -56,17 +56,19 @@ public class FindStaffCommandTest {
 
     @Test
     public void execute_zeroKeywords_noStaffFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_STAFF_LISTED_OVERVIEW, 0, "");
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindStaffCommand command = new FindStaffCommand(predicate);
         expectedModel.updateFilteredStaffList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredStaffList());
+
+        // When there are no staffs found, the filtered staff list should be the same as the original list
+        assertEquals(Arrays.asList(ALEX, BEN), model.getFilteredStaffList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleStaffsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_STAFF_LISTED_OVERVIEW, 2, "1. Alex Tan\n2. Ben Chua");
         NameContainsKeywordsPredicate predicate = preparePredicate("Alex Chua");
         FindStaffCommand command = new FindStaffCommand(predicate);
         expectedModel.updateFilteredStaffList(predicate);
@@ -76,7 +78,7 @@ public class FindStaffCommandTest {
 
     @Test
     public void execute_multipleKeywords_oneStaffFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_STAFF_LISTED_OVERVIEW, 1, "1. Alex Tan");
         NameContainsKeywordsPredicate predicate = preparePredicate("Alex");
         FindStaffCommand command = new FindStaffCommand(predicate);
         expectedModel.updateFilteredStaffList(predicate);

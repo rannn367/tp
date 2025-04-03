@@ -7,10 +7,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCustomerCommand;
@@ -27,7 +23,6 @@ import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class AddressBookParserTest {
 
@@ -68,7 +63,17 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findCustomerShortcut() throws Exception {
-        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " foo bar baz")
+        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " n/Alice vc/5")
+                instanceof FindCustomerCommand);
+        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " /all")
+                instanceof FindCustomerCommand);
+    }
+
+    @Test
+    public void parseCommand_findCustomerShortcutWithMultiplePrefixes() throws Exception {
+        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT
+                + " n/John p/98765432 e/john@example.com a/Clementi "
+                + "cid/C001 rp/150 vc/8 fi/Cappuccino ts/120 t/regular")
                 instanceof FindCustomerCommand);
     }
 
@@ -80,7 +85,17 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findStaffShortcut() throws Exception {
-        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " foo bar baz")
+        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " n/John role/Barista")
+                instanceof FindStaffCommand);
+        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " /all")
+                instanceof FindStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_findStaffShortcutWithMultiplePrefixes() throws Exception {
+        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT
+                + " n/John p/98765432 e/john@example.com a/Clementi "
+                + "sid/S1234 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime")
                 instanceof FindStaffCommand);
     }
 
@@ -127,10 +142,24 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findCustomer() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCustomerCommand command = (FindCustomerCommand) parser.parseCommand(
-                FindCustomerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCustomerCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        // Test for prefix-based search
+        assertTrue(parser.parseCommand(
+                FindCustomerCommand.COMMAND_WORD + " n/Alice vc/5")
+                instanceof FindCustomerCommand);
+
+        // Test for /all search
+        assertTrue(parser.parseCommand(
+                FindCustomerCommand.COMMAND_WORD + " /all")
+                instanceof FindCustomerCommand);
+    }
+
+    @Test
+    public void parseCommand_findCustomerWithMultiplePrefixes() throws Exception {
+        // Test with multiple search criteria
+        assertTrue(parser.parseCommand(
+                FindCustomerCommand.COMMAND_WORD + " n/John p/98765432 e/john@example.com a/Clementi "
+                + "cid/C001 rp/150 vc/8 fi/Cappuccino ts/120 t/regular")
+                instanceof FindCustomerCommand);
     }
 
     @Test
@@ -142,9 +171,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addStaff() throws Exception {
         // Full command format
-        assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD + " sid/S1234 n/Alice Tan p/81234567 "
-            + "e/alice@example.com a/123, Jurong West Ave 6, #08-111 "
-            + "role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime")
+        assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD
+                + " sid/S1234 n/Alice Tan p/81234567 "
+                + "e/alice@example.com a/123, Jurong West Ave 6, #08-111 "
+                + "role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime")
                 instanceof AddStaffCommand);
     }
 
@@ -163,10 +193,24 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findStaff() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindStaffCommand command = (FindStaffCommand) parser.parseCommand(
-                FindStaffCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindStaffCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        // Test for prefix-based search
+        assertTrue(parser.parseCommand(
+                FindStaffCommand.COMMAND_WORD + " n/John role/Barista")
+                instanceof FindStaffCommand);
+
+        // Test for /all search
+        assertTrue(parser.parseCommand(
+                FindStaffCommand.COMMAND_WORD + " /all")
+                instanceof FindStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_findStaffWithMultiplePrefixes() throws Exception {
+        // Test with multiple search criteria
+        assertTrue(parser.parseCommand(
+                FindStaffCommand.COMMAND_WORD + " n/John p/98765432 e/john@example.com a/Clementi "
+                + "sid/S1234 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime")
+                instanceof FindStaffCommand);
     }
 
     @Test

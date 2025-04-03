@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.Messages;
@@ -41,6 +42,21 @@ public class ArgumentMultimap {
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+    }
+
+    /**
+     * Returns true if the argument multimap contains only the specified prefix.
+     *
+     * @param prefix The prefix to check for
+     * @return true if the argument multimap contains only the specified prefix, false otherwise
+     */
+    public boolean containsOnlyPrefix(Prefix prefix) {
+        Set<Prefix> keys = argMultimap.keySet();
+        return !keys.stream()
+                .filter(p -> !p.equals(prefix))
+                .filter(p -> !p.equals(new Prefix("")))
+                .findAny()
+                .isEmpty();
     }
 
     /**
