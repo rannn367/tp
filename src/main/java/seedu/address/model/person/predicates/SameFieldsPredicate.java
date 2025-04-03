@@ -13,15 +13,15 @@ import seedu.address.model.person.Person;
  * Two CombinedPredicates are equal if they contain the same set of predicates,
  * regardless of the order they were added.
  */
-public class CombinedPredicate implements Predicate<Person> {
+public class SameFieldsPredicate implements Predicate<Person> {
     private final Set<Predicate<Person>> predicates;
 
     /**
-     * Constructs a CombinedPredicate with the provided predicates.
+     * Constructs a SameFieldsPredicate with the provided predicates.
      *
      * @param predicates The set of predicates to combine with AND logic
      */
-    public CombinedPredicate(Set<Predicate<Person>> predicates) {
+    public SameFieldsPredicate(Set<Predicate<Person>> predicates) {
         this.predicates = new HashSet<>(predicates);
     }
 
@@ -46,7 +46,7 @@ public class CombinedPredicate implements Predicate<Person> {
     }
 
     /**
-     * Checks if this CombinedPredicate equals another object.
+     * Checks if this SameFieldsPredicate equals another object.
      * Two CombinedPredicates are equal if they contain the same set of predicates,
      * regardless of the order they were added.
      *
@@ -60,11 +60,11 @@ public class CombinedPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CombinedPredicate)) {
+        if (!(other instanceof SameFieldsPredicate)) {
             return false;
         }
 
-        CombinedPredicate otherCombinedPredicate = (CombinedPredicate) other;
+        SameFieldsPredicate otherCombinedPredicate = (SameFieldsPredicate) other;
 
         // Since predicates are function objects that may not have natural ordering,
         // we need to compare the sets by checking if they contain the same elements

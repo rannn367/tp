@@ -21,7 +21,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.CombinedPredicate;
+import seedu.address.model.person.predicates.SameFieldsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -51,27 +51,27 @@ public class FindStaffCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John " + PREFIX_ROLE + "Barista\n"
             + "OR: " + COMMAND_WORD + " " + PREFIX_ALL;
 
-    private final CombinedPredicate predicate;
+    private final SameFieldsPredicate predicate;
 
     /**
-     * Constructs a FindStaffCommand with a CombinedPredicate.
+     * Constructs a FindStaffCommand with a SameFieldsPredicate.
      *
-     * @param predicate The CombinedPredicate to use for filtering staff
+     * @param predicate The SameFieldsPredicate to use for filtering staff
      */
-    public FindStaffCommand(CombinedPredicate predicate) {
+    public FindStaffCommand(SameFieldsPredicate predicate) {
         this.predicate = predicate;
     }
 
     /**
-     * Constructs a FindStaffCommand with a single Predicate, wrapping it in a CombinedPredicate.
+     * Constructs a FindStaffCommand with a single Predicate, wrapping it in a SameFieldsPredicate.
      *
      * @param predicate The Predicate to use for filtering staff
      */
     public FindStaffCommand(Predicate<Person> predicate) {
-        if (predicate instanceof CombinedPredicate) {
-            this.predicate = (CombinedPredicate) predicate;
+        if (predicate instanceof SameFieldsPredicate) {
+            this.predicate = (SameFieldsPredicate) predicate;
         } else {
-            this.predicate = new CombinedPredicate(new HashSet<>(Arrays.asList(predicate)));
+            this.predicate = new SameFieldsPredicate(new HashSet<>(Arrays.asList(predicate)));
         }
     }
 

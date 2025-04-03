@@ -10,10 +10,10 @@ import seedu.address.model.person.StaffId;
 /**
  * Tests that a {@code Staff}'s {@code StaffId} matches the staff ID given.
  */
-public class StaffIdPredicate implements Predicate<Person> {
+public class SameStaffIdPredicate implements Predicate<Person> {
     private final StaffId staffId;
 
-    public StaffIdPredicate(StaffId staffId) {
+    public SameStaffIdPredicate(StaffId staffId) {
         this.staffId = staffId;
     }
 
@@ -29,11 +29,11 @@ public class StaffIdPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof StaffIdPredicate)) {
+        if (!(other instanceof SameStaffIdPredicate)) {
             return false;
         }
 
-        StaffIdPredicate otherStaffIdPredicate = (StaffIdPredicate) other;
+        SameStaffIdPredicate otherStaffIdPredicate = (SameStaffIdPredicate) other;
         return staffId.equals(otherStaffIdPredicate.staffId);
     }
 

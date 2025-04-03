@@ -10,10 +10,10 @@ import seedu.address.model.person.VisitCount;
 /**
  * Tests that a {@code Customer}'s {@code VisitCount} matches the visit count given.
  */
-public class VisitCountPredicate implements Predicate<Person> {
+public class SameVisitCountPredicate implements Predicate<Person> {
     private final VisitCount visitCount;
 
-    public VisitCountPredicate(VisitCount visitCount) {
+    public SameVisitCountPredicate(VisitCount visitCount) {
         this.visitCount = visitCount;
     }
 
@@ -29,11 +29,11 @@ public class VisitCountPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VisitCountPredicate)) {
+        if (!(other instanceof SameVisitCountPredicate)) {
             return false;
         }
 
-        VisitCountPredicate otherVisitCountPredicate = (VisitCountPredicate) other;
+        SameVisitCountPredicate otherVisitCountPredicate = (SameVisitCountPredicate) other;
         return visitCount.equals(otherVisitCountPredicate.visitCount);
     }
 

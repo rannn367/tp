@@ -10,10 +10,10 @@ import seedu.address.model.person.Staff;
 /**
  * Tests that a {@code Staff}'s {@code HoursWorked} matches the hours worked given.
  */
-public class HoursWorkedPredicate implements Predicate<Person> {
+public class SameHoursWorkedPredicate implements Predicate<Person> {
     private final HoursWorked hoursWorked;
 
-    public HoursWorkedPredicate(HoursWorked hoursWorked) {
+    public SameHoursWorkedPredicate(HoursWorked hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
 
@@ -29,11 +29,11 @@ public class HoursWorkedPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof HoursWorkedPredicate)) {
+        if (!(other instanceof SameHoursWorkedPredicate)) {
             return false;
         }
 
-        HoursWorkedPredicate otherHoursWorkedPredicate = (HoursWorkedPredicate) other;
+        SameHoursWorkedPredicate otherHoursWorkedPredicate = (SameHoursWorkedPredicate) other;
         return hoursWorked.equals(otherHoursWorkedPredicate.hoursWorked);
     }
 

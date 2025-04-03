@@ -10,10 +10,10 @@ import seedu.address.model.person.Staff;
 /**
  * Tests that a {@code Staff}'s {@code PerformanceRating} matches the performance rating given.
  */
-public class PerformanceRatingPredicate implements Predicate<Person> {
+public class SamePerformanceRatingPredicate implements Predicate<Person> {
     private final PerformanceRating performanceRating;
 
-    public PerformanceRatingPredicate(PerformanceRating performanceRating) {
+    public SamePerformanceRatingPredicate(PerformanceRating performanceRating) {
         this.performanceRating = performanceRating;
     }
 
@@ -29,11 +29,11 @@ public class PerformanceRatingPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PerformanceRatingPredicate)) {
+        if (!(other instanceof SamePerformanceRatingPredicate)) {
             return false;
         }
 
-        PerformanceRatingPredicate otherPerformanceRatingPredicate = (PerformanceRatingPredicate) other;
+        SamePerformanceRatingPredicate otherPerformanceRatingPredicate = (SamePerformanceRatingPredicate) other;
         return performanceRating.equals(otherPerformanceRatingPredicate.performanceRating);
     }
 

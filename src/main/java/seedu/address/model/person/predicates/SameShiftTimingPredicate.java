@@ -10,10 +10,10 @@ import seedu.address.model.person.Staff;
 /**
  * Tests that a {@code Staff}'s {@code ShiftTiming} matches the shift timing given.
  */
-public class ShiftTimingPredicate implements Predicate<Person> {
+public class SameShiftTimingPredicate implements Predicate<Person> {
     private final ShiftTiming shiftTiming;
 
-    public ShiftTimingPredicate(ShiftTiming shiftTiming) {
+    public SameShiftTimingPredicate(ShiftTiming shiftTiming) {
         this.shiftTiming = shiftTiming;
     }
 
@@ -29,11 +29,11 @@ public class ShiftTimingPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ShiftTimingPredicate)) {
+        if (!(other instanceof SameShiftTimingPredicate)) {
             return false;
         }
 
-        ShiftTimingPredicate otherShiftTimingPredicate = (ShiftTimingPredicate) other;
+        SameShiftTimingPredicate otherShiftTimingPredicate = (SameShiftTimingPredicate) other;
         return shiftTiming.equals(otherShiftTimingPredicate.shiftTiming);
     }
 

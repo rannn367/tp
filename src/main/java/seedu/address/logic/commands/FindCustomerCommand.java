@@ -21,7 +21,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.CombinedPredicate;
+import seedu.address.model.person.predicates.SameFieldsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -51,27 +51,27 @@ public class FindCustomerCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Alice " + PREFIX_VISIT_COUNT + "5\n"
             + "OR: " + COMMAND_WORD + " " + PREFIX_ALL;
 
-    private final CombinedPredicate predicate;
+    private final SameFieldsPredicate predicate;
 
     /**
-     * Constructs a FindCustomerCommand with a CombinedPredicate.
+     * Constructs a FindCustomerCommand with a SameFieldsPredicate.
      *
-     * @param predicate The CombinedPredicate to use for filtering customers
+     * @param predicate The SameFieldsPredicate to use for filtering customers
      */
-    public FindCustomerCommand(CombinedPredicate predicate) {
+    public FindCustomerCommand(SameFieldsPredicate predicate) {
         this.predicate = predicate;
     }
 
     /**
-     * Constructs a FindCustomerCommand with a single Predicate, wrapping it in a CombinedPredicate.
+     * Constructs a FindCustomerCommand with a single Predicate, wrapping it in a SameFieldsPredicate.
      *
      * @param predicate The Predicate to use for filtering customers
      */
     public FindCustomerCommand(Predicate<Person> predicate) {
-        if (predicate instanceof CombinedPredicate) {
-            this.predicate = (CombinedPredicate) predicate;
+        if (predicate instanceof SameFieldsPredicate) {
+            this.predicate = (SameFieldsPredicate) predicate;
         } else {
-            this.predicate = new CombinedPredicate(new HashSet<>(Arrays.asList(predicate)));
+            this.predicate = new SameFieldsPredicate(new HashSet<>(Arrays.asList(predicate)));
         }
     }
 
@@ -100,10 +100,6 @@ public class FindCustomerCommand extends Command {
         }
 
         FindCustomerCommand otherFindCustomerCommand = (FindCustomerCommand) other;
-        
-        System.err.println("predicate: " + predicate);
-        System.err.println("other predicate: " + otherFindCustomerCommand.predicate);
-
         return predicate.equals(otherFindCustomerCommand.predicate);
     }
 

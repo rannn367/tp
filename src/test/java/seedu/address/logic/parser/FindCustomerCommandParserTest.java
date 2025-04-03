@@ -35,17 +35,17 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.RewardPoints;
 import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
-import seedu.address.model.person.predicates.AddressPredicate;
-import seedu.address.model.person.predicates.CombinedPredicate;
-import seedu.address.model.person.predicates.CustomerIdPredicate;
-import seedu.address.model.person.predicates.EmailPredicate;
-import seedu.address.model.person.predicates.FavouriteItemPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.PhonePredicate;
-import seedu.address.model.person.predicates.RewardPointsPredicate;
+import seedu.address.model.person.predicates.SameAddressPredicate;
+import seedu.address.model.person.predicates.SameCustomerIdPredicate;
+import seedu.address.model.person.predicates.SameEmailPredicate;
+import seedu.address.model.person.predicates.SameFavouriteItemPredicate;
+import seedu.address.model.person.predicates.SameFieldsPredicate;
+import seedu.address.model.person.predicates.SamePhonePredicate;
+import seedu.address.model.person.predicates.SameRewardPointsPredicate;
+import seedu.address.model.person.predicates.SameTotalSpentPredicate;
+import seedu.address.model.person.predicates.SameVisitCountPredicate;
 import seedu.address.model.person.predicates.TagsContainPredicate;
-import seedu.address.model.person.predicates.TotalSpentPredicate;
-import seedu.address.model.person.predicates.VisitCountPredicate;
 import seedu.address.model.tag.Tag;
 
 public class FindCustomerCommandParserTest {
@@ -63,17 +63,17 @@ public class FindCustomerCommandParserTest {
         // name search
         NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice"));
         Set<Predicate<Person>> namePredicateSet = new HashSet<>(Collections.singletonList(namePredicate));
-        CombinedPredicate namePredicateCombined = new CombinedPredicate(namePredicateSet);
+        SameFieldsPredicate namePredicateCombined = new SameFieldsPredicate(namePredicateSet);
         FindCustomerCommand expectedNameCommand = new FindCustomerCommand(namePredicateCombined);
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice", expectedNameCommand);
 
         // multiple prefixes
         NameContainsKeywordsPredicate namePredicate2 = new NameContainsKeywordsPredicate(Arrays.asList("Alice"));
-        VisitCountPredicate visitCountPredicate = new VisitCountPredicate(new VisitCount("5"));
+        SameVisitCountPredicate visitCountPredicate = new SameVisitCountPredicate(new VisitCount("5"));
         Set<Predicate<Person>> multiPredicateSet = new HashSet<>();
         multiPredicateSet.add(namePredicate2);
         multiPredicateSet.add(visitCountPredicate);
-        CombinedPredicate multiPredicateCombined = new CombinedPredicate(multiPredicateSet);
+        SameFieldsPredicate multiPredicateCombined = new SameFieldsPredicate(multiPredicateSet);
 
         String userInput = " " + PREFIX_NAME + "Alice " + PREFIX_VISIT_COUNT + "5";
         assertParseSuccess(parser, userInput, new FindCustomerCommand(multiPredicateCombined));
@@ -84,20 +84,20 @@ public class FindCustomerCommandParserTest {
         // all customer attributes
         Set<Predicate<Person>> allPredicateSet = new HashSet<>();
         allPredicateSet.add(new NameContainsKeywordsPredicate(Arrays.asList("John")));
-        allPredicateSet.add(new PhonePredicate(new Phone("98765432")));
-        allPredicateSet.add(new EmailPredicate(new Email("john@example.com")));
-        allPredicateSet.add(new AddressPredicate(new Address("Clementi")));
-        allPredicateSet.add(new CustomerIdPredicate(new CustomerId("C001")));
-        allPredicateSet.add(new RewardPointsPredicate(new RewardPoints("150")));
-        allPredicateSet.add(new VisitCountPredicate(new VisitCount("8")));
-        allPredicateSet.add(new FavouriteItemPredicate(new FavouriteItem("Cappuccino")));
-        allPredicateSet.add(new TotalSpentPredicate(new TotalSpent("120")));
+        allPredicateSet.add(new SamePhonePredicate(new Phone("98765432")));
+        allPredicateSet.add(new SameEmailPredicate(new Email("john@example.com")));
+        allPredicateSet.add(new SameAddressPredicate(new Address("Clementi")));
+        allPredicateSet.add(new SameCustomerIdPredicate(new CustomerId("C001")));
+        allPredicateSet.add(new SameRewardPointsPredicate(new RewardPoints("150")));
+        allPredicateSet.add(new SameVisitCountPredicate(new VisitCount("8")));
+        allPredicateSet.add(new SameFavouriteItemPredicate(new FavouriteItem("Cappuccino")));
+        allPredicateSet.add(new SameTotalSpentPredicate(new TotalSpent("120")));
 
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("regular"));
         allPredicateSet.add(new TagsContainPredicate(tagSet));
 
-        CombinedPredicate allPredicatesCombined = new CombinedPredicate(allPredicateSet);
+        SameFieldsPredicate allPredicatesCombined = new SameFieldsPredicate(allPredicateSet);
 
         String complexInput = " " + PREFIX_NAME + "John "
                 + PREFIX_PHONE + "98765432 "

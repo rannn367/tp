@@ -10,10 +10,10 @@ import seedu.address.model.person.RewardPoints;
 /**
  * Tests that a {@code Customer}'s {@code RewardPoints} matches the reward points given.
  */
-public class RewardPointsPredicate implements Predicate<Person> {
+public class SameRewardPointsPredicate implements Predicate<Person> {
     private final RewardPoints rewardPoints;
 
-    public RewardPointsPredicate(RewardPoints rewardPoints) {
+    public SameRewardPointsPredicate(RewardPoints rewardPoints) {
         this.rewardPoints = rewardPoints;
     }
 
@@ -29,11 +29,11 @@ public class RewardPointsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RewardPointsPredicate)) {
+        if (!(other instanceof SameRewardPointsPredicate)) {
             return false;
         }
 
-        RewardPointsPredicate otherRewardPointsPredicate = (RewardPointsPredicate) other;
+        SameRewardPointsPredicate otherRewardPointsPredicate = (SameRewardPointsPredicate) other;
         return rewardPoints.equals(otherRewardPointsPredicate.rewardPoints);
     }
 

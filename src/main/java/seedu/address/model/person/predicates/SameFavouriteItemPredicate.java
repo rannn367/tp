@@ -10,10 +10,10 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Customer}'s {@code FavouriteItem} matches the favourite item given.
  */
-public class FavouriteItemPredicate implements Predicate<Person> {
+public class SameFavouriteItemPredicate implements Predicate<Person> {
     private final FavouriteItem favouriteItem;
 
-    public FavouriteItemPredicate(FavouriteItem favouriteItem) {
+    public SameFavouriteItemPredicate(FavouriteItem favouriteItem) {
         this.favouriteItem = favouriteItem;
     }
 
@@ -29,11 +29,11 @@ public class FavouriteItemPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FavouriteItemPredicate)) {
+        if (!(other instanceof SameFavouriteItemPredicate)) {
             return false;
         }
 
-        FavouriteItemPredicate otherFavouriteItemPredicate = (FavouriteItemPredicate) other;
+        SameFavouriteItemPredicate otherFavouriteItemPredicate = (SameFavouriteItemPredicate) other;
         return favouriteItem.equals(otherFavouriteItemPredicate.favouriteItem);
     }
 

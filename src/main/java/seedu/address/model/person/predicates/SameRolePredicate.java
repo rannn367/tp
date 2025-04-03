@@ -10,10 +10,10 @@ import seedu.address.model.person.Staff;
 /**
  * Tests that a {@code Staff}'s {@code Role} matches the role given.
  */
-public class RolePredicate implements Predicate<Person> {
+public class SameRolePredicate implements Predicate<Person> {
     private final Role role;
 
-    public RolePredicate(Role role) {
+    public SameRolePredicate(Role role) {
         this.role = role;
     }
 
@@ -29,11 +29,11 @@ public class RolePredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RolePredicate)) {
+        if (!(other instanceof SameRolePredicate)) {
             return false;
         }
 
-        RolePredicate otherRolePredicate = (RolePredicate) other;
+        SameRolePredicate otherRolePredicate = (SameRolePredicate) other;
         return role.equals(otherRolePredicate.role);
     }
 

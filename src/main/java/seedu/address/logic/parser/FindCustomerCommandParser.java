@@ -33,17 +33,17 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.RewardPoints;
 import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
-import seedu.address.model.person.predicates.AddressPredicate;
-import seedu.address.model.person.predicates.CombinedPredicate;
-import seedu.address.model.person.predicates.CustomerIdPredicate;
-import seedu.address.model.person.predicates.EmailPredicate;
-import seedu.address.model.person.predicates.FavouriteItemPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
-import seedu.address.model.person.predicates.PhonePredicate;
-import seedu.address.model.person.predicates.RewardPointsPredicate;
+import seedu.address.model.person.predicates.SameAddressPredicate;
+import seedu.address.model.person.predicates.SameCustomerIdPredicate;
+import seedu.address.model.person.predicates.SameEmailPredicate;
+import seedu.address.model.person.predicates.SameFavouriteItemPredicate;
+import seedu.address.model.person.predicates.SameFieldsPredicate;
+import seedu.address.model.person.predicates.SamePhonePredicate;
+import seedu.address.model.person.predicates.SameRewardPointsPredicate;
+import seedu.address.model.person.predicates.SameTotalSpentPredicate;
+import seedu.address.model.person.predicates.SameVisitCountPredicate;
 import seedu.address.model.person.predicates.TagsContainPredicate;
-import seedu.address.model.person.predicates.TotalSpentPredicate;
-import seedu.address.model.person.predicates.VisitCountPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -91,49 +91,49 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             String phoneValue = argMultimap.getValue(PREFIX_PHONE).get();
             Phone searchPhone = ParserUtil.parsePhone(phoneValue);
-            PhonePredicate phonePredicate = new PhonePredicate(searchPhone);
+            SamePhonePredicate phonePredicate = new SamePhonePredicate(searchPhone);
             predicateSet.add(phonePredicate);
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             String emailValue = argMultimap.getValue(PREFIX_EMAIL).get();
             Email searchEmail = ParserUtil.parseEmail(emailValue);
-            EmailPredicate emailPredicate = new EmailPredicate(searchEmail);
+            SameEmailPredicate emailPredicate = new SameEmailPredicate(searchEmail);
             predicateSet.add(emailPredicate);
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             String addressValue = argMultimap.getValue(PREFIX_ADDRESS).get();
             Address searchAddress = ParserUtil.parseAddress(addressValue);
-            AddressPredicate addressPredicate = new AddressPredicate(searchAddress);
+            SameAddressPredicate addressPredicate = new SameAddressPredicate(searchAddress);
             predicateSet.add(addressPredicate);
         }
         if (argMultimap.getValue(PREFIX_CUSTOMER_ID).isPresent()) {
             String customerIdValue = argMultimap.getValue(PREFIX_CUSTOMER_ID).get();
             CustomerId searchCustomerId = ParserUtil.parseCustomerId(customerIdValue);
-            CustomerIdPredicate customerIdPredicate = new CustomerIdPredicate(searchCustomerId);
+            SameCustomerIdPredicate customerIdPredicate = new SameCustomerIdPredicate(searchCustomerId);
             predicateSet.add(customerIdPredicate);
         }
         if (argMultimap.getValue(PREFIX_REWARD_POINTS).isPresent()) {
             String rewardPointsValue = argMultimap.getValue(PREFIX_REWARD_POINTS).get();
             RewardPoints searchRewardPoints = ParserUtil.parseRewardPoints(rewardPointsValue);
-            RewardPointsPredicate rewardPointsPredicate = new RewardPointsPredicate(searchRewardPoints);
+            SameRewardPointsPredicate rewardPointsPredicate = new SameRewardPointsPredicate(searchRewardPoints);
             predicateSet.add(rewardPointsPredicate);
         }
         if (argMultimap.getValue(PREFIX_VISIT_COUNT).isPresent()) {
             String visitCountValue = argMultimap.getValue(PREFIX_VISIT_COUNT).get();
             VisitCount searchVisitCount = ParserUtil.parseVisitCount(visitCountValue);
-            VisitCountPredicate visitCountPredicate = new VisitCountPredicate(searchVisitCount);
+            SameVisitCountPredicate visitCountPredicate = new SameVisitCountPredicate(searchVisitCount);
             predicateSet.add(visitCountPredicate);
         }
         if (argMultimap.getValue(PREFIX_FAVOURITE_ITEM).isPresent()) {
             String favouriteItemValue = argMultimap.getValue(PREFIX_FAVOURITE_ITEM).get();
             FavouriteItem searchFavouriteItem = ParserUtil.parseFavouriteItem(favouriteItemValue);
-            FavouriteItemPredicate favouriteItemPredicate = new FavouriteItemPredicate(searchFavouriteItem);
+            SameFavouriteItemPredicate favouriteItemPredicate = new SameFavouriteItemPredicate(searchFavouriteItem);
             predicateSet.add(favouriteItemPredicate);
         }
         if (argMultimap.getValue(PREFIX_TOTAL_SPENT).isPresent()) {
             String totalSpentValue = argMultimap.getValue(PREFIX_TOTAL_SPENT).get();
             TotalSpent searchTotalSpent = ParserUtil.parseTotalSpent(totalSpentValue);
-            TotalSpentPredicate totalSpentPredicate = new TotalSpentPredicate(searchTotalSpent);
+            SameTotalSpentPredicate totalSpentPredicate = new SameTotalSpentPredicate(searchTotalSpent);
             predicateSet.add(totalSpentPredicate);
         }
         if (argMultimap.getAllValues(PREFIX_TAG).size() > 0) {
@@ -152,9 +152,9 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_USAGE));
         }
 
-        // Use the CombinedPredicate class to combine predicates in an order-insensitive way
-        CombinedPredicate combinedPredicate = new CombinedPredicate(predicateSet);
+        // Use the SameFieldsPredicate class to combine predicates in an order-insensitive way
+        SameFieldsPredicate sameFieldsPredicate = new SameFieldsPredicate(predicateSet);
 
-        return new FindCustomerCommand(combinedPredicate);
+        return new FindCustomerCommand(sameFieldsPredicate);
     }
 }

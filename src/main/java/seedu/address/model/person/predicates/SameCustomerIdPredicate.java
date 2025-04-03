@@ -10,10 +10,10 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Customer}'s {@code CustomerId} matches the customer ID given.
  */
-public class CustomerIdPredicate implements Predicate<Person> {
+public class SameCustomerIdPredicate implements Predicate<Person> {
     private final CustomerId customerId;
 
-    public CustomerIdPredicate(CustomerId customerId) {
+    public SameCustomerIdPredicate(CustomerId customerId) {
         this.customerId = customerId;
     }
 
@@ -29,11 +29,11 @@ public class CustomerIdPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CustomerIdPredicate)) {
+        if (!(other instanceof SameCustomerIdPredicate)) {
             return false;
         }
 
-        CustomerIdPredicate otherCustomerIdPredicate = (CustomerIdPredicate) other;
+        SameCustomerIdPredicate otherCustomerIdPredicate = (SameCustomerIdPredicate) other;
         return customerId.equals(otherCustomerIdPredicate.customerId);
     }
 

@@ -10,10 +10,10 @@ import seedu.address.model.person.TotalSpent;
 /**
  * Tests that a {@code Customer}'s {@code TotalSpent} matches the total spent given.
  */
-public class TotalSpentPredicate implements Predicate<Person> {
+public class SameTotalSpentPredicate implements Predicate<Person> {
     private final TotalSpent totalSpent;
 
-    public TotalSpentPredicate(TotalSpent totalSpent) {
+    public SameTotalSpentPredicate(TotalSpent totalSpent) {
         this.totalSpent = totalSpent;
     }
 
@@ -29,11 +29,11 @@ public class TotalSpentPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TotalSpentPredicate)) {
+        if (!(other instanceof SameTotalSpentPredicate)) {
             return false;
         }
 
-        TotalSpentPredicate otherTotalSpentPredicate = (TotalSpentPredicate) other;
+        SameTotalSpentPredicate otherTotalSpentPredicate = (SameTotalSpentPredicate) other;
         return totalSpent.equals(otherTotalSpentPredicate.totalSpent);
     }
 

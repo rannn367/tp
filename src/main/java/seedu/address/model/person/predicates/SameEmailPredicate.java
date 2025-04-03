@@ -9,10 +9,10 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code Email} matches the email given.
  */
-public class EmailPredicate implements Predicate<Person> {
+public class SameEmailPredicate implements Predicate<Person> {
     private final Email email;
 
-    public EmailPredicate(Email email) {
+    public SameEmailPredicate(Email email) {
         this.email = email;
     }
 
@@ -28,11 +28,11 @@ public class EmailPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EmailPredicate)) {
+        if (!(other instanceof SameEmailPredicate)) {
             return false;
         }
 
-        EmailPredicate otherEmailPredicate = (EmailPredicate) other;
+        SameEmailPredicate otherEmailPredicate = (SameEmailPredicate) other;
         return email.equals(otherEmailPredicate.email);
     }
 

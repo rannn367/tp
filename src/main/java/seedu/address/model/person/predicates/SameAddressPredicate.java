@@ -9,10 +9,10 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code Address} matches the address given.
  */
-public class AddressPredicate implements Predicate<Person> {
+public class SameAddressPredicate implements Predicate<Person> {
     private final Address address;
 
-    public AddressPredicate(Address address) {
+    public SameAddressPredicate(Address address) {
         this.address = address;
     }
 
@@ -28,11 +28,11 @@ public class AddressPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddressPredicate)) {
+        if (!(other instanceof SameAddressPredicate)) {
             return false;
         }
 
-        AddressPredicate otherAddressPredicate = (AddressPredicate) other;
+        SameAddressPredicate otherAddressPredicate = (SameAddressPredicate) other;
         return address.equals(otherAddressPredicate.address);
     }
 

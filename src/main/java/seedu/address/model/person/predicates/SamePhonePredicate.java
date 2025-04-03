@@ -9,10 +9,10 @@ import seedu.address.model.person.Phone;
 /**
  * Tests that a {@code Person}'s {@code Phone} matches the phone number given.
  */
-public class PhonePredicate implements Predicate<Person> {
+public class SamePhonePredicate implements Predicate<Person> {
     private final Phone phone;
 
-    public PhonePredicate(Phone phone) {
+    public SamePhonePredicate(Phone phone) {
         this.phone = phone;
     }
 
@@ -28,11 +28,11 @@ public class PhonePredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PhonePredicate)) {
+        if (!(other instanceof SamePhonePredicate)) {
             return false;
         }
 
-        PhonePredicate otherPhonePredicate = (PhonePredicate) other;
+        SamePhonePredicate otherPhonePredicate = (SamePhonePredicate) other;
         return phone.equals(otherPhonePredicate.phone);
     }
 
