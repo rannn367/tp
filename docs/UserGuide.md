@@ -76,8 +76,9 @@ Managing café operations efficiently is crucial for success—that's why we cre
 
   * [Welcome to CaféConnect!](#welcome-to-cafeconnect)
   * [Why would you enjoy CaféConnect?](#why-would-you-enjoy-cafeconnect)
-  * [How to Use our User Guide](#how-to-use-our-user-guide)
+  * [Getting Started with the User Guide](#getting-started-with-the-user-guide)
   * [Quick start](#quick-start)
+  * [Command Format](#command-format)
   * [Features](#features)
     * [Adding a customer: `customeradd` or `ca`](#adding-a-customer-customeradd-or-ca)
     * [Quickly adding a customer: `quickcustomeradd` or `qca`](#quick-adding-a-customer-quickcustomeradd-or-qca)
@@ -102,15 +103,16 @@ Managing café operations efficiently is crucial for success—that's why we cre
 <!-- TOC -->
 
 --------------------------------------------------------------------------------------------------------------------
-## How to Use our User Guide
+
+## Getting Started with the User Guide
 
 First time using **CaféConnect**? Don't worry! We've got you covered! This guide will help maximize your usage of **CaféConnect**.
 
-* To get started, refer to the **Command Format** section below, which will walk you through the basics of entering commands.
+* To get started, refer to the [**Command Format**](#command-format) section below, which will walk you through the basics of entering commands.
 * Need a quick reference of the commands available? Check out the [**Command Summary**](#command-summary) at the end of this guide.
 * Have a specific question? Browse through the relevant sections for detailed information.
 
-Navigating around this User Guide:
+**Getting Around This Guide**
 
 * *Note boxes* provide important information that you should take note of.
 
@@ -186,62 +188,74 @@ Navigating around this User Guide:
 
    * `exit` : Exits the app.
 
-7. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command. Be sure to check the [Command Format](#command-format) section to understand how to properly enter commands in CaféConnect.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+
+## Understanding Command Syntax
+
+### Basic Command Rules
+
+* All commands in CaféConnect are **case-insensitive**.  
+  e.g. `customeradd`, `CUSTOMERADD`, and `CustomerAdd` will all perform the same action.
+
+* Parameters are indicated in `UPPER_CASE` and must be replaced with actual values.<br>
+  e.g. in `customeradd cid/CUSTOMER_ID`, replace `CUSTOMER_ID` with a value like `C001`.
+
+* Optional parameters are enclosed in square brackets `[]`.<br>
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/regular` or simply `n/John Doe`.
+
+* Parameters marked with `…` can be repeated multiple times or omitted.<br>
+  e.g. `[t/TAG]…` can be used as `t/vip`, `t/vip t/regular`, or left empty.
+
+* Commands without parameters ignore any additional text.<br>
+  e.g. `help 123` will be treated as `help`.
+
+### Parameter Order Rules
+
+* For standard commands, parameters can be entered in any order.<br>
+  e.g. both `n/NAME p/PHONE` and `p/PHONE n/NAME` are valid.
+
+* Quick commands require parameters in a fixed sequence:
+  * Customer quick add: `quickcustomeradd C0102:Charlie:97285712` (ID:Name:Phone)
+  * Staff quick add: `quickstaffadd S0102:Ali:98291029` (ID:Name:Phone)
+  * Quick purchase: `quickpurchase 1:Espresso` (Index:Drink)
+
+### Available Command Shortcuts
+
+* CaféConnect provides convenient shortcuts for all commands:
+  * Customer Management:
+    - `ca` for `customeradd`
+    - `qca` for `quickcustomeradd`
+    - `cd` for `customerdelete`
+    - `ce` for `customeredit`
+    - `cf` for `customerfind`
+  * Staff Management:
+    - `sa` for `staffadd`
+    - `qsa` for `quickstaffadd`
+    - `sd` for `staffdelete`
+    - `se` for `staffedit`
+    - `sf` for `stafffind`
+  * Drink Management:
+    - `da` for `drinkadd`
+    - `dd` for `drinkdelete`
+  * Purchase Operations:
+    - `p` for `purchase`
+    - `qp` for `quickpurchase`
 
 <box type="info" seamless>
 
-**Notes about the command format in CaféConnect:**<br>
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</box>
 
-* Commands in CaféConnect are **case-insensitive**.  
-  e.g. `customeradd`, `CUSTOMERADD`, and `CustomerAdd` all execute the same command.
+## Features
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `customeradd cid/CUSTOMER_ID`, `CUSTOMER_ID` is a parameter which can be used as `customeradd cid/C001`.
-
-* Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/regular` or as `n/John Doe`.
-
-* Items with `…` after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/vip`, `t/vip t/regular` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
-
-* Shortcut commands require parameters in the exact order shown.<br>
-  e.g. `ca C0102:Charlie:97285712` must have Customer ID, then Name, then Phone in that order.
-
-* Customer IDs must start with 'C' followed by digits (e.g., C1001), and Staff IDs must start with 'S' followed by digits (e.g., S1001).
+Before using any commands, make sure you understand the [Command Format](#command-format) rules that apply to all commands in CaféConnect.
 
 * When using staff-specific commands (like `staffadd`, `staffdelete`, etc.), the interface will automatically switch to the Staff tab.
 
 * Similarly, when using customer-specific commands (like `customeradd`, `customerdelete`, etc.), the interface will automatically switch to the Customers tab.
-
-* All commands have shorter command aliases that can be used instead of the full command word:
-  * `ca` for `customeradd`
-  * `cd` for `customerdelete`
-  * `ce` for `customeredit`
-  * `cf` for `customerfind`
-  * `sa` for `staffadd`
-  * `sd` for `staffdelete`
-  * `se` for `staffedit`
-  * `sf` for `stafffind`
-  * `da` for `drinkadd`
-  * `dd` for `drinkdelete`
-  * `p` for `purchase`
-
-* Some commands also have special shortcut formats (noted in their respective sections).
-
-* Extraneous parameters for commands that do not take parameters (such as `help`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-
-
-</box>
 
 ### Viewing help : `help`
 
@@ -847,7 +861,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 ### Getting errors when using the commands
 
-- Check that you have typed the correct command format.
+- Check that you have typed the correct command format as explained in the [Command Format](#command-format) section.
 - Verify you have included all necessary parameters.
 - Ensure you have used valid inputs within character limits:
   - NAME must not exceed 50 characters
@@ -860,7 +874,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 ### "Unknown command" error appears
 
 - Check for typos in the command name (e.g., `customeradd` vs `customradd`)
-- Verify you're using the correct command format
+- Verify you're using the correct command format as specified in the [Command Format](#command-format) section
 - Remember commands are case-insensitive, but parameter prefixes must be exact (e.g., `n/` for name)
 
 ### Interface not showing all information
@@ -914,8 +928,6 @@ Command | Format | Examples
 **List All Staff (Alias)** | `sf all/true` | -
 **Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` | `drinkadd n/Iced Latte p/4.50 c/Coffee`
 **Add Drink (Alias)** | `da n/NAME p/PRICE c/CATEGORY` | `da n/Iced Latte p/4.50 c/Coffee`
-**Delete Drink** | `drinkdelete INDEX` | `drinkdelete 2`
-**Delete Drink (Alias)** | `dd INDEX` | `dd 2`
 **Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` | `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
 **Purchase (Alias)** | `p INDEX n/DRINK_NAME [redeem/true]` | `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
 **Quick Purchase** | `quickpurchase INDEX:DRINK_NAME[:r]` | `quickpurchase 1:Espresso` or `quickpurchase 2:Cappuccino:r`
