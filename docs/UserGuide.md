@@ -110,6 +110,9 @@ Note: The application comes with sample data to help you get started.
 
 **Notes about the command format in CaféConnect:**<br>
 
+* Commands in CaféConnect are **case-insensitive**.  
+  e.g. `customeradd`, `CUSTOMERADD`, and `CustomerAdd` all execute the same command.
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `customeradd cid/CUSTOMER_ID`, `CUSTOMER_ID` is a parameter which can be used as `customeradd cid/C001`.
 
@@ -122,15 +125,36 @@ Note: The application comes with sample data to help you get started.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
-* Shortcut commands (`c` and `s`) require parameters in the exact order shown.<br>
+* Shortcut commands (`c`, `s` and `p`) require parameters in the exact order shown.<br>
   e.g. `c C0102:Charlie:97285712` must have Customer ID, then Name, then Phone in that order.
 
 * Customer IDs must start with 'C' followed by digits (e.g., C1001), and Staff IDs must start with 'S' followed by digits (e.g., S1001).
+
+* When using staff-specific commands (like `staffadd`, `staffdelete`, etc.), the interface will automatically switch to the Staff tab.
+
+* Similarly, when using customer-specific commands (like `customeradd`, `customerdelete`, etc.), the interface will automatically switch to the Customers tab.
+
+* All commands have shorter command aliases that can be used instead of the full command word:
+  * `c` for `customeradd`
+  * `cd` for `customerdelete`
+  * `ce` for `customeredit`
+  * `cf` for `customerfind`
+  * `s` for `staffadd`
+  * `sd` for `staffdelete`
+  * `se` for `staffedit`
+  * `sf` for `stafffind`
+  * `da` for `drinkadd`
+  * `dd` for `drinkdelete`
+  * `p` for `purchase`
+
+* Some commands also have special shortcut formats (noted in their respective sections).
 
 * Extraneous parameters for commands that do not take parameters (such as `help`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+
 </box>
 
 ### Viewing help : `help`
@@ -141,20 +165,20 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-## Adding a customer: `customeradd` or `c`
+### Adding a customer: `customeradd` or `c`
 
 Adds a customer to the customer list with required details such as customer ID, name, phone, email, address, reward points, visit count, favourite item, and total spent.
 
 Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
 
-* `CUSTOMER_ID` should start with a 'C' (case insensitive) followed by digits, e.g., C1001, c1001
-* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
-* `PHONE` should only contain digits, and it should be at least 3 digits long
+* `CUSTOMER_ID` should start with a 'C' (case insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
+* `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 * `EMAIL` must be a valid email address.
-* `ADDRESS` can take any value, and it should not be blank
+* `ADDRESS` can take any value, and it should not be blank and must not be longer than 100 characters
 * `REWARD_POINTS` should only contain digits
 * `VISIT_COUNT` should only contain digits
-* `FAVOURITE_ITEM` can take any value, and it should not be blank
+* `FAVOURITE_ITEM` can take any value, and it should not be blank and must not be longer than 30 characters
 * `TOTAL_SPENT` should only contain digits, representing the amount in dollars
 
 Examples:
@@ -178,15 +202,15 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-## Adding a customer: `customeradd` or `c` (shortcut)
+#### Adding a customer: `customeradd` or `c` (shortcut)
 
 An extension of the customeradd command above, useful when there is a need to input customer information quickly into the system.
 
 Format: `c <CUSTOMER_ID>:<NAME>:<PHONE>`
 
-* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001
-* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
-* `PHONE` should only contain digits, and it should be at least 3 digits long
+* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001, and must not be longer than 10 characters
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
+* `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
 * `c C0102:Charlie:97285712`
@@ -205,7 +229,7 @@ These are the before and after images of the first example
   </div>
 </div>
 
-## Deleting a customer: `customerdelete`
+### Deleting a customer: `customerdelete` or `cd`
 
 Deletes the specified customer from CaféConnect.
 
@@ -233,7 +257,7 @@ These are the before and after images of the first example
   </div>
 </div>
 
-## Editing customer details: `customeredit`
+### Editing customer details: `customeredit` or `ce`
 
 Edits the details of an existing customer in the customer list.
 
@@ -247,6 +271,7 @@ Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/AD
 * Existing values will be overwritten by the input values.
 * When editing tags, the existing tags of the customer will be removed i.e., adding of tags is not cumulative.
 * You can remove all the customer's tags by typing `t/` without specifying any tags after it.
+* Character length restrictions apply as in customeradd command: NAME (max 50 chars), CUSTOMER_ID (max 10 chars), ADDRESS (max 100 chars), PHONE (3-20 chars), FAVOURITE_ITEM (max 30 chars)
 
 Examples:
 * `customeredit 1 p/99994567 e/newemail@example.com` edits the phone number and email address of the 1st customer to be `99994567` and `newemail@example.com` respectively.
@@ -269,19 +294,22 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-## Finding a customer: `customerfind`
+### Finding a customer: `customerfind` or `cf`
 
 Finds and lists all customers in the customer list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
 
 Format: `customerfind KEYWORD [MORE_KEYWORDS]...`
+Format: `customerfind all/true` (to list all customers)
 
 * The search will return all customers whose names contain at least one of the given keywords.
 * The keywords do not need to match the full name exactly; partial matches within the name are included.
 * The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* Use `customerfind all/true` or `cf all/true` to display the complete list of all customers in CaféConnect.
 
 Examples:
-* `customerfind Alice` finds and lists all customers whose names contain `Alice`.
-* `customerfind John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
+* `customerfind Alice` or `cf Alice` finds and lists all customers whose names contain `Alice`.
+* `customerfind John Doe` or `cf John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
+* `customerfind all/true` or `cf all/true` lists all customers in CaféConnect.
 
 These are the before and after images of the second example
 
@@ -297,19 +325,21 @@ These are the before and after images of the second example
 </div>
 
 
-## Adding a staff: `staffadd` or `s`
+
+
+### Adding a staff: `staffadd` or `s`
 
 Adds a staff to the staff list with required details such as staff ID, name, phone, email, address, role, shift, hours worked, and performance rating.
 
 Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
 
-* `STAFF_ID` should start with a 'S' (case insensitive) followed by digits, e.g., S1001, s1001
-* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
-* `PHONE` should only contain digits, and it should be at least 3 digits long
+* `STAFF_ID` should start with a 'S' (case insensitive) followed by digits, e.g., S1001, s1001, and must not be longer than 10 characters
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
+* `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 * `EMAIL` must be a valid email address
-* `ADDRESS` can take any value, and it should not be blank
-* `ROLE` can take any value, and it should not be blank
-* `SHIFT_TIMING` can take any value, and it should not be blank
+* `ADDRESS` can take any value, and it should not be blank and must not be longer than 100 characters
+* `ROLE` can take any value, and it should not be blank and must not be longer than 50 characters
+* `SHIFT_TIMING` can take any value, and it should not be blank and must not be longer than 50 characters
 * `HOURS_WORKED` should only contain digits
 * `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive)
 * `TAG` can take any value, optional field
@@ -334,15 +364,15 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-## Adding a staff: `staffadd` or `s` (shortcut)
+#### Adding a staff: `staffadd` or `s` (shortcut)
 
 An extension of the staffadd command above, useful when there is a need to input staff information quickly into the system.
 
 Format: `s <STAFF_ID>:<NAME>:<PHONE>`
 
-* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001
-* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank
-* `PHONE` should only contain digits, and it should be at least 3 digits long
+* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001, and must not be longer than 10 characters
+* `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
+* `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
 * `s S0102:Ali:98291029`
@@ -361,7 +391,7 @@ These are the before and after images of the first example
   </div>
 </div>
 
-## Deleting a staff: `staffdelete`
+### Deleting a staff: `staffdelete` or `sd`
 
 Deletes the specified staff from the address book.
 
@@ -389,7 +419,7 @@ These are the before and after images of the first example
   </div>
 </div>
 
-## Editing staff details: `staffedit`
+### Editing staff details: `staffedit` or `se`
 
 Edits the details of an existing staff in the staff list.
 
@@ -403,6 +433,7 @@ Format: `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 * Existing values will be overwritten by the input values.
 * When editing tags, the existing tags of the staff will be removed i.e., adding of tags is not cumulative.
 * You can remove all the staff's tags by typing `t/` without specifying any tags after it.
+* Character length restrictions apply as in staffadd command: NAME (max 50 chars), STAFF_ID (max 10 chars), ADDRESS (max 100 chars), PHONE (3-20 chars), ROLE (max 50 chars), SHIFT_TIMING (max 50 chars)
 
 Examples:
 * `staffedit 1 p/99994567 e/newemail@example.com` edits the phone number and email address of the 1st staff to be `99994567` and `newemail@example.com` respectively.
@@ -424,19 +455,22 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-## Finding a staff: `stafffind`
+### Finding a staff: `stafffind` or `sf`
 
 Finds and lists all staffs in the staff list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
 
 Format: `stafffind KEYWORD [MORE_KEYWORDS]...`
+Format: `stafffind all/true` (to list all staff)
 
 * The search will return all staffs whose names contain at least one of the given keywords.
 * The keywords do not need to match the full name exactly; partial matches within the name are included.
 * The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* Use `stafffind all/true` or `sf all/true` to display the complete list of all staff in CaféConnect.
 
 Examples:
-* `stafffind Alice` finds and lists all staffs whose names contain `Alice`.
-* `stafffind John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
+* `stafffind Alice` or `sf Alice` finds and lists all staffs whose names contain `Alice`.
+* `stafffind John Doe` or `sf John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
+* `stafffind all/true` or `sf all/true` lists all staff in CaféConnect.
 
 These are the before and after images of the second example
 
@@ -451,7 +485,9 @@ These are the before and after images of the second example
   </div>
 </div>
 
-## Adding a drink: `drinkadd`
+
+
+### Adding a drink: `drinkadd` or `da`
 
 Adds a new drink to the drink catalog with details such as name, price, and category.
 
@@ -481,7 +517,7 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-## Deleting a drink: `drinkdelete`
+### Deleting a drink: `drinkdelete` or `dd`
 
 Deletes the specified customer from CaféConnect.
 
@@ -510,7 +546,7 @@ These are the before and after images of the first example
 </div>
 
 
-## Recording a purchase: `purchase`
+### Recording a purchase: `purchase`
 
 Records a purchase for a customer, updating their total spent, visit count, and reward points. Optionally, allows users to redeem reward points to pay for the purchase.
 
@@ -533,7 +569,22 @@ Examples:
 * `purchase 1 n/Espresso` records a regular purchase of an Espresso for the 1st customer, updating their total spent and adding reward points.
 * `purchase 2 n/Cappuccino redeem/true` redeems a Cappuccino for the 3rd customer using their reward points.
 
-### Standard Purchase
+#### Recording a purchase: `purchase` or `p` (shortcut)
+
+An extension of the purchase command above, useful when there is a need to quickly record purchases.
+
+Format: `p INDEX:DRINK_NAME[:r]`
+
+* Records a purchase for the customer at the specified `INDEX`.
+* `DRINK_NAME` must match a drink that exists in the drink catalog.
+* Add `:r` at the end to indicate this is a redemption purchase using reward points.
+* Without `:r`, it will be processed as a standard purchase.
+
+Examples:
+* `p 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
+* `p 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
+
+##### Standard Purchase
 
 These are the before and after images of a standard purchase using the first example
 
@@ -548,7 +599,7 @@ These are the before and after images of a standard purchase using the first exa
   </div>
 </div>
 
-### Redemption Purchase
+##### Redemption Purchase
 
 These are the before and after images of a redemption purchase using the second example
 
