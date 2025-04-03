@@ -15,7 +15,7 @@ public class StaffId {
     /*
      * The Staff ID must start with an uppercase 'S' followed by at least one digit.
      */
-    public static final String VALIDATION_REGEX = "(?i)s\\d+";
+    public static final String VALIDATION_REGEX = "(?i)s\\d{1,9}";
 
     public final String value;
 
