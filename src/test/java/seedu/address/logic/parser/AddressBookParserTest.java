@@ -209,4 +209,11 @@ public class AddressBookParserTest {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, e.getMessage());
         }
     }
+
+    @Test
+    public void parseCommand_multipleSpaces_throwsParseException() {
+        assertThrows(ParseException.class, "Invalid command format: Multiple consecutive spaces are not allowed.", () ->
+                parser.parseCommand("customeradd   cid/C015   n/John   p/12345678"));
+    }
+
 }

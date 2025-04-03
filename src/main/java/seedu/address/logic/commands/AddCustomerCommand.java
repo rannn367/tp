@@ -29,7 +29,8 @@ public class AddCustomerCommand extends Command {
     public static final String COMMAND_WORD = "customeradd";
     public static final String COMMAND_WORD_SHORTCUT = "c";
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER =
+            "Duplicated Customer ID found. This customer already exists in the address book.";
 
     private static final Logger logger = Logger.getLogger(AddCustomerCommand.class.getName());
 
