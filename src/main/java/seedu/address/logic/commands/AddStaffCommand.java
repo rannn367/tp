@@ -52,7 +52,9 @@ public class AddStaffCommand extends Command {
             + PREFIX_HOURS_WORKED + "40 "
             + PREFIX_PERFORMANCE_RATING + "4.5 "
             + PREFIX_TAG + "fullTime "
-            + PREFIX_TAG + "experienced";
+            + PREFIX_TAG + "experienced\n"
+            + "Shortcut: " + COMMAND_WORD_SHORTCUT + " <STAFF_ID>:<NAME>:<PHONE>\n"
+            + "Example: " + COMMAND_WORD_SHORTCUT + " S1234:Alice Tan:81234567";
 
     public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
     public static final String MESSAGE_DUPLICATE_STAFF = "This staff member already exists in the address book";
