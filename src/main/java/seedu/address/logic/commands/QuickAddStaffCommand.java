@@ -53,7 +53,7 @@ public class QuickAddStaffCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model, "Model cannot be null.");
-        logger.log(Level.INFO, "Executing AddStaffCommand for staff: {0}", toAdd);
+        logger.log(Level.INFO, "Executing QuickAddStaffCommand for staff: {0}", toAdd);
 
         if (model.hasStaff(toAdd)) {
             logger.log(Level.WARNING, "Attempted to add duplicate staff: {0}", toAdd);
