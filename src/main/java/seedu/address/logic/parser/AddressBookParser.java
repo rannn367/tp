@@ -77,9 +77,9 @@ public class AddressBookParser {
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD, arguments -> new PurchaseCommandParser().parse(arguments));
         COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD, arguments -> new DeleteDrinkCommandParser().parse(arguments));
         COMMAND_MAP.put(
-                ListCustomerCommand.COMMAND_WORD, arguments -> new ListCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(
                 ListStaffCommand.COMMAND_WORD, arguments -> new ListStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(
+                ListCustomerCommand.COMMAND_WORD, arguments -> new ListCustomerCommandParser().parse(arguments));
     }
 
     /**
