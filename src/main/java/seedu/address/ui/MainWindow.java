@@ -20,7 +20,17 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddCustomerCommand;
+import seedu.address.logic.commands.AddStaffCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.DeleteStaffCommand;
+import seedu.address.logic.commands.EditCustomerCommand;
+import seedu.address.logic.commands.EditStaffCommand;
+import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.FindStaffCommand;
+import seedu.address.logic.commands.ListCustomerCommand;
+import seedu.address.logic.commands.ListStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.drink.Drink;
@@ -476,32 +486,32 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             String lowerCommand = commandText.trim().toLowerCase();
-            if ((lowerCommand.startsWith("customerfind")
-                    || lowerCommand.startsWith("customeradd")
-                    || lowerCommand.startsWith("customerlist")
-                    || lowerCommand.startsWith("customeredit")
-                    || lowerCommand.startsWith("customerdelete")
-                    || lowerCommand.startsWith("cf")
-                    || lowerCommand.startsWith("c")
-                    || lowerCommand.startsWith("cl")
-                    || lowerCommand.startsWith("ce")
-                    || lowerCommand.startsWith("cd")) && isOnStaffTab()) {
+            if ((lowerCommand.startsWith(FindCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(AddCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(ListCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(EditCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(DeleteCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(FindCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(AddCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(ListCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(EditCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(DeleteCustomerCommand.COMMAND_WORD_SHORTCUT)) && !isOnCustomerTab()) {
                 switchToCustomerTab();
-            } else if ((lowerCommand.startsWith("stafffind")
-                    || lowerCommand.startsWith("staffadd")
-                    || lowerCommand.startsWith("stafflist")
-                    || lowerCommand.startsWith("staffedit")
-                    || lowerCommand.startsWith("staffdelete")
-                    || lowerCommand.startsWith("sf")
-                    || lowerCommand.startsWith("s")
-                    || lowerCommand.startsWith("sl")
-                    || lowerCommand.startsWith("se")
-                    || lowerCommand.startsWith("sd")) && isOnCustomerTab()) {
+            } else if ((lowerCommand.startsWith(FindStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(AddStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(ListStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(EditStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(DeleteStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(FindStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(AddStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(ListStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(EditStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(DeleteStaffCommand.COMMAND_WORD_SHORTCUT)) && !isOnStaffTab()) {
                 switchToStaffTab();
             } else if ((lowerCommand.startsWith("drinkadd")
                     || lowerCommand.startsWith("d")
                     || lowerCommand.startsWith("drinkdelete")
-                    || lowerCommand.startsWith("dd")) && isOnCustomerOrStaffTab()) {
+                    || lowerCommand.startsWith("dd")) && !isOnDrinksTab()) {
                 switchToDrinksTab();
             }
 
@@ -544,13 +554,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Checks if the currently selected tab is the Customer or Staff tab.
+     * Checks if the currently selected tab is the Drinks tab.
      *
-     * @return True if either the Customer or Staff tab is selected, false otherwise.
+     * @return True if the Drinks tab is selected, false otherwise.
      */
-    private boolean isOnCustomerOrStaffTab() {
-        int index = tabPane.getSelectionModel().getSelectedIndex();
-        return index == 0 || index == 1;
+    private boolean isOnDrinksTab() {
+        return tabPane.getSelectionModel().getSelectedIndex() == 2; // Assuming Drinks is tab index 2
     }
 
     /**
