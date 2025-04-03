@@ -60,6 +60,13 @@ public class QuickAddCustomerCommandTest {
     }
 
     @Test
+    public void execute_nullModel_throwsNullPointerException() {
+        Customer validCustomer = new CustomerBuilder().build();
+        QuickAddCustomerCommand quickAddCustomerCommand = new QuickAddCustomerCommand(validCustomer);
+        assertThrows(NullPointerException.class, () -> quickAddCustomerCommand.execute(null));
+    }
+
+    @Test
     public void equals() {
         Customer james = new CustomerBuilder().withName(new Name("James Wilson")).build();
         Customer olivia = new CustomerBuilder().withName(new Name("Olivia Chen")).build();

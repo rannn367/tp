@@ -60,6 +60,12 @@ public class QuickAddStaffCommandTest {
     }
 
     @Test
+    public void execute_nullModel_throwsNullPointerException() {
+        Staff validStaff = new StaffBuilder().build();
+        QuickAddStaffCommand quickAddStaffCommand = new QuickAddStaffCommand(validStaff);
+        assertThrows(NullPointerException.class, () -> quickAddStaffCommand.execute(null));
+    }
+    @Test
     public void equals() {
         Staff alex = new StaffBuilder().withName(new Name("Alex")).build();
         Staff bob = new StaffBuilder().withName(new Name("Bob")).build();
