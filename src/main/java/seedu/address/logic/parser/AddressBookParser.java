@@ -4,15 +4,13 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.TextMatchUtil;
 import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.AddDrinkCommand;
 import seedu.address.logic.commands.AddStaffCommand;
@@ -144,9 +142,6 @@ public class AddressBookParser {
             throw new ParseException("Invalid command format: Multiple consecutive spaces are not allowed.");
         }
 
-        // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
-        // log messages such as the one below.
-        // Lower level log messages are used sparingly to minimize noise in the code.
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
         if (COMMAND_MAP.containsKey(commandWord)) {
@@ -168,75 +163,6 @@ public class AddressBookParser {
     }
 
     private String findClosestCommand(String inputCommand) {
-        int minDistance = Integer.MAX_VALUE;
-        String closestCommand = null;
-
-        for (String command : COMMAND_MAP.keySet()) {
-            int distance = calculateLevenshteinDistance(inputCommand, command);
-
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestCommand = command;
-            }
-        }
-
-        if (minDistance <= 2) {
-            return closestCommand;
-        }
-
-        // Use TokenSetRatio if LeveischteinDistance fails.
-        int bestTokenSetRatio = 0;
-        for (String command : COMMAND_MAP.keySet()) {
-            int tokenSetRatio = calculateTokenSetRatio(inputCommand, command);
-
-            if (tokenSetRatio > bestTokenSetRatio) {
-                bestTokenSetRatio = tokenSetRatio;
-                closestCommand = command;
-            }
-        }
-
-        if (bestTokenSetRatio >= 80) {
-            return closestCommand;
-        }
-
-        return null;
-    }
-
-    private int calculateTokenSetRatio(String a, String b) {
-        Set<Character> tokensA = a.chars()
-                .mapToObj(e -> (char) e)
-                .collect(Collectors.toCollection(HashSet::new));
-        Set<Character> tokensB = b.chars()
-                .mapToObj(e -> (char) e)
-                .collect(Collectors.toCollection(HashSet::new));
-
-        Set<Character> intersection = tokensA.stream()
-            .filter(tokensB::contains)
-            .collect(Collectors.toSet());
-
-        Set<Character> union = new HashSet<>(tokensA);
-        union.addAll(tokensB);
-
-        return (int) ((double) intersection.size() / union.size() * 100);
-    }
-
-    private int calculateLevenshteinDistance(String a, String b) {
-        int[][] dp = new int[a.length() + 1][b.length() + 1];
-
-        for (int i = 0; i <= a.length(); i++) {
-            for (int j = 0; j <= b.length(); j++) {
-                if (i == 0) {
-                    dp[i][j] = j;
-                } else if (j == 0) {
-                    dp[i][j] = i;
-                } else {
-                    dp[i][j] = Math.min(
-                        dp[i - 1][j - 1] + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1),
-                        Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1)
-                    );
-                }
-            }
-        }
-        return dp[a.length()][b.length()];
+        return TextMatchUtil.findClosestMatch(inputCommand, COMMAND_MAP.keySet());
     }
 }
