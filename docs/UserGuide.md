@@ -12,7 +12,7 @@ Thank you for choosing **CaféConnect** to streamline your café management expe
 
 *Use CaféConnect to bring efficiency to your café management!*
 
-## Overview of User Guide
+### What is CaféConnect?
 
 CaféConnect is a streamlined desktop application that helps you manage customers, staff, and your drink menu all in one place.
 
@@ -26,15 +26,57 @@ CaféConnect is a streamlined desktop application that helps you manage customer
   * **Customer insights:** Track customer preferences, visit history, and favorite items.
   * **Staff organization:** Manage staff details, roles, shifts, and performance ratings.
 
+## Why would you enjoy CaféConnect?  
+
+Because countless other café owners and managers already do!  
+
+If you're a café owner who **values efficiency**, can **type quickly**, and wants to **streamline your operations**, CaféConnect is the perfect solution for you!  
+
+Managing café operations efficiently is crucial for success—that's why we created CaféConnect. Our application streamlines three core aspects into three beautiful tabs:
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: left; max-width: 18%;">
+    <p>1. <b>Staff Tab</b></p>
+    Manage staff efficiently to build a strong team!
+  </div>
+  <div style="text-align: center; max-width: 78%;">
+    <img src="images/UG_Ui_Images/initial_staff.png" alt="Initial Staff Screen" style="max-width: 100%; height: auto;"/>
+    <p><i>Customer Tab: manage staff information</i></p>
+  </div>
+</div>
+
+
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: left; max-width: 18%;">
+    <p>2. <b>Customers Tab</b></p>
+    Remember your customers with ease and see them smile!
+  </div>
+  <div style="text-align: center; max-width: 78%;">
+    <img src="images/UG_Ui_Images/initial_customer.png" alt="Initial Customer Screen" style="max-width: 100%; height: auto;"/>
+    <p><i>Customer Tab: manage customer information</i></p>
+  </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <div style="text-align: left; max-width: 18%;">
+    <p>3. <b>Drinks Tab</b></p>
+    <p>Browse your drink catalog for the perfect cup!</p>
+  </div>
+  <div style="text-align: center; max-width: 78%;">
+    <img src="images/UG_Ui_Images/initial_drink.png" alt="Initial Drinks Screen" style="max-width: 100%; height: auto;"/>
+    <p><i>Drinks Tab: manage drink offerings</i></p>
+  </div>
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
 ### Table of Contents
 
 <!-- Table of Contents -->
 
   * [Welcome to CaféConnect!](#welcome-to-cafeconnect)
-  * [Overview of User Guide](#overview-of-user-guide)
-  * [Overview of target users](#overview-of-target-users)
-  * [How to use our User Guide](#how-to-use-our-user-guide)
+  * [Why would you enjoy CaféConnect?](#why-would-you-enjoy-cafeconnect)
+  * [How to Use our User Guide](#how-to-use-our-user-guide)
   * [Quick start](#quick-start)
   * [Features](#features)
     * [Adding a customer: `customeradd` or `c`](#adding-a-customer-customeradd-or-c)
@@ -58,41 +100,31 @@ CaféConnect is a streamlined desktop application that helps you manage customer
   * [Acknowledgements](#acknowledgements)
 
 <!-- TOC -->
---------------------------------------------------------------------------------------------------------------------
-## Overview of target users
-
-If you're a café owner or manager who **values efficiency**, can **type quickly**, and wants to **better manage your café operations**, CaféConnect is the perfect solution for you! Managing café information can be time-consuming and error-prone with traditional methods. We understand the importance of organization, which is why we created CaféConnect to help you **stay organized with minimal effort**, knowing that you're busy with the day-to-day operations of your café.
 
 --------------------------------------------------------------------------------------------------------------------
-## How to use our User Guide
+## How to Use our User Guide
 
 First time using **CaféConnect**? Don't worry! We've got you covered! This guide will help maximize your usage of **CaféConnect**.
 
 * To get started, refer to the **Command Format** section below, which will walk you through the basics of entering commands.
-* Need a quick reference of the commands available? Check out the **Command Summary** at the end of this guide.
+* Need a quick reference of the commands available? Check out the [**Command Summary**](#command-summary) at the end of this guide.
 * Have a specific question? Browse through the relevant sections for detailed information.
 
-Before continuing, here are some important things you need to know about the User Guide:
+Navigating around this User Guide:
 
-1. There are two different kinds of boxes that provide extra information.
-    * *Note boxes* provide important information that you should take note of.
+* *Note boxes* provide important information that you should take note of.
 
-      <box type="info" seamless>
-      
-      **Note:** This is a Note box.
-      </box>
+  <box type="info" seamless>
+  
+  **Note:** This is a Note box.
+  </box>
 
-    * *Warning boxes* provide a warning about certain errors that might occur as a precaution for incorrect usage.
+* *Warning boxes* highlight potential errors and serve as precautions against incorrect usage.
 
-      <box type="warning" seamless>
+  <box type="warning" seamless>
 
-      **Warning:** This is a warning box.
-      </box>
-
-2. The application has three main tabs:
-   * **Staff** - For managing staff information
-   * **Customers** - For managing customer information
-   * **Drinks Menu** - For managing your drink offerings
+  **Warning:** This is a warning box.
+  </box>
 
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
@@ -100,11 +132,11 @@ Before continuing, here are some important things you need to know about the Use
 1. Ensure you have Java `17` or above installed on your computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your **CaféConnect** application.
+3. Copy the file to the folder you want to use as the _home folder_ for your **CaféConnect** application.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cafeconnect.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cafeconnect.jar` command to run the application.<br>
 
    The **CaféConnect** home screen will appear in a few seconds, displaying the application title and navigation options.
 
@@ -113,37 +145,31 @@ Before continuing, here are some important things you need to know about the Use
      <p><i>CaféConnect Welcome Screen</i></p>
    </div>
 
-2. From the home screen, you have two navigation options:
+5. From the home screen, you have two navigation options:
    * Click on **Staff & Customer Management** to access staff and customer data directly.
    * Click on **Drinks Menu** to view and manage the drink catalog directly.
 
-3. The Staff & Customer Management section shows the initial staff data:
-
-   <div style="text-align: center; max-width: 80%; margin: 0 auto;">
+<div style="display: flex; justify-content: space-between; gap: 20px;">
+   <div style="flex: 1; text-align: center;">
+     <p><b>Staff & Customer Management</b></p>
      <img src="images/UG_Ui_Images/initial_staff.png" alt="Initial Staff Screen" style="max-width: 100%; height: auto;"/>
      <p><i>Initial Staff Screen</i></p>
    </div>
 
-   This section allows you to:
-   * Add, edit, and delete staff members.
-   * Add, edit, and delete customers.
-   * Record purchases for customers.
-
-4. The Drinks Menu section shows the initial drink catalog:
-
-   <div style="text-align: center; max-width: 80%; margin: 0 auto;">
+   <div style="flex: 1; text-align: center;">
+     <p><b>Drinks Menu</b></p>
      <img src="images/UG_Ui_Images/initial_drink.png" alt="Initial Drinks Menu" style="max-width: 100%; height: auto;"/>
      <p><i>Initial Drinks Menu</i></p>
    </div>
+</div>
 
-   This section allows you to:
-   * View all drinks in the catalog.
-   * Add new drinks to the menu.
-   * Categorize drinks by type.
 
-Note: The application comes with sample data to help you get started.
+<box type="info" seamless>
 
-1. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will open the help window.<br>
+**Note:** The application comes with sample data to help you get started.
+</box>
+
+6. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `help` : Opens the help window with the command guide.
@@ -160,7 +186,7 @@ Note: The application comes with sample data to help you get started.
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
