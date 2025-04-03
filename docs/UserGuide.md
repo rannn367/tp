@@ -257,11 +257,11 @@ These are the before and after images of the first example
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
     <img src="images/UG_Ui_Images/before_customeredit.png" alt="Before editing customer details" style="max-width: 100%; height: auto;"/>
-    <p><i>Before editing staff details</i></p>
+    <p><i>Before editing customer details</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
     <img src="images/UG_Ui_Images/after_customeredit.png" alt="After editing customer details" style="max-width: 100%; height: auto;"/>
-    <p><i>After editing staff details</i></p>
+    <p><i>After editing customer details</i></p>
   </div>
 </div>
 
@@ -500,11 +500,11 @@ These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_drinkdelete.png" alt="Before deleting the customer" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_drinkdelete.png" alt="Before deleting the drink" style="max-width: 100%; height: auto;"/>
     <p><i>Before deleting the customer</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_drinkdelete.png" alt="After deleting the customer" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_drinkdelete.png" alt="After deleting the drink" style="max-width: 100%; height: auto;"/>
     <p><i>After deleting the customer</i></p>
   </div>
 </div>
