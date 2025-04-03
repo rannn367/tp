@@ -462,14 +462,28 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Executes the command and returns the result.
+     * Switches tabs if "customerfind" or "stafffind" is executed while on the wrong tab.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @param commandText The command entered by the user.
+     * @return The result of executing the command.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs while parsing the command.
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // Switch tabs if necessary
+            String lowerCommand = commandText.trim().toLowerCase();
+            if ((lowerCommand.startsWith("customerfind")
+                    || lowerCommand.startsWith("customerlist")) && isOnStaffTab()) {
+                switchToCustomerTab();
+            } else if ((lowerCommand.startsWith("stafffind")
+                    || lowerCommand.startsWith("stafflist")) && isOnCustomerTab()) {
+                switchToStaffTab();
+            }
 
             // Refresh the currently selected detail panels after any command
             // This ensures the UI stays in sync with the model after commands like purchase
@@ -490,6 +504,41 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Checks if the currently selected tab is the Staff tab.
+     *
+     * @return True if the Staff tab is selected, false otherwise.
+     */
+    private boolean isOnStaffTab() {
+        return tabPane.getSelectionModel().getSelectedIndex() == 0; // Assuming Staff is tab index 0
+    }
+
+    /**
+     * Checks if the currently selected tab is the Customer tab.
+     *
+     * @return True if the Customer tab is selected, false otherwise.
+     */
+    private boolean isOnCustomerTab() {
+        return tabPane.getSelectionModel().getSelectedIndex() == 1; // Assuming Customer is tab index 1
+    }
+
+    /**
+     * Switches the currently selected tab to the Customer tab.
+     */
+    private void switchToCustomerTab() {
+        logger.info("Switching to Customer tab due to customerfind command");
+        tabPane.getSelectionModel().select(1); // Change index accordingly
+    }
+
+    /**
+     * Switches the currently selected tab to the Staff tab.
+     */
+    private void switchToStaffTab() {
+        logger.info("Switching to Staff tab due to stafffind command");
+        tabPane.getSelectionModel().select(0); // Change index accordingly
+    }
+
 
     /**
      * Refreshes the currently visible detail panel based on the selected tab
