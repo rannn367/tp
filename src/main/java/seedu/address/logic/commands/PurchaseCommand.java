@@ -166,12 +166,12 @@ public class PurchaseCommand extends Command {
         assert customerToUpdate != null;
 
         int currentRewardPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
-        int currentVisitCount = Integer.parseInt(customerToUpdate.getVisitCount().value);
+        VisitCount currentVisitCount = customerToUpdate.getVisitCount(); // Now a VisitCount object
 
         return new CustomerBuilder(customerToUpdate)
                 .withRewardPoints(new RewardPoints(String.valueOf(currentRewardPoints + pointsToAdd)))
                 .withTotalSpent(customerToUpdate.getTotalSpent().incrementSpent(purchaseAmount))
-                .withVisitCount(new VisitCount(String.valueOf(currentVisitCount + 1)))
+                .withVisitCount(currentVisitCount.incrementVisit())
                 .build();
     }
 

@@ -20,7 +20,17 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddCustomerCommand;
+import seedu.address.logic.commands.AddStaffCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCustomerCommand;
+import seedu.address.logic.commands.DeleteStaffCommand;
+import seedu.address.logic.commands.EditCustomerCommand;
+import seedu.address.logic.commands.EditStaffCommand;
+import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.FindStaffCommand;
+import seedu.address.logic.commands.ListCustomerCommand;
+import seedu.address.logic.commands.ListStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.drink.Drink;
@@ -462,14 +472,48 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Executes the command and returns the result.
+     * Switches tabs if "customerfind" or "stafffind" is executed while on the wrong tab.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @param commandText The command entered by the user.
+     * @return The result of executing the command.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs while parsing the command.
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            String lowerCommand = commandText.trim().toLowerCase();
+            if ((lowerCommand.startsWith(FindCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(AddCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(ListCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(EditCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(DeleteCustomerCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(FindCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(AddCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(ListCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(EditCustomerCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(DeleteCustomerCommand.COMMAND_WORD_SHORTCUT)) && !isOnCustomerTab()) {
+                switchToCustomerTab();
+            } else if ((lowerCommand.startsWith(FindStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(AddStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(ListStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(EditStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(DeleteStaffCommand.COMMAND_WORD)
+                    || lowerCommand.startsWith(FindStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(AddStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(ListStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(EditStaffCommand.COMMAND_WORD_SHORTCUT)
+                    || lowerCommand.startsWith(DeleteStaffCommand.COMMAND_WORD_SHORTCUT)) && !isOnStaffTab()) {
+                switchToStaffTab();
+            } else if ((lowerCommand.startsWith("drinkadd")
+                    || lowerCommand.startsWith("d")
+                    || lowerCommand.startsWith("drinkdelete")
+                    || lowerCommand.startsWith("dd")) && !isOnDrinksTab()) {
+                switchToDrinksTab();
+            }
 
             // Refresh the currently selected detail panels after any command
             // This ensures the UI stays in sync with the model after commands like purchase
@@ -490,6 +534,58 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Checks if the currently selected tab is the Staff tab.
+     *
+     * @return True if the Staff tab is selected, false otherwise.
+     */
+    private boolean isOnStaffTab() {
+        return tabPane.getSelectionModel().getSelectedIndex() == 0; // Assuming Staff is tab index 0
+    }
+
+    /**
+     * Checks if the currently selected tab is the Customer tab.
+     *
+     * @return True if the Customer tab is selected, false otherwise.
+     */
+    private boolean isOnCustomerTab() {
+        return tabPane.getSelectionModel().getSelectedIndex() == 1; // Assuming Customer is tab index 1
+    }
+
+    /**
+     * Checks if the currently selected tab is the Drinks tab.
+     *
+     * @return True if the Drinks tab is selected, false otherwise.
+     */
+    private boolean isOnDrinksTab() {
+        return tabPane.getSelectionModel().getSelectedIndex() == 2; // Assuming Drinks is tab index 2
+    }
+
+    /**
+     * Switches the currently selected tab to the Customer tab.
+     */
+    private void switchToCustomerTab() {
+        logger.info("Switching to Customer tab due to command");
+        tabPane.getSelectionModel().select(1);
+    }
+
+    /**
+     * Switches the currently selected tab to the Staff tab.
+     */
+    private void switchToStaffTab() {
+        logger.info("Switching to Staff tab due to command");
+        tabPane.getSelectionModel().select(0);
+    }
+
+    /**
+     * Switches the currently selected tab to the Drinks tab.
+     */
+    private void switchToDrinksTab() {
+        logger.info("Switching to Drinks tab due to command");
+        tabPane.getSelectionModel().select(2); // Assuming Drinks is tab index 2
+    }
+
 
     /**
      * Refreshes the currently visible detail panel based on the selected tab
