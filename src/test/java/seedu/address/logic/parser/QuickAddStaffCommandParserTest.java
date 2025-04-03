@@ -52,14 +52,14 @@ public class QuickAddStaffCommandParserTest {
     @Test
     public void parse_invalidFormat_throwsParseException() {
         String userInput = "S0101:John"; // Missing phone number
-        assertParseFailure(parser, userInput, 
+        assertParseFailure(parser, userInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuickAddStaffCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidAddStaffFormat_throwsParseException() {
-        String userInput = "addstaff n/John p/92012012 e/john@example.com a/123 Street sid/S0101 role/Barista shift/9am-5pm hours/40 rating/4.5";
-        assertParseFailure(parser, userInput, 
+        String userInput = "addstaff n/John p/92012012 e/john@example.com a/123 Street sid/S0101";
+        assertParseFailure(parser, userInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuickAddStaffCommand.MESSAGE_USAGE));
     }
 }

@@ -201,7 +201,7 @@ public class AddStaffCommandParserTest {
     @Test
     public void parse_quickAddFormat_failure() {
         String userInput = "S0101:John:92012012"; // Quick add format
-        assertParseFailure(parser, userInput, 
+        assertParseFailure(parser, userInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStaffCommand.MESSAGE_USAGE));
     }
 }

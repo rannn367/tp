@@ -1,19 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.QuickAddCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -59,7 +48,7 @@ public class QuickAddCustomerCommandParser implements Parser<QuickAddCustomerCom
 
         if (customerInfo.length != 3) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,QuickAddCustomerCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuickAddCustomerCommand.MESSAGE_USAGE));
         }
 
         CustomerId customerId = new CustomerId(customerInfo[0]);

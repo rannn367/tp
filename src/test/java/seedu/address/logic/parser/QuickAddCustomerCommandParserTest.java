@@ -52,14 +52,14 @@ public class QuickAddCustomerCommandParserTest {
     @Test
     public void parse_invalidFormat_throwsParseException() {
         String userInput = "C0101:John"; // Missing phone number
-        assertParseFailure(parser, userInput, 
+        assertParseFailure(parser, userInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuickAddCustomerCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidAddCustomerFormat_throwsParseException() {
-        String userInput = "addcustomer n/John p/92012012 e/john@example.com a/123 Street cid/C0101 role/Barista shift/9am-5pm hours/40 rating/4.5";
-        assertParseFailure(parser, userInput, 
+        String userInput = "addcustomer n/John p/92012012 e/john@example.com a/123 Street cid/C0101";
+        assertParseFailure(parser, userInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuickAddCustomerCommand.MESSAGE_USAGE));
     }
 }

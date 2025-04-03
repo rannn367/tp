@@ -217,11 +217,11 @@ public class AddCustomerCommandParserTest {
                 + FAVOURITE_ITEM_DESC_JAMES + TOTAL_SPENT_DESC_JAMES,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
     }
-    
+
     @Test
     public void parse_quickAddFormat_failure() {
         String userInput = "C0101:John:92012012"; // Quick add format
-        assertParseFailure(parser, userInput, 
+        assertParseFailure(parser, userInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
     }
 }
