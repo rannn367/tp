@@ -1,7 +1,7 @@
 ---
   layout: default.md
-    title: "Developer Guide"
-    pageNav: 3
+  title: "Developer Guide"
+  pageNav: 3
 ---
 
 # CafeConnect Developer Guide
@@ -15,6 +15,7 @@
 
 CafeConnect is based on the AddressBook-Level3 project created by the SE-EDU initiative
 It incorporates the following third-party libraries: JavaFX, Jackson, JUnit5.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -183,10 +184,6 @@ The `Drink` model:
 * Is managed through the `DrinkCatalog` class that implements `ReadOnlyDrinkCatalog`
 
 Each entity in the Model component follows value semantics (meaning two entities with identical fields are considered equal) and is immutable for core fields to prevent unexpected side effects.
-
-> **_NOTE:_** An alternative (arguably, a more OOP) model for tags is also provided below. It has a `Tag` list in the `AddressBook`, which `Person` objects reference. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
-
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
 ### Storage component
 
@@ -502,34 +499,66 @@ Upon execution, `PurchaseCommand` first retrieves the customer at the specified 
 
 ### Quick Command Shortcuts
 
-The implementation of shortcut commands (`c` for customers and `s` for staff) provides an efficient way for café owners to add new entries with minimal typing.
+The implementation of shortcut commands (`c` for customers, `s` for staff and `p` for purchase) provides an efficient way for café owners to add new entries and record purchases with minimal typing.
 
-<puml src="diagrams/ShortcutCommandSequenceDiagram.puml" width="800" />
+#### Types of Shortcut Commands
 
-The shortcut command system follows this format:
-* `c CID:NAME:PHONE` - Quick add a customer
-* `s SID:NAME:PHONE` - Quick add a staff member
+CaféConnect implements two distinct types of shortcut commands:
 
-These commands allow users to rapidly add new entries during busy periods when full detailed commands might be impractical. The implementation works as follows:
+1. **Entity Creation Shortcuts** - For quickly adding new customers and staff:
+   * `c CID:NAME:PHONE` - Quick add a customer
+   * `s SID:NAME:PHONE` - Quick add a staff member
+
+2. **Operation Shortcut** - For quickly recording purchases:
+   * `p INDEX:DRINK_NAME[:r]` - Quick record a purchase (with optional redemption)
+
+#### Entity Creation Shortcuts
+<puml src="diagrams/StaffShortcutCommandSequenceDiagram.puml" width="800" />
+<puml src="diagrams/CustomerShortcutCommandSequenceDiagram.puml" width="800" />
+
+These commands allow users to rapidly add new customer and staff entries during busy periods when full detailed commands might be impractical. The implementation works as follows:
 
 1. `AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
-  * `c` routes to the customer shortcut handler `CustomerQuickCommandParser`
-  * `s` routes to the staff shortcut handler `StaffQuickCommandParser`
+   * `c` routes to the customer shortcut handler `CustomerQuickCommandParser`
+   * `s` routes to the staff shortcut handler `StaffQuickCommandParser`
 
 2. The shortcut parsers process the input using these steps:
-  * Split the input string at the colon separators
-  * Validate that exactly three components are present (ID, name, and phone)
-  * Create a new entity with the provided values and default values for other fields
-  * Return the appropriate command object (e.g., `AddCustomerCommand` or `AddStaffCommand`)
+   * Split the input string at the colon separators
+   * Validate that exactly three components are present (ID, name, and phone)
+   * Create a new entity with the provided values and default values for other fields
+   * Return the appropriate command object (e.g., `AddCustomerCommand` or `AddStaffCommand`)
 
 3. The command is then executed like any standard command:
-  * The model is updated with the new entity
-  * The updated model is saved to persistent storage
-  * A success message is displayed to the user
+   * The model is updated with the new entity
+   * The updated model is saved to persistent storage
+   * A success message is displayed to the user
 
-This implementation adheres to the Command pattern used throughout the application while providing a streamlined interface for common operations. Default values for fields not specified in the shortcut command can be modified later using the standard edit commands.
+> **_NOTE:_** Entity creation shortcuts only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
 
-> **_NOTE:_** Quick commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
+#### Purchase Shortcut
+<puml src="diagrams/PurchaseShortcutCommandSequenceDiagram.puml" width="800" />
+
+The purchase shortcut enables café staff to quickly record customer purchases with an optional redemption flag. The implementation differs from entity creation shortcuts:
+
+1. `AddressBookParser` detects the `p` command and routes it to the `PurchaseCommandParser`.
+
+2. The purchase parser processes the input using these steps:
+   * Validates the input against the pattern `^[0-9]+:.+(:r)?$`
+   * Splits the input at the colon separators
+   * Extracts the customer index (first part) and drink name (second part)
+   * Checks for the presence of an optional third part "r" that indicates a redemption purchase
+   * Returns a `PurchaseCommand` with the extracted parameters
+
+3. The purchase command execution:
+   * Retrieves the customer at the specified index
+   * Verifies the drink exists in the drink catalog
+   * Records the purchase, updating customer metrics (visit count, reward points, total spent)
+   * For redemption purchases (with `:r`), deducts reward points instead of increasing total spent
+   * Displays a success message with the updated customer information
+
+> **_NOTE:_** The purchase shortcut uses a different parameter format than entity creation shortcuts. It takes a customer index (not ID), requires an existing drink name, and has an optional redemption flag.
+
+This implementation adheres to the Command pattern used throughout the application while providing a streamlined interface for common operations. All shortcuts follow a colon-separated format for consistency, but with different parameter requirements based on their function.
 
 <br></br>
 
@@ -557,7 +586,6 @@ On application startup, the reverse process occurs:
 
 > **_NOTE:_** CafeConnect implements data backup and recovery mechanisms. If a data file is corrupted, the application attempts to back it up before creating a new empty data structure.
 
-<br></br>
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -985,81 +1013,141 @@ testers are expected to do more *exploratory* testing.
 ### Managing Customers
 
 1. Adding a customer
-  1. Prerequisites: The exact customer details shouldn't already be in the list
-  2. Test case: `customeradd cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
-     Expected: A new customer is successfully added with the specified details. The status message confirms the addition.
-  3. Test case: `customeradd cid/C005 n/Duplicate Customer p/12345678 e/dup@example.com a/Duplicate Address rp/0 vc/0 fi/Coffee ts/0`<br>
-     Expected: No customer is added. Error details about duplicate customer ID shown in the status message.
+   1. Prerequisites: The exact customer details shouldn't already be in the list
+   2. Test case: `customeradd cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
+      Expected: A new customer is successfully added with the specified details. The status message confirms the addition.
+   3. Test case: `c cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
+      Expected: Same as above, using the command abbreviation.
+   4. Test case: `customeradd cid/C005 n/Duplicate Customer p/12345678 e/dup@example.com a/Duplicate Address rp/0 vc/0 fi/Coffee ts/0`<br>
+      Expected: No customer is added. Error details about duplicate customer ID shown in the status message.
 
-2. Adding a customer using shortcut
-  1. Prerequisites: The customer ID shouldn't already exist in the list
-  2. Test case: `c C099:John Smith:98761234`<br>
-     Expected: A new customer is added with the specified ID, name, and phone number. Default values are used for other fields.
+2. Adding a customer using shortcut format
+   1. Prerequisites: The customer ID shouldn't already exist in the list
+   2. Test case: `c C099:John Smith:98761234`<br>
+      Expected: A new customer is added with the specified ID, name, and phone number. Default values are used for other fields.
 
 3. Deleting a customer
-  1. Prerequisites: At least one customer in the list
-  2. Test case: `customerdelete 1`<br>
-     Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
-  3. Test case: `customerdelete 0`<br>
-     Expected: No customer is deleted. Error details shown in the status message about invalid index.
-  4. Other incorrect delete commands to try: `customerdelete`, `customerdelete x`, `customerdelete 999` (where x is non-numeric and 999 is larger than the list size)<br>
-     Expected: Error message indicating invalid index.
+   1. Prerequisites: At least one customer in the list
+   2. Test case: `customerdelete 1`<br>
+      Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
+   3. Test case: `cd 1`<br>
+      Expected: Same as above, using the command abbreviation.
+   4. Test case: `customerdelete 0`<br>
+      Expected: No customer is deleted. Error details shown in the status message about invalid index.
+   5. Other incorrect delete commands to try: `customerdelete`, `cd`, `customerdelete x`, `cd x`, `customerdelete 999`, `cd 999` (where x is non-numeric and 999 is larger than the list size)<br>
+      Expected: Error message indicating invalid index.
 
 4. Editing a customer
-  1. Prerequisites: At least one customer in the list
-  2. Test case: `customeredit 1 rp/500 vc/6`<br>
-     Expected: The reward points and visit count for the first customer is updated. Status message confirms the update.
+   1. Prerequisites: At least one customer in the list
+   2. Test case: `customeredit 1 rp/500 vc/6`<br>
+      Expected: The reward points and visit count for the first customer is updated. Status message confirms the update.
+   3. Test case: `ce 1 rp/500 vc/6`<br>
+      Expected: Same as above, using the command abbreviation.
+
+5. Finding customers
+   1. Test case: `customerfind John`<br>
+      Expected: Displays all customers with "John" in their name.
+   2. Test case: `cf John`<br>
+      Expected: Same as above, using the command abbreviation.
+   3. Test case: `customerfind all/true`<br>
+      Expected: Displays all customers in the list.
+   4. Test case: `cf all/true`<br>
+      Expected: Same as above, using the command abbreviation.
 
 ### Managing Staff
 
 1. Adding a staff member
-  1. Prerequisites: The exact staff details shouldn't already be in the list
-  2. Test case: `staffadd sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
-     Expected: A new staff member is successfully added with the specified details. The status message confirms the addition.
+   1. Prerequisites: The exact staff details shouldn't already be in the list
+   2. Test case: `staffadd sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
+      Expected: A new staff member is successfully added with the specified details. The status message confirms the addition.
+   3. Test case: `s sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
+      Expected: Same as above, using the command abbreviation.
 
-2. Adding a staff member using shortcut
-  1. Prerequisites: The staff ID shouldn't already exist in the list
-  2. Test case: `s S099:Jane Doe:90001234`<br>
-     Expected: A new staff member is added with the specified ID, name, and phone number. Default values are used for other fields.
+2. Adding a staff member using shortcut format
+   1. Prerequisites: The staff ID shouldn't already exist in the list
+   2. Test case: `s S099:Jane Doe:90001234`<br>
+      Expected: A new staff member is added with the specified ID, name, and phone number. Default values are used for other fields.
 
 3. Deleting a staff member
-  1. Prerequisites: At least one staff member in the list
-  2. Test case: `staffdelete 1 `<br>
-     Expected: First staff member is deleted from the list. Details of the deleted staff shown in the status message.
+   1. Prerequisites: At least one staff member in the list
+   2. Test case: `staffdelete 1`<br>
+      Expected: First staff member is deleted from the list. Details of the deleted staff shown in the status message.
+   3. Test case: `sd 1`<br>
+      Expected: Same as above, using the command abbreviation.
 
 4. Editing a staff member
-  1. Prerequisites: At least one staff member in the list
-  2. Test case: `staffedit 1 p/98956743 role/manager`<br>
-     Expected: The phone number and role for the first staff member is updated. Status message confirms the update.
+   1. Prerequisites: At least one staff member in the list
+   2. Test case: `staffedit 1 p/98956743 role/manager`<br>
+      Expected: The phone number and role for the first staff member is updated. Status message confirms the update.
+   3. Test case: `se 1 p/98956743 role/manager`<br>
+      Expected: Same as above, using the command abbreviation.
+
+5. Finding staff
+   1. Test case: `stafffind Jane`<br>
+      Expected: Displays all staff with "Jane" in their name.
+   2. Test case: `sf Jane`<br>
+      Expected: Same as above, using the command abbreviation.
+   3. Test case: `stafffind all/true`<br>
+      Expected: Displays all staff in the list.
+   4. Test case: `sf all/true`<br>
+      Expected: Same as above, using the command abbreviation.
 
 ### Managing Drinks and Purchases
 
 1. Adding a drink to the catalog
-  1. Prerequisites: The exact drink name shouldn't already be in the catalog
-  2. Test case: `drinkadd n/Green Tea p/3.50 c/Tea`<br>
-     Expected: A new drink is successfully added to the catalog. The status message confirms the addition.
+   1. Prerequisites: The exact drink name shouldn't already be in the catalog
+   2. Test case: `drinkadd n/Green Tea p/3.50 c/Tea`<br>
+      Expected: A new drink is successfully added to the catalog. The status message confirms the addition.
+   3. Test case: `d n/Green Tea p/3.50 c/Tea`<br>
+      Expected: Same as above, using the command abbreviation.
 
-2. Recording a purchase
-  1. Prerequisites: At least one customer and one drink in the catalog
-  2. Test case: `purchase 1 n/Espresso`<br>
-     Expected: Purchase is recorded for the first customer. Their reward points, visit count, and total spent are updated. Status message confirms the purchase details.
+2. Deleting a drink
+   1. Prerequisites: At least one drink in the catalog
+   2. Test case: `drinkdelete 1`<br>
+      Expected: First drink is deleted from the catalog. Status message confirms the deletion.
+   3. Test case: `dd 1`<br>
+      Expected: Same as above, using the command abbreviation.
 
-3. Redeeming points for a purchase
-  1. Prerequisites: At least one customer with sufficient reward points and one drink in the catalog
-  2. Test case: `purchase 1 n/Cappuccino redeem/true`<br>
-     Expected: Points are redeemed for the purchase. Customer's reward points decrease, visit count increases, and total spent remains unchanged. Status message confirms the redemption.
-  3. Test case: `purchase 1 n/Expensive Drink redeem/true` (where the customer doesn't have enough points)<br>
-     Expected: No redemption is made. Error message indicates insufficient points.
+3. Recording a purchase
+   1. Prerequisites: At least one customer and one drink in the catalog
+   2. Test case: `purchase 1 n/Espresso`<br>
+      Expected: Purchase is recorded for the first customer. Their reward points, visit count, and total spent are updated. Status message confirms the purchase details.
+   3. Test case: `p 1 n/Espresso`<br>
+      Expected: Same as above, using the command abbreviation.
+
+4. Recording a purchase using shortcut format
+   1. Prerequisites: At least one customer and one drink in the catalog
+   2. Test case: `p 1:Espresso`<br>
+      Expected: Purchase is recorded for the first customer. Their reward points, visit count, and total spent are updated. Status message confirms the purchase details.
+
+5. Redeeming points for a purchase
+   1. Prerequisites: At least one customer with sufficient reward points and one drink in the catalog
+   2. Test case: `purchase 1 n/Cappuccino redeem/true`<br>
+      Expected: Points are redeemed for the purchase. Customer's reward points decrease, visit count increases, and total spent remains unchanged. Status message confirms the redemption.
+   3. Test case: `p 1 n/Cappuccino redeem/true`<br>
+      Expected: Same as above, using the command abbreviation.
+   4. Test case: `p 1:Cappuccino:r`<br>
+      Expected: Same as above, using the shortcut format for redemption purchases.
+   5. Test case: `purchase 1 n/Expensive Drink redeem/true` (where the customer doesn't have enough points)<br>
+      Expected: No redemption is made. Error message indicates insufficient points.
+   6. Test case: `p 1:Expensive Drink:r` (where the customer doesn't have enough points)<br>
+      Expected: Same as above, using the shortcut format.
 
 ### Tab Navigation
 
 1. Switching between tabs
-  1. Test case: Click on the "Staff" tab<br>
-     Expected: The staff list is displayed.
-  2. Test case: Click on the "Customers" tab<br>
-     Expected: The customer list is displayed.
-  3. Test case: Click on the "Drinks Menu" tab<br>
-     Expected: The drinks catalog is displayed.
+   1. Test case: Click on the "Staff" tab<br>
+      Expected: The staff list is displayed.
+   2. Test case: Enter any staff-related command (e.g., `sf all/true`)<br>
+      Expected: The staff list is displayed and the command is executed.
+   3. Test case: Click on the "Customers" tab<br>
+      Expected: The customer list is displayed.
+   4. Test case: Enter any customer-related command (e.g., `cf all/true`)<br>
+      Expected: The customer list is displayed and the command is executed.
+   5. Test case: Click on the "Drinks Menu" tab<br>
+      Expected: The drinks catalog is displayed.
+   6. Test case: Enter any drink-related command (e.g., `d n/New Drink p/4.50 c/Coffee`)<br>
+      Expected: The drinks catalog is displayed and the command is executed.
 
 ### Exiting the Application
 
