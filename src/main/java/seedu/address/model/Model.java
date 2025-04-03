@@ -213,4 +213,12 @@ public interface Model {
      * Replaces drink catalog data with the data in {@code drinkCatalog}.
      */
     void setDrinkCatalog(ReadOnlyDrinkCatalog drinkCatalog);
+
+    String getFilteredStaffsAsString();
+
+    int getFilteredStaffsCount();
+
+    String getFilteredCustomersAsString();
+
+    int getFilteredCustomersCount();
 }

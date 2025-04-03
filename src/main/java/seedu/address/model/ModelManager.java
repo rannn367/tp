@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -290,4 +292,29 @@ public class ModelManager implements Model {
         this.drinkCatalog.resetData(drinkCatalog);
     }
 
+    @Override
+    public String getFilteredStaffsAsString() {
+        int count = getFilteredStaffsCount();
+        return IntStream.range(0, count)
+            .mapToObj(i -> (i + 1) + ". " + filteredStaffs.get(i).getName())
+            .collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public int getFilteredStaffsCount() {
+        return filteredStaffs.size();
+    }
+
+    @Override
+    public String getFilteredCustomersAsString() {
+        int count = getFilteredCustomersCount();
+        return IntStream.range(0, count)
+            .mapToObj(i -> (i + 1) + ". " + filteredCustomers.get(i).getName())
+            .collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public int getFilteredCustomersCount() {
+        return filteredCustomers.size();
+    }
 }
