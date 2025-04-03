@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -14,8 +16,10 @@ import seedu.address.model.tag.Tag;
  */
 public class Customer extends Person {
 
+    private static final Logger logger = Logger.getLogger(Customer.class.getName());
+
     // Customer-specific fields
-    private final CustomerId customerId; // Customer id
+    private final CustomerId customerId; // Unique identifier for customer
     private final RewardPoints rewardPoints; // Current reward points balance
     private final VisitCount visitCount; // Number of times customer has visited
     private final FavouriteItem favouriteItem; // Customer's most ordered item
@@ -30,11 +34,19 @@ public class Customer extends Person {
         super(name, phone, email, address, remark, tags);
         requireAllNonNull(customerId, rewardPoints, visitCount, favouriteItem, totalSpent);
 
+        if (customerId == null || rewardPoints == null || visitCount == null || favouriteItem == null
+                || totalSpent == null) {
+            logger.log(Level.SEVERE, "Attempted to create Customer with null attributes");
+            throw new IllegalArgumentException("Customer attributes cannot be null");
+        }
+
         this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.visitCount = visitCount;
         this.favouriteItem = favouriteItem;
         this.totalSpent = totalSpent;
+
+        logger.log(Level.INFO, "Created new Customer: {0}", this);
     }
 
     public CustomerId getCustomerId() {
@@ -74,9 +86,13 @@ public class Customer extends Person {
             return false;
         }
 
-        // Compare using phone as unique identifier
+        // Compare using customerId as unique identifier
         Customer otherCustomer = (Customer) otherPerson;
-        return otherCustomer.getPhone().equals(getPhone());
+
+        boolean isSame = otherCustomer.getCustomerId().equals(getCustomerId());
+        logger.log(Level.FINE, "Comparing Staff IDs: {0} and {1}, Result: {2}",
+                new Object[]{this.customerId, otherCustomer.customerId, isSame});
+        return isSame;
     }
 
     /**
@@ -93,12 +109,16 @@ public class Customer extends Person {
         }
 
         Customer otherCustomer = (Customer) other;
-        return super.equals(otherCustomer) // Calls the equality check from Person
+        boolean isEqual = super.equals(otherCustomer) // Calls the equality check from Person
                 && rewardPoints.equals(otherCustomer.rewardPoints)
                 && visitCount.equals(otherCustomer.visitCount)
                 && favouriteItem.equals(otherCustomer.favouriteItem)
                 && totalSpent.equals(otherCustomer.totalSpent)
                 && customerId.equals(otherCustomer.customerId);
+
+        logger.log(Level.FINE, "Comparing Customer objects: {0} and {1}, Result: {2}",
+                new Object[]{this, otherCustomer, isEqual});
+        return isEqual;
     }
 
     @Override

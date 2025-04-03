@@ -1,4 +1,4 @@
-/* CafeConnect - Refined CSS with Requested Color Adjustments */
+/* CafeConnect - Refined CSS with Bold Text Styling */
 
 /* Gotham Font Declarations */
 @font-face {
@@ -449,6 +449,61 @@
     -fx-text-fill: white;
 }
 
+/* NEW STYLES FOR DETAIL HEADERS AND LABELS */
+
+/* Bold style for entity names in headers */
+.detail-header {
+    -fx-font-family: "Gotham Bold", "Segoe UI Bold", "Arial Bold", sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A3829;
+}
+
+/* Bold style for field labels (e.g., "Name:", "Staff ID:") */
+.detail-label {
+    -fx-font-family: "Gotham Medium", "Segoe UI Semibold", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7D5A50;
+}
+
+/* Style for field values */
+.detail-value {
+    -fx-font-family: "Gotham Book", "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #3A2D1F;
+}
+
+/* For the section header (when no entity is selected) */
+.section-header {
+    -fx-font-family: "Gotham Medium", "Segoe UI Semibold", "Arial", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #7D5A50;
+    -fx-alignment: center;
+}
+
+/* Bold style for list view names */
+.cell-name {
+    -fx-font-family: "Gotham Bold", "Segoe UI Bold", "Arial Bold", sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A3829;
+}
+
+/* For list view item IDs */
+.cell-id {
+    -fx-font-family: "Gotham Medium", "Segoe UI Semibold", "Arial", sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #7D5A50;
+}
+
+/* For other details in list cells */
+.cell-details {
+    -fx-font-family: "Gotham Book", "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #3A2D1F;
+}
+
 /* Staff Details Panel */
 .staff-details {
     -fx-background-color: #F2E8CF;
@@ -540,4 +595,17 @@
 .chef-tag, .chef, .parttime {
     -fx-background-color: #B45F04; /* chef & part-time tags */
     -fx-text-fill: white;
+}
+
+/* Detail panel container */
+.detail-panel {
+    -fx-background-color: #F2E8CF;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+/* Person card styling */
+.person-card {
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
 }
