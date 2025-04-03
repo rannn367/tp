@@ -21,6 +21,31 @@ public class PurchaseCommandParser implements Parser<PurchaseCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public PurchaseCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+
+        // Shortcut format: p <customerIndex>:<drinkName>:<redeemFlag>
+        if (trimmedArgs.matches("^[0-9]+:.+(:r)?$") && !trimmedArgs.endsWith(":")) {
+            String[] parts = trimmedArgs.split(":");
+
+            // Customer index
+            Index index = ParserUtil.parseIndex(parts[0]);
+
+            // Drink name
+            String drinkName = parts[1];
+
+            // Redeem flag
+            boolean isRedemption = parts.length == 3 && parts[2].equalsIgnoreCase("r");
+            if (parts.length == 3) {
+                if (parts[2].equalsIgnoreCase("r")) {
+                    isRedemption = true;
+                } else {
+                    throw new ParseException("Invalid redeem flag! Only ':r' is allowed.");
+                }
+            }
+
+            return new PurchaseCommand(index, drinkName, isRedemption);
+        }
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_DRINKNAME, PREFIX_REDEEM);
 

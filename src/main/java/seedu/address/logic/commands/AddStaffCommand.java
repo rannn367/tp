@@ -29,7 +29,8 @@ public class AddStaffCommand extends Command {
     public static final String COMMAND_WORD = "staffadd";
     public static final String COMMAND_WORD_SHORTCUT = "s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff member to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+            + "): Adds a staff member to the address book. "
             + "Parameters: "
             + PREFIX_STAFF_ID + "STAFF_ID "
             + PREFIX_NAME + "NAME "
@@ -57,7 +58,8 @@ public class AddStaffCommand extends Command {
             + "Example: " + COMMAND_WORD_SHORTCUT + " S1234:Alice Tan:81234567";
 
     public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STAFF = "This staff member already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_STAFF =
+            "Duplicated Staff ID found. This staff already exists in the address book.";
 
     private static final Logger logger = Logger.getLogger(AddStaffCommand.class.getName());
 

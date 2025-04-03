@@ -30,8 +30,10 @@ import seedu.address.model.util.CustomerBuilder;
 public class EditCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "customeredit";
+    public static final String COMMAND_WORD_SHORTCUT = "ce";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the customer identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+        + "): Edits the details of the customer identified "
         + "by the index number used in the displayed customer list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
@@ -53,7 +55,8 @@ public class EditCustomerCommand extends Command {
 
     public static final String MESSAGE_EDIT_CUSTOMER_SUCCESS = "Edited Customer: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER =
+            "Duplicated Customer ID found. This customer already exists in the address book.";
 
     private final Index index;
     private final EditCustomerDescriptor editCustomerDescriptor;

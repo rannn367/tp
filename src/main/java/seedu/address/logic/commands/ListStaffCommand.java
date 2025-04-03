@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 public class ListStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "stafflist";
+    public static final String COMMAND_WORD_SHORTCUT = "sl";
     public static final String MESSAGE_SUCCESS = "Listed all staff.";
 
     @Override

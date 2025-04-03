@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 public class ListCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "customerlist";
+    public static final String COMMAND_WORD_SHORTCUT = "cl";
     public static final String MESSAGE_SUCCESS = "Listed all customers.";
 
     @Override

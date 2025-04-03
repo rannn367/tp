@@ -29,11 +29,13 @@ public class AddCustomerCommand extends Command {
     public static final String COMMAND_WORD = "customeradd";
     public static final String COMMAND_WORD_SHORTCUT = "c";
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER =
+            "Duplicated Customer ID found. This customer already exists in the address book.";
 
     private static final Logger logger = Logger.getLogger(AddCustomerCommand.class.getName());
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+            + "): Adds a customer to the address book. "
             + "Parameters: "
             + PREFIX_CUSTOMER_ID + "CUSTOMER_ID "
             + PREFIX_NAME + "NAME "

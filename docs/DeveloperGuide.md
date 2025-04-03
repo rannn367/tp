@@ -160,14 +160,15 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
 It ensures that:
-- The **ID prefix** `sid/` must contain a valid staff ID.
-- The **phone prefix** `p/` must contain a valid phone number.
+- The **ID prefix** `sid/` must start with a "S" followed by digits (e.g., S1001, s1001).
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
+- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
 - The **email prefix** `e/` must contain a valid email address.
 - The **address prefix** `a/` must contain a non-blank address.
 - The **role prefix** `role/` must contain a non-empty role.
 - The **shift prefix** `shift/` must contain a non-empty shift.
 - The **hours prefix** `hours/` must contain a non-negative integer.
-- The **rating prefix** `rating/` must contain a valid positive decimal value.
+- The **rating prefix** `rating/` must contain only digits that are between 0 and 5.0 (inclusive) and of 1 decimal place.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
@@ -176,13 +177,13 @@ If any of these constraints are violated, `AddStaffCommandParser` throws a `Pars
 
 `AddStaffCommand` stores the staff to be added, represented as a `Staff` instance.
 
-Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the catalog.
+Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the address book.
 
-> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
+> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the address book. Attempting to add a duplicate will result in an error.
 
-#### Deleting a staff from the catalog
+#### Deleting a staff from the address book
 
-The delete staff feature allows users to remove staff from the catalog by specifying the staff's index in the displayed list.
+The delete staff feature allows users to remove staff from the address book by specifying the staff's index in the displayed list.
 
 The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteStaffCommandParser` to create the appropriate command object.
 
@@ -201,7 +202,7 @@ Upon execution, `DeleteStaffCommand` first checks if the index is within the bou
 
 If the index is valid, `DeleteStaffCommand`:
 1. Retrieves the staff to be deleted from the filtered staff list.
-2. Calls `model.deleteStaff(staffToDelete)` to remove the staff from the catalog.
+2. Calls `model.deleteStaff(staffToDelete)` to remove the staff from the address book.
 3. Returns a `CommandResult` with a success message.
 
 > **_NOTE:_** CafeConnect only allows deleting staff by index. Once a staff member is deleted, they cannot be recovered unless added again manually.
@@ -250,7 +251,7 @@ It ensures that:
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
 - The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
 - The **email prefix** `e/` must contain a valid email address.
-- The **address prefix** `a/` can take any value, but it cannot be blank.
+- The **address prefix** `a/` must contain a non-blank address.
 - The **reward points prefix** `rp/` must contain only digits.
 - The **visit count prefix** `vc/` must contain only digits.
 - The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
@@ -267,9 +268,9 @@ Upon execution, `AddCustomerCommand` first checks the model for duplicate custom
 
 > **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `CID` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
 
-#### Deleting a customer from the catalog
+#### Deleting a customer from the address book
 
-The delete customer feature allows users to remove customers from the catalog by specifying the customer's index in the displayed list.
+The delete customer feature allows users to remove customers from the address book by specifying the customer's index in the displayed list.
 
 The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteCustomerCommandParser` to create the appropriate command object.
 
@@ -288,7 +289,7 @@ Upon execution, `DeleteCustomerCommand` first checks if the index is within the 
 
 If the index is valid, `DeleteCustomerCommand`:
 1. Retrieves the customer to be deleted from the filtered customer list.
-2. Calls `model.deleteCustomer(customerToDelete)` to remove the customer from the catalog.
+2. Calls `model.deleteCustomer(customerToDelete)` to remove the customer from the address book.
 3. Returns a `CommandResult` with a success message.
 
 > **_NOTE:_** CafeConnect only allows deleting customers by index. Once a customer is deleted, they cannot be recovered unless added again manually.

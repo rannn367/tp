@@ -17,9 +17,11 @@ import seedu.address.model.drink.Drink;
 public class DeleteDrinkCommand extends Command {
 
     public static final String COMMAND_WORD = "drinkdelete";
+    public static final String COMMAND_WORD_SHORTCUT = "dd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the drink identified by the index number used in the displayed drinks list.\n"
+            + " (" + COMMAND_WORD_SHORTCUT
+            + "): Deletes the drink identified by the index number used in the displayed drinks list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

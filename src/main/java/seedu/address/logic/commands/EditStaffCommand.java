@@ -30,8 +30,10 @@ import seedu.address.model.util.StaffBuilder;
 public class EditStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "staffedit";
+    public static final String COMMAND_WORD_SHORTCUT = "se";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the staff identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+            + "): Edits the details of the staff identified "
             + "by the index number used in the displayed staff list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -51,7 +53,8 @@ public class EditStaffCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Staff: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This staff already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "Duplicated Staff ID found. This staff already exists in the address book.";
 
     private final Index index;
     private final EditStaffDescriptor editStaffDescriptor;

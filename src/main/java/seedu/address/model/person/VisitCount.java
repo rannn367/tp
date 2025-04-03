@@ -42,6 +42,11 @@ public class VisitCount {
         return value;
     }
 
+    public VisitCount incrementVisit() {
+        return new VisitCount(String.valueOf(Integer.parseInt(this.value) + 1));
+    }
+
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

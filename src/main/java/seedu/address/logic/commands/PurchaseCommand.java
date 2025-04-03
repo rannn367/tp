@@ -28,13 +28,19 @@ import seedu.address.model.util.CustomerBuilder;
 public class PurchaseCommand extends Command {
 
     public static final String COMMAND_WORD = "purchase";
+    public static final String COMMAND_WORD_SHORTCUT = "p";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records a purchase for a customer "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+        + "): Records a purchase for a customer "
         + "identified by the index number in the displayed customer list.\n"
         + "Parameters: INDEX " + PREFIX_DRINKNAME + "DRINK_NAME [" + PREFIX_REDEEM + "true]\n"
         + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE\n"
         + "Example (with redemption): " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE "
-        + PREFIX_REDEEM + "true";
+        + PREFIX_REDEEM + "true\n"
+        + "Shortcut usage: " + COMMAND_WORD_SHORTCUT + " 1:ICED LATTE[:r]\n"
+        + "Example (with redemption using shortcut): " + COMMAND_WORD_SHORTCUT + " 1:ICED LATTE:r\n"
+        + "Example (without redemption using shortcut): " + COMMAND_WORD_SHORTCUT + " 1:ICED LATTE";
+
 
     public static final String MESSAGE_PURCHASE_SUCCESS = "Purchase recorded for %1$s.\n"
         + "Drink: %2$s, Price: %3$s\n"
@@ -160,12 +166,12 @@ public class PurchaseCommand extends Command {
         assert customerToUpdate != null;
 
         int currentRewardPoints = Integer.parseInt(customerToUpdate.getRewardPoints().value);
-        int currentVisitCount = Integer.parseInt(customerToUpdate.getVisitCount().value);
+        VisitCount currentVisitCount = customerToUpdate.getVisitCount(); // Now a VisitCount object
 
         return new CustomerBuilder(customerToUpdate)
                 .withRewardPoints(new RewardPoints(String.valueOf(currentRewardPoints + pointsToAdd)))
                 .withTotalSpent(customerToUpdate.getTotalSpent().incrementSpent(purchaseAmount))
-                .withVisitCount(new VisitCount(String.valueOf(currentVisitCount + 1)))
+                .withVisitCount(currentVisitCount.incrementVisit())
                 .build();
     }
 
