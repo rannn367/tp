@@ -56,7 +56,9 @@ public class AddCustomerCommand extends Command {
             + PREFIX_FAVOURITE_ITEM + "Cappuccino "
             + PREFIX_TOTAL_SPENT + "120.50 "
             + PREFIX_TAG + "regular "
-            + PREFIX_TAG + "vip";
+            + PREFIX_TAG + "vip\n"
+            + "Shortcut: " + COMMAND_WORD_SHORTCUT + " <CUSTOMER_ID>:<NAME>:<PHONE>\n"
+            + "Example: " + COMMAND_WORD_SHORTCUT + " C1234:John Doe:98765432";
 
     private final Customer toAdd;
 
