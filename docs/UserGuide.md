@@ -329,7 +329,7 @@ Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/AD
 * The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
 * At least one of the optional fields must be provided.
 * Existing values will be overwritten by the input values.
-* When editing tags, the existing tags of the customer will be removed i.e., adding of tags is not cumulative.
+* When editing tags, all of the current existing tags of the customer will be removed i.e., adding of tags is not cumulative.
 * You can remove all the customer's tags by typing `t/` without specifying any tags after it.
 * Character length restrictions apply as in customeradd command: NAME (max 50 chars), CUSTOMER_ID (max 10 chars), ADDRESS (max 100 chars), PHONE (3-20 chars), FAVOURITE_ITEM (max 30 chars)
 
@@ -491,7 +491,7 @@ Format: `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 * The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five staff members in the displayed list).
 * At least one of the optional fields must be provided.
 * Existing values will be overwritten by the input values.
-* When editing tags, the existing tags of the staff will be removed i.e., adding of tags is not cumulative.
+* When editing tags, all of the current existing tags of the staff will be removed i.e., adding of tags is not cumulative.
 * You can remove all the staff's tags by typing `t/` without specifying any tags after it.
 * Character length restrictions apply as in staffadd command: NAME (max 50 chars), STAFF_ID (max 10 chars), ADDRESS (max 100 chars), PHONE (3-20 chars), ROLE (max 50 chars), SHIFT_TIMING (max 50 chars)
 
@@ -596,12 +596,14 @@ These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
+
     <img src="images/UG_Ui_Images/before_drinkdelete.png" alt="Before deleting the drink" style="max-width: 100%; height: auto;"/>
     <p><i>Before deleting the customer</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
     <img src="images/UG_Ui_Images/after_drinkdelete.png" alt="After deleting the drink" style="max-width: 100%; height: auto;"/>
     <p><i>After deleting the customer</i></p>
+
   </div>
 </div>
 
