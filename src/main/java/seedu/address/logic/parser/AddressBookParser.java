@@ -50,36 +50,56 @@ public class AddressBookParser {
     private static final Map<String, ThrowingFunction<String, Command, ParseException>> COMMAND_MAP = new HashMap<>();
 
     static {
+        COMMAND_MAP.put(ExitCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new ExitCommand());
 
-        COMMAND_MAP.put(ExitCommand.COMMAND_WORD, arguments -> new ExitCommand());
-        COMMAND_MAP.put(HelpCommand.COMMAND_WORD, arguments -> new HelpCommand());
-        COMMAND_MAP.put(
-            AddStaffCommand.COMMAND_WORD, arguments -> new AddStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            AddStaffCommand.COMMAND_WORD_SHORTCUT, arguments -> new AddStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            EditStaffCommand.COMMAND_WORD, arguments -> new EditStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            FindStaffCommand.COMMAND_WORD, arguments -> new FindStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            DeleteStaffCommand.COMMAND_WORD, arguments -> new DeleteStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            AddCustomerCommand.COMMAND_WORD, arguments -> new AddCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            AddCustomerCommand.COMMAND_WORD_SHORTCUT, arguments -> new AddCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            EditCustomerCommand.COMMAND_WORD, arguments -> new EditCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            FindCustomerCommand.COMMAND_WORD, arguments -> new FindCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-            DeleteCustomerCommand.COMMAND_WORD, arguments -> new DeleteCustomerCommandParser().parse(arguments));
-        COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD, arguments -> new AddDrinkCommandParser().parse(arguments));
-        COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD, arguments -> new PurchaseCommandParser().parse(arguments));
-        COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD, arguments -> new DeleteDrinkCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-                ListStaffCommand.COMMAND_WORD, arguments -> new ListStaffCommandParser().parse(arguments));
-        COMMAND_MAP.put(
-                ListCustomerCommand.COMMAND_WORD, arguments -> new ListCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(HelpCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new HelpCommand());
+
+        COMMAND_MAP.put(AddStaffCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new AddStaffCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(AddStaffCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new AddStaffCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(EditStaffCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new EditStaffCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(FindStaffCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new FindStaffCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(DeleteStaffCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new DeleteStaffCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(AddCustomerCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new AddCustomerCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(AddCustomerCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new AddCustomerCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(EditCustomerCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new EditCustomerCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(FindCustomerCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new FindCustomerCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(DeleteCustomerCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new DeleteCustomerCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new AddDrinkCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new PurchaseCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new DeleteDrinkCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(ListStaffCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new ListStaffCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(ListCustomerCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new ListCustomerCommandParser().parse(arguments));
     }
 
     /**
@@ -95,7 +115,7 @@ public class AddressBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
 
         // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
