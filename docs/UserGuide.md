@@ -211,7 +211,7 @@ Navigating around this User Guide:
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
-* Shortcut commands (`c`, `s` and `p`) require parameters in the exact order shown.<br>
+* Shortcut commands require parameters in the exact order shown.<br>
   e.g. `c C0102:Charlie:97285712` must have Customer ID, then Name, then Phone in that order.
 
 * Customer IDs must start with 'C' followed by digits (e.g., C1001), and Staff IDs must start with 'S' followed by digits (e.g., S1001).
@@ -257,7 +257,7 @@ Adds a customer to the customer list with required details such as customer ID, 
 
 Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
 
-* `CUSTOMER_ID` should start with a 'C' (case insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters
+* `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 * `EMAIL` must be a valid email address.
@@ -294,7 +294,7 @@ An extension of the customeradd command above, useful when there is a need to in
 
 Format: `c <CUSTOMER_ID>:<NAME>:<PHONE>`
 
-* `CUSTOMER_ID` should start with a 'C' followed by digits, e.g., C1001, and must not be longer than 10 characters
+* `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
@@ -361,7 +361,7 @@ Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/AD
 
 Examples:
 * `customeredit 1 p/99994567 e/newemail@example.com` edits the phone number and email address of the 1st customer to be `99994567` and `newemail@example.com` respectively.
-* `customeredit 2 n/Betsy Crower rp/5000 t/` edits the name of the 2nd staff to be `Betsy Crower`, changes the staff ID to `S002`, and clears all existing tags.
+* `customeredit 2 n/Betsy Crower rp/5000 t/` edits the name of the 2nd customer to be `Betsy Crower`, updates their reward points to `5000`, and clears all existing tags.
 
 These are the before and after images of the first example
 
@@ -419,7 +419,7 @@ Adds a staff to the staff list with required details such as staff ID, name, pho
 
 Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
 
-* `STAFF_ID` should start with a 'S' (case insensitive) followed by digits, e.g., S1001, s1001, and must not be longer than 10 characters
+* `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 * `EMAIL` must be a valid email address
@@ -427,7 +427,7 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 * `ROLE` can take any value, and it should not be blank and must not be longer than 50 characters
 * `SHIFT_TIMING` can take any value, and it should not be blank and must not be longer than 50 characters
 * `HOURS_WORKED` should only contain digits
-* `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive)
+* `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive) with at most one decimal place.
 * `TAG` can take any value, optional field
 
 Examples:
@@ -456,7 +456,7 @@ An extension of the staffadd command above, useful when there is a need to input
 
 Format: `s <STAFF_ID>:<NAME>:<PHONE>`
 
-* `STAFF_ID` should start with a 'S' followed by digits, e.g., S1001, and must not be longer than 10 characters
+* `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
@@ -580,7 +580,7 @@ Adds a new drink to the drink catalog with details such as name, price, and cate
 Format: `drinkadd n/NAME p/PRICE c/CATEGORY`
 
 * `NAME` is the name of the drink
-* `PRICE` should be a positive number with up to 2 decimal places
+* `PRICE` should be a positive number with up to 2 decimal places and must be at least $1.00.
 * `CATEGORY` is the classification of the drink (e.g., Coffee, Tea, etc.)
 
 Examples:
@@ -653,7 +653,7 @@ Format: `purchase INDEX n/DRINK_NAME [redeem/true]`
 
 Examples:
 * `purchase 1 n/Espresso` records a regular purchase of an Espresso for the 1st customer, updating their total spent and adding reward points.
-* `purchase 2 n/Cappuccino redeem/true` redeems a Cappuccino for the 3rd customer using their reward points.
+* `purchase 2 n/Cappuccino redeem/true` redeems a Cappuccino for the 2nd customer using their reward points.
 
 ##### Standard Purchase
 
@@ -891,22 +891,22 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 Action | Format, Examples
 -------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` <br> e.g., `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
-**Add Customer (Shortcut)** | `c <CUSTOMER_ID>:<NAME>:<PHONE>` <br> e.g., `c C0102:Charlie:97285712`
+**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` <br> e.g., `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular` or `c cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Add Customer (Shortcut)** | `c <CUSTOMER_ID>:<NAME>:<PHONE>` <br> e.g., `c C0102:Charlie:97285712` or  `customeradd C0102:Charlie:97285712`
 **Delete Customer** | `customerdelete INDEX` or `cd INDEX` <br> e.g., `customerdelete 2` or `cd 2`
 **Edit Customer** | `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` <br> e.g., `customeredit 1 p/99994567 e/newemail@example.com` or `ce 1 p/99994567 e/newemail@example.com`
 **Find Customer** | `customerfind KEYWORD [MORE_KEYWORDS]...` or `cf KEYWORD [MORE_KEYWORDS]...` <br> e.g., `customerfind John Doe` or `cf John`
 **List All Customers** | `customerfind all/true` or `cf all/true`
-**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` <br> e.g., `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
-**Add Staff (Shortcut)** | `s <STAFF_ID>:<NAME>:<PHONE>` <br> e.g., `s S0102:Ali:98291029`
+**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` <br> e.g., `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime` or `s sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Add Staff (Shortcut)** | `s <STAFF_ID>:<NAME>:<PHONE>` <br> e.g., `s S0102:Ali:98291029` or `staffadd S0102:Ali:98291029`
 **Delete Staff** | `staffdelete INDEX` or `sd INDEX` <br> e.g., `staffdelete 2` or `sd 2`
 **Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` <br> e.g., `staffedit 1 p/99994567 e/newemail@example.com` or `se 1 p/99994567 e/newemail@example.com`
 **Find Staff** | `stafffind KEYWORD [MORE_KEYWORDS]...` or `sf KEYWORD [MORE_KEYWORDS]...` <br> e.g., `stafffind Alice` or `sf Alice`
 **List All Staff** | `stafffind all/true` or `sf all/true`
-**Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` or `da n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee` or `da n/Iced Latte p/4.50 c/Coffee`
+**Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` or `da n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee` or `d n/Iced Latte p/4.50 c/Coffee`
 **Delete Drink** | `drinkdelete INDEX` or `dd INDEX` <br> e.g., `drinkdelete 2` or `dd 2`
-**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` <br> e.g., `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
-**Purchase (Shortcut)** | `p INDEX:DRINK_NAME[:r]` <br> e.g., `p 1:Espresso` or `p 2:Cappuccino:r`
+**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` <br> e.g., `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true` or `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
+**Purchase (Shortcut)** | `p INDEX:DRINK_NAME[:r]` <br> e.g., `p 1:Espresso` or `p 2:Cappuccino:r` or `p 1:Espresso` or `purchase 1:Espresso` or `purchase 2:Cappuccino:r` or `purchase 1:Espresso`
 **Help** | `help`
 
 --------------------------------------------------------------------------------------------------------------------
