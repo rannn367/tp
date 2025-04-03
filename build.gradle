@@ -65,14 +65,6 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir 'src/main/resources'
-        }
-    }
-}
-
 shadowJar {
     archiveFileName = 'cafeconnect.jar'
 }
