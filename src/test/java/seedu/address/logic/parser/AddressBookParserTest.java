@@ -22,6 +22,8 @@ import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
+import seedu.address.logic.commands.QuickAddCustomerCommand;
+import seedu.address.logic.commands.QuickAddStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class AddressBookParserTest {
@@ -42,17 +44,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addCustomer() throws Exception {
-        // Full command format
         assertTrue(parser.parseCommand(AddCustomerCommand.COMMAND_WORD + " cid/C001 n/John Doe p/98765432 "
             + "e/john@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular")
                 instanceof AddCustomerCommand);
     }
 
     @Test
-    public void parseCommand_addCustomerShortcut() throws Exception {
-        // Shortcut command format
-        assertTrue(parser.parseCommand(AddCustomerCommand.COMMAND_WORD_SHORTCUT + " C0102:Charlie:97285712")
-                instanceof AddCustomerCommand);
+    public void parseCommand_quickAddCustomer() throws Exception {
+        assertTrue(parser.parseCommand(QuickAddCustomerCommand.COMMAND_WORD_SHORTCUT + " C0102:Charlie:97285712")
+                instanceof QuickAddCustomerCommand);
     }
 
     @Test
@@ -170,7 +170,6 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addStaff() throws Exception {
-        // Full command format
         assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD
                 + " sid/S1234 n/Alice Tan p/81234567 "
                 + "e/alice@example.com a/123, Jurong West Ave 6, #08-111 "
@@ -179,10 +178,9 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_addStaffShortcut() throws Exception {
-        // Shortcut command format
-        assertTrue(parser.parseCommand(AddStaffCommand.COMMAND_WORD_SHORTCUT + " S0102:Ali:98291029")
-                instanceof AddStaffCommand);
+    public void parseCommand_quickAddStaff() throws Exception {
+        assertTrue(parser.parseCommand(QuickAddStaffCommand.COMMAND_WORD_SHORTCUT + " S0102:Ali:98291029")
+                instanceof QuickAddStaffCommand);
     }
 
     @Test

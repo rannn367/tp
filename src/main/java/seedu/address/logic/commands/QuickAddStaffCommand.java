@@ -1,16 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERFORMANCE_RATING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,36 +14,15 @@ import seedu.address.model.person.Staff;
 /**
  * Adds a staff member to the address book.
  */
-public class AddStaffCommand extends Command {
+public class QuickAddStaffCommand extends Command {
 
-    public static final String COMMAND_WORD = "staffadd";
-    public static final String COMMAND_WORD_SHORTCUT = "sa";
+    public static final String COMMAND_WORD = "quickstaffadd";
+    public static final String COMMAND_WORD_SHORTCUT = "qsa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
-            + "): Adds a staff member to the address book. "
-            + "Parameters: "
-            + PREFIX_STAFF_ID + "STAFF_ID "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_ROLE + "ROLE "
-            + PREFIX_SHIFT_TIMING + "SHIFT_TIMING "
-            + PREFIX_HOURS_WORKED + "HOURS_WORKED "
-            + PREFIX_PERFORMANCE_RATING + "PERFORMANCE_RATING "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_STAFF_ID + "S1234 "
-            + PREFIX_NAME + "Alice Tan "
-            + PREFIX_PHONE + "81234567 "
-            + PREFIX_EMAIL + "alice@example.com "
-            + PREFIX_ADDRESS + "123, Jurong West Ave 6, #08-111 "
-            + PREFIX_ROLE + "Barista "
-            + PREFIX_SHIFT_TIMING + "9am-5pm "
-            + PREFIX_HOURS_WORKED + "40 "
-            + PREFIX_PERFORMANCE_RATING + "4.5 "
-            + PREFIX_TAG + "fullTime "
-            + PREFIX_TAG + "experienced\n";
+            + "): Quickly adds a staff member to the address book. "
+            + "Parameters: " + COMMAND_WORD_SHORTCUT + " <STAFF_ID>:<NAME>:<PHONE>\n"
+            + "Example: " + COMMAND_WORD_SHORTCUT + " S1234:Alice Tan:81234567";
 
     public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
     public static final String MESSAGE_DUPLICATE_STAFF =
@@ -69,7 +38,7 @@ public class AddStaffCommand extends Command {
      * @param staff The staff member to be added.
      * @throws NullPointerException if the provided staff is null.
      */
-    public AddStaffCommand(Staff staff) {
+    public QuickAddStaffCommand(Staff staff) {
         requireNonNull(staff, "Staff cannot be null.");
         this.toAdd = staff;
     }
@@ -84,7 +53,7 @@ public class AddStaffCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model, "Model cannot be null.");
-        logger.log(Level.INFO, "Executing AddStaffCommand for staff: {0}", toAdd);
+        logger.log(Level.INFO, "Executing QuickAddStaffCommand for staff: {0}", toAdd);
 
         if (model.hasStaff(toAdd)) {
             logger.log(Level.WARNING, "Attempted to add duplicate staff: {0}", toAdd);
@@ -108,12 +77,12 @@ public class AddStaffCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof AddStaffCommand)) {
+        if (!(other instanceof QuickAddStaffCommand)) {
             return false;
         }
 
-        AddStaffCommand otherAddStaffCommand = (AddStaffCommand) other;
-        return toAdd.equals(otherAddStaffCommand.toAdd);
+        QuickAddStaffCommand otherQuickAddStaffCommand = (QuickAddStaffCommand) other;
+        return toAdd.equals(otherQuickAddStaffCommand.toAdd);
     }
 
     /**

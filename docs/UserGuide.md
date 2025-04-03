@@ -76,23 +76,24 @@ Managing café operations efficiently is crucial for success—that's why we cre
 
   * [Welcome to CaféConnect!](#welcome-to-cafeconnect)
   * [Why would you enjoy CaféConnect?](#why-would-you-enjoy-cafeconnect)
-  * [How to Use our User Guide](#how-to-use-our-user-guide)
+  * [Getting Started with the User Guide](#getting-started-with-the-user-guide)
   * [Quick start](#quick-start)
+  * [Command Format](#command-format)
   * [Features](#features)
-    * [Adding a customer: `customeradd` or `c`](#adding-a-customer-customeradd-or-c)
-    * [Adding a customer (shortcut): `c` shortcut](#adding-a-customer-customeradd-or-c-shortcut)
+    * [Adding a customer: `customeradd` or `ca`](#adding-a-customer-customeradd-or-ca)
+    * [Quickly adding a customer: `quickcustomeradd` or `qca`](#quick-adding-a-customer-quickcustomeradd-or-qca)
     * [Deleting a customer: `customerdelete` or `cd`](#deleting-a-customer-customerdelete-or-cd)
     * [Editing customer details: `customeredit` or `ce`](#editing-customer-details-customeredit-or-ce)
     * [Finding a customer: `customerfind` or `cf`](#finding-a-customer-customerfind-or-cf)
-    * [Adding a staff: `staffadd` or `s`](#adding-a-staff-staffadd-or-s)
-    * [Adding a staff (shortcut): `s` shortcut](#adding-a-staff-staffadd-or-s-shortcut)
+    * [Adding a staff: `staffadd` or `sa`](#adding-a-staff-staffadd-or-sa)
+    * [Quickly adding a staff: `quickstaffadd` or `qsa`](#quick-adding-a-staff-quickstaffadd-or-qsa)
     * [Deleting a staff: `staffdelete` or `sd`](#deleting-a-staff-staffdelete-or-sd)
     * [Editing staff details: `staffedit` or `se`](#editing-staff-details-staffedit-or-se)
     * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
     * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
     * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
     * [Recording a purchase: `purchase`](#recording-a-purchase-purchase)
-    * [Recording a purchase (shortcut): `p` shortcut](#recording-a-purchase-purchase-or-p-shortcut)
+    * [Quickly recording a purchase: `quickpurchase` or `qp`](#quick-recording-a-purchase-qpurchase-or-qp)
   * [FAQ](#faq)
   * [Known Issues](#known-issues)
   * [Command Summary](#command-summary)
@@ -102,15 +103,16 @@ Managing café operations efficiently is crucial for success—that's why we cre
 <!-- TOC -->
 
 --------------------------------------------------------------------------------------------------------------------
-## How to Use our User Guide
+
+## Getting Started with the User Guide
 
 First time using **CaféConnect**? Don't worry! We've got you covered! This guide will help maximize your usage of **CaféConnect**.
 
-* To get started, refer to the **Command Format** section below, which will walk you through the basics of entering commands.
+* To get started, refer to the [**Command Format**](#command-format) section below, which will walk you through the basics of entering commands.
 * Need a quick reference of the commands available? Check out the [**Command Summary**](#command-summary) at the end of this guide.
 * Have a specific question? Browse through the relevant sections for detailed information.
 
-Navigating around this User Guide:
+**Getting Around This Guide**
 
 * *Note boxes* provide important information that you should take note of.
 
@@ -182,66 +184,78 @@ Navigating around this User Guide:
 
    * `customerdelete 3` : Deletes the 3rd customer shown in the current customer list.
 
-   * `c C0102:Charlie:97285712` : Quickly adds a customer using the shortcut command.
+   * `ca C0102:Charlie:97285712` : Quickly adds a customer using the shortcut command.
 
    * `exit` : Exits the app.
 
-7. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command. Be sure to check the [Command Format](#command-format) section to understand how to properly enter commands in CaféConnect.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+
+## Understanding Command Syntax
+
+### Basic Command Rules
+
+* All commands in CaféConnect are **case-insensitive**.  
+  e.g. `customeradd`, `CUSTOMERADD`, and `CustomerAdd` will all perform the same action.
+
+* Parameters are indicated in `UPPER_CASE` and must be replaced with actual values.<br>
+  e.g. in `customeradd cid/CUSTOMER_ID`, replace `CUSTOMER_ID` with a value like `C001`.
+
+* Optional parameters are enclosed in square brackets `[]`.<br>
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/regular` or simply `n/John Doe`.
+
+* Parameters marked with `…` can be repeated multiple times or omitted.<br>
+  e.g. `[t/TAG]…` can be used as `t/vip`, `t/vip t/regular`, or left empty.
+
+* Commands without parameters ignore any additional text.<br>
+  e.g. `help 123` will be treated as `help`.
+
+### Parameter Order Rules
+
+* For standard commands, parameters can be entered in any order.<br>
+  e.g. both `n/NAME p/PHONE` and `p/PHONE n/NAME` are valid.
+
+* Quick commands require parameters in a fixed sequence:
+  * Customer quick add: `quickcustomeradd C0102:Charlie:97285712` (ID:Name:Phone)
+  * Staff quick add: `quickstaffadd S0102:Ali:98291029` (ID:Name:Phone)
+  * Quick purchase: `quickpurchase 1:Espresso` (Index:Drink)
+
+### Available Command Shortcuts
+
+* CaféConnect provides convenient shortcuts for all commands:
+  * Customer Management:
+    - `ca` for `customeradd`
+    - `qca` for `quickcustomeradd`
+    - `cd` for `customerdelete`
+    - `ce` for `customeredit`
+    - `cf` for `customerfind`
+  * Staff Management:
+    - `sa` for `staffadd`
+    - `qsa` for `quickstaffadd`
+    - `sd` for `staffdelete`
+    - `se` for `staffedit`
+    - `sf` for `stafffind`
+  * Drink Management:
+    - `da` for `drinkadd`
+    - `dd` for `drinkdelete`
+  * Purchase Operations:
+    - `p` for `purchase`
+    - `qp` for `quickpurchase`
 
 <box type="info" seamless>
 
-**Notes about the command format in CaféConnect:**<br>
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</box>
 
-* Commands in CaféConnect are **case-insensitive**.  
-  e.g. `customeradd`, `CUSTOMERADD`, and `CustomerAdd` all execute the same command.
+## Features
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `customeradd cid/CUSTOMER_ID`, `CUSTOMER_ID` is a parameter which can be used as `customeradd cid/C001`.
-
-* Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/regular` or as `n/John Doe`.
-
-* Items with `…` after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/vip`, `t/vip t/regular` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
-
-* Shortcut commands require parameters in the exact order shown.<br>
-  e.g. `c C0102:Charlie:97285712` must have Customer ID, then Name, then Phone in that order.
-
-* Customer IDs must start with 'C' followed by digits (e.g., C1001), and Staff IDs must start with 'S' followed by digits (e.g., S1001).
+Before using any commands, make sure you understand the [Command Format](#command-format) rules that apply to all commands in CaféConnect.
 
 * When using staff-specific commands (like `staffadd`, `staffdelete`, etc.), the interface will automatically switch to the Staff tab.
 
 * Similarly, when using customer-specific commands (like `customeradd`, `customerdelete`, etc.), the interface will automatically switch to the Customers tab.
-
-* All commands have shorter command aliases that can be used instead of the full command word:
-  * `c` for `customeradd`
-  * `cd` for `customerdelete`
-  * `ce` for `customeredit`
-  * `cf` for `customerfind`
-  * `s` for `staffadd`
-  * `sd` for `staffdelete`
-  * `se` for `staffedit`
-  * `sf` for `stafffind`
-  * `da` for `drinkadd`
-  * `dd` for `drinkdelete`
-  * `p` for `purchase`
-
-* Some commands also have special shortcut formats (noted in their respective sections).
-
-* Extraneous parameters for commands that do not take parameters (such as `help`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-
-
-</box>
 
 ### Viewing help : `help`
 
@@ -251,7 +265,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Adding a customer: `customeradd` or `c`
+### Adding a customer: `customeradd` or `ca`
 
 Adds a customer to the customer list with required details such as customer ID, name, phone, email, address, reward points, visit count, favourite item, and total spent.
 
@@ -288,29 +302,29 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Adding a customer: `customeradd` or `c` (shortcut)
+### Quickly adding a customer: `quickcustomeradd` or `qca`
 
-An extension of the customeradd command above, useful when there is a need to input customer information quickly into the system.
+A quick way to add customer members with minimal required information.
 
-Format: `c <CUSTOMER_ID>:<NAME>:<PHONE>`
+Format: `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>`
 
 * `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
-* `c C0102:Charlie:97285712`
-* `c C0103:Charles:80192832`
+* `quickcustomeradd C0102:Charlie:97285712`
+* `qca S0103:Bob:80192832`
 
 These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_customeraddshortcut.png" alt="Before adding the customer" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_quickcustomeradd.png" alt="Before adding the customer" style="max-width: 100%; height: auto;"/>
     <p><i>Before adding the customer</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_customeraddshortcut.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_quickcustomeradd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
     <p><i>After adding the customer</i></p>
   </div>
 </div>
@@ -410,10 +424,7 @@ These are the before and after images of the second example
   </div>
 </div>
 
-
-
-
-### Adding a staff: `staffadd` or `s`
+### Adding a staff: `staffadd` or `sa`
 
 Adds a staff to the staff list with required details such as staff ID, name, phone, email, address, role, shift, hours worked, and performance rating.
 
@@ -450,29 +461,29 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Adding a staff: `staffadd` or `s` (shortcut)
+### Quickly adding a staff: `quickstaffadd` or `qsa`
 
-An extension of the staffadd command above, useful when there is a need to input staff information quickly into the system.
+A quick way to add staff with minimal required information.
 
-Format: `s <STAFF_ID>:<NAME>:<PHONE>`
+Format: `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>`
 
 * `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
-* `s S0102:Ali:98291029`
-* `s S0103:Bali:89201029`
+* `quickstaffadd S0102:Ali:98291029`
+* `qsa S0103:Bali:89201029`
 
 These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_staffaddshortcut.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_quickstaffadd.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
     <p><i>Before adding the staff</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_staffaddshortcut.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_quickstaffadd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
     <p><i>After adding the staff</i></p>
   </div>
 </div>
@@ -688,11 +699,11 @@ These are the before and after images of a redemption purchase using the second 
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Recording a purchase: `purchase` or `p` (shortcut)
+### Quickly Recording a purchase: `quickpurchase` or `qp`
 
-An extension of the purchase command above, useful when there is a need to quickly record purchases.
+A quick way to record purchases with minimal required information.
 
-Format: `p INDEX:DRINK_NAME[:r]`
+Format: `quickpurchase INDEX:DRINK_NAME[:r]`
 
 * Records a purchase for the customer at the specified `INDEX`.
 * `DRINK_NAME` must match a drink that exists in the drink catalog.
@@ -700,8 +711,8 @@ Format: `p INDEX:DRINK_NAME[:r]`
 * Without `:r`, it will be processed as a standard purchase.
 
 Examples:
-* `p 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
-* `p 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
+* `quickpurchase 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
+* `quickpurchase 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
 
 ##### Standard Purchase
 
@@ -817,8 +828,8 @@ Ans: Yes, all changes to customer or staff data are immediately reflected in the
 #### Q10: Can I use shortcuts to add customers and staff quickly?
 
 Ans: Yes, you can use the shortcut commands:
-- For customers: `c C0102:Charlie:97285712`
-- For staff: `s S0102:Ali:98291029`
+- For customers: `ca C0102:Charlie:97285712`
+- For staff: `sa S0102:Ali:98291029`
 
 These shortcuts allow you to quickly add basic information, which you can later edit to add more details if needed.
 
@@ -850,7 +861,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 ### Getting errors when using the commands
 
-- Check that you have typed the correct command format.
+- Check that you have typed the correct command format as explained in the [Command Format](#command-format) section.
 - Verify you have included all necessary parameters.
 - Ensure you have used valid inputs within character limits:
   - NAME must not exceed 50 characters
@@ -863,7 +874,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 ### "Unknown command" error appears
 
 - Check for typos in the command name (e.g., `customeradd` vs `customradd`)
-- Verify you're using the correct command format
+- Verify you're using the correct command format as specified in the [Command Format](#command-format) section
 - Remember commands are case-insensitive, but parameter prefixes must be exact (e.g., `n/` for name)
 
 ### Interface not showing all information
@@ -889,25 +900,39 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 ## Command Summary
 
-Action | Format, Examples
--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` <br> e.g., `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular` or `c cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
-**Add Customer (Shortcut)** | `c <CUSTOMER_ID>:<NAME>:<PHONE>` <br> e.g., `c C0102:Charlie:97285712` or  `customeradd C0102:Charlie:97285712`
-**Delete Customer** | `customerdelete INDEX` or `cd INDEX` <br> e.g., `customerdelete 2` or `cd 2`
-**Edit Customer** | `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` <br> e.g., `customeredit 1 p/99994567 e/newemail@example.com` or `ce 1 p/99994567 e/newemail@example.com`
-**Find Customer** | `customerfind KEYWORD [MORE_KEYWORDS]...` or `cf KEYWORD [MORE_KEYWORDS]...` <br> e.g., `customerfind John Doe` or `cf John`
-**List All Customers** | `customerfind all/true` or `cf all/true`
-**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` <br> e.g., `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime` or `s sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
-**Add Staff (Shortcut)** | `s <STAFF_ID>:<NAME>:<PHONE>` <br> e.g., `s S0102:Ali:98291029` or `staffadd S0102:Ali:98291029`
-**Delete Staff** | `staffdelete INDEX` or `sd INDEX` <br> e.g., `staffdelete 2` or `sd 2`
-**Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` <br> e.g., `staffedit 1 p/99994567 e/newemail@example.com` or `se 1 p/99994567 e/newemail@example.com`
-**Find Staff** | `stafffind KEYWORD [MORE_KEYWORDS]...` or `sf KEYWORD [MORE_KEYWORDS]...` <br> e.g., `stafffind Alice` or `sf Alice`
-**List All Staff** | `stafffind all/true` or `sf all/true`
-**Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` or `da n/NAME p/PRICE c/CATEGORY` <br> e.g., `drinkadd n/Iced Latte p/4.50 c/Coffee` or `d n/Iced Latte p/4.50 c/Coffee`
-**Delete Drink** | `drinkdelete INDEX` or `dd INDEX` <br> e.g., `drinkdelete 2` or `dd 2`
-**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` <br> e.g., `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true` or `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
-**Purchase (Shortcut)** | `p INDEX:DRINK_NAME[:r]` <br> e.g., `p 1:Espresso` or `p 2:Cappuccino:r` or `p 1:Espresso` or `purchase 1:Espresso` or `purchase 2:Cappuccino:r` or `purchase 1:Espresso`
-**Help** | `help`
+Command | Format | Examples
+--------|--------|---------
+**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Quick Add Customer** | `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>` | `quickcustomeradd C0102:Charlie:97285712`
+**Quick Add Customer (Alias)** | `qca <CUSTOMER_ID>:<NAME>:<PHONE>` | `qca C0102:Charlie:97285712`
+**Delete Customer** | `customerdelete INDEX` | `customerdelete 2`
+**Delete Customer (Alias)** | `cd INDEX` | `cd 2`
+**Edit Customer** | `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `customeredit 1 p/99994567 e/newemail@example.com`
+**Edit Customer (Alias)** | `ce INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `ce 1 p/99994567 e/newemail@example.com`
+**Find Customer** | `customerfind KEYWORD [MORE_KEYWORDS]...` | `customerfind John Doe`
+**Find Customer (Alias)** | `cf KEYWORD [MORE_KEYWORDS]...` | `cf John`
+**List All Customers** | `customerfind all/true` | -
+**List All Customers (Alias)** | `cf all/true` | -
+**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Quick Add Staff** | `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>` | `quickstaffadd S0102:Ali:98291029`
+**Quick Add Staff (Alias)** | `qsa <STAFF_ID>:<NAME>:<PHONE>` | `qsa S0102:Ali:98291029`
+**Delete Staff** | `staffdelete INDEX` | `staffdelete 2`
+**Delete Staff (Alias)** | `sd INDEX` | `sd 2`
+**Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` | `staffedit 1 p/99994567 e/newemail@example.com`
+**Edit Staff (Alias)** | `se INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` | `se 1 p/99994567 e/newemail@example.com`
+**Find Staff** | `stafffind KEYWORD [MORE_KEYWORDS]...` | `stafffind Alice`
+**Find Staff (Alias)** | `sf KEYWORD [MORE_KEYWORDS]...` | `sf Alice`
+**List All Staff** | `stafffind all/true` | -
+**List All Staff (Alias)** | `sf all/true` | -
+**Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` | `drinkadd n/Iced Latte p/4.50 c/Coffee`
+**Add Drink (Alias)** | `da n/NAME p/PRICE c/CATEGORY` | `da n/Iced Latte p/4.50 c/Coffee`
+**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` | `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
+**Purchase (Alias)** | `p INDEX n/DRINK_NAME [redeem/true]` | `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
+**Quick Purchase** | `quickpurchase INDEX:DRINK_NAME[:r]` | `quickpurchase 1:Espresso` or `quickpurchase 2:Cappuccino:r`
+**Quick Purchase (Alias)** | `qp INDEX:DRINK_NAME[:r]` | `qp 1:Espresso` or `qp 2:Cappuccino:r`
+**Help** | `help` | -
 
 --------------------------------------------------------------------------------------------------------------------
 
