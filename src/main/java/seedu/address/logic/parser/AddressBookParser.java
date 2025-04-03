@@ -58,49 +58,70 @@ public class AddressBookParser {
 
         COMMAND_MAP.put(AddStaffCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new AddStaffCommandParser().parse(arguments));
-
         COMMAND_MAP.put(AddStaffCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new AddStaffCommandParser().parse(arguments));
 
         COMMAND_MAP.put(EditStaffCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new EditStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(EditStaffCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new EditStaffCommandParser().parse(arguments));
 
         COMMAND_MAP.put(FindStaffCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new FindStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(FindStaffCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new FindStaffCommandParser().parse(arguments));
 
         COMMAND_MAP.put(DeleteStaffCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new DeleteStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(DeleteStaffCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new DeleteStaffCommandParser().parse(arguments));
 
         COMMAND_MAP.put(AddCustomerCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new AddCustomerCommandParser().parse(arguments));
-
         COMMAND_MAP.put(AddCustomerCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new AddCustomerCommandParser().parse(arguments));
 
         COMMAND_MAP.put(EditCustomerCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new EditCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(EditCustomerCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new EditCustomerCommandParser().parse(arguments));
 
         COMMAND_MAP.put(FindCustomerCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new FindCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(FindCustomerCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new FindCustomerCommandParser().parse(arguments));
 
         COMMAND_MAP.put(DeleteCustomerCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new DeleteCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(DeleteCustomerCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new DeleteCustomerCommandParser().parse(arguments));
 
         COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new AddDrinkCommandParser().parse(arguments));
+        COMMAND_MAP.put(AddDrinkCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new AddDrinkCommandParser().parse(arguments));
 
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new PurchaseCommandParser().parse(arguments));
+        COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new PurchaseCommandParser().parse(arguments));
 
         COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new DeleteDrinkCommandParser().parse(arguments));
+        COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new DeleteDrinkCommandParser().parse(arguments));
 
         COMMAND_MAP.put(ListStaffCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new ListStaffCommandParser().parse(arguments));
+        COMMAND_MAP.put(ListStaffCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new ListStaffCommandParser().parse(arguments));
 
         COMMAND_MAP.put(ListCustomerCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new ListCustomerCommandParser().parse(arguments));
+        COMMAND_MAP.put(ListCustomerCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new ListCustomerCommandParser().parse(arguments));
     }
+
 
     /**
      * Parses user input into command for execution.
