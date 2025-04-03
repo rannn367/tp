@@ -23,7 +23,8 @@ public class AddDrinkCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New drink added: %1$s";
     public static final String MESSAGE_DUPLICATE_DRINK = "This drink already exists in the drink catalog";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a drink to the drink catalog. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+            + "): Adds a drink to the drink catalog. "
             + "Parameters: "
             + PREFIX_DRINKNAME + "NAME "
             + PREFIX_PRICE + "PRICE "

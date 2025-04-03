@@ -20,7 +20,8 @@ public class DeleteCustomerCommand extends Command {
     public static final String COMMAND_WORD_SHORTCUT = "cd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the customer identified by the index number used in the displayed customer list.\n"
+            + " (" + COMMAND_WORD_SHORTCUT
+            + "): Deletes the customer identified by the index number used in the displayed customer list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

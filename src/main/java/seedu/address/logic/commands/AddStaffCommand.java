@@ -29,7 +29,8 @@ public class AddStaffCommand extends Command {
     public static final String COMMAND_WORD = "staffadd";
     public static final String COMMAND_WORD_SHORTCUT = "s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff member to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+            + "): Adds a staff member to the address book. "
             + "Parameters: "
             + PREFIX_STAFF_ID + "STAFF_ID "
             + PREFIX_NAME + "NAME "
