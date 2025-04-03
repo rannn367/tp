@@ -29,10 +29,11 @@
 * [Home]({{ baseUrl }}/index.html)
 
 * [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
-  * [Overview of User Guide]({{ baseUrl }}/UserGuide.html#overview-of-user-guide)
-  * [Overview of target users]({{ baseUrl }}/UserGuide.html#overview-of-target-users)
-  * [How to use our User Guide]({{ baseUrl }}/UserGuide.html#how-to-use-our-user-guide)
+  * [Welcome to CaféConnect!]({{ baseUrl }}/UserGuide.html#welcome-to-cafeconnect)
+  * [Why would you enjoy CaféConnect?]({{ baseUrl }}/UserGuide.html#why-would-you-enjoy-cafeconnect)
+  * [Getting Started with the User Guide]({{ baseUrl }}/UserGuide.html#getting-started-with-the-user-guide)
   * [Quick start]({{ baseUrl }}/UserGuide.html#quick-start)
+  * [Understanding Command Syntax]({{ baseUrl }}/UserGuide.html#understanding-command-syntax)
   * [Features]({{ baseUrl }}/UserGuide.html#features)
   * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
   * [Known Issues]({{ baseUrl }}/UserGuide.html#known-issues)
@@ -48,10 +49,6 @@
   * [Documentation, logging, testing, configuration, dev-ops]({{ baseUrl }}/DeveloperGuide.html#documentation-logging-testing-configuration-dev-ops)
   * [Appendix: Requirements]({{ baseUrl }}/DeveloperGuide.html#appendix-requirements)
   * [Appendix: Instructions for manual testing]({{ baseUrl }}/DeveloperGuide.html#appendix-instructions-for-manual-testing)
-* Tutorials
-  * [Tracing code]({{ baseUrl }}/tutorials/TracingCode.html)
-  * [Adding a command]({{ baseUrl }}/tutorials/AddRemark.html)
-  * [Removing Fields]({{ baseUrl }}/tutorials/RemovingFields.html)
 * [About Us]({{ baseUrl }}/AboutUs.html)
       </site-nav>
     </div>

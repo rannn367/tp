@@ -12,7 +12,7 @@ Thank you for choosing **CaféConnect** to streamline your café management expe
 
 *Use CaféConnect to bring efficiency to your café management!*
 
-### What is CaféConnect?
+**What is CaféConnect?**
 
 CaféConnect is a streamlined desktop application that helps you manage customers, staff, and your drink menu all in one place.
 
@@ -70,45 +70,12 @@ Managing café operations efficiently is crucial for success—that's why we cre
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
-### Table of Contents
-
-<!-- Table of Contents -->
-
-  * [Welcome to CaféConnect!](#welcome-to-cafeconnect)
-  * [Why would you enjoy CaféConnect?](#why-would-you-enjoy-cafeconnect)
-  * [Getting Started with the User Guide](#getting-started-with-the-user-guide)
-  * [Quick start](#quick-start)
-  * [Command Format](#command-format)
-  * [Features](#features)
-    * [Adding a customer: `customeradd` or `ca`](#adding-a-customer-customeradd-or-ca)
-    * [Quickly adding a customer: `quickcustomeradd` or `qca`](#quick-adding-a-customer-quickcustomeradd-or-qca)
-    * [Deleting a customer: `customerdelete` or `cd`](#deleting-a-customer-customerdelete-or-cd)
-    * [Editing customer details: `customeredit` or `ce`](#editing-customer-details-customeredit-or-ce)
-    * [Finding a customer: `customerfind` or `cf`](#finding-a-customer-customerfind-or-cf)
-    * [Adding a staff: `staffadd` or `sa`](#adding-a-staff-staffadd-or-sa)
-    * [Quickly adding a staff: `quickstaffadd` or `qsa`](#quick-adding-a-staff-quickstaffadd-or-qsa)
-    * [Deleting a staff: `staffdelete` or `sd`](#deleting-a-staff-staffdelete-or-sd)
-    * [Editing staff details: `staffedit` or `se`](#editing-staff-details-staffedit-or-se)
-    * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
-    * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
-    * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
-    * [Recording a purchase: `purchase`](#recording-a-purchase-purchase)
-    * [Quickly recording a purchase: `quickpurchase` or `qp`](#quick-recording-a-purchase-qpurchase-or-qp)
-  * [FAQ](#faq)
-  * [Known Issues](#known-issues)
-  * [Command Summary](#command-summary)
-  * [Glossary](#glossary)
-  * [Acknowledgements](#acknowledgements)
-
-<!-- TOC -->
-
---------------------------------------------------------------------------------------------------------------------
 
 ## Getting Started with the User Guide
 
 First time using **CaféConnect**? Don't worry! We've got you covered! This guide will help maximize your usage of **CaféConnect**.
 
-* To get started, refer to the [**Command Format**](#command-format) section below, which will walk you through the basics of entering commands.
+* To get started, refer to the [**Understanding Command Syntax**](#understanding-command-syntax) section below, which will walk you through the basics of entering commands.
 * Need a quick reference of the commands available? Check out the [**Command Summary**](#command-summary) at the end of this guide.
 * Have a specific question? Browse through the relevant sections for detailed information.
 
@@ -127,6 +94,43 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
 
   **Warning:** This is a warning box.
   </box>
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Table of Contents
+
+<!-- Table of Contents -->
+
+  * [Welcome to CaféConnect!](#welcome-to-cafeconnect)
+  * [Why would you enjoy CaféConnect?](#why-would-you-enjoy-cafeconnect)
+  * [Getting Started with the User Guide](#getting-started-with-the-user-guide)
+  * [Quick start](#quick-start)
+  * [Understanding Command Syntax](#understanding-command-syntax)
+    * [Basic Command Rules](#basic-command-rules)
+    * [Parameter Command Rules](#parameter-command-rules)
+    * [Command Alias](#command-alias)
+  * [Features](#features)
+    * [Adding a customer: `customeradd` or `ca`](#adding-a-customer-customeradd-or-ca)
+    * [Quickly adding a customer: `quickcustomeradd` or `qca`](#quickly-adding-a-customer-quickcustomeradd-or-qca)
+    * [Deleting a customer: `customerdelete` or `cd`](#deleting-a-customer-customerdelete-or-cd)
+    * [Editing customer details: `customeredit` or `ce`](#editing-customer-details-customeredit-or-ce)
+    * [Finding a customer: `customerfind` or `cf`](#finding-a-customer-customerfind-or-cf)
+    * [Adding a staff: `staffadd` or `sa`](#adding-a-staff-staffadd-or-sa)
+    * [Quickly adding a staff: `quickstaffadd` or `qsa`](#quickly-adding-a-staff-quickstaffadd-or-qsa)
+    * [Deleting a staff: `staffdelete` or `sd`](#deleting-a-staff-staffdelete-or-sd)
+    * [Editing staff details: `staffedit` or `se`](#editing-staff-details-staffedit-or-se)
+    * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
+    * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
+    * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
+    * [Recording a purchase: `purchase`](#recording-a-purchase-purchase)
+    * [Quickly recording a purchase: `quickpurchase` or `qp`](#quickly-recording-a-purchase-quickpurchase-or-qp)
+  * [FAQ](#faq)
+  * [Known Issues](#known-issues)
+  * [Command Summary](#command-summary)
+  * [Glossary](#glossary)
+  * [Acknowledgements](#acknowledgements)
+
+<!-- TOC -->
 
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
@@ -184,74 +188,89 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
 
    * `customerdelete 3` : Deletes the 3rd customer shown in the current customer list.
 
-   * `ca C0102:Charlie:97285712` : Quickly adds a customer using the shortcut command.
+   * `qca C0102:Charlie:97285712` : Quickly adds a customer.
 
    * `exit` : Exits the app.
 
-7. Refer to the [Features](#features) below for details of each command. Be sure to check the [Command Format](#command-format) section to understand how to properly enter commands in CaféConnect.
+7. Refer to the [Features](#features) below for details of each command. Be sure to check the [Understanding Command Syntax](#understanding-command-syntax) section to understand how to properly enter commands in CaféConnect.
 
 --------------------------------------------------------------------------------------------------------------------
 
 
 ## Understanding Command Syntax
 
+Let's start with a simple example to understand how commands work in CaféConnect:
+
+> `help` *- This is a basic command that opens the help window.*
+
+Breaking this down:
+- A **command** is an instruction you give to CaféConnect to perform a specific action.
+- Some commands, like `help`, are simple and don't need any additional information.
+- Other commands require **parameters** (additional details) to work properly.
+
+Let's look at a more complex example:
+> `customeradd cid/C001 n/John Doe`
+
+In this example:
+- `customeradd` is the command.
+- `cid/C001` and `n/John Doe` are parameters.
+- Each parameter has a **prefix** (like `cid/`, `n/`) that tells CaféConnect what kind of information follows.
+
 ### Basic Command Rules
 
-* All commands in CaféConnect are **case-insensitive**.  
-  e.g. `customeradd`, `CUSTOMERADD`, and `CustomerAdd` will all perform the same action.
+* Commands are **case-insensitive** - `HELP`, `help`, and `Help` all work the same way.
 
-* Parameters are indicated in `UPPER_CASE` and must be replaced with actual values.<br>
-  e.g. in `customeradd cid/CUSTOMER_ID`, replace `CUSTOMER_ID` with a value like `C001`.
+* Parameters shown in `UPPER_CASE` are placeholders that you need to replace with actual values:
+  - Example: `cid/CUSTOMER_ID n/NAME` have placeholders `CUSTOMER_ID` and `NAME`.
+  > `customeradd cid/C0001 n/John Doe` - *"C0001" replaces CUSTOMER_ID, "John Doe" replaces NAME*
 
-* Optional parameters are enclosed in square brackets `[]`.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/regular` or simply `n/John Doe`.
+* Optional parameters are shown in square brackets `[]`:
+  - Example: `[t/TAG]` means you can add a tag or leave it out.
+  > `customeradd cid/C0001 n/John Doe t/regular` - *Here, "regular" is an optional tag that was added*
 
-* Parameters marked with `…` can be repeated multiple times or omitted.<br>
-  e.g. `[t/TAG]…` can be used as `t/vip`, `t/vip t/regular`, or left empty.
-
-* Commands without parameters ignore any additional text.<br>
-  e.g. `help 123` will be treated as `help`.
+* Some parameters can be repeated (shown with `…`):
+  - Example: `[t/TAG]…` means you can add multiple tags or none at all.
+  > `customeradd cid/C0001 n/John Doe t/regular t/vip` - *Here, both "regular" and "vip" are optional tags that were added*
 
 ### Parameter Order Rules
 
-* For standard commands, parameters can be entered in any order.<br>
-  e.g. both `n/NAME p/PHONE` and `p/PHONE n/NAME` are valid.
+* For most commands, you can enter parameters in any order:
+  - `n/John Doe p/98765432` works the same as `p/98765432 n/John Doe`
 
-* Quick commands require parameters in a fixed sequence:
-  * Customer quick add: `quickcustomeradd C0102:Charlie:97285712` (ID:Name:Phone)
-  * Staff quick add: `quickstaffadd S0102:Ali:98291029` (ID:Name:Phone)
-  * Quick purchase: `quickpurchase 1:Espresso` (Index:Drink)
+* Quick commands (like `quickcustomeradd`) need parameters in a specific order:
+  - Example: `quickcustomeradd C001:John Doe:98765432` must be in ID:Name:Phone order
+  > `quickcustomeradd C001:John Doe:98765432` - *Here, "C001" is the CUSTOMER_ID, "John Doe" is the NAME, and "98765432" is the PHONE*
 
-### Available Command Shortcuts
+### Command Alias
 
-* CaféConnect provides convenient shortcuts for all commands:
-  * Customer Management:
-    - `ca` for `customeradd`
-    - `qca` for `quickcustomeradd`
-    - `cd` for `customerdelete`
-    - `ce` for `customeredit`
-    - `cf` for `customerfind`
-  * Staff Management:
-    - `sa` for `staffadd`
-    - `qsa` for `quickstaffadd`
-    - `sd` for `staffdelete`
-    - `se` for `staffedit`
-    - `sf` for `stafffind`
-  * Drink Management:
-    - `da` for `drinkadd`
-    - `dd` for `drinkdelete`
-  * Purchase Operations:
-    - `p` for `purchase`
-    - `qp` for `quickpurchase`
+To make typing easier, CaféConnect provides alias for common commands:
+
+* Customer Management:
+  - `ca` instead of `customeradd`
+  - `cd` instead of `customerdelete`
+  - `cf` instead of `customerfind`
+
+* Staff Management:
+  - `sa` instead of `staffadd`
+  - `sd` instead of `staffdelete`
+  - `sf` instead of `stafffind`
+
+* Drink Management:
+  - `da` instead of `drinkadd`
+  - `dd` instead of `drinkdelete`
+
+* Purchase Operations:
+  - `p` instead of `purchase`
+  - `qp` instead of `quickpurchase`
 
 <box type="info" seamless>
 
-If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+If you're using a PDF version of this guide, be careful when copying commands that span multiple lines. Some spaces might be lost when copying to the application.
 </box>
 
 ## Features
 
-Before using any commands, make sure you understand the [Command Format](#command-format) rules that apply to all commands in CaféConnect.
+Before using any commands, make sure you understand the [Understanding Command Syntax](#understanding-command-syntax) rules that apply to all commands in CaféConnect.
 
 * When using staff-specific commands (like `staffadd`, `staffdelete`, etc.), the interface will automatically switch to the Staff tab.
 
@@ -676,7 +695,7 @@ These are the before and after images of a standard purchase using the first exa
     <p><i>Before standard purchase</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_purchase.png" alt="After standard purchase" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_purchase.png" alt="After standard purchase (points added and total spent increased)" style="max-width: 100%; height: auto;"/>
     <p><i>After standard purchase (points added and total spent increased)</i></p>
   </div>
 </div>
@@ -714,32 +733,32 @@ Examples:
 * `quickpurchase 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
 * `quickpurchase 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
 
-##### Standard Purchase
+##### Standard Quick Purchase
 
-These are the before and after images of a standard purchase using the first example
+These are the before and after images of a standard quick purchase using the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_purchaseshortcut.png" alt="Before standard purchase" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_quickpurchase.png" alt="Before standard purchase" style="max-width: 100%; height: auto;"/>
     <p><i>Before standard purchase</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_purchaseshortcut.png" alt="After standard purchase" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_quickpurchase.png" alt="After standard purchase" style="max-width: 100%; height: auto;"/>
     <p><i>After standard purchase (points added and total spent increased)</i></p>
   </div>
 </div>
 
-##### Redemption Purchase
+##### Redemption Quick Purchase
 
-These are the before and after images of a redemption purchase using the second example
+These are the before and after images of a redemption quick purchase using the second example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_purchase_redeemshortcut.png" alt="Before redemption purchase" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_quickpurchase_redeem.png" alt="Before redemption purchase" style="max-width: 100%; height: auto;"/>
     <p><i>Before redemption purchase</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_purchase_redeemshortcut.png" alt="After redemption purchase" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_quickpurchase_redeem.png" alt="After redemption purchase" style="max-width: 100%; height: auto;"/>
     <p><i>After redemption purchase (points deducted, total spent unchanged)</i></p>
   </div>
 </div>
@@ -825,13 +844,17 @@ Ans: New entries will not be inserted in any specific order. They are inserted t
 
 Ans: Yes, all changes to customer or staff data are immediately reflected in the UI. The information panels will update to show the current state of your data.
 
-#### Q10: Can I use shortcuts to add customers and staff quickly?
+#### Q10: Are there quicker means to add customers and staff quickly?
 
-Ans: Yes, you can use the shortcut commands:
-- For customers: `ca C0102:Charlie:97285712`
-- For staff: `sa S0102:Ali:98291029`
+Ans: Yes, you can use the quick version of these commands:
+- For customers: `qca C0102:Charlie:97285712`
+- For staff: `qsa S0102:Ali:98291029`
 
-These shortcuts allow you to quickly add basic information, which you can later edit to add more details if needed.
+In fact, the corresponding quick version works for purchases made:
+- For purchase: `qp 1:Latte`
+- For purchase (redeem): `qp 1:Latte:r`
+
+Quick commands streamline operations by minimizing keystrokes and simplifying syntax, making them ideal for fast-paced café environments.
 
 #### Q11: Can I import existing customer data from CSV or Excel files?
 
@@ -861,7 +884,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 ### Getting errors when using the commands
 
-- Check that you have typed the correct command format as explained in the [Command Format](#command-format) section.
+- Check that you have typed the correct command syntax as explained in the [Understanding Command Syntax](#understanding-command-syntax) section.
 - Verify you have included all necessary parameters.
 - Ensure you have used valid inputs within character limits:
   - NAME must not exceed 50 characters
@@ -874,7 +897,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 ### "Unknown command" error appears
 
 - Check for typos in the command name (e.g., `customeradd` vs `customradd`)
-- Verify you're using the correct command format as specified in the [Command Format](#command-format) section
+- Verify you're using the correct command syntax as specified in the [Understanding Command Syntax](#understanding-command-syntax) section
 - Remember commands are case-insensitive, but parameter prefixes must be exact (e.g., `n/` for name)
 
 ### Interface not showing all information
@@ -894,7 +917,7 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard alias `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -911,7 +934,7 @@ Command | Format | Examples
 **Edit Customer** | `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `customeredit 1 p/99994567 e/newemail@example.com`
 **Edit Customer (Alias)** | `ce INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `ce 1 p/99994567 e/newemail@example.com`
 **Find Customer** | `customerfind KEYWORD [MORE_KEYWORDS]...` | `customerfind John Doe`
-**Find Customer (Alias)** | `cf KEYWORD [MORE_KEYWORDS]...` | `cf John`
+**Find Customer (Alias)** | `cf KEYWORD [MORE_KEYWORDS]...` | `cf John Doe`
 **List All Customers** | `customerfind all/true` | -
 **List All Customers (Alias)** | `cf all/true` | -
 **Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
