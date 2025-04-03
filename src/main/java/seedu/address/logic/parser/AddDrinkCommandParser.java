@@ -35,7 +35,14 @@ public class AddDrinkCommandParser implements Parser<AddDrinkCommand> {
         double price;
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_CATEGORY, PREFIX_PRICE);
         try {
-            price = Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get());
+            String priceStr = argMultimap.getValue(PREFIX_PRICE).get();
+
+            // Check if price is a valid number
+            if (!priceStr.matches("\\d+(\\.\\d{1,2})?")) {
+                throw new ParseException("Price must be a valid number with at most two decimal places");
+            }
+
+            price = Double.parseDouble(priceStr);
             if (price <= 0) {
                 throw new ParseException("Price must be a positive number");
             }
@@ -49,6 +56,7 @@ public class AddDrinkCommandParser implements Parser<AddDrinkCommand> {
 
         return new AddDrinkCommand(drink);
     }
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
