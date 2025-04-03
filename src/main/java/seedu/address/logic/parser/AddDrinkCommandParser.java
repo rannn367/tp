@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
-import java.math.BigDecimal;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddDrinkCommand;
@@ -16,9 +15,6 @@ import seedu.address.model.drink.Drink;
  * Parses input arguments and creates a new AddDrinkCommand object
  */
 public class AddDrinkCommandParser implements Parser<AddDrinkCommand> {
-
-    private static final BigDecimal MINIMUM_PRICE = new BigDecimal("1.00"); // Enforce minimum price strictly
-    private static final String PRICE_REGEX = "^\\d+\\.\\d{2}$"; // Only allow exactly 2 decimal places
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddDrinkCommand
@@ -35,27 +31,28 @@ public class AddDrinkCommandParser implements Parser<AddDrinkCommand> {
         }
 
         String name = argMultimap.getValue(PREFIX_NAME).get();
-        String priceString = argMultimap.getValue(PREFIX_PRICE).get();
 
-        // Validate price format using regex
-        if (!priceString.matches(PRICE_REGEX)) {
-            throw new ParseException("Price must be a number with exactly two decimal places (e.g., 1.00, 2.50).");
-        }
-
-        BigDecimal price;
+        double price;
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_CATEGORY, PREFIX_PRICE);
         try {
-            price = new BigDecimal(priceString);
-            if (price.compareTo(MINIMUM_PRICE) < 0) {
-                throw new ParseException(String.format("Price must be at least $%.2f", MINIMUM_PRICE));
+            String priceStr = argMultimap.getValue(PREFIX_PRICE).get();
+
+            // Check if price is a valid number
+            if (!priceStr.matches("\\d+(\\.\\d{1,2})?")) {
+                throw new ParseException("Price must be a valid number with at most two decimal places");
+            }
+
+            price = Double.parseDouble(priceStr);
+            if (price <= 0) {
+                throw new ParseException("Price must be a positive number");
             }
         } catch (NumberFormatException e) {
-            throw new ParseException("Price must be a valid number.");
+            throw new ParseException("Price must be a valid number");
         }
 
         String category = argMultimap.getValue(PREFIX_CATEGORY).get();
 
-        Drink drink = new Drink(name, price.doubleValue(), category);
+        Drink drink = new Drink(name, price, category);
 
         return new AddDrinkCommand(drink);
     }
