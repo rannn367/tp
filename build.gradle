@@ -67,6 +67,9 @@ dependencies {
 
 shadowJar {
     archiveFileName = 'cafeconnect.jar'
+    from('src/main/resources') {
+        include 'images/**' // Include images folder specifically
+    }
 }
 
 run {
