@@ -16,7 +16,7 @@ import seedu.address.model.person.Staff;
  */
 public class QuickAddStaffCommand extends Command {
 
-    public static final String COMMAND_WORD = "qstaffadd";
+    public static final String COMMAND_WORD = "quickstaffadd";
     public static final String COMMAND_WORD_SHORTCUT = "qsa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT

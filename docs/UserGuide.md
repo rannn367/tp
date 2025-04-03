@@ -80,19 +80,19 @@ Managing café operations efficiently is crucial for success—that's why we cre
   * [Quick start](#quick-start)
   * [Features](#features)
     * [Adding a customer: `customeradd` or `c`](#adding-a-customer-customeradd-or-c)
-    * [Adding a customer (shortcut): `c` shortcut](#adding-a-customer-customeradd-or-c-shortcut)
+    * [Quickly adding a customer: `quickcustomeradd` or `qca`](#quick-adding-a-customer-quickcustomeradd-or-qca)
     * [Deleting a customer: `customerdelete` or `cd`](#deleting-a-customer-customerdelete-or-cd)
     * [Editing customer details: `customeredit` or `ce`](#editing-customer-details-customeredit-or-ce)
     * [Finding a customer: `customerfind` or `cf`](#finding-a-customer-customerfind-or-cf)
     * [Adding a staff: `staffadd` or `s`](#adding-a-staff-staffadd-or-s)
-    * [Adding a staff (shortcut): `s` shortcut](#adding-a-staff-staffadd-or-s-shortcut)
+    * [Quickly adding a staff: `quickstaffadd` or `qsa`](#quick-adding-a-staff-quickstaffadd-or-qsa)
     * [Deleting a staff: `staffdelete` or `sd`](#deleting-a-staff-staffdelete-or-sd)
     * [Editing staff details: `staffedit` or `se`](#editing-staff-details-staffedit-or-se)
     * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
     * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
     * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
     * [Recording a purchase: `purchase`](#recording-a-purchase-purchase)
-    * [Recording a purchase (shortcut): `p` shortcut](#recording-a-purchase-purchase-or-p-shortcut)
+    * [Quickly recording a purchase: `quickpurchase` or `qp`](#quick-recording-a-purchase-qpurchase-or-qp)
   * [FAQ](#faq)
   * [Known Issues](#known-issues)
   * [Command Summary](#command-summary)
@@ -288,30 +288,30 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Quickly adding a staff: `qstaffadd` or `qsa`
+### Quickly adding a customer: `quickcustomeradd` or `qca`
 
-A quick way to add staff members with minimal required information.
+A quick way to add customer members with minimal required information.
 
-Format: `qstaffadd <STAFF_ID>:<NAME>:<PHONE>`
+Format: `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>`
 
-* `STAFF_ID` should start with a 'S' (case-insensitive) followed by digits, e.g., S1001, s1001, and must not be longer than 10 characters. Duplicate staff IDs are not allowed
+* `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
-* `qstaffadd S0102:Alice:97285712`
-* `qsa S0103:Bob:80192832`
+* `quickcustomeradd C0102:Charlie:97285712`
+* `qca S0103:Bob:80192832`
 
 These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_qstaffadd.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
-    <p><i>Before adding the staff</i></p>
+    <img src="images/UG_Ui_Images/before_quickcustomeradd.png" alt="Before adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding the customer</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_qstaffadd.png" alt="After adding the staff" style="max-width: 100%; height: auto;"/>
-    <p><i>After adding the staff</i></p>
+    <img src="images/UG_Ui_Images/after_quickcustomeradd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding the customer</i></p>
   </div>
 </div>
 
@@ -410,9 +410,6 @@ These are the before and after images of the second example
   </div>
 </div>
 
-
-
-
 ### Adding a staff: `staffadd` or `s`
 
 Adds a staff to the staff list with required details such as staff ID, name, phone, email, address, role, shift, hours worked, and performance rating.
@@ -450,29 +447,29 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Quick adding a staff: `qstaffadd` or `qsa`
+### Quickly adding a staff: `quickstaffadd` or `qsa`
 
 A quick way to add staff with minimal required information.
 
-Format: `qstaffadd <STAFF_ID>:<NAME>:<PHONE>`
+Format: `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>`
 
 * `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
-* `qstaffadd S0102:Ali:98291029`
+* `quickstaffadd S0102:Ali:98291029`
 * `qsa S0103:Bali:89201029`
 
 These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_staffaddshortcut.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_quickstaffadd.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
     <p><i>Before adding the staff</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_staffaddshortcut.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_quickstaffadd.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
     <p><i>After adding the staff</i></p>
   </div>
 </div>
@@ -688,11 +685,11 @@ These are the before and after images of a redemption purchase using the second 
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Recording a purchase: `purchase` or `p` (shortcut)
+### Quickly Recording a purchase: `quickpurchase` or `qp`
 
-An extension of the purchase command above, useful when there is a need to quickly record purchases.
+A quick way to record purchases with minimal required information.
 
-Format: `p INDEX:DRINK_NAME[:r]`
+Format: `quickpurchase INDEX:DRINK_NAME[:r]`
 
 * Records a purchase for the customer at the specified `INDEX`.
 * `DRINK_NAME` must match a drink that exists in the drink catalog.
@@ -700,8 +697,8 @@ Format: `p INDEX:DRINK_NAME[:r]`
 * Without `:r`, it will be processed as a standard purchase.
 
 Examples:
-* `p 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
-* `p 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
+* `quickpurchase 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
+* `quickpurchase 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
 
 ##### Standard Purchase
 

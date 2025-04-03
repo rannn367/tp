@@ -16,7 +16,7 @@ import seedu.address.model.person.Customer;
  */
 public class QuickAddCustomerCommand extends Command {
 
-    public static final String COMMAND_WORD = "qcustomeradd";
+    public static final String COMMAND_WORD = "quickcustomeradd";
     public static final String COMMAND_WORD_SHORTCUT = "qca";
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
     public static final String MESSAGE_DUPLICATE_CUSTOMER =
