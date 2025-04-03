@@ -378,6 +378,34 @@ If the index is valid, `DeleteCustomerCommand`:
 
 > **_NOTE:_** CafeConnect only allows deleting customers by index. Once a customer is deleted, they cannot be recovered unless added again manually.
 
+#### Editing a Customer's Details
+
+The edit customer feature allows users to modify the details of an existing customer by specifying the customer's index in the displayed list and the new details.
+
+The implementation follows the command pattern, where `AddressBookParser` identifies the command type and delegates to `EditCustomerCommandParser` to create the appropriate command object.
+
+<puml src="diagrams/EditCustomerSequenceDiagram.puml" alt="EditCustomerSequenceDiagram" />  
+
+`AddressBookParser` creates `EditCustomerCommandParser` to parse the user input string.
+
+`EditCustomerCommandParser` extracts the index and provided fields from the command arguments and ensures:
+- The **Index** is a valid positive integer.
+- At least one field is provided for editing.
+
+If the input is invalid, `EditCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `EditCustomerCommand` based on the user input.
+
+---
+
+Upon execution, `EditCustomerCommand` first checks if the index is within the bounds of the filtered customer list. If the index is out of bounds, a `CommandException` is thrown.
+
+If the index is valid, `EditCustomerCommand`:
+1. Retrieves the customer to be modified from the list.
+2. Extracts the updated details from `EditCustomerDescriptor`.
+3. Constructs a new `Customer` instance using `CustomerBuilder`.
+4. Checks for duplicate customer entries in the system and throws a `CommandException` if a duplicate is found.
+5. Updates the model with the modified customer information.
+6. Returns a `CommandResult` confirming the successful edit.
+
 <br></br>
 
 ### Drink Management System
