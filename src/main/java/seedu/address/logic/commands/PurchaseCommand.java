@@ -36,7 +36,11 @@ public class PurchaseCommand extends Command {
         + "Parameters: INDEX " + PREFIX_DRINKNAME + "DRINK_NAME [" + PREFIX_REDEEM + "true]\n"
         + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE\n"
         + "Example (with redemption): " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE "
-        + PREFIX_REDEEM + "true";
+        + PREFIX_REDEEM + "true\n"
+        + "Shortcut usage: " + COMMAND_WORD_SHORTCUT + " 1:ICED LATTE[:r]\n"
+        + "Example (with redemption using shortcut): " + COMMAND_WORD_SHORTCUT + " 1:ICED LATTE:r\n"
+        + "Example (without redemption using shortcut): " + COMMAND_WORD_SHORTCUT + " 1:ICED LATTE";
+
 
     public static final String MESSAGE_PURCHASE_SUCCESS = "Purchase recorded for %1$s.\n"
         + "Drink: %2$s, Price: %3$s\n"
