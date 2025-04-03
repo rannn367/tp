@@ -25,7 +25,7 @@ public class QuickAddCustomerCommand extends Command {
     private static final Logger logger = Logger.getLogger(AddCustomerCommand.class.getName());
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
-            + "): Adds a customer to the address book, quickly. "
+            + "): Quickly adds a customer to the address book. "
             + "Parameters: " + COMMAND_WORD_SHORTCUT + " <CUSTOMER_ID>:<NAME>:<PHONE>\n"
             + "Example: " + COMMAND_WORD_SHORTCUT + " C1234:John Doe:98765432";
 

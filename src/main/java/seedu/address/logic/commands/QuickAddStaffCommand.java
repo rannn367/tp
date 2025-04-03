@@ -20,7 +20,7 @@ public class QuickAddStaffCommand extends Command {
     public static final String COMMAND_WORD_SHORTCUT = "qsa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
-            + "): Adds a staff member to the address book, quickly. "
+            + "): Quickly adds a staff member to the address book. "
             + "Parameters: " + COMMAND_WORD_SHORTCUT + " <STAFF_ID>:<NAME>:<PHONE>\n"
             + "Example: " + COMMAND_WORD_SHORTCUT + " S1234:Alice Tan:81234567";
 

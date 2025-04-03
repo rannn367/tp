@@ -25,6 +25,7 @@ import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
+import seedu.address.logic.commands.QuickPurchaseCommand;
 import seedu.address.logic.commands.QuickAddCustomerCommand;
 import seedu.address.logic.commands.QuickAddStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -113,6 +114,11 @@ public class AddressBookParser {
                 arguments -> new PurchaseCommandParser().parse(arguments));
         COMMAND_MAP.put(PurchaseCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
                 arguments -> new PurchaseCommandParser().parse(arguments));
+
+        COMMAND_MAP.put(QuickPurchaseCommand.COMMAND_WORD.toLowerCase(),
+                arguments -> new QuickPurchaseCommandParser().parse(arguments));
+        COMMAND_MAP.put(QuickPurchaseCommand.COMMAND_WORD_SHORTCUT.toLowerCase(),
+                arguments -> new QuickPurchaseCommandParser().parse(arguments));
 
         COMMAND_MAP.put(DeleteDrinkCommand.COMMAND_WORD.toLowerCase(),
                 arguments -> new DeleteDrinkCommandParser().parse(arguments));

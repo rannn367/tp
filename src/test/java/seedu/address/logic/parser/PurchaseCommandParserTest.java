@@ -63,30 +63,4 @@ public class PurchaseCommandParserTest {
         // Non-integer index
         assertParseFailure(parser, " abc " + PREFIX_DRINKNAME + "Matcha", expectedMessage);
     }
-
-    @Test
-    public void parse_shortcutFormat_success() {
-        // Standard case
-        assertParseSuccess(parser, "1:Matcha", new PurchaseCommand(INDEX_FIRST_PERSON, "Matcha", false));
-
-        // With redemption flag
-        assertParseSuccess(parser, "1:Matcha:r", new PurchaseCommand(INDEX_FIRST_PERSON, "Matcha", true));
-    }
-
-    @Test
-    public void parse_shortcutFormat_invalidFailure() {
-        // Invalid index
-        assertParseFailure(parser, "abc:Matcha",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PurchaseCommand.MESSAGE_USAGE));
-
-        // Missing drink name
-        assertParseFailure(parser, "1:", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PurchaseCommand.MESSAGE_USAGE));
-
-        // Invalid redemption flag
-        assertParseFailure(parser, "1:Matcha:x", "Invalid redeem flag! Only ':r' is allowed.");
-
-        // Ends with colon
-        assertParseFailure(parser, "1:Matcha:",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PurchaseCommand.MESSAGE_USAGE));
-    }
 }

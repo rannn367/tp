@@ -25,19 +25,17 @@ import seedu.address.model.util.CustomerBuilder;
  * Records a purchase for a customer, updating their total spent and reward points.
  * Can also redeem reward points for a purchase if the redeem flag is set.
  */
-public class PurchaseCommand extends Command {
+public class QuickPurchaseCommand extends Command {
 
-    public static final String COMMAND_WORD = "purchase";
-    public static final String COMMAND_WORD_SHORTCUT = "p";
+    public static final String COMMAND_WORD = "quickpurchase";
+    public static final String COMMAND_WORD_SHORTCUT = "qp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
-        + "): Records a purchase for a customer "
+        + "): Quickly records a purchase for a customer "
         + "identified by the index number in the displayed customer list.\n"
-        + "Parameters: INDEX " + PREFIX_DRINKNAME + "DRINK_NAME [" + PREFIX_REDEEM + "true]\n"
-        + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "Latte\n"
-        + "Example (with redemption): " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "Latte "
-        + PREFIX_REDEEM + "true\n";
-
+        + "Parameters: INDEX:DRINK_NAME[:r]\n"
+        + "Example: " + COMMAND_WORD + " 1:Latte\n"
+        + "Example (with redemption): " + COMMAND_WORD + " 1:Latte:r\n";
 
     public static final String MESSAGE_PURCHASE_SUCCESS = "Purchase recorded for %1$s.\n"
         + "Drink: %2$s, Price: %3$s\n"
@@ -58,14 +56,14 @@ public class PurchaseCommand extends Command {
     private final boolean isRedemption;
 
     /**
-     * Creates a PurchaseCommand to record a purchase of the specified {@code drinkName}
+     * Creates a QuickPurchaseCommand to record a purchase of the specified {@code drinkName}
      * for customer at specified {@code customerIndex}
      *
      * @param customerIndex The index of the customer in the filtered customer list
      * @param drinkName The name of the drink to purchase
      * @param isRedemption Whether this purchase should use reward points
      */
-    public PurchaseCommand(Index customerIndex, String drinkName, boolean isRedemption) {
+    public QuickPurchaseCommand(Index customerIndex, String drinkName, boolean isRedemption) {
         requireAllNonNull(customerIndex, drinkName);
         this.customerIndex = customerIndex;
         this.drinkName = drinkName;
@@ -195,11 +193,11 @@ public class PurchaseCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof PurchaseCommand)) {
+        if (!(other instanceof QuickPurchaseCommand)) {
             return false;
         }
 
-        PurchaseCommand otherCommand = (PurchaseCommand) other;
+        QuickPurchaseCommand otherCommand = (QuickPurchaseCommand) other;
         return customerIndex.equals(otherCommand.customerIndex)
                 && drinkName.equalsIgnoreCase(otherCommand.drinkName)
                 && isRedemption == otherCommand.isRedemption;
