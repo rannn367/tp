@@ -15,7 +15,7 @@ public class ShiftTiming {
     /*
      * The shift timing must not be blank.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^[^\\s].{1,49}$";
 
     public final String value;
 

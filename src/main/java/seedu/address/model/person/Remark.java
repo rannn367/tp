@@ -15,7 +15,7 @@ public class Remark {
      * No validation for remarks as it can take any value,
      * including empty string.
      */
-    public static final String VALIDATION_REGEX = ".*";
+    public static final String VALIDATION_REGEX = "^.{1,50}$";
 
     public final String value;
 

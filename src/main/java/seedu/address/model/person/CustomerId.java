@@ -15,7 +15,7 @@ public class CustomerId {
     /*
      * The Customer ID must start with an uppercase 'C' followed by at least one digit.
      */
-    public static final String VALIDATION_REGEX = "(?i)c\\d+";
+    public static final String VALIDATION_REGEX = "(?i)c\\d{1,9}";
 
     public final String value;
 
