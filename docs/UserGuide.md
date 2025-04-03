@@ -288,30 +288,30 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Adding a customer: `customeradd` or `c` (shortcut)
+#### Quickly adding a staff: `qstaffadd` or `qsa`
 
-An extension of the customeradd command above, useful when there is a need to input customer information quickly into the system.
+A quick way to add staff members with minimal required information.
 
-Format: `c <CUSTOMER_ID>:<NAME>:<PHONE>`
+Format: `qstaffadd <STAFF_ID>:<NAME>:<PHONE>`
 
-* `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
+* `STAFF_ID` should start with a 'S' (case-insensitive) followed by digits, e.g., S1001, s1001, and must not be longer than 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
-* `c C0102:Charlie:97285712`
-* `c C0103:Charles:80192832`
+* `qstaffadd S0102:Alice:97285712`
+* `qsa S0103:Bob:80192832`
 
 These are the before and after images of the first example
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_customeraddshortcut.png" alt="Before adding the customer" style="max-width: 100%; height: auto;"/>
-    <p><i>Before adding the customer</i></p>
+    <img src="images/UG_Ui_Images/before_qstaffadd.png" alt="Before adding the staff" style="max-width: 100%; height: auto;"/>
+    <p><i>Before adding the staff</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_customeraddshortcut.png" alt="After adding the customer" style="max-width: 100%; height: auto;"/>
-    <p><i>After adding the customer</i></p>
+    <img src="images/UG_Ui_Images/after_qstaffadd.png" alt="After adding the staff" style="max-width: 100%; height: auto;"/>
+    <p><i>After adding the staff</i></p>
   </div>
 </div>
 
@@ -450,19 +450,19 @@ These are the before and after images of the first example
 Note: If you add more than one each of the compulsory prefixes, the command will be treated as invalid
 </box>
 
-#### Adding a staff: `staffadd` or `s` (shortcut)
+#### Quick adding a staff: `qstaffadd` or `qsa`
 
-An extension of the staffadd command above, useful when there is a need to input staff information quickly into the system.
+A quick way to add staff with minimal required information.
 
-Format: `s <STAFF_ID>:<NAME>:<PHONE>`
+Format: `qstaffadd <STAFF_ID>:<NAME>:<PHONE>`
 
 * `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 
 Examples:
-* `s S0102:Ali:98291029`
-* `s S0103:Bali:89201029`
+* `qstaffadd S0102:Ali:98291029`
+* `qsa S0103:Bali:89201029`
 
 These are the before and after images of the first example
 
