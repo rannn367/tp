@@ -118,6 +118,11 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
 
+        // Check for multiple spaces
+        if (arguments.matches(".*\\s{2,}.*")) {
+            throw new ParseException("Invalid command format: Multiple consecutive spaces are not allowed.");
+        }
+
         // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
         // log messages such as the one below.
         // Lower level log messages are used sparingly to minimize noise in the code.
