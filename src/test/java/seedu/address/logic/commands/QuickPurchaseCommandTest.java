@@ -76,14 +76,15 @@ public class QuickPurchaseCommandTest {
 
     @Test
     public void execute_validPurchase_success() throws Exception {
-        QuickPurchaseCommand QuickPurchaseCommand = new QuickPurchaseCommand(INDEX_FIRST_PERSON, VALID_DRINK_NAME, NOT_REDEMPTION);
+        QuickPurchaseCommand quickPurchaseCommand = new QuickPurchaseCommand(
+                INDEX_FIRST_PERSON, VALID_DRINK_NAME, NOT_REDEMPTION);
 
         Customer customerBefore = model.getFilteredCustomerList().get(0);
         double expectedNewTotalSpent = Double.parseDouble(customerBefore.getTotalSpent().value) + VALID_DRINK_PRICE;
         int expectedNewRewardPoints = Integer.parseInt(customerBefore.getRewardPoints().value)
                 + (int) Math.floor(VALID_DRINK_PRICE * POINTS_PER_DOLLAR);
 
-        CommandResult result = QuickPurchaseCommand.execute(model);
+        CommandResult result = quickPurchaseCommand.execute(model);
 
         Customer customerAfter = model.getFilteredCustomerList().get(0);
         assertEquals(String.format(
@@ -103,7 +104,8 @@ public class QuickPurchaseCommandTest {
 
     @Test
     public void execute_validRedemption_success() throws Exception {
-        QuickPurchaseCommand QuickPurchaseCommand = new QuickPurchaseCommand(INDEX_FIRST_PERSON, VALID_DRINK_NAME, IS_REDEMPTION);
+        QuickPurchaseCommand quickPurchaseCommand = new QuickPurchaseCommand(
+                INDEX_FIRST_PERSON, VALID_DRINK_NAME, IS_REDEMPTION);
 
         Customer customerBefore = model.getFilteredCustomerList().get(0);
         int pointsNeeded = (int) Math.ceil(VALID_DRINK_PRICE * POINTS_TO_DOLLAR_RATIO);
@@ -111,7 +113,7 @@ public class QuickPurchaseCommandTest {
         // Total spent should remain the same for redemptions
         double expectedNewTotalSpent = Double.parseDouble(customerBefore.getTotalSpent().value);
 
-        CommandResult result = QuickPurchaseCommand.execute(model);
+        CommandResult result = quickPurchaseCommand.execute(model);
 
         Customer customerAfter = model.getFilteredCustomerList().get(0);
         assertEquals(String.format(
@@ -149,7 +151,8 @@ public class QuickPurchaseCommandTest {
 
         model.addCustomer(testCustomer);
 
-        QuickPurchaseCommand QuickPurchaseCommand = new QuickPurchaseCommand(INDEX_FIRST_PERSON, VALID_DRINK_NAME, IS_REDEMPTION);
+        QuickPurchaseCommand quickPurchaseCommand = new QuickPurchaseCommand(
+                INDEX_FIRST_PERSON, VALID_DRINK_NAME, IS_REDEMPTION);
 
         int pointsNeeded = (int) Math.ceil(VALID_DRINK_PRICE * POINTS_TO_DOLLAR_RATIO);
         String expectedMessage = String.format(
@@ -157,7 +160,7 @@ public class QuickPurchaseCommandTest {
                 pointsNeeded,
                 10);
 
-        assertCommandFailure(QuickPurchaseCommand, model, expectedMessage);
+        assertCommandFailure(quickPurchaseCommand, model, expectedMessage);
     }
 
     @Test
@@ -179,17 +182,19 @@ public class QuickPurchaseCommandTest {
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCustomerList().size() + 1);
-        QuickPurchaseCommand QuickPurchaseCommand = new QuickPurchaseCommand(outOfBoundIndex, VALID_DRINK_NAME, NOT_REDEMPTION);
+        QuickPurchaseCommand quickPurchaseCommand = new QuickPurchaseCommand(
+                outOfBoundIndex, VALID_DRINK_NAME, NOT_REDEMPTION);
 
-        assertCommandFailure(QuickPurchaseCommand, model, Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+        assertCommandFailure(quickPurchaseCommand, model, Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_invalidDrinkName_throwsCommandException() {
-        QuickPurchaseCommand QuickPurchaseCommand = new QuickPurchaseCommand(INDEX_FIRST_PERSON, INVALID_DRINK_NAME, NOT_REDEMPTION);
+        QuickPurchaseCommand quickPurchaseCommand = new QuickPurchaseCommand(
+                INDEX_FIRST_PERSON, INVALID_DRINK_NAME, NOT_REDEMPTION);
 
         String expectedMessage = String.format(QuickPurchaseCommand.MESSAGE_DRINK_NOT_FOUND, INVALID_DRINK_NAME);
-        assertCommandFailure(QuickPurchaseCommand, model, expectedMessage);
+        assertCommandFailure(quickPurchaseCommand, model, expectedMessage);
     }
 
     @Test

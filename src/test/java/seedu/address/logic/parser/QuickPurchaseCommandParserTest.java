@@ -20,7 +20,7 @@ public class QuickPurchaseCommandParserTest {
         // With redemption flag
         assertParseSuccess(parser, "1:Matcha:r", new QuickPurchaseCommand(INDEX_FIRST_PERSON, "Matcha", true));
     }
-    
+
     @Test
     public void parse_invalidIndex_throwsParseException() {
         assertParseFailure(parser, "abc:Matcha",

@@ -25,9 +25,9 @@ import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindStaffCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.PurchaseCommand;
-import seedu.address.logic.commands.QuickPurchaseCommand;
 import seedu.address.logic.commands.QuickAddCustomerCommand;
 import seedu.address.logic.commands.QuickAddStaffCommand;
+import seedu.address.logic.commands.QuickPurchaseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
