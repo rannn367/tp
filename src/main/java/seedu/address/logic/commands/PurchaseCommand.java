@@ -30,7 +30,8 @@ public class PurchaseCommand extends Command {
     public static final String COMMAND_WORD = "purchase";
     public static final String COMMAND_WORD_SHORTCUT = "p";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records a purchase for a customer "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+        + "): Records a purchase for a customer "
         + "identified by the index number in the displayed customer list.\n"
         + "Parameters: INDEX " + PREFIX_DRINKNAME + "DRINK_NAME [" + PREFIX_REDEEM + "true]\n"
         + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DRINKNAME + "ICED LATTE\n"

@@ -34,7 +34,8 @@ public class AddCustomerCommand extends Command {
 
     private static final Logger logger = Logger.getLogger(AddCustomerCommand.class.getName());
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
+            + "): Adds a customer to the address book. "
             + "Parameters: "
             + PREFIX_CUSTOMER_ID + "CUSTOMER_ID "
             + PREFIX_NAME + "NAME "
