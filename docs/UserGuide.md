@@ -766,7 +766,7 @@ Ans: Data entries are valid, if they are achievable through a sequence of comman
 Examples:
 Having `C001` is an invalid `customerId` field for a customer, if it's already assigned to another customer, as there is no sequence of commands that will lead to duplicate customer IDs.
 
-Having `regular` is a valid `tag` field for a customer, as the user can `/customeradd` a customer and add the tag via `t/regular`.
+Having `regular` is a valid `tag` field for a customer, as the user can `customeradd` a customer and add the tag via `t/regular`.
 
 #### Q5: How are reward points calculated?
 
