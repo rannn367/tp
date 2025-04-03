@@ -17,6 +17,7 @@ import seedu.address.model.person.Staff;
 public class DeleteStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "staffdelete";
+    public static final String COMMAND_WORD_SHORTCUT = "sd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the staff member identified by the index number used in the displayed staff list.\n"

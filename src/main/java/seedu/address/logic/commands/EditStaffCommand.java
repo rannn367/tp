@@ -30,6 +30,7 @@ import seedu.address.model.util.StaffBuilder;
 public class EditStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "staffedit";
+    public static final String COMMAND_WORD_SHORTCUT = "se";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the staff identified "
             + "by the index number used in the displayed staff list. "

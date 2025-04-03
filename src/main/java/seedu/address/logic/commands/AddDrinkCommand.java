@@ -19,6 +19,7 @@ import seedu.address.model.drink.Drink;
 public class AddDrinkCommand extends Command {
 
     public static final String COMMAND_WORD = "drinkadd";
+    public static final String COMMAND_WORD_SHORTCUT = "d";
     public static final String MESSAGE_SUCCESS = "New drink added: %1$s";
     public static final String MESSAGE_DUPLICATE_DRINK = "This drink already exists in the drink catalog";
 

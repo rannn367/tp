@@ -61,6 +61,65 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_editCustomerShortcut() throws Exception {
+        assertTrue(parser.parseCommand(EditCustomerCommand.COMMAND_WORD_SHORTCUT + " 1 n/Jane Doe")
+                instanceof EditCustomerCommand);
+    }
+
+    @Test
+    public void parseCommand_findCustomerShortcut() throws Exception {
+        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " foo bar baz")
+                instanceof FindCustomerCommand);
+    }
+
+    @Test
+    public void parseCommand_editStaffShortcut() throws Exception {
+        assertTrue(parser.parseCommand(EditStaffCommand.COMMAND_WORD_SHORTCUT + " 1 p/99994567")
+                instanceof EditStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_findStaffShortcut() throws Exception {
+        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " foo bar baz")
+                instanceof FindStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteStaffShortcut() throws Exception {
+        assertTrue(parser.parseCommand(DeleteStaffCommand.COMMAND_WORD_SHORTCUT + " 2")
+                instanceof DeleteStaffCommand);
+    }
+
+    @Test
+    public void parseCommand_addDrinkShortcut() throws Exception {
+        assertTrue(parser.parseCommand(AddDrinkCommand.COMMAND_WORD + " n/Iced Latte p/4.50 c/Coffee")
+                instanceof AddDrinkCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteDrinkShortcut() throws Exception {
+        assertTrue(parser.parseCommand(DeleteDrinkCommand.COMMAND_WORD_SHORTCUT + " 2")
+                instanceof DeleteDrinkCommand);
+    }
+
+    @Test
+    public void parseCommand_purchaseShortcut() throws Exception {
+        // Simple purchase command
+        assertTrue(parser.parseCommand(PurchaseCommand.COMMAND_WORD_SHORTCUT + " 1 n/Espresso")
+                instanceof PurchaseCommand);
+
+        // Purchase with redeem option
+        assertTrue(parser.parseCommand(PurchaseCommand.COMMAND_WORD_SHORTCUT + " 2 n/Cappuccino redeem/true")
+                instanceof PurchaseCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteCustomerShortcut() throws Exception {
+        assertTrue(parser.parseCommand(DeleteCustomerCommand.COMMAND_WORD_SHORTCUT + " 2")
+                instanceof DeleteCustomerCommand);
+    }
+
+    @Test
     public void parseCommand_editCustomer() throws Exception {
         assertTrue(parser.parseCommand(EditCustomerCommand.COMMAND_WORD + " 1 n/Jane Doe")
                 instanceof EditCustomerCommand);

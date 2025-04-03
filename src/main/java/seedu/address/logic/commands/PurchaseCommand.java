@@ -28,6 +28,7 @@ import seedu.address.model.util.CustomerBuilder;
 public class PurchaseCommand extends Command {
 
     public static final String COMMAND_WORD = "purchase";
+    public static final String COMMAND_WORD_SHORTCUT = "p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records a purchase for a customer "
         + "identified by the index number in the displayed customer list.\n"
