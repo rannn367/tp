@@ -85,7 +85,7 @@ public class FindStaffCommandParser implements Parser<FindStaffCommand> {
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(
-                    Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")));
+                    Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")), true);
             predicateSet.add(namePredicate);
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {

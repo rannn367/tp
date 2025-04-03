@@ -25,6 +25,8 @@ public class NameContainsKeywordsPredicateTest {
 
         NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
         NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
+        NameContainsKeywordsPredicate firstPredicateFuzzy = 
+                new NameContainsKeywordsPredicate(firstPredicateKeywordList, true);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
@@ -39,8 +41,11 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different keywords -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
+        
+        // same keywords but different fuzzy setting -> returns false
+        assertFalse(firstPredicate.equals(firstPredicateFuzzy));
     }
 
     @Test
@@ -61,6 +66,30 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new TestPersonBuilder().withName(new Name("Alice Bob")).build()));
     }
+    
+    @Test
+    public void test_nameMatchesFuzzyKeywords_returnsTrue() {
+        // Slight misspelling with fuzzy matching enabled
+        NameContainsKeywordsPredicate predicate = 
+                new NameContainsKeywordsPredicate(Collections.singletonList("Alic"), true);
+        assertTrue(predicate.test(new TestPersonBuilder().withName(new Name("Alice")).build()));
+        
+        // Character transposition with fuzzy matching enabled
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Ailce"), true);
+        assertTrue(predicate.test(new TestPersonBuilder().withName(new Name("Alice")).build()));
+        
+        // Character addition with fuzzy matching enabled
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alicee"), true);
+        assertTrue(predicate.test(new TestPersonBuilder().withName(new Name("Alice")).build()));
+    }
+    
+    @Test
+    public void test_nameWithFuzzyMatchDisabled_returnsFalse() {
+        // Slight misspelling with fuzzy matching disabled
+        NameContainsKeywordsPredicate predicate = 
+                new NameContainsKeywordsPredicate(Collections.singletonList("Alic"), false);
+        assertFalse(predicate.test(new TestPersonBuilder().withName(new Name("Alice")).build()));
+    }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
@@ -76,14 +105,24 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new TestPersonBuilder().withName(new Name("Alice")).withPhone(new Phone("12345"))
                 .withEmail(new Email("alice@email.com")).withAddress(new Address("Main Street")).build()));
+        
+        // Too different even for fuzzy matching
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Xyz"), true);
+        assertFalse(predicate.test(new TestPersonBuilder().withName(new Name("Alice")).build()));
     }
 
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
+        NameContainsKeywordsPredicate predicateFuzzy = new NameContainsKeywordsPredicate(keywords, true);
 
-        String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + 
+                "{keywords=" + keywords + ", useFuzzyMatching=false}";
         assertEquals(expected, predicate.toString());
+        
+        String expectedFuzzy = NameContainsKeywordsPredicate.class.getCanonicalName() + 
+                "{keywords=" + keywords + ", useFuzzyMatching=true}";
+        assertEquals(expectedFuzzy, predicateFuzzy.toString());
     }
 }

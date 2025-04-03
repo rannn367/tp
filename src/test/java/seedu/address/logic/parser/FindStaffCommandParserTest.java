@@ -61,14 +61,14 @@ public class FindStaffCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindStaffCommand() {
         // name search
-        NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList("John"));
+        NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList("John"), true);
         Set<Predicate<Person>> namePredicateSet = new HashSet<>(Collections.singletonList(namePredicate));
         SameFieldsPredicate namePredicateCombined = new SameFieldsPredicate(namePredicateSet);
         FindStaffCommand expectedNameCommand = new FindStaffCommand(namePredicateCombined);
         assertParseSuccess(parser, " " + PREFIX_NAME + "John", expectedNameCommand);
 
         // multiple prefixes
-        NameContainsKeywordsPredicate namePredicate2 = new NameContainsKeywordsPredicate(Arrays.asList("John"));
+        NameContainsKeywordsPredicate namePredicate2 = new NameContainsKeywordsPredicate(Arrays.asList("John"), true);
         SameRolePredicate rolePredicate = new SameRolePredicate(new Role("Barista"));
         Set<Predicate<Person>> multiPredicateSet = new HashSet<>();
         multiPredicateSet.add(namePredicate2);
@@ -83,7 +83,7 @@ public class FindStaffCommandParserTest {
     public void parse_complexInput_returnsFindStaffCommand() {
         // all staff attributes
         Set<Predicate<Person>> allPredicateSet = new HashSet<>();
-        allPredicateSet.add(new NameContainsKeywordsPredicate(Arrays.asList("John")));
+        allPredicateSet.add(new NameContainsKeywordsPredicate(Arrays.asList("John"), true));
         allPredicateSet.add(new SamePhonePredicate(new Phone("98765432")));
         allPredicateSet.add(new SameEmailPredicate(new Email("john@example.com")));
         allPredicateSet.add(new SameAddressPredicate(new Address("Clementi")));
