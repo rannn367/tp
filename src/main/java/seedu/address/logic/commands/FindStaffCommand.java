@@ -2,10 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
+import javafx.collections.ObservableList;
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Staff;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -22,18 +29,26 @@ public class FindStaffCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Person> predicate;
 
     public FindStaffCommand(NameContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
+
+    public FindStaffCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredStaffList(predicate);
+        ObservableList<Staff> filteredStaffs = model.updateFilteredStaffList(predicate);
+        int count = filteredStaffs.size();
+        String result = IntStream.range(0, count)
+            .mapToObj(i -> (i + 1) + ". " + filteredStaffs.get(i).getName())
+            .collect(Collectors.joining("\n"));
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredStaffList().size()));
+                String.format(Messages.MESSAGE_STAFF_LISTED_OVERVIEW, count, result));
     }
 
     @Override
