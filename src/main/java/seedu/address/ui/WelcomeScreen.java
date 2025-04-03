@@ -118,19 +118,21 @@ public class WelcomeScreen extends UiPart<Region> {
         // Safely initialize coffee icon
         if (logoIconView != null) {
             try {
-                // Load the coffee icon image directly from the file path
-                Image iconImage = new Image("file:" + COFFEE_ICON_PATH);
+                // Load from classpath
+                Image iconImage = new Image(getClass().getClassLoader()
+                        .getResource("images/cafeconnect-icon.png").toExternalForm());
 
                 if (!iconImage.isError()) {
                     logoIconView.setImage(iconImage);
-                    logger.info("Successfully loaded coffee icon from: " + COFFEE_ICON_PATH);
+                    logger.info("Successfully loaded coffee icon from resource.");
                 } else {
-                    logger.warning("Failed to load coffee icon - will try alternative paths");
+                    logger.warning("Failed to load coffee icon from resource.");
                 }
             } catch (Exception e) {
                 logger.warning("Could not load coffee icon: " + e.getMessage());
             }
         }
+
 
         // Set up button handlers with null checks
         if (staffCustomerButton != null) {
