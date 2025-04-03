@@ -113,25 +113,80 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCustomerCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="850" height="1500" />
+The model component represents the data domain of CafeConnect and provides APIs for accessing and modifying this data.
+
+<puml src="diagrams/ModelOverviewClassDiagram.puml" width="850" height="500" />
+
+**Model Overview**
 
 The `Model` component,
 
-* stores CaféConnect data i.e., all `Person`, `Staff`, `Customer` and `Drink` objects (which are contained in a `UniquePersonList`, `UniqueStaffList`, `UniqueCustomerList` and `UniqueDrinkList` objects).
-* stores the currently 'selected' `Person`, `Staff`, `Customer` or `DrinkList` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>`, `ObservableList<Staff>`, `ObservableList<Customer>` and `ObservableList<Drink>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* Stores different types of data essential for café management:
+  * Core data entities: `Person`, `Staff`, `Customer`, and `Drink` objects
+  * User preferences via the `UserPrefs` class
+* Exposes _unmodifiable_ `ObservableList<T>` objects for UI components to bind to
+* Provides validation methods for checking if entities already exist in the system
+* Implements methods to add, remove, and modify data entities
+* Does not depend on any of the other components (UI, Logic, or Storage)
 
-<box type="info" seamless>
+The diagram above shows the main structure of the `Model` component. For clarity, we'll examine each entity model in more detail below.
 
-> **_NOTE:_** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
+#### Person Model
+<puml src="diagrams/PersonModelClassDiagram.puml" width="750" />
+
+The `Person` model:
+
+* Serves as the base class for both `Staff` and `Customer` entities
+* Contains common attributes for all persons: `Name`, `Phone`, `Email`, `Address`, `Remark`, and `Tag`s
+* Enforces validation for all fields through specialized field classes
+* Is stored in a `UniquePersonList` that ensures no two persons have the same identity
+
+#### Staff Model
+<puml src="diagrams/StaffModelClassDiagram.puml" width="750" />
+
+The `Staff` model:
+
+* Extends the `Person` class, inheriting all person attributes
+* Adds staff-specific fields: `StaffId`, `Role`, `ShiftTiming`, `HoursWorked`, and `PerformanceRating`
+* Uses `StaffId` as the primary identifier for staff members
+* Is stored in a `UniqueStaffList` that enforces uniqueness based on staff IDs
+* Implements staff-specific behavior for operations like performance tracking
+
+#### Customer Model
+<puml src="diagrams/CustomerModelClassDiagram.puml" width="750" />
+
+The `Customer` model:
+
+* Extends the `Person` class, inheriting all person attributes
+* Adds customer-specific fields: `CustomerId`, `RewardPoints`, `VisitCount`, `FavouriteItem`, and `TotalSpent`
+* Uses `CustomerId` as the primary identifier for customers
+* Is stored in a `UniqueCustomerList` that enforces uniqueness based on customer IDs
+* Implements customer-specific behavior, including reward point tracking, visit counting, and spending history
+
+#### Drink Model
+<puml src="diagrams/DrinkModelClassDiagram.puml" width="750" />
+
+The `Drink` model:
+
+* Defines drink items available in the café menu
+* Contains essential drink attributes: `DrinkName`, `Price`, and `Category`
+* Includes optional attributes like `description` and `stock` that don't affect identity
+* Uses `DrinkName` as the primary identifier for drinks
+* Is stored in a `UniqueDrinkList` that enforces uniqueness based on drink names
+* Implements business logic for reward points calculation in the `Price` class:
+  * Earning points: 10 points per dollar spent
+  * Redeeming points: 100 points equals to $1 value
+* Is managed through the `DrinkCatalog` class that implements `ReadOnlyDrinkCatalog`
+
+Each entity in the Model component follows value semantics (meaning two entities with identical fields are considered equal) and is immutable for core fields to prevent unexpected side effects.
+
+> **_NOTE:_** An alternative (arguably, a more OOP) model for tags is also provided below. It has a `Tag` list in the `AddressBook`, which `Person` objects reference. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
-</box>
 
 ### Storage component
 
