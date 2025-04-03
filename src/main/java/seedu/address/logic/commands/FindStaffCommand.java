@@ -13,12 +13,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.CombinedPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -48,10 +51,28 @@ public class FindStaffCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John " + PREFIX_ROLE + "Barista\n"
             + "OR: " + COMMAND_WORD + " " + PREFIX_ALL;
 
-    private final Predicate<Person> predicate;
+    private final CombinedPredicate predicate;
 
-    public FindStaffCommand(Predicate<Person> predicate) {
+    /**
+     * Constructs a FindStaffCommand with a CombinedPredicate.
+     *
+     * @param predicate The CombinedPredicate to use for filtering staff
+     */
+    public FindStaffCommand(CombinedPredicate predicate) {
         this.predicate = predicate;
+    }
+
+    /**
+     * Constructs a FindStaffCommand with a single Predicate, wrapping it in a CombinedPredicate.
+     *
+     * @param predicate The Predicate to use for filtering staff
+     */
+    public FindStaffCommand(Predicate<Person> predicate) {
+        if (predicate instanceof CombinedPredicate) {
+            this.predicate = (CombinedPredicate) predicate;
+        } else {
+            this.predicate = new CombinedPredicate(new HashSet<>(Arrays.asList(predicate)));
+        }
     }
 
     @Override
@@ -89,3 +110,4 @@ public class FindStaffCommand extends Command {
                 .toString();
     }
 }
+

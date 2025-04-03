@@ -16,17 +16,39 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.model.Model;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.CustomerId;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.FavouriteItem;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.RewardPoints;
+import seedu.address.model.person.TotalSpent;
+import seedu.address.model.person.VisitCount;
+import seedu.address.model.person.predicates.AddressPredicate;
+import seedu.address.model.person.predicates.CombinedPredicate;
+import seedu.address.model.person.predicates.CustomerIdPredicate;
+import seedu.address.model.person.predicates.EmailPredicate;
+import seedu.address.model.person.predicates.FavouriteItemPredicate;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PhonePredicate;
+import seedu.address.model.person.predicates.RewardPointsPredicate;
+import seedu.address.model.person.predicates.TagsContainPredicate;
+import seedu.address.model.person.predicates.TotalSpentPredicate;
+import seedu.address.model.person.predicates.VisitCountPredicate;
+import seedu.address.model.tag.Tag;
 
 public class FindCustomerCommandParserTest {
-
-    private static final Predicate<Person> defaultPred = person -> true;
 
     private FindCustomerCommandParser parser = new FindCustomerCommandParser();
 
@@ -39,15 +61,44 @@ public class FindCustomerCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCustomerCommand() {
         // name search
-        FindCustomerCommand expectedNameCommand = new FindCustomerCommand(defaultPred);
+        NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice"));
+        Set<Predicate<Person>> namePredicateSet = new HashSet<>(Collections.singletonList(namePredicate));
+        CombinedPredicate namePredicateCombined = new CombinedPredicate(namePredicateSet);
+        FindCustomerCommand expectedNameCommand = new FindCustomerCommand(namePredicateCombined);
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice", expectedNameCommand);
 
         // multiple prefixes
-        String userInput = " " + PREFIX_NAME + "Alice " + PREFIX_VISIT_COUNT + "5";
-        assertParseSuccess(parser, userInput,
-                new FindCustomerCommand(defaultPred));
+        NameContainsKeywordsPredicate namePredicate2 = new NameContainsKeywordsPredicate(Arrays.asList("Alice"));
+        VisitCountPredicate visitCountPredicate = new VisitCountPredicate(new VisitCount("5"));
+        Set<Predicate<Person>> multiPredicateSet = new HashSet<>();
+        multiPredicateSet.add(namePredicate2);
+        multiPredicateSet.add(visitCountPredicate);
+        CombinedPredicate multiPredicateCombined = new CombinedPredicate(multiPredicateSet);
 
+        String userInput = " " + PREFIX_NAME + "Alice " + PREFIX_VISIT_COUNT + "5";
+        assertParseSuccess(parser, userInput, new FindCustomerCommand(multiPredicateCombined));
+    }
+
+    @Test
+    public void parse_complexInput_returnsFindCustomerCommand() {
         // all customer attributes
+        Set<Predicate<Person>> allPredicateSet = new HashSet<>();
+        allPredicateSet.add(new NameContainsKeywordsPredicate(Arrays.asList("John")));
+        allPredicateSet.add(new PhonePredicate(new Phone("98765432")));
+        allPredicateSet.add(new EmailPredicate(new Email("john@example.com")));
+        allPredicateSet.add(new AddressPredicate(new Address("Clementi")));
+        allPredicateSet.add(new CustomerIdPredicate(new CustomerId("C001")));
+        allPredicateSet.add(new RewardPointsPredicate(new RewardPoints("150")));
+        allPredicateSet.add(new VisitCountPredicate(new VisitCount("8")));
+        allPredicateSet.add(new FavouriteItemPredicate(new FavouriteItem("Cappuccino")));
+        allPredicateSet.add(new TotalSpentPredicate(new TotalSpent("120")));
+
+        Set<Tag> tagSet = new HashSet<>();
+        tagSet.add(new Tag("regular"));
+        allPredicateSet.add(new TagsContainPredicate(tagSet));
+
+        CombinedPredicate allPredicatesCombined = new CombinedPredicate(allPredicateSet);
+
         String complexInput = " " + PREFIX_NAME + "John "
                 + PREFIX_PHONE + "98765432 "
                 + PREFIX_EMAIL + "john@example.com "
@@ -58,8 +109,7 @@ public class FindCustomerCommandParserTest {
                 + PREFIX_FAVOURITE_ITEM + "Cappuccino "
                 + PREFIX_TOTAL_SPENT + "120 "
                 + PREFIX_TAG + "regular";
-        assertParseSuccess(parser, complexInput,
-                new FindCustomerCommand(defaultPred));
+        assertParseSuccess(parser, complexInput, new FindCustomerCommand(allPredicatesCombined));
     }
 
     @Test

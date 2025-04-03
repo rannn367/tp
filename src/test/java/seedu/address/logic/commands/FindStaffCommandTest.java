@@ -11,14 +11,15 @@ import static seedu.address.testutil.TypicalStaff.BEN;
 
 import java.util.Arrays;
 import java.util.Collections;
-
+import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.DrinkCatalog;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.CombinedPredicate;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindStaffCommand}.
@@ -89,8 +90,9 @@ public class FindStaffCommandTest {
     @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
+        CombinedPredicate combinedPredicate = new CombinedPredicate(new HashSet<>(Arrays.asList(predicate)));
         FindStaffCommand findStaffCommand = new FindStaffCommand(predicate);
-        String expected = FindStaffCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        String expected = FindStaffCommand.class.getCanonicalName() + "{predicate=" + combinedPredicate + "}";
         assertEquals(expected, findStaffCommand.toString());
     }
 

@@ -13,12 +13,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT_COUNT;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.CombinedPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -48,10 +51,28 @@ public class FindCustomerCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Alice " + PREFIX_VISIT_COUNT + "5\n"
             + "OR: " + COMMAND_WORD + " " + PREFIX_ALL;
 
-    private final Predicate<Person> predicate;
+    private final CombinedPredicate predicate;
 
-    public FindCustomerCommand(Predicate<Person> predicate) {
+    /**
+     * Constructs a FindCustomerCommand with a CombinedPredicate.
+     *
+     * @param predicate The CombinedPredicate to use for filtering customers
+     */
+    public FindCustomerCommand(CombinedPredicate predicate) {
         this.predicate = predicate;
+    }
+
+    /**
+     * Constructs a FindCustomerCommand with a single Predicate, wrapping it in a CombinedPredicate.
+     *
+     * @param predicate The Predicate to use for filtering customers
+     */
+    public FindCustomerCommand(Predicate<Person> predicate) {
+        if (predicate instanceof CombinedPredicate) {
+            this.predicate = (CombinedPredicate) predicate;
+        } else {
+            this.predicate = new CombinedPredicate(new HashSet<>(Arrays.asList(predicate)));
+        }
     }
 
     @Override
@@ -79,6 +100,10 @@ public class FindCustomerCommand extends Command {
         }
 
         FindCustomerCommand otherFindCustomerCommand = (FindCustomerCommand) other;
+        
+        System.err.println("predicate: " + predicate);
+        System.err.println("other predicate: " + otherFindCustomerCommand.predicate);
+
         return predicate.equals(otherFindCustomerCommand.predicate);
     }
 
