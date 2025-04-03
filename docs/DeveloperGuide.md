@@ -132,16 +132,45 @@ The `Model` component,
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
 </box>
+
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="850" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* Can save and load data in JSON format across multiple data files:
+  * `addressbook.json` - Stores all staff and customer data
+  * `drinkcatalog.json` - Stores the drink menu data
+  * `preferences.json` - Stores user preferences like window size and position
+* Inherits from multiple interfaces: `AddressBookStorage`, `UserPrefsStorage`, and `DrinkCatalogStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* Is implemented by `StorageManager`, which coordinates all persistence operations by delegating to specialized storage classes.
+* Uses Jackson library for JSON serialization and deserialization.
+* Creates JSON-adapted versions of model objects through adapter classes:
+  * `JsonAdaptedPerson` serves as the base adapter for person entities
+  * `JsonAdaptedStaff` and `JsonAdaptedCustomer` extend the person adapter with specialized fields
+  * `JsonAdaptedDrink` handles drink menu items
+* Depends on classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`).
+
+The sequence diagram below illustrates the storage operations that occur when executing a command that modifies data (such as `customerdelete 1`):
+
+<puml src="diagrams/StorageSequenceDiagram.puml" width="800" />
+
+When the application starts:
+1. `MainApp` initializes `StorageManager` with the appropriate storage components for address book, drink catalog, and user preferences.
+2. `StorageManager` attempts to load data from each storage file.
+3. If any file is missing or corrupted, the application creates a new empty data structure for that component.
+
+When a command modifies data:
+1. After the model is updated, `LogicManager` calls `storage.saveAddressBook(model.getAddressBook())` (or the equivalent method for other data types).
+2. `StorageManager` delegates to the appropriate storage component:
+  * `JsonAddressBookStorage` for staff and customer data
+  * `JsonDrinkCatalogStorage` for drink menu data
+  * `JsonUserPrefsStorage` for user preferences
+3. The storage component converts model objects to their JSON-adapted versions and writes the resulting JSON to the appropriate file.
+
+> **_NOTE:_** If a data file is corrupted, the application will simply create a new empty data structure. Users must manage backups of their data files manually.
 
 ### Common classes
 
@@ -390,23 +419,34 @@ Upon execution, `PurchaseCommand` first retrieves the customer at the specified 
 
 ### Quick Command Shortcuts
 
-The implementation of shortcut commands (`c` for customers and `s` for staff) provides an efficient way to add new entries with minimal typing.
+The implementation of shortcut commands (`c` for customers and `s` for staff) provides an efficient way for café owners to add new entries with minimal typing.
 
-<puml src="diagrams/ShortcutCommandSequenceDiagram.puml" alt="ShortcutCommandSequenceDiagram" />
+<puml src="diagrams/ShortcutCommandSequenceDiagram.puml" width="800" />
 
-`AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
-- `c` routes to the customer shortcut handler
-- `s` routes to the staff shortcut handler
+The shortcut command system follows this format:
+* `c CID:NAME:PHONE` - Quick add a customer
+* `s SID:NAME:PHONE` - Quick add a staff member
 
-The shortcut format follows a pattern of `ID:NAME:PHONE` with colon separators.
+These commands allow users to rapidly add new entries during busy periods when full detailed commands might be impractical. The implementation works as follows:
 
-Upon receiving a shortcut command, the parser:
-1. Splits the input at the colon separators
-2. Validates that exactly three components are present
-3. Creates a new entity with the provided values and default values for other fields
-4. Adds the entity to the appropriate list
+1. `AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
+  * `c` routes to the customer shortcut handler `CustomerQuickCommandParser`
+  * `s` routes to the staff shortcut handler `StaffQuickCommandParser`
 
-> **_NOTE:_** Shortcut commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
+2. The shortcut parsers process the input using these steps:
+  * Split the input string at the colon separators
+  * Validate that exactly three components are present (ID, name, and phone)
+  * Create a new entity with the provided values and default values for other fields
+  * Return the appropriate command object (e.g., `AddCustomerCommand` or `AddStaffCommand`)
+
+3. The command is then executed like any standard command:
+  * The model is updated with the new entity
+  * The updated model is saved to persistent storage
+  * A success message is displayed to the user
+
+This implementation adheres to the Command pattern used throughout the application while providing a streamlined interface for common operations. Default values for fields not specified in the shortcut command can be modified later using the standard edit commands.
+
+> **_NOTE:_** Quick commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
 
 <br></br>
 
