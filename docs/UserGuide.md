@@ -761,7 +761,7 @@ Users should only edit the data files only if they are confident in updating the
 
 #### Q4: What is considered valid, when editing the JSON data files directly?
 
-Ans: Data entries are valid, if they are achievable through a sequence of commands.
+Ans: Data entries are valid as long as it follows the data entry rules enforced by the application, and are achievable using the available commands.
 
 Examples:
 Having `C001` is an invalid `customerId` field for a customer, if it's already assigned to another customer, as there is no sequence of commands that will lead to duplicate customer IDs.
