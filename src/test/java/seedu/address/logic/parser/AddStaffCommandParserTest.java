@@ -199,29 +199,9 @@ public class AddStaffCommandParserTest {
     }
 
     @Test
-    public void parse_validFastAdd_success() {
-        String userInput = "S0101:John:92012012"; // Simulating fast-add format
-
-        // Define the expected AddStaffCommand with the correct default values
-        AddStaffCommand expectedCommand = new AddStaffCommand(
-                new Staff(
-                        new Name("John"),
-                        new Phone("92012012"),
-                        new Email("default@gmail.com"),
-                        new Address("empty"),
-                        new Remark(""),
-                        Set.of(),
-                        new StaffId("S0101"),
-                        new Role("Full Time worker"),
-                        new ShiftTiming("9am-5pm"),
-                        new HoursWorked("0"),
-                        new PerformanceRating("0")
-                )
-        );
-
-        // Assert that the parsed command matches the expected command
-        assertParseSuccess(parser, userInput, expectedCommand);
+    public void parse_quickAddFormat_failure() {
+        String userInput = "S0101:John:92012012"; // Quick add format
+        assertParseFailure(parser, userInput, 
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStaffCommand.MESSAGE_USAGE));
     }
-
-
 }
