@@ -535,7 +535,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return True if the Staff tab is selected, false otherwise.
      */
     private boolean isOnStaffTab() {
-        return tabPane.getSelectionModel().getSelectedIndex() == 0; // Assuming Staff is tab index 0
+        return tabPane.getSelectionModel().getSelectedIndex() == 0;
     }
 
     /**
@@ -544,7 +544,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return True if the Customer tab is selected, false otherwise.
      */
     private boolean isOnCustomerTab() {
-        return tabPane.getSelectionModel().getSelectedIndex() == 1; // Assuming Customer is tab index 1
+        return tabPane.getSelectionModel().getSelectedIndex() == 1;
     }
 
     /**
@@ -553,7 +553,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return True if the Drinks tab is selected, false otherwise.
      */
     private boolean isOnDrinksTab() {
-        return tabPane.getSelectionModel().getSelectedIndex() == 2; // Assuming Drinks is tab index 2
+        return tabPane.getSelectionModel().getSelectedIndex() == 2;
     }
 
     /**
@@ -577,7 +577,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void switchToDrinksTab() {
         logger.info("Switching to Drinks tab due to command");
-        tabPane.getSelectionModel().select(2); // Assuming Drinks is tab index 2
+        tabPane.getSelectionModel().select(2);
     }
 
 
