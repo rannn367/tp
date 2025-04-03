@@ -543,260 +543,280 @@ On application startup, the reverse process occurs:
 
 ## **Appendix: Requirements**
 
+## Product Scope
+
+### Purpose
+The Café Management System is designed to help café owners efficiently manage customers, staff, and menu items while streamlining daily operations. It provides an intuitive interface with both detailed and shortcut commands for quick data entry and retrieval. The system focuses on **speed, accuracy, and ease of use**, making it ideal for busy café environments.
+
+### Features
+- **Customer Management**: Add, edit, delete, find, and list customers with details like contact info, reward points, and spending history.
+- **Staff Management**: Track staff members, their roles, work shifts, performance ratings, and contact details.
+- **Menu Management**: Add, remove, and manage drinks with categorized pricing.
+- **Order & Purchase Tracking**: Record transactions, allow redemption of loyalty points, and track customer spending habits.
+- **Quick Commands**: Enable fast input of customer and staff details through concise shortcuts.
+- **Filtering & Sorting**: Search and categorize customers and staff based on key attributes.
+- **Help & Guidance**: Provide quick access to command references for ease of use.
+
+### Value Proposition
+- **Saves Time**: Enables quick updates and retrieval of customer, staff, and menu information.
+- **Enhances Efficiency**: Reduces manual effort in managing records.
+- **Improves Customer Retention**: Tracks customer preferences and spending to offer a personalized experience.
+- **Optimizes Staff Management**: Helps keep track of working hours, shifts, and performance evaluations.
+- **Boosts Business Insights**: Provides data on sales trends, popular drinks, and customer engagement.
+
+---
+
+## Target User Profile
+
+| Attribute             | Description |
+|-----------------------|-------------|
+| **Primary User**      | Café owners and managers who need a fast, structured way to manage their café operations. |
+| **Demographics**      | Small to medium café owners, typically in urban areas with moderate to high customer traffic. |
+| **Technical Skills**  | Comfortable with command-line interfaces (CLI) and quick-typing, but prefer intuitive commands. |
+| **Pain Points**       | Struggles with handling large amounts of customer and staff data manually, keeping track of sales, and ensuring smooth operations. |
+| **Needs & Goals**     | Wants a **fast, no-frills, and reliable** system to manage daily tasks without unnecessary complexity. |
+| **Usage Environment** | Typically used on a **desktop or laptop** at the café’s counter or office for quick access during operations. |
+
+
+### User stories
+
+Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
+
+| Priority | As a …​          | I want to …​                                 | So that I can…​                                                 |
+|----------|-----------------|----------------------------------------------|------------------------------------------------------------------|
+| `* * *`  | café owner      | add a new customer                          | keep track of my regular customers and their preferences       |
+| `* * *`  | café owner      | delete a customer                           | remove outdated or irrelevant customer records                 |
+| `* * *`  | café owner      | edit a customer's details                   | update their contact info or preferences if they change        |
+| `* * *`  | café owner      | find a customer by name                     | quickly retrieve customer details                              |
+| `* * *`  | café owner      | list all customers                          | view a full list of my customers at any time                   |
+| `* * *`  | café owner      | add a new staff member                      | track my employees and their roles                             |
+| `* * *`  | café owner      | delete a staff member                       | remove staff who have left the café                            |
+| `* * *`  | café owner      | edit a staff member's details               | update their role, contact, or working hours                   |
+| `* * *`  | café owner      | find a staff member by name                 | locate specific staff quickly                                  |
+| `* * *`  | café owner      | list all staff members                      | get an overview of all employees                              |
+| `* * *`  | café owner      | add a new drink to the menu                 | expand my offerings for customers                             |
+| `* * *`  | café owner      | delete a drink from the menu                | remove items that are no longer available                      |
+| `* * *`  | café owner      | record a purchase                           | track customer orders and spending habits                      |
+| `* * *`  | café owner      | allow customers to redeem points for purchases | encourage customer loyalty and reward repeat visitors        |
+| `* * *`  | café owner      | access a help command                       | quickly understand how to use the system when needed          |
+| `* *`    | café owner      | use shortcut commands for adding customers and staff | speed up data entry for frequently used actions               |
+
 ### Use cases
 
 (For all use cases below, the System is the Café Management System and the Actor is the café owner, unless specified otherwise)
 
-**Use case: Add a Staff Member**
-
+#### **Use Case: Add a Customer**
 **MSS**
-
-1. Café owner requests to add a new staff member.
-2. System prompts for staff details: name, phone number, and role.
-3. Café owner provides the required details.
+1. Café owner requests to add a new customer.
+2. System prompts for customer details.
+3. Café owner provides required details.
 4. System validates the input.
-5. System adds the new staff member.
+5. System adds the new customer.
 6. System confirms the addition.
    Use case ends.
 
 **Extensions**
+- 4a. Invalid input format → System shows an error and resumes at step 2.
+- 4b. Duplicate customer ID → System shows an error and use case ends.
 
-* 4a. Provided name format is invalid.
+---
 
-  * 4a1. System shows an error message.
-
-  * 4a2. Use case resumes at step 2.
-
-* 4b. Provided phone number is invalid.
-
-  * 4b1. System shows an error message.
-
-  * 4b2. Use case resumes at step 2.
-
-* 4c. Role description exceeds character limit.
-
-  * 4c1. System shows an error message.
-
-  * 4c2. Use case resumes at step 2.
-
-* 4d. Staff member with the same name and phone number already exists.
-
-  * 4d1. System shows a duplication error message.
-
-    Use case ends.
-
-* 4e. Staff member with the same name but different phone number exists.
-
-  * 4e1. System prompts to confirm if phone number should be updated.
-
-  * 4e2. Café owner chooses not to update.
-
-  Use case ends.
-
-  * 4e3. Café owner chooses to update.
-
-    * System updates phone number.
-
-    * System confirms update.
-
-  Use case ends.
-
-**Use case: Delete a Staff Member**
-
+#### **Use Case: Add a Customer (Shortcut)**
 **MSS**
+1. Café owner enters a shortcut command to add a customer.
+2. System extracts and validates input details.
+3. System adds the new customer.
+4. System confirms the addition.
+   Use case ends.
 
+**Extensions**
+- 2a. Invalid format → System shows an error and use case ends.
+
+---
+
+#### **Use Case: Delete a Customer**
+**MSS**
+1. Café owner requests to delete a customer.
+2. System confirms the customer’s existence.
+3. System deletes the customer.
+4. System confirms deletion.
+   Use case ends.
+
+**Extensions**
+- 2a. Customer does not exist → System shows an error and use case ends.
+
+---
+
+#### **Use Case: Edit a Customer**
+**MSS**
+1. Café owner requests to edit a customer’s details.
+2. System prompts for details to edit.
+3. Café owner provides updated details.
+4. System validates and updates the details.
+5. System confirms the update.
+   Use case ends.
+
+**Extensions**
+- 4a. Invalid input format → System shows an error and resumes at step 2.
+- 4b. Customer does not exist → System shows an error and use case ends.
+
+---
+
+#### **Use Case: Find a Customer**
+**MSS**
+1. Café owner searches for a customer.
+2. System retrieves and displays matching customers.
+   Use case ends.
+
+**Extensions**
+- 2a. No matches found → System shows an error and use case ends.
+
+---
+
+#### **Use Case: List All Customers**
+**MSS**
+1. Café owner requests to list all customers.
+2. System displays all customers.
+   Use case ends.
+
+---
+
+#### **Use Case: Add a Staff Member**
+**MSS**
+1. Café owner requests to add a new staff member.
+2. System prompts for staff details.
+3. Café owner provides required details.
+4. System validates input and adds the staff member.
+5. System confirms the addition.
+   Use case ends.
+
+**Extensions**
+- 4a. Invalid input format → System shows an error and resumes at step 2.
+- 4b. Duplicate staff ID → System shows an error and use case ends.
+
+---
+
+#### **Use Case: Add a Staff Member (Shortcut)**
+**MSS**
+1. Café owner enters a shortcut command to add a staff member.
+2. System extracts and validates input details.
+3. System adds the new staff member.
+4. System confirms the addition.
+   Use case ends.
+
+**Extensions**
+- 2a. Invalid format → System shows an error and use case ends.
+
+---
+
+#### **Use Case: Delete a Staff Member**
+**MSS**
 1. Café owner requests to delete a staff member.
-
-2. System prompts for the staff member's name.
-
-3. Café owner provides the staff member's name.
-
-4. System checks if the staff member exists.
-
-5. System deletes the staff member.
-
-6. System confirms the deletion.
-
-7. Use case ends.
+2. System confirms the staff member’s existence.
+3. System deletes the staff member.
+4. System confirms deletion.
+   Use case ends.
 
 **Extensions**
-* 4a. No staff member with the given name is found.
+- 2a. Staff member does not exist → System shows an error and use case ends.
 
-  * 4a1. System shows an error message.
+---
 
-    Use case ends.
-
-* 4b. Multiple staff members with the same name are found.
-
-  * 4b1. System prompts for the phone number.
-
-  * 4b2. Café owner provides the phone number.
-
-  * 4b3. System validates and deletes the correct entry.
-
-  * 4b4. System confirms the deletion.
-
-    Use case ends.
-
-**Use case: View Staff List**
-
+#### **Use Case: Edit a Staff Member**
 **MSS**
-
-1. Café owner requests to view the staff list.
-
-2. System retrieves and displays the list of staff members.
-
-Use case ends.
+1. Café owner requests to edit a staff member’s details.
+2. System prompts for details to edit.
+3. Café owner provides updated details.
+4. System validates and updates the details.
+5. System confirms the update.
+   Use case ends.
 
 **Extensions**
-* 2a. The staff list is empty.
+- 4a. Invalid input format → System shows an error and resumes at step 2.
+- 4b. Staff member does not exist → System shows an error and use case ends.
 
-  * 2a1. System shows a message indicating no staff members are found.
+---
 
-    Use case ends.
-
-**Use case: Search Staff by Name**
-
+#### **Use Case: Find a Staff Member**
 **MSS**
-
-1. Café owner requests to search for a staff member by name.
-
-2. System prompts for the staff member's name.
-
-3. Café owner provides the staff member's name.
-
-4. System searches for matching staff members.
-
-5. System displays matching staff members.
-
-Use case ends.
+1. Café owner searches for a staff member.
+2. System retrieves and displays matching staff.
+   Use case ends.
 
 **Extensions**
-* 4a. No staff members with the given name are found.
+- 2a. No matches found → System shows an error and use case ends.
 
-  * 4a1. System shows a message indicating no matches.
+---
 
-    Use case ends.
-
-* 4b. Multiple staff members with the same name are found.
-
-  * 4b1. System displays all matching entries.
-
-    Use case ends.
-
-
-**Use case: Track Customer Points**
-
+#### **Use Case: List All Staff Members**
 **MSS**
+1. Café owner requests to list all staff members.
+2. System displays all staff.
+   Use case ends.
 
-1. Café owner requests to update customer points.
+---
 
-2. System prompts for customer name and points to add or deduct.
-
-3. Café owner provides the customer name and points.
-
-4. System validates the input.
-
-5. System updates the customer's points balance.
-
-6. System confirms the update.
-
-Use case ends.
-
-**Extensions**
-* 4a. Provided customer name format is invalid.
-
-  * 4a1. System shows an error message.
-
-  * 4a2. Use case resumes at step 2.
-
-* 4b. Provided points value is invalid.
-
-  * 4b1. System shows an error message.
-
-  * 4b2. Use case resumes at step 2.
-
-* 4c. Customer not found.
-
-  * 4c1. System shows an error message.
-
-    Use case ends.
-
-* 4d. Multiple customers with the same name are found.
-
-  * 4d1. System prompts for a unique identifier (e.g., phone number).
-
-  * 4d2. Café owner provides the identifier.
-
-  * 4d3. System validates and updates the correct entry.
-
-  * 4d4. System confirms the update.
-
-    Use case ends.
-
-**Use case: Redeem a Reward**
-
+#### **Use Case: Add a Drink**
 **MSS**
-
-1. Café owner requests to redeem a reward for a customer.
-
-2. System prompts for customer name and reward name.
-
-3. Café owner provides the required details.
-
-4. System checks if the customer and reward exist.
-
-5. System verifies if the customer has enough points.
-
-6. System deducts the required points and confirms the redemption.
-
-Use case ends.
+1. Café owner requests to add a drink.
+2. System prompts for drink details.
+3. Café owner provides details.
+4. System validates input and adds the drink.
+5. System confirms the addition.
+   Use case ends.
 
 **Extensions**
-* 4a. Customer not found.
+- 4a. Invalid input format → System shows an error and resumes at step 2.
+- 4b. Duplicate drink name → System shows an error and use case ends.
 
-  * 4a1. System shows an error message.
+---
 
-    Use case ends.
-
-* 4b. Reward not found.
-
-  * 4b1. System shows an error message.
-
-    Use case ends.
-
-* 5a. Customer does not have enough points.
-
-  * 5a1. System shows an insufficient points message.
-
-    Use case ends.
-
-**Use case: View Customer Visit History**
-
+#### **Use Case: Delete a Drink**
 **MSS**
-
-1. Café owner requests to view a customer's visit history.
-
-2. System prompts for the customer's name.
-
-3. Café owner provides the customer's name.
-
-4. System retrieves and displays the customer's visit history.
-
-Use case ends.
+1. Café owner requests to delete a drink.
+2. System confirms the drink’s existence.
+3. System deletes the drink.
+4. System confirms deletion.
+   Use case ends.
 
 **Extensions**
-* 4a. Customer not found.
+- 2a. Drink does not exist → System shows an error and use case ends.
 
-  * 4a1. System shows an error message.
+---
 
-    Use case ends.
+#### **Use Case: Purchase a Drink**
+**MSS**
+1. Café owner requests to process a purchase.
+2. System verifies drink availability.
+3. System completes the purchase.
+4. System confirms the transaction.
+   Use case ends.
 
-* 4b. Customer has no recorded visits.
+**Extensions**
+- 2a. Drink unavailable → System shows an error and use case ends.
 
-  * 4b1. System shows a message indicating no visit history.
+---
 
-    Use case ends.
+#### **Use Case: Purchase a Drink (Shortcut)**
+**MSS**
+1. Café owner enters a shortcut command to process a purchase.
+2. System extracts and validates input details.
+3. System completes the purchase.
+4. System confirms the transaction.
+   Use case ends.
+
+**Extensions**
+- 2a. Invalid format → System shows an error and use case ends.
+
+---
+
+#### **Use Case: Help Command**
+**MSS**
+1. Café owner requests help.
+2. System displays a list of available commands and their descriptions.
+   Use case ends.
+
+
 
 ### Non-Functional Requirements
 
