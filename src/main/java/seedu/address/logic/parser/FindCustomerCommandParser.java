@@ -66,13 +66,13 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
 
         if (argMultimap.getValue(PREFIX_ALL).isPresent()) {
             String allValue = argMultimap.getValue(PREFIX_ALL).get().trim();
-            if (!allValue.isEmpty()) {
+            if (!allValue.equals("true")) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_INVALID_ALL));
             }
             if (argMultimap.containsOnlyPrefix(PREFIX_ALL)) {
-                throw new ParseException(String.format(
-                        MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_INVALID_ALL));
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_INVALID_ALL));
             }
             return new FindCustomerCommand(Model.PREDICATE_SHOW_ALL_CUSTOMERS);
         }

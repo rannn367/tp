@@ -65,7 +65,7 @@ public class AddressBookParserTest {
     public void parseCommand_findCustomerShortcut() throws Exception {
         assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " n/Alice vc/5")
                 instanceof FindCustomerCommand);
-        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " /all")
+        assertTrue(parser.parseCommand(FindCustomerCommand.COMMAND_WORD_SHORTCUT + " all/true")
                 instanceof FindCustomerCommand);
     }
 
@@ -87,7 +87,7 @@ public class AddressBookParserTest {
     public void parseCommand_findStaffShortcut() throws Exception {
         assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " n/John role/Barista")
                 instanceof FindStaffCommand);
-        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " /all")
+        assertTrue(parser.parseCommand(FindStaffCommand.COMMAND_WORD_SHORTCUT + " all/true")
                 instanceof FindStaffCommand);
     }
 
@@ -147,9 +147,9 @@ public class AddressBookParserTest {
                 FindCustomerCommand.COMMAND_WORD + " n/Alice vc/5")
                 instanceof FindCustomerCommand);
 
-        // Test for /all search
+        // Test for all/true search
         assertTrue(parser.parseCommand(
-                FindCustomerCommand.COMMAND_WORD + " /all")
+                FindCustomerCommand.COMMAND_WORD + " all/true")
                 instanceof FindCustomerCommand);
     }
 
@@ -198,9 +198,9 @@ public class AddressBookParserTest {
                 FindStaffCommand.COMMAND_WORD + " n/John role/Barista")
                 instanceof FindStaffCommand);
 
-        // Test for /all search
+        // Test for all/true search
         assertTrue(parser.parseCommand(
-                FindStaffCommand.COMMAND_WORD + " /all")
+                FindStaffCommand.COMMAND_WORD + " all/true")
                 instanceof FindStaffCommand);
     }
 

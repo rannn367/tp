@@ -16,9 +16,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_STAFF_LISTED_OVERVIEW = "%1$d staff found:\n"
-            + "%2$s\nUse stafffind /all to show all staffs.";
+            + "%2$s\nTo show all staffs: stafffind all/true";
     public static final String MESSAGE_CUSTOMERS_LISTED_OVERVIEW = "%1$d customers found:\n"
-            + "%2$s\nUse customerfind /all to show all customers.";
+            + "%2$s\nTo show all customers: customerfind all/true";
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX = "The customer index provided is invalid";

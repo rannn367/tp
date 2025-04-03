@@ -32,11 +32,12 @@ public class FindCustomerCommand extends Command {
     public static final String COMMAND_WORD = "customerfind";
     public static final String COMMAND_WORD_SHORTCUT = "cf";
 
-    public static final String MESSAGE_INVALID_ALL = "/all must be used alone with no other parameters";
+    public static final String MESSAGE_INVALID_ALL = "Invalid usage of all/true flag.\n"
+            + " Use 'findcustomer all/true' alone to show all customers.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
             + "): Finds and filters customers based on specified criteria. "
             + "Shows customers matching ALL the specified search criteria.\n"
-            + "Parameters: [/all] OR "
+            + "Parameters: [all/true] OR "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -47,9 +48,9 @@ public class FindCustomerCommand extends Command {
             + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
             + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Special search: " + PREFIX_ALL + " shows all customers (must be used alone with no other parameters)\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Alice " + PREFIX_VISIT_COUNT + "5\n"
-            + "OR: " + COMMAND_WORD + " " + PREFIX_ALL;
+            + "Find all: " + PREFIX_ALL + "true shows all customers (must be used alone with no other parameters)\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John " + PREFIX_VISIT_COUNT + "5\n"
+            + "OR: " + COMMAND_WORD + " " + PREFIX_ALL + "true";
 
     private final SameFieldsPredicate predicate;
 

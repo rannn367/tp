@@ -114,20 +114,20 @@ public class FindStaffCommandParserTest {
 
     @Test
     public void parse_allFlag_returnsFindStaffCommand() {
-        // /all flag
+        // all prefix
         FindStaffCommand expectedAllCommand =
                 new FindStaffCommand(Model.PREDICATE_SHOW_ALL_STAFFS);
-        assertParseSuccess(parser, " " + PREFIX_ALL, expectedAllCommand);
+        assertParseSuccess(parser, " " + PREFIX_ALL + "true", expectedAllCommand);
     }
 
     @Test
     public void parse_invalidAllFlag_throwsParseException() {
-        // /all with value
-        assertParseFailure(parser, " " + PREFIX_ALL + "value",
+        // all prefix with incorrect value
+        assertParseFailure(parser, " " + PREFIX_ALL + "not-true",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindStaffCommand.MESSAGE_INVALID_ALL));
 
-        // /all with other parameters
-        assertParseFailure(parser, " " + PREFIX_ALL + " " + PREFIX_NAME + "John",
+        // all/true with other parameters
+        assertParseFailure(parser, " " + PREFIX_ALL + " " + PREFIX_NAME + "Alice",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindStaffCommand.MESSAGE_INVALID_ALL));
     }
 

@@ -66,7 +66,7 @@ public class FindStaffCommandParser implements Parser<FindStaffCommand> {
 
         if (argMultimap.getValue(PREFIX_ALL).isPresent()) {
             String allValue = argMultimap.getValue(PREFIX_ALL).get().trim();
-            if (!allValue.isEmpty()) {
+            if (!allValue.equals("true")) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindStaffCommand.MESSAGE_INVALID_ALL));
             }

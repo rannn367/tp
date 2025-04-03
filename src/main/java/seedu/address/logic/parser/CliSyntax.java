@@ -28,7 +28,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TOTAL_SPENT = new Prefix("ts/");
 
     // Prefixes for find command
-    public static final Prefix PREFIX_ALL = new Prefix("/all");
+    public static final Prefix PREFIX_ALL = new Prefix("all/");
 
     // Prefixes for purchase command
     public static final Prefix PREFIX_REDEEM = new Prefix("redeem/");

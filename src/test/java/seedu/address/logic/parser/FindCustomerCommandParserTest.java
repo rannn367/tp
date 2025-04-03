@@ -114,19 +114,19 @@ public class FindCustomerCommandParserTest {
 
     @Test
     public void parse_allFlag_returnsFindCustomerCommand() {
-        // /all flag
+        // all prefix
         FindCustomerCommand expectedAllCommand =
                 new FindCustomerCommand(Model.PREDICATE_SHOW_ALL_CUSTOMERS);
-        assertParseSuccess(parser, " " + PREFIX_ALL, expectedAllCommand);
+        assertParseSuccess(parser, " " + PREFIX_ALL + "true", expectedAllCommand);
     }
 
     @Test
     public void parse_invalidAllFlag_throwsParseException() {
-        // /all with value
-        assertParseFailure(parser, " " + PREFIX_ALL + "value",
+        // all prefix with incorrect value
+        assertParseFailure(parser, " " + PREFIX_ALL + "not-true",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_INVALID_ALL));
 
-        // /all with other parameters
+        // all/true with other parameters
         assertParseFailure(parser, " " + PREFIX_ALL + " " + PREFIX_NAME + "Alice",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_INVALID_ALL));
     }

@@ -32,11 +32,12 @@ public class FindStaffCommand extends Command {
     public static final String COMMAND_WORD = "stafffind";
     public static final String COMMAND_WORD_SHORTCUT = "sf";
 
-    public static final String MESSAGE_INVALID_ALL = "/all must be used alone with no other parameters";
+    public static final String MESSAGE_INVALID_ALL = "Invalid usage of all/true flag.\n"
+            + " Use 'findstaff all/true' alone to show all staff.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " (" + COMMAND_WORD_SHORTCUT
             + "): Finds and filters staff based on specified criteria. "
             + "Shows staff matching ALL the specified search criteria.\n"
-            + "Parameters: [/all] OR "
+            + "Parameters: [all/true] OR "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -47,9 +48,9 @@ public class FindStaffCommand extends Command {
             + "[" + PREFIX_HOURS_WORKED + "HOURS_WORKED] "
             + "[" + PREFIX_PERFORMANCE_RATING + "PERFORMANCE_RATING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Special search: " + PREFIX_ALL + " shows all staff (must be used alone with no other parameters)\n"
+            + "Find all: " + PREFIX_ALL + "true shows all staff (must be used alone with no other parameters)\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John " + PREFIX_ROLE + "Barista\n"
-            + "OR: " + COMMAND_WORD + " " + PREFIX_ALL;
+            + "OR: " + COMMAND_WORD + " " + PREFIX_ALL + "true";
 
     private final SameFieldsPredicate predicate;
 
