@@ -15,6 +15,7 @@
 
 CafeConnect is based on the AddressBook-Level3 project created by the SE-EDU initiative
 It incorporates the following third-party libraries: JavaFX, Jackson, JUnit5.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
