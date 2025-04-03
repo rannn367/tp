@@ -269,6 +269,26 @@ public class AddCustomerCommandTest {
         public void setDrinkCatalogFilePath(Path drinkCatalogFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public int getFilteredCustomersCount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getFilteredCustomersAsString() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getFilteredStaffsCount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getFilteredStaffsAsString() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     private class ModelStubWithCustomer extends ModelStub {

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCustomers.JAMES;
@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalCustomers.OLIVIA;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,8 @@ import seedu.address.model.DrinkCatalog;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.SameFieldsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCustomerCommand}.
@@ -56,18 +58,8 @@ public class FindCustomerCommandTest {
 
     @Test
     public void execute_zeroKeywords_noCustomerFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 0, "");
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCustomerCommand command = new FindCustomerCommand(predicate);
-        expectedModel.updateFilteredCustomerList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredCustomerList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleCustomersFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        NameContainsKeywordsPredicate predicate = preparePredicate("James Chen");
         FindCustomerCommand command = new FindCustomerCommand(predicate);
         expectedModel.updateFilteredCustomerList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -75,8 +67,20 @@ public class FindCustomerCommandTest {
     }
 
     @Test
+    public void execute_multipleKeywords_multipleCustomersFound() {
+        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 2, "1. James Wilson\n2. Olivia Chen");
+        NameContainsKeywordsPredicate predicate = preparePredicate("James Chen");
+        FindCustomerCommand command = new FindCustomerCommand(predicate);
+        expectedModel.updateFilteredCustomerList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+
+        // When there are no customers found, the filtered customer list should be the same as the original list
+        assertEquals(Arrays.asList(JAMES, OLIVIA), model.getFilteredCustomerList());
+    }
+
+    @Test
     public void execute_multipleKeywords_oneCustomerFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 1, "1. James Wilson");
         NameContainsKeywordsPredicate predicate = preparePredicate("James");
         FindCustomerCommand command = new FindCustomerCommand(predicate);
         expectedModel.updateFilteredCustomerList(predicate);
@@ -87,8 +91,9 @@ public class FindCustomerCommandTest {
     @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
+        SameFieldsPredicate sameFieldsPredicate = new SameFieldsPredicate(new HashSet<>(Arrays.asList(predicate)));
         FindCustomerCommand findCustomerCommand = new FindCustomerCommand(predicate);
-        String expected = FindCustomerCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        String expected = FindCustomerCommand.class.getCanonicalName() + "{predicate=" + sameFieldsPredicate + "}";
         assertEquals(expected, findCustomerCommand.toString());
     }
 

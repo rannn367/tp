@@ -113,35 +113,119 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCustomerCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="850" height="1500" />
+The model component represents the data domain of CafeConnect and provides APIs for accessing and modifying this data.
+
+<puml src="diagrams/ModelOverviewClassDiagram.puml" width="850" height="500" />
+
+**Model Overview**
 
 The `Model` component,
 
-* stores CaféConnect data i.e., all `Person`, `Staff`, `Customer` and `Drink` objects (which are contained in a `UniquePersonList`, `UniqueStaffList`, `UniqueCustomerList` and `UniqueDrinkList` objects).
-* stores the currently 'selected' `Person`, `Staff`, `Customer` or `DrinkList` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>`, `ObservableList<Staff>`, `ObservableList<Customer>` and `ObservableList<Drink>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* Stores different types of data essential for café management:
+  * Core data entities: `Person`, `Staff`, `Customer`, and `Drink` objects
+  * User preferences via the `UserPrefs` class
+* Exposes _unmodifiable_ `ObservableList<T>` objects for UI components to bind to
+* Provides validation methods for checking if entities already exist in the system
+* Implements methods to add, remove, and modify data entities
+* Does not depend on any of the other components (UI, Logic, or Storage)
 
-<box type="info" seamless>
+The diagram above shows the main structure of the `Model` component. For clarity, we'll examine each entity model in more detail below.
 
-> **_NOTE:_** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
+#### Person Model
+<puml src="diagrams/PersonModelClassDiagram.puml" width="750" />
+
+The `Person` model:
+
+* Serves as the base class for both `Staff` and `Customer` entities
+* Contains common attributes for all persons: `Name`, `Phone`, `Email`, `Address`, `Remark`, and `Tag`s
+* Enforces validation for all fields through specialized field classes
+* Is stored in a `UniquePersonList` that ensures no two persons have the same identity
+
+#### Staff Model
+<puml src="diagrams/StaffModelClassDiagram.puml" width="750" />
+
+The `Staff` model:
+
+* Extends the `Person` class, inheriting all person attributes
+* Adds staff-specific fields: `StaffId`, `Role`, `ShiftTiming`, `HoursWorked`, and `PerformanceRating`
+* Uses `StaffId` as the primary identifier for staff members
+* Is stored in a `UniqueStaffList` that enforces uniqueness based on staff IDs
+* Implements staff-specific behavior for operations like performance tracking
+
+#### Customer Model
+<puml src="diagrams/CustomerModelClassDiagram.puml" width="750" />
+
+The `Customer` model:
+
+* Extends the `Person` class, inheriting all person attributes
+* Adds customer-specific fields: `CustomerId`, `RewardPoints`, `VisitCount`, `FavouriteItem`, and `TotalSpent`
+* Uses `CustomerId` as the primary identifier for customers
+* Is stored in a `UniqueCustomerList` that enforces uniqueness based on customer IDs
+* Implements customer-specific behavior, including reward point tracking, visit counting, and spending history
+
+#### Drink Model
+<puml src="diagrams/DrinkModelClassDiagram.puml" width="750" />
+
+The `Drink` model:
+
+* Defines drink items available in the café menu
+* Contains essential drink attributes: `DrinkName`, `Price`, and `Category`
+* Includes optional attributes like `description` and `stock` that don't affect identity
+* Uses `DrinkName` as the primary identifier for drinks
+* Is stored in a `UniqueDrinkList` that enforces uniqueness based on drink names
+* Implements business logic for reward points calculation in the `Price` class:
+  * Earning points: 10 points per dollar spent
+  * Redeeming points: 100 points equals to $1 value
+* Is managed through the `DrinkCatalog` class that implements `ReadOnlyDrinkCatalog`
+
+Each entity in the Model component follows value semantics (meaning two entities with identical fields are considered equal) and is immutable for core fields to prevent unexpected side effects.
+
+> **_NOTE:_** An alternative (arguably, a more OOP) model for tags is also provided below. It has a `Tag` list in the `AddressBook`, which `Person` objects reference. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
-</box>
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="850" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* Can save and load data in JSON format across multiple data files:
+  * `addressbook.json` - Stores all staff and customer data
+  * `drinkcatalog.json` - Stores the drink menu data
+  * `preferences.json` - Stores user preferences like window size and position
+* Inherits from multiple interfaces: `AddressBookStorage`, `UserPrefsStorage`, and `DrinkCatalogStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* Is implemented by `StorageManager`, which coordinates all persistence operations by delegating to specialized storage classes.
+* Uses Jackson library for JSON serialization and deserialization.
+* Creates JSON-adapted versions of model objects through adapter classes:
+  * `JsonAdaptedPerson` serves as the base adapter for person entities
+  * `JsonAdaptedStaff` and `JsonAdaptedCustomer` extend the person adapter with specialized fields
+  * `JsonAdaptedDrink` handles drink menu items
+* Depends on classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`).
+
+The sequence diagram below illustrates the storage operations that occur when executing a command that modifies data (such as `customerdelete 1`):
+
+<puml src="diagrams/StorageSequenceDiagram.puml" width="800" />
+
+When the application starts:
+1. `MainApp` initializes `StorageManager` with the appropriate storage components for address book, drink catalog, and user preferences.
+2. `StorageManager` attempts to load data from each storage file.
+3. If any file is missing or corrupted, the application creates a new empty data structure for that component.
+
+When a command modifies data:
+1. After the model is updated, `LogicManager` calls `storage.saveAddressBook(model.getAddressBook())` (or the equivalent method for other data types).
+2. `StorageManager` delegates to the appropriate storage component:
+  * `JsonAddressBookStorage` for staff and customer data
+  * `JsonDrinkCatalogStorage` for drink menu data
+  * `JsonUserPrefsStorage` for user preferences
+3. The storage component converts model objects to their JSON-adapted versions and writes the resulting JSON to the appropriate file.
+
+> **_NOTE:_** If a data file is corrupted, the application will simply create a new empty data structure. Users must manage backups of their data files manually.
 
 ### Common classes
 
@@ -160,14 +244,15 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
 It ensures that:
-- The **ID prefix** `sid/` must contain a valid staff ID.
-- The **phone prefix** `p/` must contain a valid phone number.
+- The **ID prefix** `sid/` must start with a "S" followed by digits (e.g., S1001, s1001).
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
+- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
 - The **email prefix** `e/` must contain a valid email address.
 - The **address prefix** `a/` must contain a non-blank address.
 - The **role prefix** `role/` must contain a non-empty role.
 - The **shift prefix** `shift/` must contain a non-empty shift.
 - The **hours prefix** `hours/` must contain a non-negative integer.
-- The **rating prefix** `rating/` must contain a valid positive decimal value.
+- The **rating prefix** `rating/` must contain only digits that are between 0 and 5.0 (inclusive) and of 1 decimal place.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
@@ -176,13 +261,13 @@ If any of these constraints are violated, `AddStaffCommandParser` throws a `Pars
 
 `AddStaffCommand` stores the staff to be added, represented as a `Staff` instance.
 
-Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the catalog.
+Upon execution, `AddStaffCommand` first checks the model for duplicate staff. If no existing staff member with a matching (case-insensitive) staff id is found, it adds the new staff member to the address book.
 
-> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the catalog. Attempting to add a duplicate will result in an error.
+> **_NOTE:_** CafeConnect identifies a staff member as a duplicate if their `SID` matches (case-insensitive) with an existing staff member in the address book. Attempting to add a duplicate will result in an error.
 
-#### Deleting a staff from the catalog
+#### Deleting a staff from the address book
 
-The delete staff feature allows users to remove staff from the catalog by specifying the staff's index in the displayed list.
+The delete staff feature allows users to remove staff from the address book by specifying the staff's index in the displayed list.
 
 The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteStaffCommandParser` to create the appropriate command object.
 
@@ -201,7 +286,7 @@ Upon execution, `DeleteStaffCommand` first checks if the index is within the bou
 
 If the index is valid, `DeleteStaffCommand`:
 1. Retrieves the staff to be deleted from the filtered staff list.
-2. Calls `model.deleteStaff(staffToDelete)` to remove the staff from the catalog.
+2. Calls `model.deleteStaff(staffToDelete)` to remove the staff from the address book.
 3. Returns a `CommandResult` with a success message.
 
 > **_NOTE:_** CafeConnect only allows deleting staff by index. Once a staff member is deleted, they cannot be recovered unless added again manually.
@@ -250,7 +335,7 @@ It ensures that:
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
 - The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
 - The **email prefix** `e/` must contain a valid email address.
-- The **address prefix** `a/` can take any value, but it cannot be blank.
+- The **address prefix** `a/` must contain a non-blank address.
 - The **reward points prefix** `rp/` must contain only digits.
 - The **visit count prefix** `vc/` must contain only digits.
 - The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
@@ -267,9 +352,9 @@ Upon execution, `AddCustomerCommand` first checks the model for duplicate custom
 
 > **_NOTE:_** CafeConnect identifies a customer as a duplicate if their `CID` matches (case-insensitive) with an existing customer in the list. Attempting to add a duplicate will result in an error.
 
-#### Deleting a customer from the catalog
+#### Deleting a customer from the address book
 
-The delete customer feature allows users to remove customers from the catalog by specifying the customer's index in the displayed list.
+The delete customer feature allows users to remove customers from the address book by specifying the customer's index in the displayed list.
 
 The implementation follows the command pattern where `AddressBookParser` identifies the command type and delegates to `DeleteCustomerCommandParser` to create the appropriate command object.
 
@@ -288,7 +373,7 @@ Upon execution, `DeleteCustomerCommand` first checks if the index is within the 
 
 If the index is valid, `DeleteCustomerCommand`:
 1. Retrieves the customer to be deleted from the filtered customer list.
-2. Calls `model.deleteCustomer(customerToDelete)` to remove the customer from the catalog.
+2. Calls `model.deleteCustomer(customerToDelete)` to remove the customer from the address book.
 3. Returns a `CommandResult` with a success message.
 
 > **_NOTE:_** CafeConnect only allows deleting customers by index. Once a customer is deleted, they cannot be recovered unless added again manually.
@@ -389,23 +474,34 @@ Upon execution, `PurchaseCommand` first retrieves the customer at the specified 
 
 ### Quick Command Shortcuts
 
-The implementation of shortcut commands (`c` for customers and `s` for staff) provides an efficient way to add new entries with minimal typing.
+The implementation of shortcut commands (`c` for customers and `s` for staff) provides an efficient way for café owners to add new entries with minimal typing.
 
-<puml src="diagrams/ShortcutCommandSequenceDiagram.puml" alt="ShortcutCommandSequenceDiagram" />
+<puml src="diagrams/ShortcutCommandSequenceDiagram.puml" width="800" />
 
-`AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
-- `c` routes to the customer shortcut handler
-- `s` routes to the staff shortcut handler
+The shortcut command system follows this format:
+* `c CID:NAME:PHONE` - Quick add a customer
+* `s SID:NAME:PHONE` - Quick add a staff member
 
-The shortcut format follows a pattern of `ID:NAME:PHONE` with colon separators.
+These commands allow users to rapidly add new entries during busy periods when full detailed commands might be impractical. The implementation works as follows:
 
-Upon receiving a shortcut command, the parser:
-1. Splits the input at the colon separators
-2. Validates that exactly three components are present
-3. Creates a new entity with the provided values and default values for other fields
-4. Adds the entity to the appropriate list
+1. `AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
+  * `c` routes to the customer shortcut handler `CustomerQuickCommandParser`
+  * `s` routes to the staff shortcut handler `StaffQuickCommandParser`
 
-> **_NOTE:_** Shortcut commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
+2. The shortcut parsers process the input using these steps:
+  * Split the input string at the colon separators
+  * Validate that exactly three components are present (ID, name, and phone)
+  * Create a new entity with the provided values and default values for other fields
+  * Return the appropriate command object (e.g., `AddCustomerCommand` or `AddStaffCommand`)
+
+3. The command is then executed like any standard command:
+  * The model is updated with the new entity
+  * The updated model is saved to persistent storage
+  * A success message is displayed to the user
+
+This implementation adheres to the Command pattern used throughout the application while providing a streamlined interface for common operations. Default values for fields not specified in the shortcut command can be modified later using the standard edit commands.
+
+> **_NOTE:_** Quick commands only accept three parameters (ID, name, and phone). Other fields are set to default values and can be updated later using the edit commands.
 
 <br></br>
 

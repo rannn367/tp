@@ -27,13 +27,19 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Home]({{ baseUrl }}/index.html)
+
 * [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
   * [Overview of User Guide]({{ baseUrl }}/UserGuide.html#overview-of-user-guide)
-  * [Quick Start]({{ baseUrl }}/UserGuide.html#quick-start)
+  * [Overview of target users]({{ baseUrl }}/UserGuide.html#overview-of-target-users)
+  * [How to use our User Guide]({{ baseUrl }}/UserGuide.html#how-to-use-our-user-guide)
+  * [Quick start]({{ baseUrl }}/UserGuide.html#quick-start)
   * [Features]({{ baseUrl }}/UserGuide.html#features)
   * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
   * [Known Issues]({{ baseUrl }}/UserGuide.html#known-issues)
   * [Command Summary]({{ baseUrl }}/UserGuide.html#command-summary)
+  * [Glossary]({{ baseUrl }}/UserGuide.html#glossary)
+  * [Acknowledgements]({{ baseUrl }}/UserGuide.html#acknowledgements)
+
 * [Developer Guide]({{ baseUrl }}/DeveloperGuide.html) :expanded:
   * [Acknowledgements]({{ baseUrl }}/DeveloperGuide.html#acknowledgements)
   * [Setting Up]({{ baseUrl }}/DeveloperGuide.html#setting-up-getting-started)

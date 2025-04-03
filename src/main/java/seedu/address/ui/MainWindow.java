@@ -29,8 +29,6 @@ import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindStaffCommand;
-import seedu.address.logic.commands.ListCustomerCommand;
-import seedu.address.logic.commands.ListStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.drink.Drink;
@@ -488,23 +486,19 @@ public class MainWindow extends UiPart<Stage> {
             String lowerCommand = commandText.trim().toLowerCase();
             if ((lowerCommand.startsWith(FindCustomerCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(AddCustomerCommand.COMMAND_WORD)
-                    || lowerCommand.startsWith(ListCustomerCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(EditCustomerCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(DeleteCustomerCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(FindCustomerCommand.COMMAND_WORD_SHORTCUT)
                     || lowerCommand.startsWith(AddCustomerCommand.COMMAND_WORD_SHORTCUT)
-                    || lowerCommand.startsWith(ListCustomerCommand.COMMAND_WORD_SHORTCUT)
                     || lowerCommand.startsWith(EditCustomerCommand.COMMAND_WORD_SHORTCUT)
                     || lowerCommand.startsWith(DeleteCustomerCommand.COMMAND_WORD_SHORTCUT)) && !isOnCustomerTab()) {
                 switchToCustomerTab();
             } else if ((lowerCommand.startsWith(FindStaffCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(AddStaffCommand.COMMAND_WORD)
-                    || lowerCommand.startsWith(ListStaffCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(EditStaffCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(DeleteStaffCommand.COMMAND_WORD)
                     || lowerCommand.startsWith(FindStaffCommand.COMMAND_WORD_SHORTCUT)
                     || lowerCommand.startsWith(AddStaffCommand.COMMAND_WORD_SHORTCUT)
-                    || lowerCommand.startsWith(ListStaffCommand.COMMAND_WORD_SHORTCUT)
                     || lowerCommand.startsWith(EditStaffCommand.COMMAND_WORD_SHORTCUT)
                     || lowerCommand.startsWith(DeleteStaffCommand.COMMAND_WORD_SHORTCUT)) && !isOnStaffTab()) {
                 switchToStaffTab();

@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class PerformanceRating {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Performance rating should be a number between 0 and 5.0 (inclusive).";
+            "Performance rating should be a number between 0 and 5.0 (inclusive) with at most one decimal place.";
 
     /*
      * Regex validates that it looks like a number:
