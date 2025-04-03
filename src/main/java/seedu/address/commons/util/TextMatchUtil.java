@@ -67,14 +67,14 @@ public class TextMatchUtil {
      * Determines if two strings are sufficiently similar using both Levenshtein distance and token set ratio.
      *
      * @param str1 First string to compare
-     * @param str2 Second string to compare 
-     * @param maxLevenshteinDistance Maximum allowed Levenshtein distance (default 2)
+     * @param str2 Second string to compare
+     * @param maxDistance Maximum allowed Levenshtein distance (default 2)
      * @param minTokenSetRatio Minimum required token set ratio (default 80)
      * @return true if the strings are considered similar enough, false otherwise
      */
-    public static boolean areSimilarStrings(String str1, String str2, int maxLevenshteinDistance, int minTokenSetRatio) {
+    public static boolean areSimilarStrings(String str1, String str2, int maxDistance, int minTokenSetRatio) {
         int distance = calculateLevenshteinDistance(str1, str2);
-        if (distance <= maxLevenshteinDistance) {
+        if (distance <= maxDistance) {
             return true;
         }
 

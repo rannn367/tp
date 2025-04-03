@@ -14,10 +14,12 @@ import seedu.address.model.person.Person;
  * Supports both exact matching and fuzzy matching.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
-    private final List<String> keywords;
-    private final boolean useFuzzyMatching;
+
     private static final int FUZZY_MATCH_THRESHOLD = 80; // Token set ratio threshold for fuzzy matching
     private static final int DEFAULT_MAX_LEVENSHTEIN_DISTANCE = 2; // Default max Levenshtein distance
+
+    private final List<String> keywords;
+    private final boolean useFuzzyMatching;
 
     /**
      * Constructs a predicate with the given keywords using exact matching.
@@ -44,7 +46,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         String personName = person.getName().fullName;
-        
+
         // Check for exact matches first (faster)
         boolean exactMatch = keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(personName, keyword));

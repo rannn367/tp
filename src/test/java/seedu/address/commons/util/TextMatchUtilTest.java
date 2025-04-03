@@ -16,7 +16,7 @@ public class TextMatchUtilTest {
         String str2 = "hello";
 
         int ratio = TextMatchUtil.calculateTokenSetRatio(str1, str2);
-        
+
         assertEquals(100, ratio);
     }
 
@@ -26,7 +26,7 @@ public class TextMatchUtilTest {
         String str2 = "xyz";
 
         int ratio = TextMatchUtil.calculateTokenSetRatio(str1, str2);
-        
+
         assertEquals(0, ratio);
     }
 
@@ -36,7 +36,7 @@ public class TextMatchUtilTest {
         String str2 = "cdefg";
 
         int ratio = TextMatchUtil.calculateTokenSetRatio(str1, str2);
-        
+
         // They share 3 characters (c, d, e) out of 7 unique characters (a, b, c, d, e, f, g)
         assertEquals(42, ratio);
     }
@@ -47,7 +47,7 @@ public class TextMatchUtilTest {
         String str2 = "edcba";
 
         int ratio = TextMatchUtil.calculateTokenSetRatio(str1, str2);
-        
+
         assertEquals(100, ratio);
     }
 
@@ -57,7 +57,7 @@ public class TextMatchUtilTest {
         String str2 = "hello";
 
         int distance = TextMatchUtil.calculateLevenshteinDistance(str1, str2);
-        
+
         assertEquals(0, distance);
     }
 
@@ -67,7 +67,7 @@ public class TextMatchUtilTest {
         String str2 = "hallo";
 
         int distance = TextMatchUtil.calculateLevenshteinDistance(str1, str2);
-        
+
         assertEquals(1, distance);
     }
 
@@ -77,7 +77,7 @@ public class TextMatchUtilTest {
         String str2 = "helloo";
 
         int distance = TextMatchUtil.calculateLevenshteinDistance(str1, str2);
-        
+
         assertEquals(1, distance);
     }
 
@@ -87,7 +87,7 @@ public class TextMatchUtilTest {
         String str2 = "hell";
 
         int distance = TextMatchUtil.calculateLevenshteinDistance(str1, str2);
-        
+
         assertEquals(1, distance);
     }
 
@@ -97,7 +97,7 @@ public class TextMatchUtilTest {
         String str2 = "world";
 
         int distance = TextMatchUtil.calculateLevenshteinDistance(str1, str2);
-        
+
         assertEquals(4, distance);
     }
 
@@ -110,46 +110,46 @@ public class TextMatchUtilTest {
         candidates.add("list");
 
         String result = TextMatchUtil.findClosestMatch(input, candidates);
-        
+
         assertEquals("help", result);
     }
 
     @Test
     public void findClosestMatch_closeLevenshteinMatch_returnsCloseMatch() {
-        String input = "hlp";  // One character missing from "help"
+        String input = "hlp"; // One character missing from "help"
         Set<String> candidates = new HashSet<>();
         candidates.add("help");
         candidates.add("exit");
         candidates.add("list");
 
         String result = TextMatchUtil.findClosestMatch(input, candidates);
-        
+
         assertEquals("help", result);
     }
 
     @Test
     public void findClosestMatch_closeTokenSetMatch_returnsCloseMatch() {
-        String input = "hlpe";  // Same characters as "help" but in different order
+        String input = "hlpe"; // Same characters as "help" but in different order
         Set<String> candidates = new HashSet<>();
         candidates.add("help");
         candidates.add("exit");
         candidates.add("list");
 
         String result = TextMatchUtil.findClosestMatch(input, candidates);
-        
+
         assertEquals("help", result);
     }
 
     @Test
     public void findClosestMatch_noGoodMatch_returnsNull() {
-        String input = "xyz";  // Completely different from any candidates
+        String input = "xyz"; // Completely different from any candidates
         Set<String> candidates = new HashSet<>();
         candidates.add("help");
         candidates.add("exit");
         candidates.add("list");
 
         String result = TextMatchUtil.findClosestMatch(input, candidates);
-        
+
         assertNull(result);
     }
 
@@ -159,7 +159,7 @@ public class TextMatchUtilTest {
         Set<String> candidates = new HashSet<>();
 
         String result = TextMatchUtil.findClosestMatch(input, candidates);
-        
+
         assertNull(result);
     }
-} 
+}
