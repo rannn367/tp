@@ -475,14 +475,34 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            // Switch tabs if necessary
             String lowerCommand = commandText.trim().toLowerCase();
             if ((lowerCommand.startsWith("customerfind")
-                    || lowerCommand.startsWith("customerlist")) && isOnStaffTab()) {
+                    || lowerCommand.startsWith("customeradd")
+                    || lowerCommand.startsWith("customerlist")
+                    || lowerCommand.startsWith("customeredit")
+                    || lowerCommand.startsWith("customerdelete")
+                    || lowerCommand.startsWith("cf")
+                    || lowerCommand.startsWith("c")
+                    || lowerCommand.startsWith("cl")
+                    || lowerCommand.startsWith("ce")
+                    || lowerCommand.startsWith("cd")) && isOnStaffTab()) {
                 switchToCustomerTab();
             } else if ((lowerCommand.startsWith("stafffind")
-                    || lowerCommand.startsWith("stafflist")) && isOnCustomerTab()) {
+                    || lowerCommand.startsWith("staffadd")
+                    || lowerCommand.startsWith("stafflist")
+                    || lowerCommand.startsWith("staffedit")
+                    || lowerCommand.startsWith("staffdelete")
+                    || lowerCommand.startsWith("sf")
+                    || lowerCommand.startsWith("s")
+                    || lowerCommand.startsWith("sl")
+                    || lowerCommand.startsWith("se")
+                    || lowerCommand.startsWith("sd")) && isOnCustomerTab()) {
                 switchToStaffTab();
+            } else if ((lowerCommand.startsWith("drinkadd")
+                    || lowerCommand.startsWith("d")
+                    || lowerCommand.startsWith("drinkdelete")
+                    || lowerCommand.startsWith("dd")) && isOnCustomerOrStaffTab()) {
+                switchToDrinksTab();
             }
 
             // Refresh the currently selected detail panels after any command
@@ -524,19 +544,37 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Checks if the currently selected tab is the Customer or Staff tab.
+     *
+     * @return True if either the Customer or Staff tab is selected, false otherwise.
+     */
+    private boolean isOnCustomerOrStaffTab() {
+        int index = tabPane.getSelectionModel().getSelectedIndex();
+        return index == 0 || index == 1;
+    }
+
+    /**
      * Switches the currently selected tab to the Customer tab.
      */
     private void switchToCustomerTab() {
-        logger.info("Switching to Customer tab due to customerfind command");
-        tabPane.getSelectionModel().select(1); // Change index accordingly
+        logger.info("Switching to Customer tab due to command");
+        tabPane.getSelectionModel().select(1);
     }
 
     /**
      * Switches the currently selected tab to the Staff tab.
      */
     private void switchToStaffTab() {
-        logger.info("Switching to Staff tab due to stafffind command");
-        tabPane.getSelectionModel().select(0); // Change index accordingly
+        logger.info("Switching to Staff tab due to command");
+        tabPane.getSelectionModel().select(0);
+    }
+
+    /**
+     * Switches the currently selected tab to the Drinks tab.
+     */
+    private void switchToDrinksTab() {
+        logger.info("Switching to Drinks tab due to command");
+        tabPane.getSelectionModel().select(2); // Assuming Drinks is tab index 2
     }
 
 
