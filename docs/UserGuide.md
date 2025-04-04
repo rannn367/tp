@@ -122,8 +122,8 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
     * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
     * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
     * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
-    * [Recording a purchase: `purchase`](#recording-a-purchase-purchase)
-    * [Quickly recording a purchase: `quickpurchase` or `qp`](#quickly-recording-a-purchase-quickpurchase-or-qp)
+    * [Recording a purchase: `purchase` or `p`](#recording-a-purchase-purchase)
+    * [Recording a purchase (shortcut): `p` shortcut](#recording-a-purchase-purchase-or-p-shortcut)
   * [FAQ](#faq)
   * [Known Issues](#known-issues)
   * [Command Summary](#command-summary)
@@ -662,7 +662,7 @@ These are the before and after images of the first example
 </div>
 
 
-### Recording a purchase: `purchase`
+### Recording a purchase: `purchase` or `p`
 
 Records a purchase for a customer, updating their total spent, visit count, and reward points. Optionally, allows users to redeem reward points to pay for the purchase.
 

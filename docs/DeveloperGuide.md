@@ -499,18 +499,18 @@ Upon execution, `PurchaseCommand` first retrieves the customer at the specified 
 
 ### Quick Command Shortcuts
 
-The implementation of shortcut commands (`c` for customers, `s` for staff and `p` for purchase) provides an efficient way for café owners to add new entries and record purchases with minimal typing.
+The implementation of shortcut commands provides an efficient way for café owners to add new entries and record purchases with minimal typing.
 
 #### Types of Shortcut Commands
 
 CaféConnect implements two distinct types of shortcut commands:
 
 1. **Entity Creation Shortcuts** - For quickly adding new customers and staff:
-   * `c CID:NAME:PHONE` - Quick add a customer
-   * `s SID:NAME:PHONE` - Quick add a staff member
+   * `qc CID:NAME:PHONE` - Quick add a customer
+   * `qs SID:NAME:PHONE` - Quick add a staff member
 
 2. **Operation Shortcut** - For quickly recording purchases:
-   * `p INDEX:DRINK_NAME[:r]` - Quick record a purchase (with optional redemption)
+   * `qp INDEX:DRINK_NAME[:r]` - Quick record a purchase (with optional redemption)
 
 #### Entity Creation Shortcuts
 <puml src="diagrams/StaffShortcutCommandSequenceDiagram.puml" width="800" />
@@ -518,9 +518,9 @@ CaféConnect implements two distinct types of shortcut commands:
 
 These commands allow users to rapidly add new customer and staff entries during busy periods when full detailed commands might be impractical. The implementation works as follows:
 
-1. `AddressBookParser` detects single-letter commands and routes them to the appropriate handler:
-   * `c` routes to the customer shortcut handler `CustomerQuickCommandParser`
-   * `s` routes to the staff shortcut handler `StaffQuickCommandParser`
+1. `AddressBookParser` detects shortcut commands and routes them to the appropriate handler:
+   * `qc` routes to the customer shortcut handler `CustomerQuickCommandParser`
+   * `qs` routes to the staff shortcut handler `StaffQuickCommandParser`
 
 2. The shortcut parsers process the input using these steps:
    * Split the input string at the colon separators
