@@ -426,8 +426,8 @@ Format: `customerfind all/true` (to list all customers)
 * Use `customerfind all/true` or `cf all/true` to display the complete list of all customers in CaféConnect.
 
 Examples:
-* `customerfind Alice` or `cf Alice` finds and lists all customers whose names contain `Alice`.
-* `customerfind John Doe` or `cf John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
+* `customerfind n/Alice` or `cf n/Alice` finds and lists all customers whose names contain `Alice`.
+* `customerfind n/John Doe` or `cf n/John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
 * `customerfind all/true` or `cf all/true` lists all customers in CaféConnect.
 
 These are the before and after images of the second example
@@ -584,8 +584,8 @@ Format: `stafffind all/true` (to list all staff)
 * Use `stafffind all/true` or `sf all/true` to display the complete list of all staff in CaféConnect.
 
 Examples:
-* `stafffind Alice` or `sf Alice` finds and lists all staffs whose names contain `Alice`.
-* `stafffind John Doe` or `sf John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
+* `stafffind n/Alice` or `sf n/Alice` finds and lists all staffs whose names contain `Alice`.
+* `stafffind n/John Doe` or `sf n/John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
 * `stafffind all/true` or `sf all/true` lists all staff in CaféConnect.
 
 These are the before and after images of the second example
