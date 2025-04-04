@@ -219,28 +219,9 @@ public class AddCustomerCommandParserTest {
     }
 
     @Test
-    public void parse_validFastAdd_success() {
-        String userInput = "C1230:John:91234567"; // Simulating fast-add format
-
-        // Define the expected AddCustomerCommand with the correct default values
-        AddCustomerCommand expectedCommand = new AddCustomerCommand(
-                new Customer(
-                        new Name("John"),
-                        new Phone("91234567"),
-                        new Email("default@gmail.com"),
-                        new Address("empty"),
-                        new Remark(""),
-                        Set.of(),
-                        new CustomerId("C1230"),
-                        new RewardPoints("0"),
-                        new VisitCount("1"),
-                        new FavouriteItem("unknown"),
-                        new TotalSpent("10")
-                )
-        );
-
-        // Assert that the parsed command matches the expected command
-        assertParseSuccess(parser, userInput, expectedCommand);
+    public void parse_quickAddFormat_failure() {
+        String userInput = "C0101:John:92012012"; // Quick add format
+        assertParseFailure(parser, userInput,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
     }
-
 }
