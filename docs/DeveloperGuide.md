@@ -1016,14 +1016,14 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: The exact customer details shouldn't already be in the list
    2. Test case: `customeradd cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
       Expected: A new customer is successfully added with the specified details. The status message confirms the addition.
-   3. Test case: `c cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
+   3. Test case: `ca cid/C005 n/James Bond p/98765432 e/jamesbond@example.com a/123 Spy Street rp/0 vc/0 fi/Martini ts/0`<br>
       Expected: Same as above, using the command abbreviation.
    4. Test case: `customeradd cid/C005 n/Duplicate Customer p/12345678 e/dup@example.com a/Duplicate Address rp/0 vc/0 fi/Coffee ts/0`<br>
       Expected: No customer is added. Error details about duplicate customer ID shown in the status message.
 
 2. Adding a customer using shortcut format
    1. Prerequisites: The customer ID shouldn't already exist in the list
-   2. Test case: `c C099:John Smith:98761234`<br>
+   2. Test case: `qca C099:John Smith:98761234`<br>
       Expected: A new customer is added with the specified ID, name, and phone number. Default values are used for other fields.
 
 3. Deleting a customer
@@ -1060,12 +1060,12 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: The exact staff details shouldn't already be in the list
    2. Test case: `staffadd sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
       Expected: A new staff member is successfully added with the specified details. The status message confirms the addition.
-   3. Test case: `s sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
+   3. Test case: `sa sid/S005 n/Emily Wong p/91234567 e/emily@example.com a/456 Worker Ave role/Manager shift/9am-5pm hours/0 rating/5.0`<br>
       Expected: Same as above, using the command abbreviation.
 
 2. Adding a staff member using shortcut format
    1. Prerequisites: The staff ID shouldn't already exist in the list
-   2. Test case: `s S099:Jane Doe:90001234`<br>
+   2. Test case: `qsa S099:Jane Doe:90001234`<br>
       Expected: A new staff member is added with the specified ID, name, and phone number. Default values are used for other fields.
 
 3. Deleting a staff member
@@ -1098,7 +1098,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: The exact drink name shouldn't already be in the catalog
    2. Test case: `drinkadd n/Green Tea p/3.50 c/Tea`<br>
       Expected: A new drink is successfully added to the catalog. The status message confirms the addition.
-   3. Test case: `d n/Green Tea p/3.50 c/Tea`<br>
+   3. Test case: `da n/Green Tea p/3.50 c/Tea`<br>
       Expected: Same as above, using the command abbreviation.
 
 2. Deleting a drink
@@ -1117,7 +1117,7 @@ testers are expected to do more *exploratory* testing.
 
 4. Recording a purchase using shortcut format
    1. Prerequisites: At least one customer and one drink in the catalog
-   2. Test case: `p 1:Espresso`<br>
+   2. Test case: `qp 1:Espresso`<br>
       Expected: Purchase is recorded for the first customer. Their reward points, visit count, and total spent are updated. Status message confirms the purchase details.
 
 5. Redeeming points for a purchase
@@ -1126,11 +1126,11 @@ testers are expected to do more *exploratory* testing.
       Expected: Points are redeemed for the purchase. Customer's reward points decrease, visit count increases, and total spent remains unchanged. Status message confirms the redemption.
    3. Test case: `p 1 n/Cappuccino redeem/true`<br>
       Expected: Same as above, using the command abbreviation.
-   4. Test case: `p 1:Cappuccino:r`<br>
+   4. Test case: `qp 1:Cappuccino:r`<br>
       Expected: Same as above, using the shortcut format for redemption purchases.
    5. Test case: `purchase 1 n/Expensive Drink redeem/true` (where the customer doesn't have enough points)<br>
       Expected: No redemption is made. Error message indicates insufficient points.
-   6. Test case: `p 1:Expensive Drink:r` (where the customer doesn't have enough points)<br>
+   6. Test case: `qp 1:Expensive Drink:r` (where the customer doesn't have enough points)<br>
       Expected: Same as above, using the shortcut format.
 
 ### Tab Navigation
@@ -1146,7 +1146,7 @@ testers are expected to do more *exploratory* testing.
       Expected: The customer list is displayed and the command is executed.
    5. Test case: Click on the "Drinks Menu" tab<br>
       Expected: The drinks catalog is displayed.
-   6. Test case: Enter any drink-related command (e.g., `d n/New Drink p/4.50 c/Coffee`)<br>
+   6. Test case: Enter any drink-related command (e.g., `da n/New Drink p/4.50 c/Coffee`)<br>
       Expected: The drinks catalog is displayed and the command is executed.
 
 ### Exiting the Application
