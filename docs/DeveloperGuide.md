@@ -540,7 +540,7 @@ These commands allow users to rapidly add new customer and staff entries during 
 
 The purchase shortcut enables café staff to quickly record customer purchases with an optional redemption flag. The implementation differs from entity creation shortcuts:
 
-1. `AddressBookParser` detects the `p` command and routes it to the `PurchaseCommandParser`.
+1. `AddressBookParser` detects the `qp` command and routes it to the `PurchaseCommandParser`.
 
 2. The purchase parser processes the input using these steps:
    * Validates the input against the pattern `^[0-9]+:.+(:r)?$`
