@@ -417,17 +417,22 @@ Note: If you add more than one each of the compulsory prefixes, the command will
 
 Finds and lists all customers in the customer list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
 
-Format: `customerfind KEYWORD [MORE_KEYWORDS]...`
+Format: `customerfind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`
 Format: `customerfind all/true` (to list all customers)
 
-* The search will return all customers whose names contain at least one of the given keywords.
-* The keywords do not need to match the full name exactly; partial matches within the name are included.
-* The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The search will return all customers who matches the specified search criteria.
+* At least one of the optional fields must be provided or `all/true`.
+* The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
+* The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[cid/CUSTOMER_ID]` `[rp/REWARD_POINTS]` `[vc/VISIT_COUNT]` `[fi/FAVOURITE_ITEM]` `[ts/TOTAL_SPENT]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `fi/Cappuccin` will return nothing if drink should be `fi/Cappucino`; searching `fi/latte` will return nothing if drink should be `fi/Latte`
 * Use `customerfind all/true` or `cf all/true` to display the complete list of all customers in CaféConnect.
 
 Examples:
 * `customerfind n/Alice` or `cf n/Alice` finds and lists all customers whose names contain `Alice`.
 * `customerfind n/John Doe` or `cf n/John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
+* `customerfind fi/Latte` or `cf fi/Latte` finds and lists all customers who has favourite item `Latte`
+* `customerfind vc/8` or `cf vc/8` finds and lists all customers who has `Visit Count` of 8.
+
 * `customerfind all/true` or `cf all/true` lists all customers in CaféConnect.
 
 These are the before and after images of the second example
@@ -575,17 +580,21 @@ Note: If you add more than one each of the compulsory prefixes, the command will
 
 Finds and lists all staffs in the staff list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
 
-Format: `stafffind KEYWORD [MORE_KEYWORDS]...`
+Format: `stafffind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...`
 Format: `stafffind all/true` (to list all staff)
 
-* The search will return all staffs whose names contain at least one of the given keywords.
-* The keywords do not need to match the full name exactly; partial matches within the name are included.
-* The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The search will return all staffs who matches the specified search criteria.
+* At least one of the optional fields must be provided or `all/true`.
+* The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
+* The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if drink should be `role/Chef`
 * Use `stafffind all/true` or `sf all/true` to display the complete list of all staff in CaféConnect.
 
 Examples:
 * `stafffind n/Alice` or `sf n/Alice` finds and lists all staffs whose names contain `Alice`.
 * `stafffind n/John Doe` or `sf n/John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
+* `stafffind role/Chef` or `sf role/Chef` finds and lists all staffs whose role is `Chef`.
+* `stafffind hours/10` or `sf hours/10` finds and lists all customers who have `Hours Worked` of 10.
 * `stafffind all/true` or `sf all/true` lists all staff in CaféConnect.
 
 These are the before and after images of the second example
