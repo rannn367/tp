@@ -123,7 +123,7 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
     * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
     * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
     * [Recording a purchase: `purchase` or `p`](#recording-a-purchase-purchase)
-    * [Recording a purchase (shortcut): `p` shortcut](#recording-a-purchase-purchase-or-p-shortcut)
+    * [Quickly recording a purchase: `qp` shortcut](#quickly-recording-a-purchase-quickpurchase-or-qp)
   * [FAQ](#faq)
   * [Known Issues](#known-issues)
   * [Command Summary](#command-summary)
@@ -302,7 +302,7 @@ Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_
 
 Examples:
 * `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
-* `customeradd cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
+* `ca cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
 
 These are the before and after images of the first example
 
@@ -361,7 +361,7 @@ Format: `customerdelete INDEX`
 
 Examples:
 * `customerdelete 2` deletes the 2nd customer in the customer list.
-* `customerdelete 4` when you only have three customers returns an error message.
+* `cd 4` when you only have three customers returns an error message.
 
 These are the before and after images of the first example
 
@@ -394,7 +394,7 @@ Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/AD
 
 Examples:
 * `customeredit 1 p/99994567 e/newemail@example.com` edits the phone number and email address of the 1st customer to be `99994567` and `newemail@example.com` respectively.
-* `customeredit 2 n/Betsy Crower rp/5000 t/` edits the name of the 2nd customer to be `Betsy Crower`, updates their reward points to `5000`, and clears all existing tags.
+* `ce 2 n/Betsy Crower rp/5000 t/` edits the name of the 2nd customer to be `Betsy Crower`, updates their reward points to `5000`, and clears all existing tags.
 
 These are the before and after images of the first example
 
@@ -417,17 +417,23 @@ Note: If you add more than one each of the compulsory prefixes, the command will
 
 Finds and lists all customers in the customer list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
 
-Format: `customerfind KEYWORD [MORE_KEYWORDS]...`
+Format: `customerfind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`
 Format: `customerfind all/true` (to list all customers)
 
-* The search will return all customers whose names contain at least one of the given keywords.
-* The keywords do not need to match the full name exactly; partial matches within the name are included.
-* The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The search will return all customers who matches the specified search criteria.
+* At least one of the optional fields must be provided or `all/true`.
+* The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
+* The keywords search for [n/NAME] will return close matches as well. For example, searching for `n/all` will match ali.
+* The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[cid/CUSTOMER_ID]` `[rp/REWARD_POINTS]` `[vc/VISIT_COUNT]` `[fi/FAVOURITE_ITEM]` `[ts/TOTAL_SPENT]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `fi/Cappuccin` will return nothing if drink should be `fi/Cappucino`; searching `fi/latte` will return nothing if drink should be `fi/Latte`
 * Use `customerfind all/true` or `cf all/true` to display the complete list of all customers in CaféConnect.
 
 Examples:
 * `customerfind n/Alice` or `cf n/Alice` finds and lists all customers whose names contain `Alice`.
 * `customerfind n/John Doe` or `cf n/John Doe` finds and lists all customers whose names contain either `John` or `Doe`.
+* `customerfind fi/Latte` or `cf fi/Latte` finds and lists all customers who has favourite item `Latte`
+* `customerfind vc/8` or `cf vc/8` finds and lists all customers who has `Visit Count` of 8.
+
 * `customerfind all/true` or `cf all/true` lists all customers in CaféConnect.
 
 These are the before and after images of the second example
@@ -462,7 +468,7 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 
 Examples:
 * `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced`
-* `staffadd sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime`
+* `sa sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime`
 
 These are the before and after images of the first example
 
@@ -520,7 +526,7 @@ Format: `staffdelete INDEX`
 
 Examples:
 * `staffdelete 2` deletes the 2nd staff in the address book.
-* `staffdelete 4` when you only have three staff returns an error message.
+* `sd 4` when you only have three staff returns an error message.
 
 These are the before and after images of the first example
 
@@ -553,7 +559,7 @@ Format: `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 
 Examples:
 * `staffedit 1 p/99994567 e/newemail@example.com` edits the phone number and email address of the 1st staff to be `99994567` and `newemail@example.com` respectively.
-* `staffedit 2 n/Betsy Crower sid/S002 t/` edits the name of the 2nd staff to be `Betsy Crower`, changes the staff ID to `S002`, and clears all existing tags.
+* `se 2 n/Betsy Crower sid/S002 t/` edits the name of the 2nd staff to be `Betsy Crower`, changes the staff ID to `S002`, and clears all existing tags.
 
 These are the before and after images of the first example
 
@@ -575,17 +581,22 @@ Note: If you add more than one each of the compulsory prefixes, the command will
 
 Finds and lists all staffs in the staff list whose names contain any of the specified keywords. The search is case-insensitive, meaning it will match names regardless of letter casing.
 
-Format: `stafffind KEYWORD [MORE_KEYWORDS]...`
+Format: `stafffind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...`
 Format: `stafffind all/true` (to list all staff)
 
-* The search will return all staffs whose names contain at least one of the given keywords.
-* The keywords do not need to match the full name exactly; partial matches within the name are included.
-* The search is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The search will return all staffs who matches the specified search criteria.
+* At least one of the optional fields must be provided or `all/true`.
+* The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
+* The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
+* The keywords search for [n/NAME] will return close matches as well. For example, searching for `n/all` will match ali.
+* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if drink should be `role/Chef`
 * Use `stafffind all/true` or `sf all/true` to display the complete list of all staff in CaféConnect.
 
 Examples:
 * `stafffind n/Alice` or `sf n/Alice` finds and lists all staffs whose names contain `Alice`.
 * `stafffind n/John Doe` or `sf n/John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
+* `stafffind role/Chef` or `sf role/Chef` finds and lists all staffs whose role is `Chef`.
+* `stafffind hours/10` or `sf hours/10` finds and lists all customers who have `Hours Worked` of 10.
 * `stafffind all/true` or `sf all/true` lists all staff in CaféConnect.
 
 These are the before and after images of the second example
@@ -615,7 +626,7 @@ Format: `drinkadd n/NAME p/PRICE c/CATEGORY`
 
 Examples:
 * `drinkadd n/Iced Latte p/4.50 c/Coffee` adds an Iced Latte under the Coffee category with a price of $4.50
-* `drinkadd n/Chai Tea p/3.80 c/Tea` adds a Chai Tea under the Tea category with a price of $3.80
+* `da n/Chai Tea p/3.80 c/Tea` adds a Chai Tea under the Tea category with a price of $3.80
 
 These are the before and after images of the first example
 
@@ -646,7 +657,7 @@ Format: `drinkdelete INDEX`
 
 Examples:
 * `drinkdelete 1` deletes the 1st drink in the drink list.
-* `drinkdelete 4` when you only have three drinks returns an error message.
+* `dd 4` when you only have three drinks returns an error message.
 
 These are the before and after images of the first example
 
@@ -683,7 +694,7 @@ Format: `purchase INDEX n/DRINK_NAME [redeem/true]`
 
 Examples:
 * `purchase 1 n/Espresso` records a regular purchase of an Espresso for the 1st customer, updating their total spent and adding reward points.
-* `purchase 2 n/Cappuccino redeem/true` redeems a Cappuccino for the 2nd customer using their reward points.
+* `p 2 n/Cappuccino redeem/true` redeems a Cappuccino for the 2nd customer using their reward points.
 
 ##### Standard Purchase
 
@@ -731,7 +742,7 @@ Format: `quickpurchase INDEX:DRINK_NAME[:r]`
 
 Examples:
 * `quickpurchase 1:Espresso` records a regular purchase of an Espresso for the 1st customer.
-* `quickpurchase 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
+* `qp 1:Espresso:r` redeems an Espresso for the 1st customer using reward points.
 
 ##### Standard Quick Purchase
 
@@ -870,7 +881,7 @@ Ans: Yes, the visit count can be edited via the `customeredit`.
 
 #### Q14: What do I do when there is a blank screen after my `stafffind` or `customerfind` returns no results
 
-Ans: Use the `staffind all/true` command to show all existing staff again.
+Ans: Use the `stafffind all/true` command to show all staff, or `customerfind all/true` to show all customers again.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -923,39 +934,39 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 ## Command Summary
 
-Command | Format                                                                                                                                                               | Examples
---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------
-**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`                             | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
-**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`                                      | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
-**Quick Add Customer** | `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>`                                                                                                                      | `quickcustomeradd C0102:Charlie:97285712`
-**Quick Add Customer (Alias)** | `qca <CUSTOMER_ID>:<NAME>:<PHONE>`                                                                                                                                   | `qca C0102:Charlie:97285712`
-**Delete Customer** | `customerdelete INDEX`                                                                                                                                               | `customerdelete 2`
-**Delete Customer (Alias)** | `cd INDEX`                                                                                                                                                           | `cd 2`
-**Edit Customer** | `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`  | `customeredit 1 p/99994567 e/newemail@example.com`
-**Edit Customer (Alias)** | `ce INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`            | `ce 1 p/99994567 e/newemail@example.com`
-**Find Customer** | `customerfind KEYWORD [MORE_KEYWORDS]...`                                                                                                                            | `customerfind John Doe`
-**Find Customer (Alias)** | `cf KEYWORD [MORE_KEYWORDS]...`                                                                                                                                      | `cf John Doe`
-**List All Customers** | `customerfind all/true`                                                                                                                                              | -
-**List All Customers (Alias)** | `cf all/true`                                                                                                                                                        | -
-**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...`                        | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
-**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...`                              | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
-**Quick Add Staff** | `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>`                                                                                                                            | `quickstaffadd S0102:Ali:98291029`
-**Quick Add Staff (Alias)** | `qsa <STAFF_ID>:<NAME>:<PHONE>`                                                                                                                                      | `qsa S0102:Ali:98291029`
-**Delete Staff** | `staffdelete INDEX`                                                                                                                                                  | `staffdelete 2`
-**Delete Staff (Alias)** | `sd INDEX`                                                                                                                                                           | `sd 2`
+Command | Format | Examples
+--------|--------|---------
+**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Quick Add Customer** | `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>` | `quickcustomeradd C0102:Charlie:97285712`
+**Quick Add Customer (Alias)** | `qca <CUSTOMER_ID>:<NAME>:<PHONE>` | `qca C0102:Charlie:97285712`
+**Delete Customer** | `customerdelete INDEX` | `customerdelete 2`
+**Delete Customer (Alias)** | `cd INDEX` | `cd 2`
+**Edit Customer** | `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `customeredit 1 p/99994567 e/newemail@example.com`
+**Edit Customer (Alias)** | `ce INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `ce 1 p/99994567 e/newemail@example.com`
+**Find Customer** | `customerfind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `customerfind n/John Doe`
+**Find Customer (Alias)** | `cf [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `cf n/John Doe`
+**List All Customers** | `customerfind all/true` | -
+**List All Customers (Alias)** | `cf all/true` | -
+**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Quick Add Staff** | `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>` | `quickstaffadd S0102:Ali:98291029`
+**Quick Add Staff (Alias)** | `qsa <STAFF_ID>:<NAME>:<PHONE>` | `qsa S0102:Ali:98291029`
+**Delete Staff** | `staffdelete INDEX` | `staffdelete 2`
+**Delete Staff (Alias)** | `sd INDEX` | `sd 2`
 **Edit Staff** | `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` | `staffedit 1 p/99994567 e/newemail@example.com`
-**Edit Staff (Alias)** | `se INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...`      | `se 1 p/99994567 e/newemail@example.com`
-**Find Staff** | `stafffind KEYWORD [MORE_KEYWORDS]...`                                                                                                                               | `stafffind Alice`
-**Find Staff (Alias)** | `sf KEYWORD [MORE_KEYWORDS]...`                                                                                                                                      | `sf Alice`
-**List All Staff** | `stafffind all/true`                                                                                                                                                 | -
-**List All Staff (Alias)** | `sf all/true`                                                                                                                                                        | -
-**Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY`                                                                                                                                 | `drinkadd n/Iced Latte p/4.50 c/Coffee`
-**Add Drink (Alias)** | `da n/NAME p/PRICE c/CATEGORY`                                                                                                                                       | `da n/Iced Latte p/4.50 c/Coffee`
-**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]`                                                                                                                          | `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
-**Purchase (Alias)** | `p INDEX n/DRINK_NAME [redeem/true]`                                                                                                                                 | `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
-**Quick Purchase** | `quickpurchase INDEX:DRINK_NAME[:r]`                                                                                                                                 | `quickpurchase 1:Espresso` or `quickpurchase 2:Cappuccino:r`
-**Quick Purchase (Alias)** | `qp INDEX:DRINK_NAME[:r]`                                                                                                                                            | `qp 1:Espresso` or `qp 2:Cappuccino:r`
-**Help** | `help`                                                                                                                                                               | -
+**Edit Staff (Alias)** | `se INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` | `se 1 p/99994567 e/newemail@example.com`
+**Find Staff** | `stafffind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` | `stafffind n/Alice`
+**Find Staff (Alias)** | `sf [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...` | `sf n/Alice`
+**List All Staff** | `stafffind all/true` | -
+**List All Staff (Alias)** | `sf all/true` | -
+**Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` | `drinkadd n/Iced Latte p/4.50 c/Coffee`
+**Add Drink (Alias)** | `da n/NAME p/PRICE c/CATEGORY` | `da n/Iced Latte p/4.50 c/Coffee`
+**Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` | `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
+**Purchase (Alias)** | `p INDEX n/DRINK_NAME [redeem/true]` | `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
+**Quick Purchase** | `quickpurchase INDEX:DRINK_NAME[:r]` | `quickpurchase 1:Espresso` or `quickpurchase 2:Cappuccino:r`
+**Quick Purchase (Alias)** | `qp INDEX:DRINK_NAME[:r]` | `qp 1:Espresso` or `qp 2:Cappuccino:r`
+**Help** | `help` | -
 
 --------------------------------------------------------------------------------------------------------------------
 
