@@ -596,8 +596,8 @@ Examples:
 * `stafffind n/Alice` or `sf n/Alice` finds and lists all staffs whose names contain `Alice`.
 * `stafffind n/John Doe` or `sf n/John Doe` finds and lists all staffs whose names contain either `John` or `Doe`.
 * `stafffind role/Chef` or `sf role/Chef` finds and lists all staffs whose role is `Chef`.
-* `stafffind hours/10` or `sf hours/10` finds and lists all customers who have `Hours Worked` of 10.
-* `stafffind all/true` or `sf all/true` lists all staff in CaféConnect.
+* `stafffind hours/10` or `sf hours/10` finds and lists all staffs who have `Hours Worked` of 10.
+* `stafffind all/true` or `sf all/true` lists all staffs in CaféConnect.
 
 These are the before and after images of the second example
 
