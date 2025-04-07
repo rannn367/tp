@@ -142,7 +142,7 @@ The diagram above shows the main structure of the `Model` component. For clarity
 The `Person` model:
 
 * Serves as the base class for both `Staff` and `Customer` entities
-* Contains common attributes for all persons: `Name`, `Phone`, `Email`, `Address`, `Remark`, and `Tag`s
+* Contains common attributes for all persons: `Name`, `Phone`, `Email`, `Address`, and `Tag`s
 * Enforces validation for all fields through specialized field classes
 * Is stored in a `UniquePersonList` that ensures no two persons have the same identity
 
