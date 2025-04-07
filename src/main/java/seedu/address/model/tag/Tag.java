@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tag name should only contain alphanumeric" 
+    public static final String MESSAGE_CONSTRAINTS = "Tag name should only contain alphanumeric"
         + " characters without spaces.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
