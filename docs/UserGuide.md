@@ -135,21 +135,93 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
 --------------------------------------------------------------------------------------------------------------------
 ## Quick start
 
-1. Ensure you have Java `17` or above installed on your computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+This section has two parts: complete [Part 1](#part-1-setting-up-and-downloading-cafeconnect) **once**, and **repeat** [Part 2](#part-2-using-the-cafeconnect-application) **each time** you wish to use CaféConnect.
 
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+### Part 1: Setting up and downloading CaféConnect
+1. Ensure that you have Java `17` or above installed on your computer for the CaféConnect application to run. If not, download the latest version of Java from their [website](https://www.oracle.com/sg/java/technologies/downloads/).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your **CaféConnect** application.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cafeconnect.jar` command to run the application.<br>
+2. Download `cafeconnect.jar` file from our [GitHub](https://github.com/AY2425S2-CS2103T-T08-3/tp/releases/tag/v1.6).
 
-   The **CaféConnect** home screen will appear in a few seconds, displaying the application title and navigation options.
+  ![downloadcafeconnect](images/DownloadCafeConnect.png)
 
-   <div style="text-align: center; max-width: 80%; margin: 0 auto;">
-     <img src="images/UG_Ui_Images/welcome_screen.png" alt="CafeConnect Welcome Screen" style="max-width: 100%; height: auto;"/>
-     <p><i>CaféConnect Welcome Screen</i></p>
-   </div>
+
+3. Create a new folder and name it any name you want (e.g. CafeConnect).
+
+
+4. Find the downloaded `cafeconnect.jar` file and drag it into the folder you created in step 3. <br>
+
+  ![cafeconnectjar](images/CafeConnectJar.png)
+
+<br></br>
+
+### Part 2: Using the CaféConnect application
+
+For steps 5 and 6, refer to **either** [Mac Users](#mac-users) **or** [Windows Users](#windows-users) section that matches your computer system.
+Continue to [Using the terminal](#using-the-terminal) after completing steps 5 and 6.
+
+
+#### _Mac users_
+5. Use Mac's spotlight search (Command + Space bar) and type Terminal, click on open. 
+
+  <img src="images/MacTerminal.png" alt="macsterminal" width="810"/> <br>
+  
+  You will see a window like this. <br>
+
+  ![openmacterminal](images/OpenMacTerminal.png)
+    
+
+6. Click into the folder created in step 3. Right click on the `cafeconnect.jar` file and select `Get Info`. <br>
+
+  ![macfilepathinfo](images/Macfilepathinfo.png)
+  <br></br>
+  On the new window that pops up, right click on `Where` and copy the file path.
+
+  <img src="images/Macfilepath.png" alt="macfilepath" width="810"/>
+  <br></br>
+
+#### _Windows users_
+5. Use Windows' search and type Terminal, click on `Open`.<br>
+
+  ![searchbar](images/searchbar.png)
+<br></br>
+
+  ![windowsterminal](images/WindowsTerminal.png)
+<br></br>
+You will see a window like this. <br>
+
+  ![openwindows](images/OpenWindowsTerminal.png)
+
+
+6. Click into the folder created in step 3. Click on the empty space of the bar located at the top and copy the file path.<br>
+
+![windowsfilepath](images/Windowsfilepath.png)
+<box type="info" seamless>
+<strong>Note:</strong> File path here is highlighted in grey
+</box>
+
+#### _Using the terminal_
+7. Type `cd FILEPATH`  (replacing FILEPATH with the actual file path copied in step 6) and press `Enter`.
+
+
+8. Type `java -jar cafeconnect.jar` and press `Enter` to run the CaféConnect application.
+<br></br>
+  - Windows Terminal: <br>
+  
+    ![windowscd](images/Windowscd.png)
+    <br></br>
+  - Mac Terminal: <br>
+  
+    ![maccd](images/Maccd.png)
+
+#### Using the CaféConnect application
+
+  The **CaféConnect** home screen will appear in a few seconds, displaying the application title and navigation options.
+
+  <div style="text-align: center; max-width: 80%; margin: 0 auto;">
+    <img src="images/UG_Ui_Images/welcome_screen.png" alt="CafeConnect Welcome Screen" style="max-width: 100%; height: auto;"/>
+    <p><i>CaféConnect Welcome Screen</i></p>
+  </div>
 
 5. From the home screen, you have two navigation options:
    * Click on **Staff & Customer Management** to access staff and customer data directly.
@@ -299,6 +371,8 @@ Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_
 * `VISIT_COUNT` should only contain digits
 * `FAVOURITE_ITEM` can take any value, and it should not be blank and must not be longer than 30 characters
 * `TOTAL_SPENT` should only contain digits, representing the amount in dollars
+* `TAG` can take any alphanumeric value, but should not contain spaces, optional field
+
 
 Examples:
 * `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
@@ -464,7 +538,7 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 * `SHIFT_TIMING` can take any value, and it should not be blank and must not be longer than 50 characters
 * `HOURS_WORKED` should only contain digits
 * `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive) with at most one decimal place.
-* `TAG` can take any value, optional field
+* `TAG` can take any alphanumeric value, but should not contain spaces, optional field
 
 Examples:
 * `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced`
@@ -983,6 +1057,7 @@ Customer ID | A unique identifier for each customer in the system, starting with
 Favourite Item | A drink or food item that a particular customer frequently orders or prefers.
 Graphical User Interface (GUI) | An interface that the user interacts with using visual elements like buttons, icons and windows.
 Index | The application number of the customer or staff displayed in the list.
+Jar | The file format used for the CaféConnect application.
 Parameter | The details needed to perform specific commands (e.g., Add command has parameters for name, phone, etc.).
 Performance Rating | A numeric value between 0 and 5.0 that represents a staff member's performance evaluation.
 Prefix | A character or set of characters at the beginning of a parameter that identifies its type (e.g., 'n/' for name, 'p/' for phone).

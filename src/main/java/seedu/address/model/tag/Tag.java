@@ -1,6 +1,7 @@
 package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -9,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tag name '%s' should only contain alphanumeric characters.";
+    public static final String MESSAGE_CONSTRAINTS = "Tag name should only contain alphanumeric characters without spaces.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
