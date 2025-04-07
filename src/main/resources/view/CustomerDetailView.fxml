@@ -44,8 +44,8 @@
 
         <!-- Address -->
         <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label text="Address:" styleClass="detail-label" />
-            <Label fx:id="address" styleClass="detail-value" />
+            <Label text="Address:" styleClass="detail-label" wrapText="true" />
+            <Label fx:id="address" styleClass="detail-value" wrapText="true" />
         </HBox>
 
         <!-- Visit Count -->
