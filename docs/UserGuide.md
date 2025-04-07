@@ -26,7 +26,7 @@ CaféConnect is a streamlined desktop application that helps you manage customer
   * **Customer insights:** Track customer preferences, visit history, and favorite items.
   * **Staff organization:** Manage staff details, roles, shifts, and performance ratings.
 
-## Why would you enjoy CaféConnect?  
+## Why you would enjoy CaféConnect  
 
 Because countless other café owners and managers already do!  
 
@@ -671,7 +671,7 @@ Format: `stafffind all/true` (to list all staff)
 * Note that very short search strings (less than 3 characters) may not always work as expected due to search restrictions. For example, `ali` can find `Alice`, but `al` might not match successfully.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
 * The keywords search for [n/NAME] will return close matches as well. For example, searching for `n/all` will match ali.
-* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if drink should be `role/Chef`
+* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if role should be `role/Chef`
 * Use `stafffind all/true` or `sf all/true` to display the complete list of all staff in CaféConnect.
 
 Examples:
@@ -703,7 +703,7 @@ Adds a new drink to the drink catalog with details such as name, price, and cate
 Format: `drinkadd n/NAME p/PRICE c/CATEGORY`
 
 * `NAME` is the name of the drink
-* `PRICE` should be a positive number with up to 2 decimal places and must be at least $1.00.
+* `PRICE` should be a positive number with up to 2 decimal places and must be at least $0.01.
 * `CATEGORY` is the classification of the drink (e.g., Coffee, Tea, etc.)
 
 Examples:
@@ -767,7 +767,7 @@ Format: `purchase INDEX n/DRINK_NAME [redeem/true]`
 * The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
 * `DRINK_NAME` must match a drink that exists in the drink catalog.
 * For standard purchases (without redemption):
-  * For every $1 spent, customers earn 10 reward points.
+  * For every $1 spent, customers earn 10 reward points. Partial dollars earn proportional points (e.g., $4.50 earns 45 points).
   * Total spent is updated with the drink price.
 * For redemption purchases (with `redeem/true`):
   * Reward points are deducted at a rate of 100 points = $1 (e.g., a $4.50 drink costs 450 points).
