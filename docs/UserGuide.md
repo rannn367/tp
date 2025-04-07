@@ -122,7 +122,7 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
     * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
     * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
     * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
-    * [Recording a purchase: `purchase` or `p`](#recording-a-purchase-purchase)
+    * [Recording a purchase: `purchase` or `p`](#recording-a-purchase-purchase-or-p)
     * [Quickly recording a purchase: `qp` shortcut](#quickly-recording-a-purchase-quickpurchase-or-qp)
   * [FAQ](#faq)
   * [Known Issues](#known-issues)
