@@ -270,7 +270,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseRemark_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseRemark(null));
+    public void parseRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRemark("i".repeat(100)));
     }
 }
