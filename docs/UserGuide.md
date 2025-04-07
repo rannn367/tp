@@ -164,20 +164,20 @@ Continue to [Using the terminal](#using-the-terminal) after completing steps 5 a
 #### _Mac users_
 5. Use Mac's spotlight search (Command + Space bar) and type Terminal, click on open. 
 
-  <img src="images/MacTerminal.png" alt="macsterminal" width="810"/> <br>
+  <img src="images/MacTerminal.jpg" alt="macsterminal" width="810"/> <br>
   
   You will see a window like this. <br>
 
-  ![openmacterminal](images/OpenMacTerminal.png)
+  ![openmacterminal](images/OpenMacTerminal.jpg)
     
 
 6. Click into the folder created in step 3. Right click on the `cafeconnect.jar` file and select `Get Info`. <br>
 
-  ![macfilepathinfo](images/Macfilepathinfo.png)
+  ![macfilepathinfo](images/Macfilepathinfo.jpg)
   <br></br>
   On the new window that pops up, right click on `Where` and copy the file path.
 
-  <img src="images/Macfilepath.png" alt="macfilepath" width="810"/>
+  <img src="images/Macfilepath.jpg" alt="macfilepath" width="810"/>
   <br></br>
 
 #### _Windows users_
