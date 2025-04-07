@@ -88,7 +88,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
         this.totalSpent = totalSpent;
     }
 
-   
+
 
     @Override
     public boolean equals(Object other) {
