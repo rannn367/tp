@@ -84,6 +84,8 @@ public class FindStaffCommand extends Command {
         String staffList = model.getFilteredStaffsAsString();
         if (model.getFilteredStaffsCount() == 0) {
             model.updateFilteredStaffList(Model.PREDICATE_SHOW_ALL_STAFFS);
+            return new CommandResult(
+                String.format(Messages.MESSAGE_STAFF_LISTED_OVERVIEW, count, "\nShowing all staffs instead."));
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_STAFF_LISTED_OVERVIEW, count, staffList));

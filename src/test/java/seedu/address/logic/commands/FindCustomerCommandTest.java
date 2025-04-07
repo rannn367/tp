@@ -58,7 +58,8 @@ public class FindCustomerCommandTest {
 
     @Test
     public void execute_zeroKeywords_noCustomerFound() {
-        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 0, "");
+        String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 0,
+                "\nShowing all customers instead.");
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCustomerCommand command = new FindCustomerCommand(predicate);
         expectedModel.updateFilteredCustomerList(predicate);
