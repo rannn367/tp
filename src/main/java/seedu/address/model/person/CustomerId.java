@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Customer's ID in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCustomerId(String)}
  */
-public class CustomerId {
+public class CustomerId implements Comparable<CustomerId> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Customer ID should start with a 'C' followed by digits, e.g., C1001";
@@ -18,6 +18,7 @@ public class CustomerId {
     public static final String VALIDATION_REGEX = "(?i)c\\d{1,9}";
 
     public final String value;
+    private final int numericValue;
 
     /**
      * Constructs a {@code CustomerId}.
@@ -27,7 +28,8 @@ public class CustomerId {
     public CustomerId(String customerId) {
         requireNonNull(customerId);
         checkArgument(isValidCustomerId(customerId), MESSAGE_CONSTRAINTS);
-        value = customerId.substring(0, 1).toUpperCase() + customerId.substring(1);
+        numericValue = Integer.parseInt(customerId.substring(1));
+        value = "C" + String.valueOf(numericValue);
     }
 
     /**
@@ -47,6 +49,11 @@ public class CustomerId {
         return other == this // short circuit if same object
                 || (other instanceof CustomerId // instanceof handles nulls
                 && value.equals(((CustomerId) other).value)); // state check
+    }
+
+    @Override
+    public int compareTo(CustomerId other) {
+        return Integer.compare(numericValue, other.numericValue);
     }
 
     @Override
