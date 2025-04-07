@@ -495,10 +495,12 @@ Finds and lists all customers in the customer list whose names contain any of th
 Format: `customerfind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`
 Format: `customerfind all/true` (to list all customers)
 
+* `NAME` should contain at least 3 characters, or the command may not work as expected.
 * The search will return all customers who matches the specified search criteria.
 * If no customer matches the specified search criteria, the full list of customers will be shown.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
+* Note that very short search strings (less than 3 characters) may not always work as expected due to search restrictions. For example, `ali` can find `Alice`, but `al` might not match successfully.
 * The keywords search for `[n/NAME]` will return close matches as well. For example, searching for `n/all` will match ali.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
 * The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[cid/CUSTOMER_ID]` `[rp/REWARD_POINTS]` `[vc/VISIT_COUNT]` `[fi/FAVOURITE_ITEM]` `[ts/TOTAL_SPENT]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `fi/Cappuccin` will return nothing if drink should be `fi/Cappucino`; searching `fi/latte` will return nothing if drink should be `fi/Latte`
@@ -661,10 +663,12 @@ Finds and lists all staffs in the staff list whose names contain any of the spec
 Format: `stafffind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...`
 Format: `stafffind all/true` (to list all staff)
 
+* `NAME` should contain at least 3 characters, or the command may not work as expected.
 * The search will return all staffs who matches the specified search criteria.
 * If no staff matches the specified search criteria, the full list of staff will be shown.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
+* Note that very short search strings (less than 3 characters) may not always work as expected due to search restrictions. For example, `ali` can find `Alice`, but `al` might not match successfully.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
 * The keywords search for [n/NAME] will return close matches as well. For example, searching for `n/all` will match ali.
 * The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if drink should be `role/Chef`
