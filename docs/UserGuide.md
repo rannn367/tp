@@ -423,7 +423,7 @@ Format: `customerfind all/true` (to list all customers)
 * The search will return all customers who matches the specified search criteria.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
-* The keywords search for [n/NAME] will return close matches as well. For example, searching for `n/all` will match ali.
+* The keywords search for `[n/NAME]` will return close matches as well. For example, searching for `n/all` will match ali.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
 * The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[cid/CUSTOMER_ID]` `[rp/REWARD_POINTS]` `[vc/VISIT_COUNT]` `[fi/FAVOURITE_ITEM]` `[ts/TOTAL_SPENT]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `fi/Cappuccin` will return nothing if drink should be `fi/Cappucino`; searching `fi/latte` will return nothing if drink should be `fi/Latte`
 * Use `customerfind all/true` or `cf all/true` to display the complete list of all customers in CaféConnect.
