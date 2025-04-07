@@ -1197,3 +1197,11 @@ Given below are enhancements planned for future versions. <br>
    <br></br>
    - Justification: The current constraints do not accommodate many legitimate names used globally. For example, names like "O'Connor", "López-García", or names containing non-English characters are currently rejected by the system. Relaxing these constraints will make our application more inclusive and internationally friendly.
    <br></br>
+
+4. **Implement validation for unique phone numbers and email addresses** 
+   - Current behaviour: Currently, the system allows different customers or staff members to have the same phone number and email address as long as they have different IDs. This can lead to confusion and potential data entry errors, as phone numbers and email addresses are typically unique identifiers in real-world scenarios.
+   <br></br>
+   - Planned enhancement: We plan to implement validation that prevents duplicate phone numbers and email addresses across all customers and staff members. The system will check for existing records with the same contact information before allowing a new entry or update.
+   <br></br>
+   - Justification: This enhancement will improve data integrity and prevent scenarios where a user might mistakenly add the same customer or staff member twice with different IDs. It also reflects real-world constraints, as generally no two people share exactly the same phone number or email address for professional purposes.
+   <br></br>

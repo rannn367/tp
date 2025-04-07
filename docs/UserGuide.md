@@ -767,7 +767,7 @@ Format: `purchase INDEX n/DRINK_NAME [redeem/true]`
 * The `INDEX` **must be a valid index number** (e.g., 5 is not valid when there are fewer than five customers in the displayed list).
 * `DRINK_NAME` must match a drink that exists in the drink catalog.
 * For standard purchases (without redemption):
-  * For every $1 spent, customers earn 10 reward points.
+  * For every $1 spent, customers earn 10 reward points. Partial dollars earn proportional points (e.g., $4.50 earns 45 points).
   * Total spent is updated with the drink price.
 * For redemption purchases (with `redeem/true`):
   * Reward points are deducted at a rate of 100 points = $1 (e.g., a $4.50 drink costs 450 points).
