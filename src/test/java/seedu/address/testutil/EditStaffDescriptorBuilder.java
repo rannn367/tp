@@ -11,6 +11,7 @@ import seedu.address.model.person.HoursWorked;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PerformanceRating;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.Role;
 import seedu.address.model.person.ShiftTiming;
 import seedu.address.model.person.Staff;
@@ -41,6 +42,7 @@ public class EditStaffDescriptorBuilder {
         descriptor.setPhone(staff.getPhone());
         descriptor.setEmail(staff.getEmail());
         descriptor.setAddress(staff.getAddress());
+        descriptor.setRemark(staff.getRemark());
         descriptor.setTags(staff.getTags());
         descriptor.setRole(staff.getRole());
         descriptor.setShiftTiming(staff.getShiftTiming());
@@ -86,6 +88,14 @@ public class EditStaffDescriptorBuilder {
      */
     public EditStaffDescriptorBuilder withRole(String role) {
         descriptor.setRole(new Role(role));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code EditStaffDescriptor} that we are building.
+     */
+    public EditStaffDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 
