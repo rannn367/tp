@@ -1,5 +1,6 @@
 package seedu.address.model.person.predicates;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -54,15 +55,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
             return exactMatch;
         }
 
-        // Convert keywords list back to a single string for fuzzy matching
-        String keywordsString = String.join(" ", keywords);
-
-        // If no exact match and fuzzy matching is enabled, check for fuzzy matches
-        return TextMatchUtil.areSimilarStrings(
-                keywordsString.toLowerCase(),
-                personName.toLowerCase(),
-                DEFAULT_MAX_LEVENSHTEIN_DISTANCE,
-                FUZZY_MATCH_THRESHOLD);
+        return Arrays.stream(personName.toLowerCase().split("\\s+"))
+                .anyMatch(keyword -> keywords.stream()
+                        .anyMatch(name -> TextMatchUtil.areSimilarStrings(
+                                keyword.toLowerCase(),
+                                name.toLowerCase(),
+                                name.length() <= 4 ? 1 : DEFAULT_MAX_LEVENSHTEIN_DISTANCE,
+                                FUZZY_MATCH_THRESHOLD)));
     }
 
     @Override

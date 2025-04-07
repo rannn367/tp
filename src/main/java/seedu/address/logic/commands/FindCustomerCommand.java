@@ -84,6 +84,8 @@ public class FindCustomerCommand extends Command {
         String customerList = model.getFilteredCustomersAsString();
         if (model.getFilteredCustomersCount() == 0) {
             model.updateFilteredCustomerList(Model.PREDICATE_SHOW_ALL_CUSTOMERS);
+            return new CommandResult(
+                String.format(Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW, count, "\nShowing all customers instead."));
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_CUSTOMERS_LISTED_OVERVIEW, count, customerList));

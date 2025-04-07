@@ -58,7 +58,7 @@ public class FindStaffCommandTest {
 
     @Test
     public void execute_zeroKeywords_noStaffFound() {
-        String expectedMessage = String.format(MESSAGE_STAFF_LISTED_OVERVIEW, 0, "");
+        String expectedMessage = String.format(MESSAGE_STAFF_LISTED_OVERVIEW, 0, "\nShowing all staffs instead.");
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindStaffCommand command = new FindStaffCommand(predicate);
         expectedModel.updateFilteredStaffList(predicate);
