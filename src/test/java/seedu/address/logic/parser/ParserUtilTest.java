@@ -269,4 +269,8 @@ public class ParserUtilTest {
         assertEquals(expectedPerformanceRating, ParserUtil.parsePerformanceRating("5"));
     }
 
+    @Test
+    public void parseRemark_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRemark(null));
+    }
 }
