@@ -9,12 +9,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class FavouriteItem {
 
-    public static final String MESSAGE_CONSTRAINTS = "Favourite items can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = 
+        "Favourite items can take any values, should be a maximum of 30 characters, and it should not be blank";
 
     /*
      * No strict validation for favourite items as it can take any value.
      */
-    public static final String VALIDATION_REGEX = "^(?!\\s)[^\\s].{0,28}$";
+    public static final String VALIDATION_REGEX = "^(?!\\s)[^\\s].{0,29}$";
 
     public final String value;
 
