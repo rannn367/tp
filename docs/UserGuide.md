@@ -122,7 +122,7 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
     * [Finding a staff: `stafffind` or `sf`](#finding-a-staff-stafffind-or-sf)
     * [Adding a drink: `drinkadd` or `da`](#adding-a-drink-drinkadd-or-da)
     * [Deleting a drink: `drinkdelete` or `dd`](#deleting-a-drink-drinkdelete-or-dd)
-    * [Recording a purchase: `purchase` or `p`](#recording-a-purchase-purchase)
+    * [Recording a purchase: `purchase` or `p`](#recording-a-purchase-purchase-or-p)
     * [Quickly recording a purchase: `qp` shortcut](#quickly-recording-a-purchase-quickpurchase-or-qp)
   * [FAQ](#faq)
   * [Known Issues](#known-issues)
@@ -216,14 +216,14 @@ You will see a window like this. <br>
 
 #### Using the CaféConnect application
 
-  The **CaféConnect** home screen will appear in a few seconds, displaying the application title and navigation options.
+  The **CaféConnect** welcome screen will appear in a few seconds, displaying the application title and navigation options.
 
   <div style="text-align: center; max-width: 80%; margin: 0 auto;">
     <img src="images/UG_Ui_Images/welcome_screen.png" alt="CafeConnect Welcome Screen" style="max-width: 100%; height: auto;"/>
     <p><i>CaféConnect Welcome Screen</i></p>
   </div>
 
-5. From the home screen, you have two navigation options:
+5. From the welcome screen, you have several navigation options:
    * Click on **Staff & Customer Management** to access staff and customer data directly.
    * Click on **Drinks Menu** to view and manage the drink catalog directly.
 
@@ -370,7 +370,7 @@ Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_
 * `REWARD_POINTS` should only contain digits
 * `VISIT_COUNT` should only contain digits
 * `FAVOURITE_ITEM` can take any value, and it should not be blank and must not be longer than 30 characters
-* `TOTAL_SPENT` should only contain digits, representing the amount in dollars
+* `TOTAL_SPENT` should be a non-negative number with at most one decimal point and either one or two decimal places, representing the amount in dollars
 * `TAG` can take any alphanumeric value, but should not contain spaces, optional field
 
 
@@ -956,6 +956,10 @@ Ans: Yes, the visit count can be edited via the `customeredit`.
 #### Q14: What do I do when there is a blank screen after my `stafffind` or `customerfind` returns no results
 
 Ans: Use the `stafffind all/true` command to show all staff, or `customerfind all/true` to show all customers again.
+
+#### Q15: How do I switch tabs via the command box or CLI?
+
+Ans: Use the `stafffind all/true` command to switch to the staff tab, or `customerfind all/true` to switch back to the customer tab.
 
 --------------------------------------------------------------------------------------------------------------------
 

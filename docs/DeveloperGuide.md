@@ -1168,3 +1168,22 @@ testers are expected to do more *exploratory* testing.
      Expected: Application starts with an empty drink catalog, but creates a new drinkcatalog.json file.
   3. Test case: Corrupt the addressbook.json file by adding invalid JSON, then restart the application<br>
      Expected: Application starts with an empty customer and staff list, backing up the corrupted file.
+## **Appendix: Planned Enhancements**
+The team consists of 5 members.
+Given below are enhancements planned for future versions. <br>
+
+1. **Add CLI command to display customer/staff on right panel** 
+   - Current behaviour: Currently whenever a user wants to view a customer, they have to manually click the GUI and display the customer on the right panel. There is no CLI way to do this which makes the app limited in its CLI optimisation.
+   <br></br>
+   - Planned enhancement: We plan to add a `display` command or similar feature that takes in the index of the person on the current list and displays it on the right panel.
+   <br></br>
+   - Justification: This is a key usability feature that should have been CLI optimised. Adding this command will improve workflow efficiency for users who prefer keyboard-based interaction over mouse clicks.
+   <br></br>
+
+2. **Add function for right panel updates when new staff filtering commands are executed** 
+   - Current behaviour: When a user clicks on a staff to reveal additional information and then enters a command to filter staff (e.g., `sf n/Alice`), the original staff being viewed still remains on the right panel even though the list of staff displayed has changed.
+   <br></br>
+   - Planned enhancement: We plan to update the right panel display when filtering commands are executed, either by clearing the display or by showing the first result of the new filtered list.
+   <br></br>
+   - Justification: The current behavior creates a confusing user experience where the information displayed on the right doesn't match the context of the current filtered list. This enhancement will ensure that the UI remains consistent and intuitive during filtering operations.
+   <br></br>

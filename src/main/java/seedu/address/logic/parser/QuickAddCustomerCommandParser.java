@@ -51,7 +51,7 @@ public class QuickAddCustomerCommandParser implements Parser<QuickAddCustomerCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuickAddCustomerCommand.MESSAGE_USAGE));
         }
 
-        CustomerId customerId = new CustomerId(customerInfo[0]);
+        CustomerId customerId = ParserUtil.parseCustomerId(customerInfo[0]);
         Name name = ParserUtil.parseName(customerInfo[1]);
         Phone phone = ParserUtil.parsePhone(customerInfo[2]);
 
