@@ -1018,8 +1018,8 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 Command | Format | Examples
 --------|--------|---------
-**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
-**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [r/REMARK] [t/TAG]…` | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 r/Handsome t/regular`
+**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [r/TAG] [t/TAG]…` | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 r/Handsome t/regular`
 **Quick Add Customer** | `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>` | `quickcustomeradd C0102:Charlie:97285712`
 **Quick Add Customer (Alias)** | `qca <CUSTOMER_ID>:<NAME>:<PHONE>` | `qca C0102:Charlie:97285712`
 **Delete Customer** | `customerdelete INDEX` | `customerdelete 2`
@@ -1030,8 +1030,8 @@ Command | Format | Examples
 **Find Customer (Alias)** | `cf [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `cf n/John Doe`
 **List All Customers** | `customerfind all/true` | -
 **List All Customers (Alias)** | `cf all/true` | -
-**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
-**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [r/REMARK] [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 r/Best Barista t/fullTime`
+**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [r/REMARK] [t/TAG]...` | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 r/Best Barista t/fullTime`
 **Quick Add Staff** | `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>` | `quickstaffadd S0102:Ali:98291029`
 **Quick Add Staff (Alias)** | `qsa <STAFF_ID>:<NAME>:<PHONE>` | `qsa S0102:Ali:98291029`
 **Delete Staff** | `staffdelete INDEX` | `staffdelete 2`
