@@ -1205,3 +1205,19 @@ Given below are enhancements planned for future versions. <br>
    <br></br>
    - Justification: This enhancement will improve data integrity and prevent scenarios where a user might mistakenly add the same customer or staff member twice with different IDs. It also reflects real-world constraints, as generally no two people share exactly the same phone number or email address for professional purposes.
    <br></br>
+
+5. **Improve purchase logic to support multiple items in a single transaction** 
+   - Current behaviour: Currently, each purchase can only contain 1 item, and each purchase increases the visit count of a customer by 1. This means that if a customer buys multiple drinks in a single visit, they would need to be recorded as separate transactions, artificially inflating the visit count.
+   <br></br>
+   - Planned enhancement: We plan to implement a cart or multi-item purchase system that allows recording multiple items in a single transaction. This would increment the visit count only once while still accurately tracking all items purchased and their total cost.
+   <br></br>
+   - Justification: This enhancement will better reflect real-world cafe operations, where customers often purchase multiple drinks or items in a single visit. It will provide more accurate visit metrics and customer purchasing behavior, improving the reliability of customer data for business decision-making.
+   <br></br>
+
+6. **Make email addresses selectable and copyable** 
+   - Current behaviour: Email addresses in the customer and staff details cannot be selected or copied. To use an email address in another application (e.g., to send an email to a customer), users have to manually type the entire email address. Clicking or dragging the mouse over the email address has no effect.
+   <br></br>
+   - Planned enhancement: We plan to modify the UI to make email addresses selectable and copyable text elements. This will allow users to easily copy email addresses with a simple click or keyboard shortcut.
+   <br></br>
+   - Justification: This enhancement will significantly improve workflow efficiency, particularly for café owners who need to contact customers or staff via email. It eliminates the need for manual retyping, reduces the risk of typographical errors, and streamlines communication processes.
+   <br></br>
