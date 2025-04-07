@@ -212,7 +212,7 @@ You will see a window like this. <br>
     <br></br>
   - Mac Terminal: <br>
   
-    ![maccd](images/Maccd.png)
+    ![maccd](images/Maccd.jpg)
 
 #### Using the CaféConnect application
 
