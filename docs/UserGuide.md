@@ -333,7 +333,7 @@ Format: `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>`
 
 Examples:
 * `quickcustomeradd C0102:Charlie:97285712`
-* `qca S0103:Bob:80192832`
+* `qca C0103:Bob:80192832`
 
 These are the before and after images of the first example
 
