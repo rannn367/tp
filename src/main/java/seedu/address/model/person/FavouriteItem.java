@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class FavouriteItem {
 
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
         "Favourite items can take any values, should be a maximum of 30 characters, and it should not be blank";
 
     /*
