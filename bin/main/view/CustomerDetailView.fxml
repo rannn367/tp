@@ -74,7 +74,7 @@
 
         <!-- Remark -->
         <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label text="Notes:" styleClass="detail-label" />
+            <Label text="Remarks:" styleClass="detail-label" />
             <Label fx:id="remark" styleClass="detail-value" />
         </HBox>
 
