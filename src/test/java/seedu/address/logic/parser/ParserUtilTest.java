@@ -269,4 +269,8 @@ public class ParserUtilTest {
         assertEquals(expectedPerformanceRating, ParserUtil.parsePerformanceRating("5"));
     }
 
+    @Test
+    public void parseRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRemark("i".repeat(100)));
+    }
 }

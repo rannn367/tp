@@ -55,6 +55,8 @@ public class StaffDetailPanel extends UiPart<Region> {
     @FXML
     private Label performanceRating;
     @FXML
+    private Label remark;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -149,6 +151,7 @@ public class StaffDetailPanel extends UiPart<Region> {
             safeSetText(hoursWorked, staff.getHoursWorked() != null ? staff.getHoursWorked().value : "0");
             safeSetText(performanceRating, staff.getPerformanceRating() != null
                     ? staff.getPerformanceRating().value : "N/A");
+            safeSetText(remark, staff.getRemark() != null ? staff.getRemark().value : "");
 
             // Clear existing tags and add new ones
             if (tags != null) {
