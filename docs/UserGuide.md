@@ -26,7 +26,7 @@ CaféConnect is a streamlined desktop application that helps you manage customer
   * **Customer insights:** Track customer preferences, visit history, and favorite items.
   * **Staff organization:** Manage staff details, roles, shifts, and performance ratings.
 
-## Why would you enjoy CaféConnect?  
+## Why you would enjoy CaféConnect  
 
 Because countless other café owners and managers already do!  
 
@@ -671,7 +671,7 @@ Format: `stafffind all/true` (to list all staff)
 * Note that very short search strings (less than 3 characters) may not always work as expected due to search restrictions. For example, `ali` can find `Alice`, but `al` might not match successfully.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
 * The keywords search for [n/NAME] will return close matches as well. For example, searching for `n/all` will match ali.
-* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if drink should be `role/Chef`
+* The keywords search for `[p/PHONE]` `[e/EMAIL]` `[a/ADDRESS]` `[sid/STAFF_ID]` `[role/ROLE]` `[shift/SHIFT_TIMING]` `[hours/HOURS_WORKED]` `[rating/PERFORMANCE_RATING]` `[t/TAG]` MUST match the field exactly and is case-sensitive. For example , searching `role/Barist` will return nothing if role should be `role/Barista`; searching `role/chef` will return nothing if role should be `role/Chef`
 * Use `stafffind all/true` or `sf all/true` to display the complete list of all staff in CaféConnect.
 
 Examples:

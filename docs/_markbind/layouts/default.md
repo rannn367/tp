@@ -30,7 +30,7 @@
 
 * [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
   * [Welcome to CaféConnect!]({{ baseUrl }}/UserGuide.html#welcome-to-cafeconnect)
-  * [Why would you enjoy CaféConnect?]({{ baseUrl }}/UserGuide.html#why-would-you-enjoy-cafeconnect)
+  * [Why you would enjoy CaféConnect?]({{ baseUrl }}/UserGuide.html#why-you-would-enjoy-cafeconnect)
   * [Getting Started with the User Guide]({{ baseUrl }}/UserGuide.html#getting-started-with-the-user-guide)
   * [Quick start]({{ baseUrl }}/UserGuide.html#quick-start)
   * [Understanding Command Syntax]({{ baseUrl }}/UserGuide.html#understanding-command-syntax)
