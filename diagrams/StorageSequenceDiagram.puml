@@ -1,0 +1,67 @@
+@startuml StorageSequenceDiagram
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+participant ":JsonAddressBookStorage" as JsonAddressBookStorage STORAGE_COLOR
+participant ":JsonSerializableAddressBook" as JsonSerializableAddressBook STORAGE_COLOR
+participant ":File" as File STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("customerdelete 1")
+activate LogicManager
+
+LogicManager -> Model : deleteCustomer(1)
+activate Model
+note right of Model
+  Command execution and model
+  modification steps (simplified)
+end note
+Model --> LogicManager
+deactivate Model
+
+LogicManager -> StorageManager : saveAddressBook(addressBook)
+activate StorageManager
+
+StorageManager -> JsonAddressBookStorage : saveAddressBook(addressBook, filePath)
+activate JsonAddressBookStorage
+note right of StorageManager
+  filePath points to addressbook.json
+end note
+
+create JsonSerializableAddressBook
+JsonAddressBookStorage -> JsonSerializableAddressBook : new JsonSerializableAddressBook(addressBook)
+activate JsonSerializableAddressBook
+
+JsonSerializableAddressBook -> JsonSerializableAddressBook : for each staff/customer\ncreate JsonAdapted* objects
+
+JsonSerializableAddressBook --> JsonAddressBookStorage : jsonData
+deactivate JsonSerializableAddressBook
+
+JsonAddressBookStorage -> File : write to addressbook.json
+activate File
+note right of File
+  The file includes staff and
+  customer data in JSON format
+end note
+File --> JsonAddressBookStorage
+deactivate File
+
+JsonAddressBookStorage --> StorageManager
+deactivate JsonAddressBookStorage
+
+StorageManager --> LogicManager
+deactivate StorageManager
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
