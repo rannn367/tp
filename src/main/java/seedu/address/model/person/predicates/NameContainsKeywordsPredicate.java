@@ -60,9 +60,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
                         .anyMatch(name -> TextMatchUtil.areSimilarStrings(
                                 keyword.toLowerCase(),
                                 name.toLowerCase(),
-                                name.length() <= 4 ? 1 : DEFAULT_MAX_LEVENSHTEIN_DISTANCE,
+                                keyword.length() <= 4 ? 1 : DEFAULT_MAX_LEVENSHTEIN_DISTANCE,
                                 FUZZY_MATCH_THRESHOLD)));
-    }
+    }   
 
     @Override
     public boolean equals(Object other) {
