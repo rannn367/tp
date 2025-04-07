@@ -7,7 +7,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.FavouriteItem;
-import seedu.address.model.person.Remark;
 import seedu.address.model.person.RewardPoints;
 import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
