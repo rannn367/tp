@@ -72,6 +72,12 @@
             <Label fx:id="performanceRating" styleClass="detail-value" />
         </HBox>
 
+        <!-- Remark -->
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Remarks:" styleClass="detail-label" />
+            <Label fx:id="remark" styleClass="detail-value" />
+        </HBox>
+
         <!-- Tags -->
         <HBox spacing="5" alignment="CENTER_LEFT">
             <Label text="Tags:" styleClass="detail-label" />
