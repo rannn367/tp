@@ -703,7 +703,7 @@ Adds a new drink to the drink catalog with details such as name, price, and cate
 Format: `drinkadd n/NAME p/PRICE c/CATEGORY`
 
 * `NAME` is the name of the drink
-* `PRICE` should be a positive number with up to 2 decimal places and must be at least $1.00.
+* `PRICE` should be a positive number with up to 2 decimal places and must be at least $0.01.
 * `CATEGORY` is the classification of the drink (e.g., Coffee, Tea, etc.)
 
 Examples:
