@@ -239,7 +239,7 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddressBookParser` creates an instance of `AddStaffCommandParser` to parse the user input string.
 
-`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
+`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, `r/` and `t/`.
 It ensures that:
 - The **ID prefix** `sid/` must start with a "S" followed by digits (e.g., S1001, s1001).
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
@@ -250,6 +250,7 @@ It ensures that:
 - The **shift prefix** `shift/` must contain a non-empty shift.
 - The **hours prefix** `hours/` must contain a non-negative integer.
 - The **rating prefix** `rating/` must contain only digits that are between 0 and 5.0 (inclusive) and of 1 decimal place.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
@@ -326,7 +327,7 @@ If the index is valid, `EditStaffCommand`:
 
 `AddressBookParser` creates an instance of `AddCustomerCommandParser` to parse the user input string.
 
-`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.
+`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, `r/` and `t/`.
 It ensures that:
 - The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
@@ -337,6 +338,7 @@ It ensures that:
 - The **visit count prefix** `vc/` must contain only digits.
 - The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
 - The **total spent prefix** `ts/` must contain only digits representing the amount in dollars.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddCustomerCommand` based on the user input.
