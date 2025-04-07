@@ -125,6 +125,7 @@ public class EditPersonDescriptor {
                 && Objects.equals(phone, otherEditPersonDescriptor.phone)
                 && Objects.equals(email, otherEditPersonDescriptor.email)
                 && Objects.equals(address, otherEditPersonDescriptor.address)
+                && Objects.equals(remark, otherEditPersonDescriptor.remark)
                 && Objects.equals(tags, otherEditPersonDescriptor.tags);
     }
 
@@ -140,6 +141,7 @@ public class EditPersonDescriptor {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("remark", remark)
                 .add("tags", tags);
     }
 

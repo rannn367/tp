@@ -46,7 +46,7 @@ public class EditCustomerCommand extends Command {
         + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
         + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
         + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
-        + "[" + PREFIX_REMARK + "REMARK]"
+        + "[" + PREFIX_REMARK + "REMARK] "
         + "[" + PREFIX_TAG + "TAG]... "
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "

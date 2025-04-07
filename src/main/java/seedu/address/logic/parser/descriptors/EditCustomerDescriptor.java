@@ -7,6 +7,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.CustomerId;
 import seedu.address.model.person.FavouriteItem;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.RewardPoints;
 import seedu.address.model.person.TotalSpent;
 import seedu.address.model.person.VisitCount;
@@ -23,6 +24,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
     private VisitCount visitCount;
     private FavouriteItem favouriteItem;
     private TotalSpent totalSpent;
+
 
     public EditCustomerDescriptor() {
     }
@@ -85,6 +87,8 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
     public void setTotalSpent(TotalSpent totalSpent) {
         this.totalSpent = totalSpent;
     }
+
+   
 
     @Override
     public boolean equals(Object other) {

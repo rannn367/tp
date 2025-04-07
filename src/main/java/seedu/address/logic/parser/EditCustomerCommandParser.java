@@ -53,7 +53,8 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-            PREFIX_CUSTOMER_ID, PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVOURITE_ITEM, PREFIX_TOTAL_SPENT, PREFIX_REMARK);
+            PREFIX_CUSTOMER_ID, PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVOURITE_ITEM,
+            PREFIX_TOTAL_SPENT, PREFIX_REMARK);
 
         EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();
 

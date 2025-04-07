@@ -96,7 +96,7 @@ public class CustomerTest {
         String expected = Customer.class.getCanonicalName() + "{customerId=" + JAMES.getCustomerId() + ", name="
                 + JAMES.getName() + ", "
                 + "phone=" + JAMES.getPhone() + ", email=" + JAMES.getEmail()
-                + ", address=" + JAMES.getAddress() + ", tags=" + JAMES.getTags()
+                + ", address=" + JAMES.getAddress() + ", remark=" + JAMES.getRemark() + ", tags=" + JAMES.getTags()
                 + ", rewardPoints=" + JAMES.getRewardPoints() + ", visitCount=" + JAMES.getVisitCount()
                 + ", favouriteItem=" + JAMES.getFavouriteItem() + ", totalSpent=" + JAMES.getTotalSpent()
                 + "}";
