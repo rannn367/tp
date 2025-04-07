@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Staff's ID in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidStaffId(String)}
  */
-public class StaffId {
+public class StaffId implements Comparable<StaffId> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Staff ID should start with an 'S' followed by digits, e.g., S1012";
@@ -18,7 +18,7 @@ public class StaffId {
     public static final String VALIDATION_REGEX = "(?i)s\\d{1,9}";
 
     public final String value;
-
+    private final int numericValue;
     /**
      * Constructs a {@code StaffId}.
      *
@@ -27,7 +27,8 @@ public class StaffId {
     public StaffId(String staffId) {
         requireNonNull(staffId);
         checkArgument(isValidStaffId(staffId), MESSAGE_CONSTRAINTS);
-        value = staffId.substring(0, 1).toUpperCase() + staffId.substring(1);
+        numericValue = Integer.parseInt(staffId.substring(1));
+        value = "S" + String.valueOf(numericValue);
     }
 
     /**
@@ -47,6 +48,11 @@ public class StaffId {
         return other == this // short circuit if same object
                 || (other instanceof StaffId // instanceof handles nulls
                 && value.equals(((StaffId) other).value)); // state check
+    }
+
+    @Override
+    public int compareTo(StaffId other) {
+        return Integer.compare(numericValue, other.numericValue);
     }
 
     @Override

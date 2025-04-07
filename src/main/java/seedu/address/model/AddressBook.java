@@ -174,12 +174,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Staff> getStaffList() {
-        return persons.getFilteredList(Staff.class);
+        return persons.getFilteredList(Staff.class).sorted((s1, s2) -> s1.getStaffId().compareTo(s2.getStaffId()));
     }
 
     @Override
     public ObservableList<Customer> getCustomerList() {
-        return persons.getFilteredList(Customer.class);
+        return persons.getFilteredList(Customer.class)
+                .sorted((s1, s2) -> s1.getCustomerId().compareTo(s2.getCustomerId()));
     }
 
     @Override
