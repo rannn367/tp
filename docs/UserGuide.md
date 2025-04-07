@@ -1056,8 +1056,10 @@ Command Line Interface (CLI) | An interface that the user interacts with by typi
 Customer ID | A unique identifier for each customer in the system, starting with 'C' followed by digits (e.g., C001).
 Favourite Item | A drink or food item that a particular customer frequently orders or prefers.
 Graphical User Interface (GUI) | An interface that the user interacts with using visual elements like buttons, icons and windows.
+Home Folder | The Folder that the CaféConnect Application is located when run from the command line.
 Index | The application number of the customer or staff displayed in the list.
 Jar | The file format used for the CaféConnect application.
+JDK | JDK stands for Java Development Kit, and it's a software development environment used for developing applications and applets using the Java programming language.
 Parameter | The details needed to perform specific commands (e.g., Add command has parameters for name, phone, etc.).
 Performance Rating | A numeric value between 0 and 5.0 that represents a staff member's performance evaluation.
 Prefix | A character or set of characters at the beginning of a parameter that identifies its type (e.g., 'n/' for name, 'p/' for phone).
