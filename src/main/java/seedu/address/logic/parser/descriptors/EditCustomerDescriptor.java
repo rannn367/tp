@@ -24,6 +24,7 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
     private FavouriteItem favouriteItem;
     private TotalSpent totalSpent;
 
+
     public EditCustomerDescriptor() {
     }
 
@@ -85,6 +86,8 @@ public class EditCustomerDescriptor extends EditPersonDescriptor {
     public void setTotalSpent(TotalSpent totalSpent) {
         this.totalSpent = totalSpent;
     }
+
+
 
     @Override
     public boolean equals(Object other) {

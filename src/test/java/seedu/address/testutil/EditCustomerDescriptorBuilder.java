@@ -41,6 +41,7 @@ public class EditCustomerDescriptorBuilder {
         descriptor.setPhone(customer.getPhone());
         descriptor.setEmail(customer.getEmail());
         descriptor.setAddress(customer.getAddress());
+        descriptor.setRemark(customer.getRemark());
         descriptor.setTags(customer.getTags());
         descriptor.setCustomerId(customer.getCustomerId());
         descriptor.setRewardPoints(customer.getRewardPoints());

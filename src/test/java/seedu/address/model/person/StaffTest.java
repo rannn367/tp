@@ -93,9 +93,10 @@ public class StaffTest {
     public void toStringMethod() {
         String expected = Staff.class.getCanonicalName() + "{staffId=" + ALEX.getStaffId() + ", "
                 + "name=" + ALEX.getName() + ", phone=" + ALEX.getPhone() + ", email=" + ALEX.getEmail()
-                + ", address=" + ALEX.getAddress() + ", tags=" + ALEX.getTags() + ", role=" + ALEX.getRole()
-                + ", shiftTiming=" + ALEX.getShiftTiming() + ", hoursWorked=" + ALEX.getHoursWorked()
-                + ", performanceRating=" + ALEX.getPerformanceRating() + "}";
+                + ", address=" + ALEX.getAddress() + ", remark=" + ALEX.getRemark() + ", tags=" + ALEX.getTags()
+                + ", role=" + ALEX.getRole() + ", shiftTiming=" + ALEX.getShiftTiming() + ", hoursWorked="
+                + ALEX.getHoursWorked() + ", performanceRating=" + ALEX.getPerformanceRating()
+                + "}";
         assertEquals(expected, ALEX.toString());
     }
 }

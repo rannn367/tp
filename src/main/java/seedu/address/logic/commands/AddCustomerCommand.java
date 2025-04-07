@@ -59,6 +59,7 @@ public class AddCustomerCommand extends Command {
             + PREFIX_VISIT_COUNT + "8 "
             + PREFIX_FAVOURITE_ITEM + "Cappuccino "
             + PREFIX_TOTAL_SPENT + "120.50 "
+            + PREFIX_REMARK + "Handsome "
             + PREFIX_TAG + "regular "
             + PREFIX_TAG + "vip\n";
 

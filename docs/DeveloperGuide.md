@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-CafeConnect is based on the AddressBook-Level3 project created by the SE-EDU initiative
+CafeConnect is based on the AddressBook-Level3 project created by the SE-EDU initiative.
 It incorporates the following third-party libraries: JavaFX, Jackson, JUnit5.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -239,7 +239,7 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddressBookParser` creates an instance of `AddStaffCommandParser` to parse the user input string.
 
-`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, and `t/`.
+`AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, `r/` and `t/`.
 It ensures that:
 - The **ID prefix** `sid/` must start with a "S" followed by digits (e.g., S1001, s1001).
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
@@ -250,6 +250,7 @@ It ensures that:
 - The **shift prefix** `shift/` must contain a non-empty shift.
 - The **hours prefix** `hours/` must contain a non-negative integer.
 - The **rating prefix** `rating/` must contain only digits that are between 0 and 5.0 (inclusive) and of 1 decimal place.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
@@ -326,7 +327,7 @@ If the index is valid, `EditStaffCommand`:
 
 `AddressBookParser` creates an instance of `AddCustomerCommandParser` to parse the user input string.
 
-`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, and `t/`.
+`AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, `r/` and `t/`.
 It ensures that:
 - The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
 - The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
@@ -337,6 +338,7 @@ It ensures that:
 - The **visit count prefix** `vc/` must contain only digits.
 - The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
 - The **total spent prefix** `ts/` must contain only digits representing the amount in dollars.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddCustomerCommand` based on the user input.
@@ -1046,7 +1048,7 @@ testers are expected to do more *exploratory* testing.
 
 5. Finding customers
    1. Test case: `customerfind John`<br>
-      Expected: Displays all customers with "John" in their name.
+      Expected: Displays all customers with "John" in their name, if no customer present, shows the full list of customers.
    2. Test case: `cf n/John`<br>
       Expected: Same as above, using the command abbreviation.
    3. Test case: `customerfind all/true`<br>
@@ -1084,7 +1086,7 @@ testers are expected to do more *exploratory* testing.
 
 5. Finding staff
    1. Test case: `stafffind n/Jane`<br>
-      Expected: Displays all staff with "Jane" in their name.
+      Expected: Displays all staff with "Jane" in their name, if no customer present, shows the full list of staff present.
    2. Test case: `sf Jane`<br>
       Expected: Same as above, using the command abbreviation.
    3. Test case: `stafffind all/true`<br>
@@ -1186,4 +1188,12 @@ Given below are enhancements planned for future versions. <br>
    - Planned enhancement: We plan to update the right panel display when filtering commands are executed, either by clearing the display or by showing the first result of the new filtered list.
    <br></br>
    - Justification: The current behavior creates a confusing user experience where the information displayed on the right doesn't match the context of the current filtered list. This enhancement will ensure that the UI remains consistent and intuitive during filtering operations.
+   <br></br>
+
+3. **Relax name constraints to support more diverse naming conventions**
+   - Current behaviour: According to the user guide, names should only contain alphanumeric characters and spaces, and names must not be blank and must not be longer than 50 characters. This is too restrictive to handle the diversity of names in the real world.
+   <br></br>
+   - Planned enhancement: We plan to expand the allowed characters in names to include common special characters found in names worldwide, such as hyphens, apostrophes, and certain accented characters.
+   <br></br>
+   - Justification: The current constraints do not accommodate many legitimate names used globally. For example, names like "O'Connor", "López-García", or names containing non-English characters are currently rejected by the system. Relaxing these constraints will make our application more inclusive and internationally friendly.
    <br></br>

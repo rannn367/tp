@@ -134,6 +134,7 @@ public class Customer extends Person {
                 .add("phone", getPhone())
                 .add("email", getEmail())
                 .add("address", getAddress())
+                .add("remark", getRemark())
                 .add("tags", getTags())
                 .add("rewardPoints", rewardPoints)
                 .add("visitCount", visitCount)

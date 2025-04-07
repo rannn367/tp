@@ -371,11 +371,12 @@ Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_
 * `VISIT_COUNT` should only contain digits
 * `FAVOURITE_ITEM` can take any value, and it should not be blank and must not be longer than 30 characters
 * `TOTAL_SPENT` should be a non-negative number with at most one decimal point and either one or two decimal places, representing the amount in dollars
+* `REMARK` can take any value up to 50 characters, optional field
 * `TAG` can take any alphanumeric value, but should not contain spaces, optional field
 
 
 Examples:
-* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
+* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular t/vip r/Handsome`
 * `ca cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
 
 These are the before and after images of the first example
@@ -495,6 +496,7 @@ Format: `customerfind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID]
 Format: `customerfind all/true` (to list all customers)
 
 * The search will return all customers who matches the specified search criteria.
+* If no customer matches the specified search criteria, the full list of customers will be shown.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
 * The keywords search for `[n/NAME]` will return close matches as well. For example, searching for `n/all` will match ali.
@@ -538,11 +540,12 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 * `SHIFT_TIMING` can take any value, and it should not be blank and must not be longer than 50 characters
 * `HOURS_WORKED` should only contain digits
 * `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive) with at most one decimal place.
+* `REMARK` can take any value up to 50 characters, optional field
 * `TAG` can take any alphanumeric value, but should not contain spaces, optional field
 
 Examples:
-* `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced`
-* `sa sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime`
+* `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced r/Pretty`
+* `sa sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime r/Handsome`
 
 These are the before and after images of the first example
 
@@ -659,6 +662,7 @@ Format: `stafffind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role
 Format: `stafffind all/true` (to list all staff)
 
 * The search will return all staffs who matches the specified search criteria.
+* If no staff matches the specified search criteria, the full list of staff will be shown.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.
@@ -1014,8 +1018,8 @@ Check that you have the `cafeconnect.jar` in the correct folder and copied the c
 
 Command | Format | Examples
 --------|--------|---------
-**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
-**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…` | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular`
+**Add Customer** | `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [r/REMARK] [t/TAG]…` | `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 r/Handsome t/regular`
+**Add Customer (Alias)** | `ca cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [r/TAG] [t/TAG]…` | `ca cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 r/Handsome t/regular`
 **Quick Add Customer** | `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>` | `quickcustomeradd C0102:Charlie:97285712`
 **Quick Add Customer (Alias)** | `qca <CUSTOMER_ID>:<NAME>:<PHONE>` | `qca C0102:Charlie:97285712`
 **Delete Customer** | `customerdelete INDEX` | `customerdelete 2`
@@ -1026,8 +1030,8 @@ Command | Format | Examples
 **Find Customer (Alias)** | `cf [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...` | `cf n/John Doe`
 **List All Customers** | `customerfind all/true` | -
 **List All Customers (Alias)** | `cf all/true` | -
-**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
-**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...` | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime`
+**Add Staff** | `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [r/REMARK] [t/TAG]...` | `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 r/Best Barista t/fullTime`
+**Add Staff (Alias)** | `sa sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [r/REMARK] [t/TAG]...` | `sa sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 r/Best Barista t/fullTime`
 **Quick Add Staff** | `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>` | `quickstaffadd S0102:Ali:98291029`
 **Quick Add Staff (Alias)** | `qsa <STAFF_ID>:<NAME>:<PHONE>` | `qsa S0102:Ali:98291029`
 **Delete Staff** | `staffdelete INDEX` | `staffdelete 2`
@@ -1040,6 +1044,8 @@ Command | Format | Examples
 **List All Staff (Alias)** | `sf all/true` | -
 **Add Drink** | `drinkadd n/NAME p/PRICE c/CATEGORY` | `drinkadd n/Iced Latte p/4.50 c/Coffee`
 **Add Drink (Alias)** | `da n/NAME p/PRICE c/CATEGORY` | `da n/Iced Latte p/4.50 c/Coffee`
+**Delete Drink** | `drinkdelete INDEX` | `drinkdelete 1`
+**Delete Drink (Alias)** | `dd INDEX` | `dd 1`
 **Purchase** | `purchase INDEX n/DRINK_NAME [redeem/true]` | `purchase 1 n/Espresso` or `purchase 2 n/Cappuccino redeem/true`
 **Purchase (Alias)** | `p INDEX n/DRINK_NAME [redeem/true]` | `p 1 n/Espresso` or `p 2 n/Cappuccino redeem/true`
 **Quick Purchase** | `quickpurchase INDEX:DRINK_NAME[:r]` | `quickpurchase 1:Espresso` or `quickpurchase 2:Cappuccino:r`
