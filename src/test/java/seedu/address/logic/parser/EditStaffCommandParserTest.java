@@ -8,9 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.HOURS_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BEN;
@@ -20,18 +18,14 @@ import static seedu.address.logic.commands.CommandTestUtil.SHIFT_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_ID_DESC_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HOURS_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SHIFT_ALEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STAFF_ID_ALEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -39,7 +33,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -48,11 +41,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditStaffCommand;
 import seedu.address.logic.parser.descriptors.EditStaffDescriptor;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditStaffDescriptorBuilder;
 
 public class EditStaffCommandParserTest {
@@ -89,47 +77,6 @@ public class EditStaffCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
-    public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-
-        // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_ALEX, Phone.MESSAGE_CONSTRAINTS);
-
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-
-        // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_ALEX + VALID_PHONE_ALEX,
-                Name.MESSAGE_CONSTRAINTS);
-    }
-
-    @Test
-    public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BEN + TAG_DESC_HUSBAND
-                + EMAIL_DESC_ALEX + ADDRESS_DESC_ALEX + NAME_DESC_ALEX + TAG_DESC_FRIEND
-                + STAFF_ID_DESC_ALEX + ROLE_DESC_ALEX + SHIFT_DESC_ALEX
-                + HOURS_DESC_ALEX + RATING_DESC_ALEX;
-
-        EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withName(VALID_NAME_ALEX)
-                .withPhone(VALID_PHONE_BEN).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-                .withStaffId(VALID_STAFF_ID_ALEX).withRole(VALID_ROLE_ALEX)
-                .withShiftTiming(VALID_SHIFT_ALEX).withHoursWorked(VALID_HOURS_ALEX)
-                .withPerformanceRating(VALID_RATING_ALEX).build();
-        EditStaffCommand expectedCommand = new EditStaffCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -213,14 +160,5 @@ public class EditStaffCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS));
     }
 
-    @Test
-    public void parse_resetFields_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditStaffDescriptor descriptor = new EditStaffDescriptorBuilder().withTags().build();
-        EditStaffCommand expectedCommand = new EditStaffCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
 }

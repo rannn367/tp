@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERFORMANCE_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
@@ -99,7 +100,7 @@ public class CommandTestUtil {
     public static final String INVALID_FAVOURITE_ITEM_DESC = " " + PREFIX_FAVOURITE_ITEM;
     // negative total spent not allowed
     public static final String INVALID_TOTAL_SPENT_DESC = " " + PREFIX_TOTAL_SPENT + "-50.0";
-
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + " "; // empty remark not allowed
     public static final String VALID_NAME_ALEX = "Alex Tan";
     public static final String VALID_NAME_BEN = "Ben Lim";
     public static final String VALID_PHONE_ALEX = "33333333";
@@ -146,7 +147,8 @@ public class CommandTestUtil {
     public static final String HOURS_DESC_BEN = " " + PREFIX_HOURS_WORKED + VALID_HOURS_BEN;
     public static final String RATING_DESC_ALEX = " " + PREFIX_PERFORMANCE_RATING + VALID_RATING_ALEX;
     public static final String RATING_DESC_BEN = " " + PREFIX_PERFORMANCE_RATING + VALID_RATING_BEN;
-
+    public static final String REMARK_DESC_ALEX = " " + PREFIX_REMARK + VALID_REMARK_ALEX;
+    public static final String REMARK_DESC_BEN = " " + PREFIX_REMARK + VALID_REMARK_BEN;
     // Constants for James Wilson
     public static final String VALID_NAME_JAMES = "James Wilson";
     public static final String VALID_PHONE_JAMES = "91234789";

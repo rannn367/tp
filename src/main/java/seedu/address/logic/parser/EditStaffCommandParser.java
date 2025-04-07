@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS_WORKED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERFORMANCE_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHIFT_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAFF_ID;
@@ -37,7 +38,7 @@ public class EditStaffCommandParser implements Parser<EditStaffCommand> {
     public EditStaffCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK,
                 PREFIX_STAFF_ID, PREFIX_ROLE, PREFIX_SHIFT_TIMING, PREFIX_HOURS_WORKED, PREFIX_PERFORMANCE_RATING);
 
         Index index;
@@ -49,7 +50,8 @@ public class EditStaffCommandParser implements Parser<EditStaffCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-            PREFIX_STAFF_ID, PREFIX_ROLE, PREFIX_SHIFT_TIMING, PREFIX_HOURS_WORKED, PREFIX_PERFORMANCE_RATING);
+            PREFIX_STAFF_ID, PREFIX_ROLE, PREFIX_SHIFT_TIMING, PREFIX_HOURS_WORKED, PREFIX_PERFORMANCE_RATING,
+            PREFIX_REMARK);
 
         EditStaffDescriptor editStaffDescriptor = new EditStaffDescriptor();
 
@@ -84,6 +86,11 @@ public class EditStaffCommandParser implements Parser<EditStaffCommand> {
         if (argMultimap.getValue(PREFIX_PERFORMANCE_RATING).isPresent()) {
             editStaffDescriptor.setPerformanceRating(
                 ParserUtil.parsePerformanceRating(argMultimap.getValue(PREFIX_PERFORMANCE_RATING).get())
+            );
+        }
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editStaffDescriptor.setRemark(
+                    ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get())
             );
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStaffDescriptor::setTags);
