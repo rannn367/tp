@@ -62,7 +62,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
                                 name.toLowerCase(),
                                 keyword.length() <= 4 ? 1 : DEFAULT_MAX_LEVENSHTEIN_DISTANCE,
                                 FUZZY_MATCH_THRESHOLD)));
-    }   
+    }
 
     @Override
     public boolean equals(Object other) {
