@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_STAFF_DISPLAYED_INDEX;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteStaffCommand;
@@ -17,6 +18,9 @@ public class DeleteStaffCommandParser implements Parser<DeleteStaffCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteStaffCommand parse(String args) throws ParseException {
+        if (args.trim().matches("0|-\\d+")) {
+            throw new ParseException(MESSAGE_INVALID_STAFF_DISPLAYED_INDEX);
+        }
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteStaffCommand(index);
