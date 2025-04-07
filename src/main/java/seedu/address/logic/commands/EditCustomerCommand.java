@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
@@ -45,6 +46,7 @@ public class EditCustomerCommand extends Command {
         + "[" + PREFIX_VISIT_COUNT + "VISIT_COUNT] "
         + "[" + PREFIX_FAVOURITE_ITEM + "FAVOURITE_ITEM] "
         + "[" + PREFIX_TOTAL_SPENT + "TOTAL_SPENT]\n"
+        + "[" + PREFIX_REMARK + "REMARK]"
         + "[" + PREFIX_TAG + "TAG]... "
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PHONE + "91234567 "
@@ -129,6 +131,9 @@ public class EditCustomerCommand extends Command {
                 .orElse(builder);
         builder = editCustomerDescriptor.getFavouriteItem()
                 .map(builder::withFavouriteItem)
+                .orElse(builder);
+        builder = editCustomerDescriptor.getRemark()
+                .map(builder::withRemark)
                 .orElse(builder);
         builder = editCustomerDescriptor.getTotalSpent()
                 .map(builder::withTotalSpent)

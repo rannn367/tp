@@ -371,11 +371,12 @@ Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_
 * `VISIT_COUNT` should only contain digits
 * `FAVOURITE_ITEM` can take any value, and it should not be blank and must not be longer than 30 characters
 * `TOTAL_SPENT` should be a non-negative number with at most one decimal point and either one or two decimal places, representing the amount in dollars
+* `REMARK` can take any value up to 50 characters, optional field
 * `TAG` can take any alphanumeric value, but should not contain spaces, optional field
 
 
 Examples:
-* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120`
+* `customeradd cid/C001 n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 rp/150 vc/8 fi/Cappuccino ts/120 t/regular t/vip r/Handsome`
 * `ca cid/C002 n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison rp/300 vc/15 fi/Mocha ts/250 t/vip t/regular`
 
 These are the before and after images of the first example
@@ -495,6 +496,7 @@ Format: `customerfind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [cid/CUSTOMER_ID]
 Format: `customerfind all/true` (to list all customers)
 
 * The search will return all customers who matches the specified search criteria.
+* If no customer matches the specified search criteria, the full list of customers will be shown.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
 * The keywords search for `[n/NAME]` will return close matches as well. For example, searching for `n/all` will match ali.
@@ -538,11 +540,12 @@ Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/
 * `SHIFT_TIMING` can take any value, and it should not be blank and must not be longer than 50 characters
 * `HOURS_WORKED` should only contain digits
 * `PERFORMANCE_RATING` should only contain digits, and it should be between 0 to 5.0 (inclusive) with at most one decimal place.
+* `REMARK` can take any value up to 50 characters, optional field
 * `TAG` can take any alphanumeric value, but should not contain spaces, optional field
 
 Examples:
-* `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced`
-* `sa sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime`
+* `staffadd sid/S1234 n/Alice Tan p/81234567 e/alice@example.com a/123, Jurong West Ave 6, #08-111 role/Barista shift/9am-5pm hours/40 rating/4.5 t/fullTime t/experienced r/Pretty`
+* `sa sid/S0101 n/Bob Lim p/82019292 e/bob@example.com a/123, Tampines West Ave 7, #09-121 role/Barista shift/5pm-11pm hours/30 rating/4.5 t/fullTime r/Handsome`
 
 These are the before and after images of the first example
 
@@ -659,6 +662,7 @@ Format: `stafffind [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [sid/STAFF_ID] [role
 Format: `stafffind all/true` (to list all staff)
 
 * The search will return all staffs who matches the specified search criteria.
+* If no staff matches the specified search criteria, the full list of staff will be shown.
 * At least one of the optional fields must be provided or `all/true`.
 * The keyword search for `[n/NAME]` do not need to match the full name exactly; partial matches within the name are included. For example, searching `n/john doe` will match `John Doe`, `John Tan`, or `Jane Doe`.
 * The keywords search for `[n/NAME]` is case-insensitive. For example, searching for `alice` will match `Alice`, `ALICE`, or `aLiCe`.

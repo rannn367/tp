@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FAVOURITE_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REWARD_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTAL_SPENT;
@@ -40,7 +41,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
                 args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_TAG, PREFIX_CUSTOMER_ID,
                 PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVOURITE_ITEM,
-                PREFIX_TOTAL_SPENT);
+                PREFIX_TOTAL_SPENT, PREFIX_REMARK);
 
         Index index;
 
@@ -52,7 +53,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-            PREFIX_CUSTOMER_ID, PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVOURITE_ITEM, PREFIX_TOTAL_SPENT);
+            PREFIX_CUSTOMER_ID, PREFIX_REWARD_POINTS, PREFIX_VISIT_COUNT, PREFIX_FAVOURITE_ITEM, PREFIX_TOTAL_SPENT, PREFIX_REMARK);
 
         EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();
 
@@ -91,6 +92,11 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         if (argMultimap.getValue(PREFIX_TOTAL_SPENT).isPresent()) {
             editCustomerDescriptor.setTotalSpent(
                 ParserUtil.parseTotalSpent(argMultimap.getValue(PREFIX_TOTAL_SPENT).get())
+            );
+        }
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editCustomerDescriptor.setRemark(
+                ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get())
             );
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCustomerDescriptor::setTags);

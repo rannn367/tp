@@ -54,6 +54,7 @@ public class AddStaffCommand extends Command {
             + PREFIX_SHIFT_TIMING + "9am-5pm "
             + PREFIX_HOURS_WORKED + "40 "
             + PREFIX_PERFORMANCE_RATING + "4.5 "
+            + PREFIX_REMARK + "Best Barista "
             + PREFIX_TAG + "fullTime "
             + PREFIX_TAG + "experienced\n";
 

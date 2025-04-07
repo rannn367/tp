@@ -1046,7 +1046,7 @@ testers are expected to do more *exploratory* testing.
 
 5. Finding customers
    1. Test case: `customerfind John`<br>
-      Expected: Displays all customers with "John" in their name.
+      Expected: Displays all customers with "John" in their name, if no customer present, shows the full list of customers.
    2. Test case: `cf n/John`<br>
       Expected: Same as above, using the command abbreviation.
    3. Test case: `customerfind all/true`<br>
@@ -1084,7 +1084,7 @@ testers are expected to do more *exploratory* testing.
 
 5. Finding staff
    1. Test case: `stafffind n/Jane`<br>
-      Expected: Displays all staff with "Jane" in their name.
+      Expected: Displays all staff with "Jane" in their name, if no customer present, shows the full list of staff present.
    2. Test case: `sf Jane`<br>
       Expected: Same as above, using the command abbreviation.
    3. Test case: `stafffind all/true`<br>
@@ -1186,4 +1186,12 @@ Given below are enhancements planned for future versions. <br>
    - Planned enhancement: We plan to update the right panel display when filtering commands are executed, either by clearing the display or by showing the first result of the new filtered list.
    <br></br>
    - Justification: The current behavior creates a confusing user experience where the information displayed on the right doesn't match the context of the current filtered list. This enhancement will ensure that the UI remains consistent and intuitive during filtering operations.
+   <br></br>
+
+3. **Relax name constraints to support more diverse naming conventions**
+   - Current behaviour: According to the user guide, names should only contain alphanumeric characters and spaces, and names must not be blank and must not be longer than 50 characters. This is too restrictive to handle the diversity of names in the real world.
+   <br></br>
+   - Planned enhancement: We plan to expand the allowed characters in names to include common special characters found in names worldwide, such as hyphens, apostrophes, and certain accented characters.
+   <br></br>
+   - Justification: The current constraints do not accommodate many legitimate names used globally. For example, names like "O'Connor", "López-García", or names containing non-English characters are currently rejected by the system. Relaxing these constraints will make our application more inclusive and internationally friendly.
    <br></br>

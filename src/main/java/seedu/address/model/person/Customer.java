@@ -139,6 +139,7 @@ public class Customer extends Person {
                 .add("visitCount", visitCount)
                 .add("favouriteItem", favouriteItem)
                 .add("totalSpent", totalSpent)
+                .add("remark", getRemark())
                 .toString();
     }
 }
