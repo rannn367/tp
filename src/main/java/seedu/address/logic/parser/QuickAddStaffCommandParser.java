@@ -26,7 +26,7 @@ public class QuickAddStaffCommandParser implements Parser<QuickAddStaffCommand> 
 
     private static final String DEFAULT_EMAIL = "default@gmail.com";
     private static final String DEFAULT_ADDRESS = "empty";
-    private static final String DEFAULT_REMARK = "From quickaddstaff. Edit with staffedit.";
+    private static final String DEFAULT_REMARK = "From quickstaffadd. Edit with staffedit.";
     private static final String DEFAULT_ROLE = "empty";
     private static final String DEFAULT_SHIFT_TIMING = "empty";
     private static final String DEFAULT_HOURS_WORKED = "0";

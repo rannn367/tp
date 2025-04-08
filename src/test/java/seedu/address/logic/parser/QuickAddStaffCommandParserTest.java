@@ -35,7 +35,7 @@ public class QuickAddStaffCommandParserTest {
                         new Phone("92012012"),
                         new Email("default@gmail.com"),
                         new Address("empty"),
-                        new Remark("From quickaddstaff. Edit with staffedit."),
+                        new Remark("From quickstaffadd. Edit with staffedit."),
                         Set.of(),
                         new StaffId("S0101"),
                         new Role("empty"),

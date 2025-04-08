@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Role can take any value, and it should not be blank";
+            "Role can take any value, but should not exceed 50 characters, and it should not be blank";
 
     /*
      * The role must not be blank.

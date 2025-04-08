@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ShiftTiming {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Shift timing can take any values, and it should not be blank";
+            "Shift timing can take any values but should not exceed 50 characters, and it should not be blank";
 
     /*
      * The shift timing must not be blank.

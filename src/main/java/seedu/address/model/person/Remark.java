@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Remark {
 
-    public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values";
+    public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values but should not exceed 50 characters";
 
     /*
      * No validation for remarks as it can take any value,

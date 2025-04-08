@@ -35,7 +35,7 @@ public class QuickAddCustomerCommandParserTest {
                         new Phone("91234567"),
                         new Email("default@gmail.com"),
                         new Address("empty"),
-                        new Remark("From quickaddcustomer. Edit with customeredit."),
+                        new Remark("From quickcustomeradd. Edit with customeredit."),
                         Set.of(),
                         new CustomerId("C1230"),
                         new RewardPoints("0"),
