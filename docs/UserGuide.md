@@ -786,11 +786,11 @@ These are the before and after images of a standard purchase using the first exa
 
 <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/before_purchase.png" alt="Before standard purchase" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/before_quickpurchase.png" alt="Before standard purchase" style="max-width: 100%; height: auto;"/>
     <p><i>Before standard purchase</i></p>
   </div>
   <div style="text-align: center; max-width: 48%;">
-    <img src="images/UG_Ui_Images/after_purchase.png" alt="After standard purchase (points added and total spent increased)" style="max-width: 100%; height: auto;"/>
+    <img src="images/UG_Ui_Images/after_quickpurchase.png" alt="After standard purchase (points added and total spent increased)" style="max-width: 100%; height: auto;"/>
     <p><i>After standard purchase (points added and total spent increased)</i></p>
   </div>
 </div>
