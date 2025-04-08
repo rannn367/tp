@@ -407,13 +407,13 @@ Format: `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>`
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 * Other fields will be populated with default values:
-    * Email: default@gmail.com
-    * Address: empty
-    * Reward Points: 0
-    * Visit Count: 1
-    * Favourite Item: empty
-    * Total Spent: 0
-    * Remark: "From quickcustomeradd. Edit with customeredit."
+    * `Email`: default@gmail.com
+    * `Address`: empty
+    * `Reward Points`: 0
+    * `Visit Count`: 1
+    * `Favourite Item`: empty
+    * `Total Spent`: 0
+    * `Remar`k: "From quickcustomeradd. Edit with customeredit."
 
 Examples:
 * `quickcustomeradd C0102:Charlie:97285712`
@@ -585,13 +585,13 @@ Format: `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>`
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
 * Other fields will be populated with default values:
-    * Email: default@gmail.com
-    * Address: empty
-    * Role: empty
-    * Shift Timing: empty
-    * Hours Worked: 0
-    * Performance Rating: 0
-    * Remark: "From quickstaffadd. Edit with staffedit."
+    * `Email`: default@gmail.com
+    * `Address`: empty
+    * `Role`: empty
+    * `Shift Timing`: empty
+    * `Hours Worked`: 0
+    * `Performance Rating`: 0
+    * `Remark`: "From quickstaffadd. Edit with staffedit."
 
 Examples:
 * `quickstaffadd S0102:Ali:98291029`
