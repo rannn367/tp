@@ -159,7 +159,11 @@ public class StaffDetailPanel extends UiPart<Region> {
 
                 if (staff.getTags() != null) {
                     staff.getTags().forEach(tag -> {
-                        Label tagLabel = new Label(tag.tagName);
+                        String tagName = tag.tagName;
+                        if (tagName.length() > 15) {
+                            tagName = tagName.substring(0, 15) + "...";
+                        }
+                        Label tagLabel = new Label(tagName);
                         tagLabel.getStyleClass().add("tag");
                         tags.getChildren().add(tagLabel);
                     });
