@@ -107,7 +107,7 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
   * [Quick start](#quick-start)
   * [Understanding Command Syntax](#understanding-command-syntax)
     * [Basic Command Rules](#basic-command-rules)
-    * [Parameter Command Rules](#parameter-command-rules)
+    * [Parameter Order Rules](#parameter-order-rules)
     * [Command Alias](#command-alias)
   * [Features](#features)
     * [Adding a customer: `customeradd` or `ca`](#adding-a-customer-customeradd-or-ca)
