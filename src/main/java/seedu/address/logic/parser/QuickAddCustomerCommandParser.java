@@ -25,11 +25,11 @@ import seedu.address.model.tag.Tag;
 public class QuickAddCustomerCommandParser implements Parser<QuickAddCustomerCommand> {
     private static final String DEFAULT_EMAIL = "default@gmail.com";
     private static final String DEFAULT_ADDRESS = "empty";
-    private static final String DEFAULT_REMARK = "";
+    private static final String DEFAULT_REMARK = "From quickcustomeradd. Edit with customeredit.";
     private static final String DEFAULT_VISIT_COUNT = "1";
-    private static final String DEFAULT_TOTAL_SPENT = "10";
+    private static final String DEFAULT_TOTAL_SPENT = "0";
     private static final String DEFAULT_REWARD_POINTS = "0";
-    private static final String DEFAULT_FAVOURITE_ITEM = "unknown";
+    private static final String DEFAULT_FAVOURITE_ITEM = "empty";
 
     /**
      * Parses the given {@code String} of arguments in the context of the QuickAddCustomerCommand
