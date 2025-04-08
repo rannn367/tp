@@ -68,8 +68,10 @@ package "Person Model" as PersonModel {
     }
 
     class Remark {
-        - remark: String
-        + getRemark(): String
+        - {static} MESSAGE_CONSTRAINTS: String
+        - {static} VALIDATION_REGEX: String
+        - value: String
+        + {static} isValidRemark(String): boolean
         + equals(Object): boolean
         + hashCode(): int
         + toString(): String
@@ -96,6 +98,7 @@ package "Person Model" as PersonModel {
         + setPersons(List<Person>): void
         + setPersons(UniquePersonList): void
         + asUnmodifiableObservableList(): ObservableList<Person>
+        + getFilteredList<T extends Person>(Class<T>): FilteredList<T>
         + iterator(): Iterator<Person>
         + equals(Object): boolean
         + hashCode(): int
