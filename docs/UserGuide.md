@@ -464,7 +464,7 @@ These are the before and after images of the first example
 
 Edits the details of an existing customer in the customer list.
 
-Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG] [r/REMARKS]...`
+Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG] [r/REMARK]...`
 
 * Edits the customer at the specified `INDEX`.
 * The `INDEX` refers to the index number shown in the displayed customer list.
