@@ -360,7 +360,7 @@ Format: `help`
 
 Adds a customer to the customer list with required details such as customer ID, name, phone, email, address, reward points, visit count, favourite item, and total spent.
 
-Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG]…`
+Format: `customeradd cid/CUSTOMER_ID n/NAME p/PHONE e/EMAIL a/ADDRESS rp/REWARD_POINTS vc/VISIT_COUNT fi/FAVOURITE_ITEM ts/TOTAL_SPENT [t/TAG] [r/REMARK]…`
 
 * `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
 * Leading zeroes will be trimmed from the `STAFF_ID` input. e.g. S00045 will be treated as S45
@@ -406,6 +406,14 @@ Format: `quickcustomeradd <CUSTOMER_ID>:<NAME>:<PHONE>`
 * `CUSTOMER_ID` should start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
+* Other fields will be populated with default values:
+    * Email: default@gmail.com
+    * Address: empty
+    * Reward Points: 0
+    * Visit Count: 1
+    * Favourite Item: empty
+    * Total Spent: 0
+    * Remark: "From quickcustomeradd. Edit with customeredit."
 
 Examples:
 * `quickcustomeradd C0102:Charlie:97285712`
@@ -456,7 +464,7 @@ These are the before and after images of the first example
 
 Edits the details of an existing customer in the customer list.
 
-Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG]...`
+Format: `customeredit INDEX [cid/CUSTOMER_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [rp/REWARD_POINTS] [vc/VISIT_COUNT] [fi/FAVOURITE_ITEM] [ts/TOTAL_SPENT] [t/TAG] [r/REMARKS]...`
 
 * Edits the customer at the specified `INDEX`.
 * The `INDEX` refers to the index number shown in the displayed customer list.
@@ -532,7 +540,7 @@ These are the before and after images of the second example
 
 Adds a staff to the staff list with required details such as staff ID, name, phone, email, address, role, shift, hours worked, and performance rating.
 
-Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG]...…`
+Format: `staffadd sid/STAFF_ID n/NAME p/PHONE e/EMAIL a/ADDRESS role/ROLE shift/SHIFT_TIMING hours/HOURS_WORKED rating/PERFORMANCE_RATING [t/TAG] [r/REMARK]...…`
 
 * `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed.
 * Leading zeroes will be trimmed from the `STAFF_ID` input. e.g. S00045 will be treated as S45
@@ -576,6 +584,14 @@ Format: `quickstaffadd <STAFF_ID>:<NAME>:<PHONE>`
 * `STAFF_ID` should start with an 'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed
 * `NAME` should only contain alphanumeric characters and spaces, and it should not be blank and must not be longer than 50 characters
 * `PHONE` should only contain digits, and it should be between 3 and 20 digits long
+* Other fields will be populated with default values:
+    * Email: default@gmail.com
+    * Address: empty
+    * Role: empty
+    * Shift Timing: empty
+    * Hours Worked: 0
+    * Performance Rating: 0
+    * Remark: "From quickstaffadd. Edit with staffedit."
 
 Examples:
 * `quickstaffadd S0102:Ali:98291029`
@@ -626,7 +642,7 @@ These are the before and after images of the first example
 
 Edits the details of an existing staff in the staff list.
 
-Format: `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG]...`
+Format: `staffedit INDEX [sid/STAFF_ID] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [role/ROLE] [shift/SHIFT_TIMING] [hours/HOURS_WORKED] [rating/PERFORMANCE_RATING] [t/TAG] [r/REMARK]...`
 
 * Edits the staff at the specified `INDEX`.
 * The `INDEX` refers to the index number shown in the displayed staff list.
