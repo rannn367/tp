@@ -154,8 +154,10 @@ The `Staff` model:
 * Extends the `Person` class, inheriting all person attributes
 * Adds staff-specific fields: `StaffId`, `Role`, `ShiftTiming`, `HoursWorked`, and `PerformanceRating`
 * Uses `StaffId` as the primary identifier for staff members
-* Is stored in a `UniqueStaffList` that enforces uniqueness based on staff IDs
+   * `StaffId` is used in `Staff::isSamePerson` to determine staff uniqueness
 * Implements staff-specific behavior for operations like performance tracking
+* Is stored in a `UniquePersonList` that enforces uniqueness based on `Staff::isSamePerson`
+   * Possible since `Staff` extends `Person` class
 
 #### Customer Model
 <puml src="diagrams/CustomerModelClassDiagram.puml" width="750" />
@@ -165,8 +167,10 @@ The `Customer` model:
 * Extends the `Person` class, inheriting all person attributes
 * Adds customer-specific fields: `CustomerId`, `RewardPoints`, `VisitCount`, `FavouriteItem`, and `TotalSpent`
 * Uses `CustomerId` as the primary identifier for customers
-* Is stored in a `UniqueCustomerList` that enforces uniqueness based on customer IDs
-* Implements customer-specific behavior, including reward point tracking, visit counting, and spending history
+   * `CustomerId` is used in `Customer::isSamePerson` to determine customer uniqueness
+* Implements customer-specific behavior for operations like reward point tracking and visit counting
+* Is stored in a `UniquePersonList` that enforces uniqueness based on `Customer::isSamePerson`
+   * Possible since `Customer` extends `Person` class
 
 #### Drink Model
 <puml src="diagrams/DrinkModelClassDiagram.puml" width="750" />
