@@ -44,7 +44,7 @@ public class QuickAddStaffCommandParserTest {
                         new PerformanceRating("0")
                 )
         );
-    
+
         // Assert that the parsed command matches the expected command
         assertParseSuccess(parser, userInput, expectedCommand);
     }
