@@ -68,21 +68,52 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 The sections below give more details of each component.
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The **UI** consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StaffListPanel`, `DrinkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The **UI** consists of several key components:
 
-The **UI** component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/resources/view/MainWindow.fxml)
+1. **WelcomeScreen**: The initial screen users see when launching the application. It provides:
+   - A welcoming interface with the CafeConnect logo
+   - Buttons to access staff/customer management and drink menu
+   - A fade-in animation for a polished appearance
+
+2. **MainWindow**: The main application window that appears after the welcome screen. It contains:
+   - A tabbed interface for switching between staff, customer, and drink management
+   - Command input area for executing commands
+   - Result display area for showing command outcomes
+   - Status bar for displaying application state
+
+3. **List Panels**: Each tab contains specialized panels:
+   - `StaffListPanel`: Displays staff members with their basic information
+   - `CustomerListPanel`: Shows customers with their basic details
+   - `DrinkListPanel`: Presents the drink catalog items
+
+4. **Detail Panels**: Each list panel has a corresponding detail panel:
+   - `StaffDetailPanel`: Shows comprehensive staff information
+   - `CustomerDetailPanel`: Displays detailed customer information
+   - `DrinkDetailPanel`: Shows complete drink information
+
+5. **Support Components**:
+   - `CommandBox`: For entering commands
+   - `ResultDisplay`: Shows command execution results
+   - `StatusBarFooter`: Displays application status
+   - `HelpWindow`: Provides access to help documentation
+
+All these components inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+
+The **UI** component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-T08-3/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The **UI** component:
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
-* Keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* Depends on classes in the `Model` component, as it displays `Customer`, `Staff`, and `Drink` objects residing in the `Model`.
-* Contains a tabbed interface allowing users to switch between staff management, customer records, and the drink catalog.
-* Features visual elements like charts to display customer metrics and sales data when requested.
+* Executes user commands using the `Logic` component
+* Listens for changes to `Model` data so that the UI can be updated with the modified data
+* Keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands
+* Depends on classes in the `Model` component, as it displays `Customer`, `Staff`, and `Drink` objects residing in the `Model`
+* Contains a tabbed interface allowing users to switch between staff management, customer records, and the drink catalog
+* Features visual elements like charts to display customer metrics and sales data when requested
+* Uses custom fonts (Gotham font family) for a professional appearance
+* Implements robust error handling with user-friendly error dialogs
 
 The `HelpWindow` component is shown when you execute a help command. It contains a link to the detailed user and developer guide on this CafeConnect documentation website.
 ### Logic component
@@ -245,16 +276,16 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, `r/` and `t/`.
 It ensures that:
-- The **ID prefix** `sid/` must start with an  'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed.
-- The **name prefix** `n/` must contain only alphanumeric characters and spaces, it cannot be blank and must not be longer than 50 characters.
-- The **phone prefix** `p/` must contain only digits and be between 3 and 20 digits long.
+- The **ID prefix** `sid/` must start with a "S" followed by digits (e.g., S1001, s1001).
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
+- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
 - The **email prefix** `e/` must contain a valid email address.
-- The **address prefix** `a/` must contain a non-blank address and must not be longer than 100 characters.
-- The **role prefix** `role/` must contain a non-empty role and must not be longer than 50 characters.
-- The **shift prefix** `shift/` must contain a non-empty shift and must not be longer than 50 characters.
+- The **address prefix** `a/` must contain a non-blank address.
+- The **role prefix** `role/` must contain a non-empty role.
+- The **shift prefix** `shift/` must contain a non-empty shift.
 - The **hours prefix** `hours/` must contain a non-negative integer.
 - The **rating prefix** `rating/` must contain only digits that are between 0 and 5.0 (inclusive) and of 1 decimal place.
-- The **remark prefix** `r/`, if provided, must contain one non-empty remark up to 50 characters.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
@@ -333,16 +364,16 @@ If the index is valid, `EditStaffCommand`:
 
 `AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, `r/` and `t/`.
 It ensures that:
-- The **ID prefix** `cid/` must start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed.
-- The **name prefix** `n/` must contain only alphanumeric characters and spaces, it cannot be blank and must not be longer than 50 characters.
-- The **phone prefix** `p/` must contain only digits and be between 3 and 20 digits long.
+- The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
+- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
 - The **email prefix** `e/` must contain a valid email address.
-- The **address prefix** `a/` must contain a non-blank address and must not be longer than 100 characters.
+- The **address prefix** `a/` must contain a non-blank address.
 - The **reward points prefix** `rp/` must contain only digits.
 - The **visit count prefix** `vc/` must contain only digits.
-- The **favourite item prefix** `fi/` can take any value, but it cannot be blank and must not be longer than 30 characters.
+- The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
 - The **total spent prefix** `ts/` must contain only digits representing the amount in dollars.
-- The **remark prefix** `r/`, if provided, must contain one non-empty remark up to 50 characters.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddCustomerCommand` based on the user input.
@@ -637,7 +668,7 @@ The Café Management System is designed to help café owners efficiently manage 
 | **Technical Skills**  | Comfortable with command-line interfaces (CLI) and quick-typing, but prefer intuitive commands. |
 | **Pain Points**       | Struggles with handling large amounts of customer and staff data manually, keeping track of sales, and ensuring smooth operations. |
 | **Needs & Goals**     | Wants a **fast, no-frills, and reliable** system to manage daily tasks without unnecessary complexity. |
-| **Usage Environment** | Typically used on a **desktop or laptop** at the café’s counter or office for quick access during operations. |
+| **Usage Environment** | Typically used on a **desktop or laptop** at the café's counter or office for quick access during operations. |
 
 
 ### User stories
@@ -699,7 +730,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **Use Case: Delete a Customer**
 **MSS**
 1. Café owner requests to delete a customer.
-2. System confirms the customer’s existence.
+2. System confirms the customer's existence.
 3. System deletes the customer.
 4. System confirms deletion.
    Use case ends.
@@ -711,7 +742,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **Use Case: Edit a Customer**
 **MSS**
-1. Café owner requests to edit a customer’s details.
+1. Café owner requests to edit a customer's details.
 2. System prompts for details to edit.
 3. Café owner provides updated details.
 4. System validates and updates the details.
@@ -774,7 +805,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **Use Case: Delete a Staff Member**
 **MSS**
 1. Café owner requests to delete a staff member.
-2. System confirms the staff member’s existence.
+2. System confirms the staff member's existence.
 3. System deletes the staff member.
 4. System confirms deletion.
    Use case ends.
@@ -786,7 +817,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### **Use Case: Edit a Staff Member**
 **MSS**
-1. Café owner requests to edit a staff member’s details.
+1. Café owner requests to edit a staff member's details.
 2. System prompts for details to edit.
 3. Café owner provides updated details.
 4. System validates and updates the details.
@@ -836,7 +867,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### **Use Case: Delete a Drink**
 **MSS**
 1. Café owner requests to delete a drink.
-2. System confirms the drink’s existence.
+2. System confirms the drink's existence.
 3. System deletes the drink.
 4. System confirms deletion.
    Use case ends.
