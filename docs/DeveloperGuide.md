@@ -1283,3 +1283,14 @@ Given below are enhancements planned for future versions. <br>
    <br></br>
    - Justification: These enhancements will improve data integrity and user experience. By ensuring that favorite items refer to actual menu items, the system will provide more meaningful customer preferences data. Standardized categories will also help with menu organization and reporting on drink sales by category.
    <br></br>
+
+9. **Include text wrapping to accomodate longer inputs**
+   - Current behaviour: There are limitations in input length of fields:
+     * Fields with possibly long inputs such as Name Address etc. cannot be fully viewed if too long
+     * Long fields will end with a '...'
+   <br></br>
+   - Planned enhancement: We plan to improve this by:
+     * Including text wrapping to allow for longer inputs
+   <br></br>
+   - Justification: These enhancements will allow for easier viewing of data fields.
+   <br></br>
