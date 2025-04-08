@@ -1221,3 +1221,30 @@ Given below are enhancements planned for future versions. <br>
    <br></br>
    - Justification: This enhancement will significantly improve workflow efficiency, particularly for café owners who need to contact customers or staff via email. It eliminates the need for manual retyping, reduces the risk of typographical errors, and streamlines communication processes.
    <br></br>
+
+7. **Improve staff role and shift timing validation** 
+   - Current behaviour: Staff role and shift timing can currently accept any value, and they're only restricted by a 50-character limit. This means users can enter random strings like "-50" as a role or shift timing, which works but doesn't make semantic sense in a café context.
+   <br></br>
+   - Planned enhancement: We plan to implement a more structured approach to staff roles and shift timing by:
+     * Defining a set of standard roles (e.g., "Barista", "Manager", "Cashier") through an enumeration
+     * Implementing a proper shift timing format using Java's datetime, with clear start and end times
+     * Adding validation to ensure meaningful values are entered
+     * Potentially offering preset options like "Morning Shift (5am-1pm)" or "Evening Shift (2pm-10pm)"
+   <br></br>
+   - Justification: Proper validation of staff roles and shift timing will improve data consistency and make the application more intuitive for café owners. It prevents nonsensical data entry and will help with staff scheduling, reporting, and management functions.
+   <br></br>
+
+8. **Enhance drink menu management and validation** 
+   - Current behaviour: Currently, the application has several limitations with the drinks menu:
+     * Drink categories can be any arbitrary string (even nonsensical values like "pants")
+     * The system allows adding customers with favorite items that don't exist in the drinks menu
+     * There's no structured way to categorize drinks consistently
+   <br></br>
+   - Planned enhancement: We plan to improve the drink menu system by:
+     * Implementing predefined drink categories (e.g., "Coffee", "Tea", "Cold Drinks")
+     * Adding validation to ensure favorite items for customers exist in the current drinks menu
+     * Creating a reference system between customer favorite items and actual menu items
+     * Providing autocompletion or dropdown selection when assigning favorite items to customers
+   <br></br>
+   - Justification: These enhancements will improve data integrity and user experience. By ensuring that favorite items refer to actual menu items, the system will provide more meaningful customer preferences data. Standardized categories will also help with menu organization and reporting on drink sales by category.
+   <br></br>
