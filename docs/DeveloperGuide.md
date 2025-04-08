@@ -245,16 +245,16 @@ This section describes some noteworthy details on how certain features are imple
 
 `AddStaffCommandParser` first extracts values corresponding to the prefixes `sid/`, `n/`, `p/`, `e/`, `a/`, `role/`, `shift/`, `hours/`, `rating/`, `r/` and `t/`.
 It ensures that:
-- The **ID prefix** `sid/` must start with a "S" followed by digits (e.g., S1001, s1001).
-- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
-- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
+- The **ID prefix** `sid/` must start with an  'S' (case-insensitive) followed by digits (e.g., S1001, s1001) and must not exceed 10 characters. Duplicate staff IDs are not allowed.
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, it cannot be blank and must not be longer than 50 characters.
+- The **phone prefix** `p/` must contain only digits and be between 3 and 20 digits long.
 - The **email prefix** `e/` must contain a valid email address.
-- The **address prefix** `a/` must contain a non-blank address.
-- The **role prefix** `role/` must contain a non-empty role.
-- The **shift prefix** `shift/` must contain a non-empty shift.
+- The **address prefix** `a/` must contain a non-blank address and must not be longer than 100 characters.
+- The **role prefix** `role/` must contain a non-empty role and must not be longer than 50 characters.
+- The **shift prefix** `shift/` must contain a non-empty shift and must not be longer than 50 characters.
 - The **hours prefix** `hours/` must contain a non-negative integer.
 - The **rating prefix** `rating/` must contain only digits that are between 0 and 5.0 (inclusive) and of 1 decimal place.
-- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark up to 50 characters.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddStaffCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddStaffCommand` based on the user input.
@@ -333,16 +333,16 @@ If the index is valid, `EditStaffCommand`:
 
 `AddCustomerCommandParser` first extracts values corresponding to the prefixes `cid/`, `n/`, `p/`, `e/`, `a/`, `rp/`, `vc/`, `fi/`, `ts/`, `r/` and `t/`.
 It ensures that:
-- The **ID prefix** `cid/` must start with a "C" followed by digits (e.g., `C1001`).
-- The **name prefix** `n/` must contain only alphanumeric characters and spaces, and it cannot be blank.
-- The **phone prefix** `p/` must contain only digits and be at least 3 digits long.
+- The **ID prefix** `cid/` must start with a 'C' (case-insensitive) followed by digits, e.g., C1001, c1001, and must not be longer than 10 characters. Duplicate customer IDs are not allowed.
+- The **name prefix** `n/` must contain only alphanumeric characters and spaces, it cannot be blank and must not be longer than 50 characters.
+- The **phone prefix** `p/` must contain only digits and be between 3 and 20 digits long.
 - The **email prefix** `e/` must contain a valid email address.
-- The **address prefix** `a/` must contain a non-blank address.
+- The **address prefix** `a/` must contain a non-blank address and must not be longer than 100 characters.
 - The **reward points prefix** `rp/` must contain only digits.
 - The **visit count prefix** `vc/` must contain only digits.
-- The **favourite item prefix** `fi/` can take any value, but it cannot be blank.
+- The **favourite item prefix** `fi/` can take any value, but it cannot be blank and must not be longer than 30 characters.
 - The **total spent prefix** `ts/` must contain only digits representing the amount in dollars.
-- The **remark prefix** `r/`, if provided, must contain one non-empty remark.
+- The **remark prefix** `r/`, if provided, must contain one non-empty remark up to 50 characters.
 - The **tag prefix** `t/`, if provided, must contain one or more non-empty tags.
 
 If any of these constraints are violated, `AddCustomerCommandParser` throws a `ParseException`. Otherwise, it creates a new instance of `AddCustomerCommand` based on the user input.
