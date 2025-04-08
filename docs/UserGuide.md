@@ -102,7 +102,7 @@ First time using **CaféConnect**? Don't worry! We've got you covered! This guid
 <!-- Table of Contents -->
 
   * [Welcome to CaféConnect!](#welcome-to-cafeconnect)
-  * [Why would you enjoy CaféConnect?](#why-would-you-enjoy-cafeconnect)
+  * [Why you would enjoy CaféConnect](#why-you-would-enjoy-cafeconnect)
   * [Getting Started with the User Guide](#getting-started-with-the-user-guide)
   * [Quick start](#quick-start)
   * [Understanding Command Syntax](#understanding-command-syntax)
