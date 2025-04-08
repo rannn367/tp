@@ -35,11 +35,11 @@ public class QuickAddStaffCommandParserTest {
                         new Phone("92012012"),
                         new Email("default@gmail.com"),
                         new Address("empty"),
-                        new Remark(""),
+                        new Remark("From quickaddstaff. Edit with staffedit."),
                         Set.of(),
                         new StaffId("S0101"),
-                        new Role("Full Time worker"),
-                        new ShiftTiming("9am-5pm"),
+                        new Role("empty"),
+                        new ShiftTiming("empty"),
                         new HoursWorked("0"),
                         new PerformanceRating("0")
                 )
