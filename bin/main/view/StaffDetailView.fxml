@@ -43,10 +43,10 @@
         </HBox>
 
         <!-- Address -->
-        <HBox spacing="5" alignment="CENTER_LEFT">
+        <VBox spacing="5" alignment="CENTER_LEFT">
             <Label text="Address:" styleClass="detail-label" />
-            <Label fx:id="address" styleClass="detail-value" />
-        </HBox>
+            <Label fx:id="address" styleClass="detail-value" wrapText="true" maxWidth="Infinity" />
+        </VBox>
 
         <!-- Role -->
         <HBox spacing="5" alignment="CENTER_LEFT">
